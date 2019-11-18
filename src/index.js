@@ -13,7 +13,7 @@ import endGame from './scenes/EndGame';
 import LoadingScreen from './scenes/loadingScreen'
 
 const config = {
-  type: Phaser.WEBGL,
+  type: Phaser.AUTO,
   width: U.WIDTH,
   height: U.HEIGHT,
   pixelArt: true,

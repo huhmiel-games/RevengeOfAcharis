@@ -285,25 +285,12 @@ export default class playLvl1 extends Scene {
 
 
   hasWebGL() {
-    let supported;
-    let canIuseWebgl;
-    try {
-      canIuseWebgl = document.createElement('canvas');
-      supported = !! window.WebGLRenderingContext && (canvas.getContext('webgl') || canvas.getContext('experimental-webgl'));
-    } catch(e) { supported = false; }
-
-    try {
-        // let is by no means required, but will help us rule out some old browsers/devices with potentially buggy implementations: http://caniuse.com/#feat=let
-        eval('let foo = 123;');
-    } catch (e) { supported = false; }
-
-    if (supported === false) {
-        console.log("WebGL is not supported");
+    const canvas = document.createElement("canvas");
+    const gl = canvas.getContext("webgl") || canvas.getContext("experimental-webgl");
+    if (gl && gl instanceof WebGLRenderingContext) {
+      return true;
     }
-
-    canIuseWebgl = undefined;
-
-    return supported;
+    return false;
   }
   // ====================================================================
 
