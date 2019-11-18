@@ -1,14 +1,5 @@
 import { Scene } from 'phaser';
 import U from '../utils/usefull';
-import atomicsc from '../assets/atomicsc.png';
-import atomicscXML from '../assets/atomicsc.xml';
-// import background from '../assets/menuBackgound3.png';
-import dinan from '../assets/spritesheets/player/dinanMagel.png';
-import dinan2 from '../assets/spritesheets/player/dinanMagel2.png';
-import bip2 from '../assets/sounds/piou.ogg';
-import bip1 from '../assets/sounds/walk.ogg';
-import bip3 from '../assets/sounds/noname.ogg';
-import melP from '../assets/music/LesRestesDeNiourk_melP.ogg';
 
 export default class EndGame extends Scene {
   constructor() {
@@ -16,14 +7,7 @@ export default class EndGame extends Scene {
   }
 
   preload() {
-    this.load.bitmapFont('atomic', atomicsc, atomicscXML);
-    // this.load.image('background', background);
-    this.load.image('dinan', dinan);
-    this.load.image('dinan2', dinan2);
-    this.load.audio('bip2', bip2);
-    this.load.audio('bip1', bip1);
-    this.load.audio('bip3', bip3);
-    this.load.audio('melP', melP);
+
   }
 
   create() {
@@ -98,17 +82,7 @@ export default class EndGame extends Scene {
             this.timeGame = this.add.bitmapText(40, U.HEIGHT / 4 + 150, 'atomic', `Total time: ${totalTime}`, 20, 0)
               .setAlpha(0);
 
-            this.dinan = null;
-            if (percent === 100 && t < 1800000) {
-              this.dinan = this.add.image(650, U.HEIGHT / 2 + 5, 'dinan2')
-                .setDisplaySize(512, 512)
-                .setAlpha(0);
-            }
-            if (percent === 100 && t < 900000) {
-              this.dinan = this.add.image(720, U.HEIGHT / 2 + 5, 'dinan')
-                .setDisplaySize(512, 512)
-                .setAlpha(0);
-            }
+            
             this.twee = this.tweens.add({
               targets: [this.congrat, this.enemiesKilled, this.death, this.items, this.timeGame, this.dinan],
               ease: 'Sine.easeInOut',

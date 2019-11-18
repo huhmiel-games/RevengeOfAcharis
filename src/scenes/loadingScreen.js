@@ -1,5 +1,48 @@
 import { Scene } from 'phaser';
 import U from '../utils/usefull';
+
+// SFX LOAD
+// sound_ahead, you can change a sound this way:
+// import bulletFX from '../assets/sounds/yoursoundname.ogg;
+// don't change the first part of the lines "bulletFX"
+// or the game breaks
+// we need to have a list of all sfx we need for better organization
+import bulletFX from '../assets/sounds/bullet.ogg';
+import swellFX from '../assets/sounds/swell.ogg';
+import missileFX from '../assets/sounds/missile.ogg';
+import laserFX from '../assets/sounds/laser3.ogg';
+import impactFX from '../assets/sounds/explo.ogg';
+import explo2FX from '../assets/sounds/explo2.ogg';
+import enemyImpactFX from '../assets/sounds/enemyHit.ogg';
+import playerHitFX from '../assets/sounds/playerHit.ogg';
+import morphFX from '../assets/sounds/playerHit2.ogg';
+import powerUpFX from '../assets/sounds/powerup.ogg';
+import selectFX from '../assets/sounds/select.ogg';
+import doorFX from '../assets/sounds/elevator.ogg';
+import jumpBoosterFX from '../assets/sounds/jumpboost.ogg';
+import getLifeFX from '../assets/sounds/getlife2.ogg';
+import runFX from '../assets/sounds/walk.ogg';
+import explo3FX from '../assets/sounds/explo3.ogg';
+import melo from '../assets/sounds/melo1.ogg';
+import playerDead from '../assets/sounds/playerdead.ogg';
+import shake from '../assets/sounds/shake3.ogg';
+import shake2 from '../assets/sounds/shake4.ogg';
+import guepeFX from '../assets/sounds/guepe.ogg';
+import grog from '../assets/sounds/grog.ogg';
+import bip2 from '../assets/sounds/piou.ogg';
+import bip1 from '../assets/sounds/walk.ogg';
+import bip3 from '../assets/sounds/noname.ogg';
+import bip from '../assets/sounds/bip.ogg';
+
+
+
+// MUSIC LOAD
+import ambient1 from '../assets/music/ambient1.ogg';
+import ambient2 from '../assets/music/ambient2.ogg';
+import ambient3 from '../assets/music/grotte.ogg';
+
+
+// GRAPHICS LOAD
 import background from '../assets/menuBackgound4.png';
 import backgroundWithoutTitles from '../assets/backWithoutTitles.png';
 import spritesheetPlayer from '../assets/atlas/player_atlas.png';
@@ -53,8 +96,6 @@ import map20 from '../maps/map20.json';
 
 
 // Various
-import bullet from '../assets/spritesheets/Fx/shot.png';
-import bulletN from '../assets/spritesheets/Fx/shot_n.png';
 import knife from '../assets/knife.png';
 import sword from '../assets/sword2.png';
 import axe from '../assets/axe.png';
@@ -84,41 +125,7 @@ import map10back from '../maps/map10back.png';
 
 
 
-// import sounds fx
-import bulletFX from '../assets/sounds/bullet.ogg';
-import swellFX from '../assets/sounds/swell.ogg';
-import missileFX from '../assets/sounds/missile.ogg';
-import laserFX from '../assets/sounds/laser3.ogg';
-import impactFX from '../assets/sounds/explo.ogg';
-import explo2FX from '../assets/sounds/explo2.ogg';
-import enemyImpactFX from '../assets/sounds/enemyHit.ogg';
-import playerHitFX from '../assets/sounds/playerHit.ogg';
-import morphFX from '../assets/sounds/playerHit2.ogg';
-import powerUpFX from '../assets/sounds/powerup.ogg';
-import selectFX from '../assets/sounds/select.ogg';
-import doorFX from '../assets/sounds/elevator.ogg';
-import jumpBoosterFX from '../assets/sounds/jumpboost.ogg';
-import getLifeFX from '../assets/sounds/getlife2.ogg';
-import runFX from '../assets/sounds/walk.ogg';
-import explo3FX from '../assets/sounds/explo3.ogg';
-import melo from '../assets/sounds/melo1.ogg';
-import playerDead from '../assets/sounds/playerdead.ogg';
-import shake from '../assets/sounds/shake3.ogg';
-import shake2 from '../assets/sounds/shake4.ogg';
-import guepeFX from '../assets/sounds/guepe.ogg';
-import grog from '../assets/sounds/grog.ogg';
-import bip2 from '../assets/sounds/piou.ogg';
-import bip1 from '../assets/sounds/walk.ogg';
-import bip3 from '../assets/sounds/noname.ogg';
-import bip from '../assets/sounds/bip.ogg';
 
-// import boss1 sounds fx
-
-
-// import music
-import ambient1 from '../assets/music/ambient1.ogg';
-import ambient2 from '../assets/music/ambient2.ogg';
-import ambient3 from '../assets/music/grotte.ogg';
 
 // import shaders
 import GlowFx from '../shaders/glowFx';
@@ -173,9 +180,6 @@ export default class LoadingScreen extends Scene {
     this.load.tilemapTiledJSON('map18', map18);
     this.load.tilemapTiledJSON('map19', map19);
     this.load.tilemapTiledJSON('map20', map20);
-    this.load.tilemapTiledJSON('map27', map27);
-    this.load.tilemapTiledJSON('map35', map35);
-    this.load.tilemapTiledJSON('map41', map41);
     
     // player animation
     this.load.atlas('player', spritesheetPlayer, spritesheetPlayerJSON);
