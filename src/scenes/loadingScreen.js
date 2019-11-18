@@ -7,36 +7,38 @@ import U from '../utils/usefull';
 // don't change the first part of the lines "bulletFX"
 // or the game breaks
 // we need to have a list of all sfx we need for better organization
-import bulletFX from '../assets/sounds/bullet.ogg';
-import swellFX from '../assets/sounds/swell.ogg';
-import missileFX from '../assets/sounds/missile.ogg';
-import laserFX from '../assets/sounds/laser3.ogg';
-import impactFX from '../assets/sounds/explo.ogg';
-import explo2FX from '../assets/sounds/explo2.ogg';
-import enemyImpactFX from '../assets/sounds/enemyHit.ogg';
-import playerHitFX from '../assets/sounds/playerHit.ogg';
-import morphFX from '../assets/sounds/playerHit2.ogg';
-import powerUpFX from '../assets/sounds/powerup.ogg';
-import selectFX from '../assets/sounds/select.ogg';
-import doorFX from '../assets/sounds/elevator.ogg';
-import jumpBoosterFX from '../assets/sounds/jumpboost.ogg';
-import getLifeFX from '../assets/sounds/getlife2.ogg';
-import runFX from '../assets/sounds/walk.ogg';
-import explo3FX from '../assets/sounds/explo3.ogg';
-import melo from '../assets/sounds/melo1.ogg';
-import playerDead from '../assets/sounds/playerdead.ogg';
-import shake from '../assets/sounds/shake3.ogg';
-import shake2 from '../assets/sounds/shake4.ogg';
-import guepeFX from '../assets/sounds/guepe.ogg';
-import grog from '../assets/sounds/grog.ogg';
-import bip2 from '../assets/sounds/piou.ogg';
-import bip1 from '../assets/sounds/walk.ogg';
-import bip3 from '../assets/sounds/noname.ogg';
-import bip from '../assets/sounds/bip.ogg';
+import bulletFX from '../assets/sounds/bullet.ogg'; // knife sfx
+import swellFX from '../assets/sounds/swell.ogg'; // sword sfx
+import missileFX from '../assets/sounds/missile.ogg'; // axe sfx
+import laserFX from '../assets/sounds/laser3.ogg'; // no use for now
+import impactFX from '../assets/sounds/explo.ogg'; // no use for now
+import explo2FX from '../assets/sounds/explo2.ogg'; // no use for now
+import enemyImpactFX from '../assets/sounds/enemyHit.ogg'; 
+import playerHitFX from '../assets/sounds/playerHit.ogg'; // when player is hit
+import morphFX from '../assets/sounds/playerHit2.ogg'; // no use for now
+import powerUpFX from '../assets/sounds/powerup.ogg'; // when player got a item, could be cool to have a little melody instead
+import selectFX from '../assets/sounds/select.ogg'; // menu navigation i guess
+import doorFX from '../assets/sounds/elevator.ogg'; // door sfx but not used anu
+import jumpBoosterFX from '../assets/sounds/jumpboost.ogg'; // no use for now
+import getLifeFX from '../assets/sounds/getlife2.ogg'; // when player get life from dead enemies
+import runFX from '../assets/sounds/walk.ogg'; // player walk sfx
+import explo3FX from '../assets/sounds/explo3.ogg'; // no use for now
+import melo from '../assets/sounds/melo1.ogg'; // when we save the game on checkpoints
+import playerDead from '../assets/sounds/playerdead.ogg'; // when player die, a little melody could be cool
+import shake from '../assets/sounds/shake3.ogg'; // when i shake the camera like earthquake
+import shake2 from '../assets/sounds/shake4.ogg'; // when i shake the camera like earthquake
+import guepeFX from '../assets/sounds/guepe.ogg'; // the flying ghost in cemitary
+import grog from '../assets/sounds/grog.ogg'; // need to investigate this one
+import bip2 from '../assets/sounds/piou.ogg'; // used mainly on menu
+import bip1 from '../assets/sounds/walk.ogg'; // used mainly on menu
+import bip3 from '../assets/sounds/noname.ogg'; // used mainly on menu
+import bip from '../assets/sounds/bip.ogg'; // used mainly on menu
 
 
 
 // MUSIC LOAD
+// musics are launched by the maps and i don't changed them yet
+// so make a new line import with your song if you want, i'll add them to the map asap
 import ambient1 from '../assets/music/ambient1.ogg';
 import ambient2 from '../assets/music/ambient2.ogg';
 import ambient3 from '../assets/music/grotte.ogg';

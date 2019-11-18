@@ -2,9 +2,6 @@ import { Scene } from 'phaser';
 import U from '../utils/usefull';
 import getConfigKeys from '../utils/getConfigKeys';
 
-//import head from '../assets/head.png';
-// import melo from '../assets/sounds/melo1.ogg';
-
 export default class Options extends Scene {
   constructor() {
     super('Options');
@@ -12,8 +9,6 @@ export default class Options extends Scene {
 
   preload() {
     
-    //this.load.image('head', head);
-    // this.load.audio('melo', melo);
   }
 
   create() {

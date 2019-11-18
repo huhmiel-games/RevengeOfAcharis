@@ -147,23 +147,26 @@ export default class playLvl1 extends Scene {
 
     // SHADERS for player
     // ondulation
-    this.t = 0.0;
-    this.t2 = 0.0;
-    this.t3 = 0;
-    // glow
-    this.glowFx = this.game.renderer.addPipeline('GlowFx', new GlowFx(this.game));
-    this.glowFx.setFloat1('alpha', 1.0);
-    this.glowFixedFx = this.game.renderer.addPipeline('GlowFixedFx', new GlowFixedFx(this.game));
-    this.glowFixedFx.setFloat1('alpha', 1.0);
-    // heat
-    this.heatFx = this.game.renderer.addPipeline('HeatFx', new HeatFx(this.game));
-    this.heatFx.setFloat1('time', this.t2);
+    if (this.hasWebGL()) {
+      this.t = 0.0;
+      this.t2 = 0.0;
+      this.t3 = 0;
+      // glow
+      this.glowFx = this.game.renderer.addPipeline('GlowFx', new GlowFx(this.game));
+      this.glowFx.setFloat1('alpha', 1.0);
+      this.glowFixedFx = this.game.renderer.addPipeline('GlowFixedFx', new GlowFixedFx(this.game));
+      this.glowFixedFx.setFloat1('alpha', 1.0);
+      // heat
+      this.heatFx = this.game.renderer.addPipeline('HeatFx', new HeatFx(this.game));
+      this.heatFx.setFloat1('time', this.t2);
 
-    // TEST SHADERS
-    this.testFx = this.game.renderer.addPipeline('TestFx', new TestFx(this.game));
-    this.testFx.setFloat2('u_resolution', this.game.config.width, this.game.config.height);
-    this.testFx.setFloat2('resolution', this.game.config.width, this.game.config.height);
-    this.testFx.setFloat2('mouse', this.player.x, this.player.y);
+      // TEST SHADERS
+      this.testFx = this.game.renderer.addPipeline('TestFx', new TestFx(this.game));
+      this.testFx.setFloat2('u_resolution', this.game.config.width, this.game.config.height);
+      this.testFx.setFloat2('resolution', this.game.config.width, this.game.config.height);
+      this.testFx.setFloat2('mouse', this.player.x, this.player.y);
+    }
+    
     
 
     // ====================================================================
@@ -242,11 +245,14 @@ export default class playLvl1 extends Scene {
     // DEBUG
     const pointer = this.input.activePointer;
     // test shaders
-    this.glowFx.setFloat1('time', this.t);
-    this.heatFx.setFloat1('time', this.t2);
-    this.testFx.setFloat1('time', this.t2 * 10);
-    this.t += 0.1;
-    this.t2 += 0.03;
+    if (this.glowFx) {
+      this.glowFx.setFloat1('time', this.t);
+      this.heatFx.setFloat1('time', this.t2);
+      this.testFx.setFloat1('time', this.t2 * 10);
+      this.t += 0.1;
+      this.t2 += 0.03;
+    }
+    
     //
 
     this.text1.setText([
@@ -277,6 +283,28 @@ export default class playLvl1 extends Scene {
     }
   }
 
+
+  hasWebGL() {
+    let supported;
+    let canIuseWebgl;
+    try {
+      canIuseWebgl = document.createElement('canvas');
+      supported = !! window.WebGLRenderingContext && (canvas.getContext('webgl') || canvas.getContext('experimental-webgl'));
+    } catch(e) { supported = false; }
+
+    try {
+        // let is by no means required, but will help us rule out some old browsers/devices with potentially buggy implementations: http://caniuse.com/#feat=let
+        eval('let foo = 123;');
+    } catch (e) { supported = false; }
+
+    if (supported === false) {
+        console.log("WebGL is not supported");
+    }
+
+    canIuseWebgl = undefined;
+
+    return supported;
+  }
   // ====================================================================
 
   playMusic(music) {

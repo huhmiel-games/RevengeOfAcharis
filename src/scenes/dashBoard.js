@@ -75,7 +75,7 @@ export default class DashBoard extends Scene {
     this.mainScene.events.on('loadingDone', () => {
       this.fullscreenBtn.setAlpha(0);
       this.cameras.main && this.cameras.main.setAlpha(1);
-      this.cameras.main.setBackgroundColor(0x000000);
+      //this.cameras.main.setBackgroundColor(0x000000);
 
       this.Health
         .setAlpha(1)
