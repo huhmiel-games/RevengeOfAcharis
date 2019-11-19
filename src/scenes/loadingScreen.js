@@ -490,7 +490,7 @@ export default class LoadingScreen extends Scene {
         { key: 'hellBeast', frame: 'hell-beast-breath3' },
       ],
       frameRate: 10,
-      repeat: -1,
+      repeat: 0,
     });
     this.anims.create({
       key: 'hell-beast-breath-stroke',
@@ -501,7 +501,7 @@ export default class LoadingScreen extends Scene {
         { key: 'hellBeast', frame: 'hell-beast-breath-stroke3' },
       ],
       frameRate: 10,
-      repeat: -1,
+      repeat: 0,
     });
     this.anims.create({
       key: 'hell-beast-burn',
@@ -510,6 +510,13 @@ export default class LoadingScreen extends Scene {
         { key: 'hellBeast', frame: 'hell-beast-burn1' },
         { key: 'hellBeast', frame: 'hell-beast-burn2' },
         { key: 'hellBeast', frame: 'hell-beast-burn3' },
+      ],
+      frameRate: 10,
+      repeat: 0,
+    });
+    this.anims.create({
+      key: 'hell-beast-lava',
+      frames: [
         { key: 'hellBeast', frame: 'hell-beast-burn4' },
         { key: 'hellBeast', frame: 'hell-beast-burn5' },
       ],

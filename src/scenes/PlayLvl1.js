@@ -638,12 +638,23 @@ export default class playLvl1 extends Scene {
       ) {
         this.player[`${this.player.state.selectedWeapon}Kill`](bull);
       }
-      if (bull.name === 'waterStorm' && elm instanceof Thunder) {
-        elm.destroy();
+      if (this.player.state.selectedWeapon === 'waterStorm') {
+        if ( el instanceof Thunder) {
+          el.destroy();
+          return;
+        }
+        if ( el.name ==='hellBeast') {
+          el.getFired = false;
+          return;
+        }
+      }
+      // No damage to hellBeast during his lava attacks
+      if (el.name ==='hellBeast' && el.isLavaAttack) {
+        el.getFired = false;
         return;
       }
+      
       // enemy loose life
-      console.log(bull, elm, this.player.inventory[`${this.player.state.selectedWeapon}Damage`], this.player.state.selectedWeapon)
       el.looseLife(this.player.inventory[`${this.player.state.selectedWeapon}Damage`]);
       el.setTintFill(0xDDDDDD);
       this.time.addEvent({
@@ -1409,7 +1420,7 @@ export default class playLvl1 extends Scene {
     if (this.player.inventory.boss2) {
       return;
     }
-    this.hellBeast = new HellBeast(this, 246, 167, { key: 'hell-beast-idle', name: 'hellBeast' });
+    this.hellBeast = new HellBeast(this, -100, -100, { key: 'hell-beast-idle', name: 'hellBeast' });
     this.enemyGroup.push(this.hellBeast)
   }
 
@@ -1418,10 +1429,10 @@ export default class playLvl1 extends Scene {
   shakeCamera(e) {
     if (!this.cameraIsShaking) {
       this.cameraIsShaking = true;
-      this.cameras.main.shake(e, 0.005);
+      this.cameras.main.shake(e, 0.025);
       this.sound.play('impact', { rate: 0.5 });
       this.time.addEvent({
-        delay: e * 3,
+        delay: e,
         callback: () => {
           this.cameraIsShaking = false;
         },

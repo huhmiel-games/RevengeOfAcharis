@@ -279,7 +279,29 @@
         {
          "draworder":"topdown",
          "name":"savestation",
-         "objects":[],
+         "objects":[
+                {
+                 "gid":321,
+                 "height":16,
+                 "id":544,
+                 "name":"save1",
+                 "properties":
+                    {
+                     "destination":"map11",
+                     "key":"savestation"
+                    },
+                 "propertytypes":
+                    {
+                     "destination":"string",
+                     "key":"string"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":640,
+                 "y":192
+                }],
          "opacity":1,
          "type":"objectgroup",
          "visible":true,
@@ -320,7 +342,7 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":544,
+ "nextobjectid":545,
  "orientation":"orthogonal",
  "properties":
     {
