@@ -63,10 +63,24 @@ export default class Oldman extends Phaser.GameObjects.Sprite {
       return;
     }
     this.isTalking = true;
-    const msg = `Hey Acharis !!
+    let msg;
+    if (!this.scene.player.inventory.thunderDoorReached) {
+      msg = `Hey Acharis !!
 You are back. I will try to help you.
 Come back to me if you have questions,
 I'll try to answer them !!`;
+    } else {
+      msg = `Hey Acharis !!
+A lightning blocking you?? Never heard about that.
+But someone is waiting for you in the forest
+She is waiting you near a strange tree,
+perhaps she knows...`;
+    }
+    if (this.scene.player.inventory.townInFire) {
+      msg = `Hey Acharis !!
+Everybody is gone...sadly...
+Go to the castle now, your quest isn't over !!`;
+    }
     this.showMsg = this.scene.add.bitmapText(this.x, this.y - 52, 'atomic', msg, 8, 1)
       .setOrigin(0.5, 0.5).setAlpha(1).setDepth(200);
   }

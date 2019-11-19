@@ -28,7 +28,7 @@ const config = {
     arcade: {
       tileBias: 20,
       gravity: { y: 0 }, // default 100
-      debug: false,
+      debug: true,
       debugShowBody: true,
       debugShowStaticBody: true,
     },

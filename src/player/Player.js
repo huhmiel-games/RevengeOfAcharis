@@ -24,11 +24,18 @@ export default class Player extends Phaser.GameObjects.Sprite {
       swell: false,
       swellDamage: 10,
       missile: false,
-      missileDamage: 100,
-      laser: false,
-      laserDamage: 50,
+      missileDamage: 30,
+      waterStorm: false,
+      waterStormDamage: 100,
+      lavaStorm: false,
+      lavaStormDamage: 150,
+      thunderStorm: false,
+      thunderStormDamage: 200,
       fireRate: 420,
       boss1: false,
+      thunderDoorReached: false,
+      townInFire: false,
+      boss2: false,
       bossFinal: false,
       powerUp: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     };
@@ -59,6 +66,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
     this.jumpCooldownTimer = null;
     this.selectWeaponFlag = false;
     this.chooseDone = false;
+    this.isSpelling = false;
     this.setDepth(105);
     // this.setPipeline('Light2D');
     this.scene.physics.world.enable(this);
@@ -188,7 +196,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
         case (keys.fire.isDown && !(keys.left.isDown || keys.right.isDown)):
         // tire a l'arret
           this.state.bulletPositionY = 8;
-          animationName = 'attack';
+          !this.isSpelling ? animationName = 'attack' : animationName = 'playerSpell';
           this.body.setVelocityX(0);
           break;
 
@@ -199,6 +207,10 @@ export default class Player extends Phaser.GameObjects.Sprite {
           animationName = 'stand';
           this.state.runSpeed = 285;
           
+      }
+      if (this.isSpelling) {
+        animationName = 'playerSpell';
+        this.body.setVelocity(0, 0);
       }
       // not duck ? set body size to normal
       if (animationName !== 'duck' && this.lastAnim === 'duck') {
@@ -311,7 +323,11 @@ export default class Player extends Phaser.GameObjects.Sprite {
     this.anims.stop(str);
   }
 
-  consumeEnergy() {
+  consumeEnergy(quantity) {
+    if (quantity) {
+      this.state.energyTime -= quantity;
+      this.scene.events.emit('setEnergy', { energy: this.state.energyTime });
+    }
     if (this.keys.run.isDown  && (this.keys.left.isDown || this.keys.right.isDown)) {
       this.state.energyTime > 0.2 ? this.state.energyTime -= 0.2 : null;
       this.scene.events.emit('setEnergy', { energy: this.state.energyTime });
@@ -338,6 +354,78 @@ export default class Player extends Phaser.GameObjects.Sprite {
     if (this.state.selectedWeapon === 'missile') {
       this.shootMissile(time);
     }
+    if (this.state.selectedWeapon === 'waterStorm') {
+      this.shootWaterStorm(time);
+    }
+    if (this.state.selectedWeapon === 'lavaStorm') {
+      this.shootLavaStorm(time);
+    }
+    if (this.state.selectedWeapon === 'thunderStorm') {
+      this.shootThunderStorm(time);
+    }
+  }
+
+  shootWaterStorm(time) {
+    if (this.state.energyTime < 75) {
+      return;
+    }
+    this.consumeEnergy(75);
+    // pause the player
+    this.state.pause = true;
+    this.anims.play('playerSpell', true);
+    this.setPipeline('GlowFixedFx');
+    this.isSpelling = true;
+    this.body.setVelocity(0, 0);
+
+    // call the water storm
+    const waterStorm = this.waterMagic.getFirstDead(true, 0, 0, 'water-storm', null, true);
+    if (waterStorm) {
+      waterStorm.name ='waterStorm';
+      waterStorm.setOrigin(0.5, 0)
+        .setPosition(this.scene.cameras.main.scrollX - 200, this.scene.cameras.main.scrollY + 56)
+        .setVisible(true)
+        .setPipeline('GlowFixedFx');
+      waterStorm.body.setSize(280, 256).setOffset(60, -60)
+      this.scene.physics.world.enable(waterStorm);
+      this.scene.add.existing(waterStorm);
+      waterStorm.anims.play('water-storm', true);
+      waterStorm.setDepth(102);
+      
+      
+      // water sound
+      this.scene.sound.play('bullet', { volume: 0.08 });
+      //    BULLET ORIENTATION    ////
+      
+      waterStorm.body.velocity.x = 300;
+      
+      
+
+      this.scene.time.addEvent({
+        delay: 2500,
+        callback: () => {
+          waterStorm.destroy();
+          this.state.pause = false;
+          this.scene.physics.resume();
+          this.anims.play('stand');
+          this.isSpelling = false;
+          this.resetPipeline();
+        },
+      });
+    }
+  }
+
+  shootLavaStorm(time) {
+    if (this.state.energyTime < 75) {
+      return;
+    }
+    this.consumeEnergy(75)
+  }
+
+  shootThunderStorm(time) {
+    if (this.state.energyTime < 75) {
+      return;
+    }
+    this.consumeEnergy(75)
   }
 
   shootSwell(time) {
@@ -478,6 +566,12 @@ export default class Player extends Phaser.GameObjects.Sprite {
 
   addSpeedFire() {
     this.inventory.fireRate -= 50;
+  }
+
+  addMagic(magic) {
+    this.inventory[magic] = true;
+    this.inventory.selectableWeapon.push(magic);
+    this.scene.events.emit('addWeapon', { Weapon: magic });
   }
 
   addMissile() {

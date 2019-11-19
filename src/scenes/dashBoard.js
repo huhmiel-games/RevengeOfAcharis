@@ -47,24 +47,39 @@ export default class DashBoard extends Scene {
       .setFontSize(9)
       .setText('')
       .setAlpha(0);
-
-    this.bullet = this.add.image(330, 2, 'knifeIcon')
+    
+    this.bullet = this.add.image(276, 2, 'knifeIcon')
       .setOrigin(0, 0)
       .setAlpha(0)
       .setDisplaySize(16, 16);
 
-    this.swell = this.add.image(348, 12, 'swordIcon')
+    this.swell = this.add.image(294, 2, 'swordIcon')
       .setOrigin(0, 0)
       .setAlpha(0)
       .setDisplaySize(16, 16);
 
-    this.missile = this.add.image(366, 12, 'axeIcon')
+    this.missile = this.add.image(312, 2, 'axeIcon')
+      .setOrigin(0, 0)
+      .setAlpha(0)
+      .setDisplaySize(16, 16);
+
+    this.waterStorm = this.add.image(330, 2, 'knifeIcon')
+      .setOrigin(0, 0)
+      .setAlpha(0)
+      .setDisplaySize(16, 16);
+
+    this.lavaStorm = this.add.image(348, 2, 'swordIcon')
+      .setOrigin(0, 0)
+      .setAlpha(0)
+      .setDisplaySize(16, 16);
+
+    this.thunderStorm = this.add.image(366, 2, 'axeIcon')
       .setOrigin(0, 0)
       .setAlpha(0)
       .setDisplaySize(16, 16);
 
 
-    this.fullscreenBtn = this.add.image(392, 8, 'iconFullscreen')
+    this.fullscreenBtn = this.add.image(392, 2, 'iconFullscreen')
       .setDisplaySize(16, 16)
       .setInteractive()
       .on('pointerdown', () => {
@@ -87,11 +102,17 @@ export default class DashBoard extends Scene {
       if (this.mainScene.player.inventory.missile) {
         this.missile.setAlpha(1);
       }
-      if (this.mainScene.player.inventory.laser) {
-        this.laser.setAlpha(1);
-      }
       if (this.mainScene.player.inventory.swell) {
         this.swell.setAlpha(1);
+      }
+      if (this.mainScene.player.inventory.waterStorm) {
+        this.waterStorm.setAlpha(1);
+      }
+      if (this.mainScene.player.inventory.lavaStorm) {
+        this.lavaStorm.setAlpha(1);
+      }
+      if (this.mainScene.player.inventory.thunderStorm) {
+        this.thunderStorm.setAlpha(1);
       }
     });
 
@@ -111,6 +132,9 @@ export default class DashBoard extends Scene {
       this.bullet.clearTint();
       this.missile.clearTint();
       this.swell.clearTint();
+      this.waterStorm.clearTint();
+      this.lavaStorm.clearTint();
+      this.thunderStorm.clearTint();
       if (this[elm.selectedWeapon]) {
         this[elm.selectedWeapon].setTint(0xFF3B00);
       }

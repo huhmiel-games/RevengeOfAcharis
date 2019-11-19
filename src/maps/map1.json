@@ -515,7 +515,29 @@
         {
          "draworder":"topdown",
          "name":"savestation",
-         "objects":[],
+         "objects":[
+                {
+                 "gid":124,
+                 "height":16,
+                 "id":549,
+                 "name":"save1",
+                 "properties":
+                    {
+                     "destination":"map1",
+                     "key":"savestation"
+                    },
+                 "propertytypes":
+                    {
+                     "destination":"string",
+                     "key":"string"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":256,
+                 "y":152
+                }],
          "opacity":1,
          "type":"objectgroup",
          "visible":true,
@@ -532,12 +554,12 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":549,
+ "nextobjectid":550,
  "orientation":"orthogonal",
  "properties":
     {
      "ambientColor":"0xDDDDDD",
-     "callFunction":"",
+     "callFunction":"showAngel",
      "mapScenePosition":"6,2,0xCC2485",
      "music":"ambient1",
      "paraBack":"map1back",
@@ -601,6 +623,14 @@
                 {
                  "collides":true
                 },
+             "131":
+                {
+                 "collides":true
+                },
+             "132":
+                {
+                 "collides":true
+                },
              "1325":
                 {
                  "collides":true
@@ -610,6 +640,10 @@
                  "collides":true
                 },
              "1328":
+                {
+                 "collides":true
+                },
+             "133":
                 {
                  "collides":true
                 },
@@ -625,7 +659,23 @@
                 {
                  "collides":true
                 },
+             "134":
+                {
+                 "collides":true
+                },
              "1340":
+                {
+                 "collides":true
+                },
+             "136":
+                {
+                 "collides":true
+                },
+             "137":
+                {
+                 "collides":true
+                },
+             "138":
                 {
                  "collides":true
                 },
@@ -637,11 +687,27 @@
                 {
                  "collides":true
                 },
+             "139":
+                {
+                 "collides":true
+                },
              "1399":
                 {
                  "collides":true
                 },
+             "140":
+                {
+                 "collides":true
+                },
              "1405":
+                {
+                 "collides":true
+                },
+             "142":
+                {
+                 "collides":true
+                },
+             "143":
                 {
                  "collides":true
                 },
@@ -665,6 +731,10 @@
                 {
                  "collides":true
                 },
+             "144":
+                {
+                 "collides":true
+                },
              "1440":
                 {
                  "collides":true
@@ -685,7 +755,15 @@
                 {
                  "collides":true
                 },
+             "145":
+                {
+                 "collides":true
+                },
              "1450":
+                {
+                 "collides":true
+                },
+             "146":
                 {
                  "collides":true
                 },
@@ -722,6 +800,66 @@
                  "collides":true
                 },
              "192":
+                {
+                 "collides":true
+                },
+             "194":
+                {
+                 "collides":true
+                },
+             "195":
+                {
+                 "collides":true
+                },
+             "196":
+                {
+                 "collides":true
+                },
+             "197":
+                {
+                 "collides":true
+                },
+             "198":
+                {
+                 "collides":true
+                },
+             "200":
+                {
+                 "collides":true
+                },
+             "201":
+                {
+                 "collides":true
+                },
+             "202":
+                {
+                 "collides":true
+                },
+             "203":
+                {
+                 "collides":true
+                },
+             "204":
+                {
+                 "collides":true
+                },
+             "206":
+                {
+                 "collides":true
+                },
+             "207":
+                {
+                 "collides":true
+                },
+             "208":
+                {
+                 "collides":true
+                },
+             "209":
+                {
+                 "collides":true
+                },
+             "210":
                 {
                  "collides":true
                 },
@@ -1032,6 +1170,14 @@
                 {
                  "collides":"bool"
                 },
+             "131":
+                {
+                 "collides":"bool"
+                },
+             "132":
+                {
+                 "collides":"bool"
+                },
              "1325":
                 {
                  "collides":"bool"
@@ -1041,6 +1187,10 @@
                  "collides":"bool"
                 },
              "1328":
+                {
+                 "collides":"bool"
+                },
+             "133":
                 {
                  "collides":"bool"
                 },
@@ -1056,7 +1206,23 @@
                 {
                  "collides":"bool"
                 },
+             "134":
+                {
+                 "collides":"bool"
+                },
              "1340":
+                {
+                 "collides":"bool"
+                },
+             "136":
+                {
+                 "collides":"bool"
+                },
+             "137":
+                {
+                 "collides":"bool"
+                },
+             "138":
                 {
                  "collides":"bool"
                 },
@@ -1068,11 +1234,27 @@
                 {
                  "collides":"bool"
                 },
+             "139":
+                {
+                 "collides":"bool"
+                },
              "1399":
                 {
                  "collides":"bool"
                 },
+             "140":
+                {
+                 "collides":"bool"
+                },
              "1405":
+                {
+                 "collides":"bool"
+                },
+             "142":
+                {
+                 "collides":"bool"
+                },
+             "143":
                 {
                  "collides":"bool"
                 },
@@ -1096,6 +1278,10 @@
                 {
                  "collides":"bool"
                 },
+             "144":
+                {
+                 "collides":"bool"
+                },
              "1440":
                 {
                  "collides":"bool"
@@ -1116,7 +1302,15 @@
                 {
                  "collides":"bool"
                 },
+             "145":
+                {
+                 "collides":"bool"
+                },
              "1450":
+                {
+                 "collides":"bool"
+                },
+             "146":
                 {
                  "collides":"bool"
                 },
@@ -1153,6 +1347,66 @@
                  "collides":"bool"
                 },
              "192":
+                {
+                 "collides":"bool"
+                },
+             "194":
+                {
+                 "collides":"bool"
+                },
+             "195":
+                {
+                 "collides":"bool"
+                },
+             "196":
+                {
+                 "collides":"bool"
+                },
+             "197":
+                {
+                 "collides":"bool"
+                },
+             "198":
+                {
+                 "collides":"bool"
+                },
+             "200":
+                {
+                 "collides":"bool"
+                },
+             "201":
+                {
+                 "collides":"bool"
+                },
+             "202":
+                {
+                 "collides":"bool"
+                },
+             "203":
+                {
+                 "collides":"bool"
+                },
+             "204":
+                {
+                 "collides":"bool"
+                },
+             "206":
+                {
+                 "collides":"bool"
+                },
+             "207":
+                {
+                 "collides":"bool"
+                },
+             "208":
+                {
+                 "collides":"bool"
+                },
+             "209":
+                {
+                 "collides":"bool"
+                },
+             "210":
                 {
                  "collides":"bool"
                 },

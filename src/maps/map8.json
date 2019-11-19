@@ -503,8 +503,8 @@
      "callFunction":"addCrumbleTiles",
      "mapScenePosition":"19,2,0xCC2485",
      "music":"ambient3",
-     "paraBack":"para_back",
-     "paraMiddle":"para_middle"
+     "paraBack":"map8back",
+     "paraMiddle":""
     },
  "propertytypes":
     {

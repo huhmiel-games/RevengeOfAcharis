@@ -214,8 +214,60 @@
         }, 
         {
          "draworder":"topdown",
-         "name":"jumpers",
-         "objects":[],
+         "name":"burningGhoul",
+         "objects":[
+                {
+                 "gid":123,
+                 "height":16,
+                 "id":551,
+                 "name":"burnGhoul1",
+                 "properties":
+                    {
+                     "damage":25,
+                     "key":"burning-ghoul",
+                     "life":10,
+                     "name":"burning-ghoul"
+                    },
+                 "propertytypes":
+                    {
+                     "damage":"int",
+                     "key":"string",
+                     "life":"int",
+                     "name":"string"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":432,
+                 "y":432
+                }, 
+                {
+                 "gid":123,
+                 "height":16,
+                 "id":552,
+                 "name":"burnGhoul2",
+                 "properties":
+                    {
+                     "damage":25,
+                     "key":"burning-ghoul",
+                     "life":10,
+                     "name":"burning-ghoul"
+                    },
+                 "propertytypes":
+                    {
+                     "damage":"int",
+                     "key":"string",
+                     "life":"int",
+                     "name":"string"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":640,
+                 "y":432
+                }],
          "opacity":1,
          "type":"objectgroup",
          "visible":true,
@@ -224,8 +276,60 @@
         }, 
         {
          "draworder":"topdown",
-         "name":"waterFall",
-         "objects":[],
+         "name":"ghosts",
+         "objects":[
+                {
+                 "gid":680,
+                 "height":16,
+                 "id":554,
+                 "name":"ghost2",
+                 "properties":
+                    {
+                     "damage":10,
+                     "key":"ghost",
+                     "life":10,
+                     "name":"ghost"
+                    },
+                 "propertytypes":
+                    {
+                     "damage":"int",
+                     "key":"string",
+                     "life":"int",
+                     "name":"string"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":236,
+                 "y":412
+                }, 
+                {
+                 "gid":680,
+                 "height":16,
+                 "id":555,
+                 "name":"ghost1",
+                 "properties":
+                    {
+                     "damage":10,
+                     "key":"ghost",
+                     "life":10,
+                     "name":"ghost"
+                    },
+                 "propertytypes":
+                    {
+                     "damage":"int",
+                     "key":"string",
+                     "life":"int",
+                     "name":"string"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":592,
+                 "y":392
+                }],
          "opacity":1,
          "type":"objectgroup",
          "visible":true,
@@ -246,8 +350,60 @@
         }, 
         {
          "draworder":"topdown",
-         "name":"lavaFall",
-         "objects":[],
+         "name":"wizard",
+         "objects":[
+                {
+                 "gid":328,
+                 "height":16,
+                 "id":557,
+                 "name":"wizard1",
+                 "properties":
+                    {
+                     "damage":2,
+                     "key":"wizard-idle",
+                     "life":100,
+                     "name":"wizard-idle"
+                    },
+                 "propertytypes":
+                    {
+                     "damage":"int",
+                     "key":"string",
+                     "life":"int",
+                     "name":"string"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":260,
+                 "y":112
+                }, 
+                {
+                 "gid":328,
+                 "height":16,
+                 "id":558,
+                 "name":"wizard2",
+                 "properties":
+                    {
+                     "damage":2,
+                     "key":"wizard-idle",
+                     "life":100,
+                     "name":"wizard-idle"
+                    },
+                 "propertytypes":
+                    {
+                     "damage":"int",
+                     "key":"string",
+                     "life":"int",
+                     "name":"string"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":92,
+                 "y":160
+                }],
          "opacity":1,
          "type":"objectgroup",
          "visible":true,
@@ -256,8 +412,60 @@
         }, 
         {
          "draworder":"topdown",
-         "name":"lava",
-         "objects":[],
+         "name":"hellhound",
+         "objects":[
+                {
+                 "gid":574,
+                 "height":16,
+                 "id":560,
+                 "name":"hellhound2",
+                 "properties":
+                    {
+                     "damage":10,
+                     "key":"hellHoundRun",
+                     "life":15,
+                     "name":"hellHoundRun"
+                    },
+                 "propertytypes":
+                    {
+                     "damage":"int",
+                     "key":"string",
+                     "life":"int",
+                     "name":"string"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":432,
+                 "y":324
+                }, 
+                {
+                 "gid":574,
+                 "height":16,
+                 "id":561,
+                 "name":"hellhound1",
+                 "properties":
+                    {
+                     "damage":10,
+                     "key":"hellHoundRun",
+                     "life":15,
+                     "name":"hellHoundRun"
+                    },
+                 "propertytypes":
+                    {
+                     "damage":"int",
+                     "key":"string",
+                     "life":"int",
+                     "name":"string"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":532,
+                 "y":432
+                }],
          "opacity":1,
          "type":"objectgroup",
          "visible":true,
@@ -416,12 +624,12 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":551,
+ "nextobjectid":562,
  "orientation":"orthogonal",
  "properties":
     {
      "ambientColor":"0xDDDDDD",
-     "callFunction":"",
+     "callFunction":"checkThunderDoorReached,checkWaterStorm",
      "mapScenePosition":"9,2,0xCC2485",
      "music":"ambient1",
      "paraBack":"map2back",
@@ -443,7 +651,7 @@
         {
          "columns":64,
          "firstgid":1,
-         "image":"..\/assets\/environment\/layers\/tilesets.png",
+         "image":"..\/..\/..\/tmpK438\/src\/assets\/environment\/layers\/tilesets.png",
          "imageheight":1024,
          "imagewidth":1024,
          "margin":0,

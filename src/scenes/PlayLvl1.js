@@ -7,12 +7,15 @@ import Thing from '../enemies/Thing';
 import Skeleton from '../enemies/Skeleton';
 import Ghost from '../enemies/Ghost';
 import Wizard from '../enemies/Wizard';
+import BurningGhoul from '../enemies/BurningGhoul';
 import Thunder from '../enemies/Thunder';
 import Woman from '../npc/Woman';
 import Bearded from '../npc/Bearded';
 import Hatman from '../npc/Hatman';
 import Oldman from '../npc/Oldman';
+import Angel from '../npc/Angel';
 import BossDragon from '../enemies/BossDragon';
+import HellBeast from '../enemies/HellBeast';
 import Doors from '../utils/Doors';
 import SaveStation from '../utils/saveStation';
 import countDeadEnemies from '../utils/counDeadEnemies';
@@ -132,6 +135,25 @@ export default class playLvl1 extends Scene {
     this.player.swords = this.physics.add.group({
       defaultKey: 'sword',
       maxSize: 10,
+      allowGravity: false,
+      createIfNull: true,
+    });
+    // magics
+    this.player.waterMagic = this.physics.add.group({
+      defaultKey: 'water-storm',
+      maxSize: 1,
+      allowGravity: false,
+      createIfNull: true,
+    });
+    this.player.lavaMagic = this.physics.add.group({
+      defaultKey: 'lava-storm',
+      maxSize: 1,
+      allowGravity: false,
+      createIfNull: true,
+    });
+    this.player.thunderMagic = this.physics.add.group({
+      defaultKey: 'thunder-storm',
+      maxSize: 1,
       allowGravity: false,
       createIfNull: true,
     });
@@ -616,7 +638,12 @@ export default class playLvl1 extends Scene {
       ) {
         this.player[`${this.player.state.selectedWeapon}Kill`](bull);
       }
+      if (bull.name === 'waterStorm' && elm instanceof Thunder) {
+        elm.destroy();
+        return;
+      }
       // enemy loose life
+      console.log(bull, elm, this.player.inventory[`${this.player.state.selectedWeapon}Damage`], this.player.state.selectedWeapon)
       el.looseLife(this.player.inventory[`${this.player.state.selectedWeapon}Damage`]);
       el.setTintFill(0xDDDDDD);
       this.time.addEvent({
@@ -692,6 +719,7 @@ export default class playLvl1 extends Scene {
       this.player.inventory.savedPositionX = this.player.x;
       this.player.inventory.savedPositionY = this.player.y;
       this.player.inventory.map = savestation.state.destination;
+      console.log(this.player.inventory)
       const s = JSON.stringify(this.player.inventory);
       localStorage.setItem('RevengeOfAcharis', s);
       this.sound.play('melo');
@@ -925,7 +953,10 @@ export default class playLvl1 extends Scene {
     this.physics.add.overlap([
       this.player.knives,
       this.player.swords,
-      this.player.axes], this.enemyGroup, (elm, bull) => this.enemyIsHit(bull, elm), null, this.player);
+      this.player.axes,
+      this.player.waterMagic,
+      this.player.lavaMagic,
+      this.player.thunderMagic,], this.enemyGroup, (elm, bull) => this.enemyIsHit(bull, elm), null, this.player);
 
     this.physics.add.collider(this.player, this.doorGroup, (player, door) => this.changeRoom(player, door), null, this);
   }
@@ -1099,6 +1130,19 @@ export default class playLvl1 extends Scene {
       this[element.name].animate(element.properties.key, true);
       this.enemyGroup.push(this[element.name]);
     });
+    // the burning ghoul
+    const layerArray8 = this.checkObjectsLayerIndex('burningGhoul');
+    layerArray8 && layerArray8.objects.forEach((element) => {
+      this[element.name] = new Thunder(this, element.x, element.y - 16, {
+        key: element.properties.key,
+        name: element.name,
+        life: element.properties.life,
+        damage: element.properties.damage,
+      });
+      this[element.name].animate(element.properties.key, true);
+      this.enemyGroup.push(this[element.name]);
+    });
+
 
     // the NPC
     //
@@ -1310,6 +1354,63 @@ export default class playLvl1 extends Scene {
     if (this.player.inventory.boss1 === true) return;
     this.dragon = new BossDragon(this, 258,170, { key: 'dragon', name: 'dragon' });
     this.enemyGroup.push(this.dragon)
+  }
+
+  addThunderDoorCallback() {
+    if (this.player.inventory.thunderDoorReached) {
+      return;
+    }
+    this.solLayer.setTileLocationCallback(1, 50, 7, 4, (e, t) => {
+      if (e instanceof Player) {
+        this.player.inventory.thunderDoorReached = true;
+      }
+    }, this);
+  }
+
+  checkThunderDoorReached() {
+    if (!this.player.inventory.thunderDoorReached) {
+      return;
+    }
+    console.log(this.map)
+    this.npcGroup.forEach(npc => npc.destroy())
+    this.oldman = new Oldman(this, 144, 455 - 16, {
+      key: 'oldman-walk',
+      name: 'oldman',
+    });
+    this.oldman.animate('oldman-walk', true);
+    this.npcGroup.push(this.oldman);
+  }
+
+  showAngel() {
+    if (!this.player.inventory.thunderDoorReached || this.player.inventory.waterStorm) {
+      return;
+    }
+    this.angel = new Angel(this, 102, 153, {
+      key: 'angel-idle',
+      name: 'angel',
+    });
+    this.angel.animate('angel-idle', true);
+    this.npcGroup.push(this.angel);
+  }
+
+  checkWaterStorm() {
+    if (!this.player.inventory.waterStorm || this.player.inventory.townInFire) {
+      this.enemyGroup.forEach(e => e.destroy());
+      return;
+    }
+    this.oldman.destroy();
+    this.dragon = new BossDragon(this, 388, 311, { key: 'dragon', name: 'dragon' });
+    this.enemyGroup.push(this.dragon);
+    this.player.inventory.townInFire = true;
+    this.battleWithBoss = true;
+  }
+
+  callHellBeast() {
+    if (this.player.inventory.boss2) {
+      return;
+    }
+    this.hellBeast = new HellBeast(this, 246, 167, { key: 'hell-beast-idle', name: 'hellBeast' });
+    this.enemyGroup.push(this.hellBeast)
   }
 
   // ====================================================================

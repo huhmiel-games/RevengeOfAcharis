@@ -124,6 +124,9 @@ import map6back from '../maps/map6back.png';
 import map7back from '../maps/map7back.png';
 import map8back from '../maps/map8back.png';
 import map10back from '../maps/map10back.png';
+import map11back from '../maps/map11back.png';
+import map11middle2 from '../maps/map11middle2.png';
+import map12back from '../maps/map12back.png';
 
 
 
@@ -200,6 +203,7 @@ export default class LoadingScreen extends Scene {
     this.load.atlas('hellBeast', hellBeastAtlas, hellBeastAtlasJSON);
     this.load.atlas('finalBoss', finalBossAtlas, finalBossAtlasJSON);
     this.load.atlas('storm', stormAtlas, stormAtlasJSON);
+    this.load.atlas('angel', angelAtlas, angelAtlasJSON);
 
     // various map items
     this.load.image('head', head);
@@ -218,6 +222,9 @@ export default class LoadingScreen extends Scene {
     this.load.image('map7back', map7back);
     this.load.image('map8back', map8back);
     this.load.image('map10back', map10back);
+    this.load.image('map11back', map11back);
+    this.load.image('map11middle2', map11middle2);
+    this.load.image('map12back', map12back);
     
 
     // sounds
@@ -259,7 +266,7 @@ export default class LoadingScreen extends Scene {
   }
 
   create() {
-    //  Create all anims here 
+    //  Create all anims here
     this.anims.create({
       key: 'stand',
       frames: [
@@ -367,6 +374,15 @@ export default class LoadingScreen extends Scene {
       frameRate: 10,
       repeat: 0,
     });
+    //adventurer-cast-01
+    this.anims.create({
+      key: 'playerSpell',
+      frames: [
+        { key: 'player', frame: 'adventurer-cast-01' },
+      ],
+      frameRate: 1,
+      repeat: -1,
+    });
     
     
     // ////////////////////////////////////////////////////
@@ -438,12 +454,96 @@ export default class LoadingScreen extends Scene {
       frameRate: 16,
       repeat: -1,
     });
+    // hell beast
+    this.anims.create({
+      key: 'hell-beast-idle',
+      frames: [
+        { key: 'hellBeast', frame: 'hell-beast-idle0' },
+        { key: 'hellBeast', frame: 'hell-beast-idle1' },
+        { key: 'hellBeast', frame: 'hell-beast-idle2' },
+        { key: 'hellBeast', frame: 'hell-beast-idle3' },
+        { key: 'hellBeast', frame: 'hell-beast-idle4' },
+        { key: 'hellBeast', frame: 'hell-beast-idle5' },
+      ],
+      frameRate: 10,
+      repeat: -1,
+    });
+    this.anims.create({
+      key: 'hell-beast-idle-stroke',
+      frames: [
+        { key: 'hellBeast', frame: 'hell-beast-idle-stroke0' },
+        { key: 'hellBeast', frame: 'hell-beast-idle-stroke1' },
+        { key: 'hellBeast', frame: 'hell-beast-idle-stroke2' },
+        { key: 'hellBeast', frame: 'hell-beast-idle-stroke3' },
+        { key: 'hellBeast', frame: 'hell-beast-idle-stroke4' },
+        { key: 'hellBeast', frame: 'hell-beast-idle-stroke5' },
+      ],
+      frameRate: 10,
+      repeat: -1,
+    });
+    this.anims.create({
+      key: 'hell-beast-breath',
+      frames: [
+        { key: 'hellBeast', frame: 'hell-beast-breath0' },
+        { key: 'hellBeast', frame: 'hell-beast-breath1' },
+        { key: 'hellBeast', frame: 'hell-beast-breath2' },
+        { key: 'hellBeast', frame: 'hell-beast-breath3' },
+      ],
+      frameRate: 10,
+      repeat: -1,
+    });
+    this.anims.create({
+      key: 'hell-beast-breath-stroke',
+      frames: [
+        { key: 'hellBeast', frame: 'hell-beast-breath-stroke0' },
+        { key: 'hellBeast', frame: 'hell-beast-breath-stroke1' },
+        { key: 'hellBeast', frame: 'hell-beast-breath-stroke2' },
+        { key: 'hellBeast', frame: 'hell-beast-breath-stroke3' },
+      ],
+      frameRate: 10,
+      repeat: -1,
+    });
+    this.anims.create({
+      key: 'hell-beast-burn',
+      frames: [
+        { key: 'hellBeast', frame: 'hell-beast-burn0' },
+        { key: 'hellBeast', frame: 'hell-beast-burn1' },
+        { key: 'hellBeast', frame: 'hell-beast-burn2' },
+        { key: 'hellBeast', frame: 'hell-beast-burn3' },
+        { key: 'hellBeast', frame: 'hell-beast-burn4' },
+        { key: 'hellBeast', frame: 'hell-beast-burn5' },
+      ],
+      frameRate: 10,
+      repeat: -1,
+    });
+    // storms
     this.anims.create({
       key: 'thunder-storm',
       frames: [
         { key: 'storm', frame: 'thunder-storm0' },
         { key: 'storm', frame: 'thunder-storm1' },
         { key: 'storm', frame: 'thunder-storm2' },
+      ],
+      frameRate: 8,
+      repeat: -1,
+    });
+    this.anims.create({
+      key: 'water-storm',
+      frames: [
+        { key: 'storm', frame: 'water-storm0' },
+        { key: 'storm', frame: 'water-storm1' },
+        { key: 'storm', frame: 'water-storm2' },
+        { key: 'storm', frame: 'water-storm3' },
+        { key: 'storm', frame: 'water-storm4' },
+      ],
+      frameRate: 8,
+      repeat: -1,
+    });
+    this.anims.create({
+      key: 'lava-storm',
+      frames: [
+        { key: 'storm', frame: 'lava-storm0' },
+        { key: 'storm', frame: 'lava-storm1' },
       ],
       frameRate: 8,
       repeat: -1,
@@ -456,35 +556,7 @@ export default class LoadingScreen extends Scene {
       frameRate: 20,
       repeat: 0,
     });
-    // power-up
-    // this.anims.create({
-    //   key: 'powerupYellow',
-    //   frames: this.anims.generateFrameNumbers('various', { start: 30, end: 35, first: 30 }),
-    //   frameRate: 10,
-    //   yoyo: false,
-    //   repeat: -1,
-    // });
-    // this.anims.create({
-    //   key: 'powerupBlue',
-    //   frames: this.anims.generateFrameNumbers('various', { start: 12, end: 17, first: 12 }),
-    //   frameRate: 10,
-    //   yoyo: false,
-    //   repeat: -1,
-    // });
-    // this.anims.create({
-    //   key: 'powerupRed',
-    //   frames: this.anims.generateFrameNumbers('various', { start: 24, end: 29, first: 24 }),
-    //   frameRate: 10,
-    //   yoyo: false,
-    //   repeat: -1,
-    // });
-    // this.anims.create({
-    //   key: 'powerupGreen',
-    //   frames: this.anims.generateFrameNumbers('various', { start: 18, end: 23, first: 18 }),
-    //   frameRate: 10,
-    //   yoyo: false,
-    //   repeat: -1,
-    // });
+    
     this.anims.create({
       key: 'heart',
       frames: this.anims.generateFrameNumbers('heart', { start: 0, end: 3, first: 0 }),
@@ -535,7 +607,6 @@ export default class LoadingScreen extends Scene {
     // anims enemies
     this.anims.create({
       key: 'hellHoundRun',
-      // frames: this.anims.generateFrameNumbers('enemies', { start: 0, end: 3, first: 0 }),
       frames: [
         { key: 'enemies', frame: 'hell-hound-run0' },
         { key: 'enemies', frame: 'hell-hound-run1' },
@@ -549,7 +620,6 @@ export default class LoadingScreen extends Scene {
     });
     this.anims.create({
       key: 'hellHoundJump',
-      // frames: this.anims.generateFrameNumbers('enemies', { start: 0, end: 3, first: 0 }),
       frames: [
         { key: 'enemies', frame: 'hell-hound-jump0' },
         { key: 'enemies', frame: 'hell-hound-jump1' },
@@ -760,6 +830,22 @@ export default class LoadingScreen extends Scene {
       frameRate: 8,
       yoyo: false,
       repeat: 0,
+    });
+    this.anims.create({
+      key: 'angel-idle',
+      frames: [
+        { key: 'angel', frame: 'angel1' },
+        { key: 'angel', frame: 'angel2' },
+        { key: 'angel', frame: 'angel3' },
+        { key: 'angel', frame: 'angel4' },
+        { key: 'angel', frame: 'angel5' },
+        { key: 'angel', frame: 'angel6' },
+        { key: 'angel', frame: 'angel7' },
+        { key: 'angel', frame: 'angel8' },
+      ],
+      frameRate: 8,
+      yoyo: false,
+      repeat: -1,
     });
     
     this.anims.create({
