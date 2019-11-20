@@ -11,6 +11,12 @@ import bulletFX from '../assets/sfx/knife_fire.ogg'; // knife sfx
 import swellFX from '../assets/sfx/sword_fire.ogg'; // sword sfx
 import missileFX from '../assets/sfx/axe_fire.ogg'; // axe sfx
 import waterStormSfx from '../assets/sfx/water_magic.ogg';
+import forestWalkSfx from '../assets/sfx/forest_walk.ogg';
+import townWalkSfx from '../assets/sfx/town_walk.ogg';
+import graveyardWalkSfx from '../assets/sfx/graveyard_walk.ogg';
+import castleWalkSfx from '../assets/sfx/castle_walk.ogg';
+import churchWalkSfx from '../assets/sfx/church_walk.ogg';
+
 import laserFX from '../assets/sounds/laser3.ogg'; // no use for now
 import impactFX from '../assets/sounds/explo.ogg'; // no use for now
 import explo2FX from '../assets/sounds/explo2.ogg'; // no use for now
@@ -253,6 +259,11 @@ export default class LoadingScreen extends Scene {
     this.load.audio('swell', swellFX);
     this.load.audio('missile', missileFX);
     this.load.audio('waterStormSfx', waterStormSfx);
+    this.load.audio('forestWalkSfx', forestWalkSfx);
+    this.load.audio('townWalkSfx', townWalkSfx);
+    this.load.audio('graveyardWalkSfx', graveyardWalkSfx);
+    this.load.audio('castleWalkSfx', castleWalkSfx);
+    this.load.audio('churchWalkSfx', churchWalkSfx);
     this.load.audio('laser', laserFX);
     this.load.audio('impact', impactFX);
     this.load.audio('explo2', explo2FX);

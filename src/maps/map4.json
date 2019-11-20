@@ -366,7 +366,8 @@
      "callFunction":"bossDragon",
      "music":"ambient3",
      "paraBack":"map3back",
-     "paraMiddle":"map3middle"
+     "paraMiddle":"map3middle",
+     "walkSfx":"graveyardWalkSfx"
     },
  "propertytypes":
     {
@@ -374,7 +375,8 @@
      "callFunction":"string",
      "music":"string",
      "paraBack":"string",
-     "paraMiddle":"string"
+     "paraMiddle":"string",
+     "walkSfx":"string"
     },
  "renderorder":"right-down",
  "tiledversion":"1.0.3",

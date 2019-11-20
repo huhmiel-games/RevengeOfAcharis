@@ -633,7 +633,8 @@
      "mapScenePosition":"9,2,0xCC2485",
      "music":"ambient1",
      "paraBack":"map2back",
-     "paraMiddle":""
+     "paraMiddle":"",
+     "walkSfx":"townWalkSfx"
     },
  "propertytypes":
     {
@@ -642,7 +643,8 @@
      "mapScenePosition":"string",
      "music":"string",
      "paraBack":"string",
-     "paraMiddle":"string"
+     "paraMiddle":"string",
+     "walkSfx":"string"
     },
  "renderorder":"right-down",
  "tiledversion":"1.0.3",
@@ -651,7 +653,7 @@
         {
          "columns":64,
          "firstgid":1,
-         "image":"..\/..\/..\/tmpK438\/src\/assets\/environment\/layers\/tilesets.png",
+         "image":"..\/assets\/environment\/layers\/tilesets.png",
          "imageheight":1024,
          "imagewidth":1024,
          "margin":0,

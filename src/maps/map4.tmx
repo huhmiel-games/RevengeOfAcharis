@@ -6,6 +6,7 @@
   <property name="music" value="ambient3"/>
   <property name="paraBack" value="map3back"/>
   <property name="paraMiddle" value="map3middle"/>
+  <property name="walkSfx" value="graveyardWalkSfx"/>
  </properties>
  <tileset firstgid="1" name="tileground" tilewidth="16" tileheight="16" tilecount="4096" columns="64">
   <image source="../assets/environment/layers/tilesets.png" width="1024" height="1024"/>

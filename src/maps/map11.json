@@ -351,7 +351,8 @@
      "mapScenePosition":"4,6,0xCC2485",
      "music":"ambient3",
      "paraBack":"map11back",
-     "paraMiddle":"map11middle2"
+     "paraMiddle":"map11middle2",
+     "walkSfx":"churchWalkSfx"
     },
  "propertytypes":
     {
@@ -360,7 +361,8 @@
      "mapScenePosition":"string",
      "music":"string",
      "paraBack":"string",
-     "paraMiddle":"string"
+     "paraMiddle":"string",
+     "walkSfx":"string"
     },
  "renderorder":"right-down",
  "tiledversion":"1.0.3",

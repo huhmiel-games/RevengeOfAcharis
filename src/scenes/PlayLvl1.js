@@ -92,6 +92,7 @@ export default class playLvl1 extends Scene {
 
     // player walk and run sounds
     this.walkplay = false;
+    
     this.walkk = this.sound.add('run', { volume: 0.8 });
     this.player.on('animationupdate', () => {
       const runSpeedNow = Math.abs(this.player.body.velocity.x);
@@ -801,6 +802,7 @@ export default class playLvl1 extends Scene {
       const arr = this.map.properties.callFunction.split(',');
       arr.forEach(elm => this[elm]());
     }
+    this.walkk = this.sound.add(this.map.properties.walkSfx, { volume: 0.8 });
     this.cameras.main.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
     this.physics.world.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
     this.cameras.main.startFollow(this.player, true, 0.4, 0.1);
@@ -878,6 +880,7 @@ export default class playLvl1 extends Scene {
       arr.forEach(elm => this[elm]());
     }
     this.playMusic(this.map.properties.music);
+    this.walkk = this.sound.add(this.map.properties.walkSfx, { volume: 0.6 });
     this.cameras.main.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
     this.physics.world.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
     this.cameras.main.startFollow(this.player, true, 0.4, 0.1);

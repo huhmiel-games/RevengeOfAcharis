@@ -415,7 +415,8 @@
      "mapScenePosition":"5,3,0xCC2485",
      "music":"ambient3",
      "paraBack":"map10back",
-     "paraMiddle":""
+     "paraMiddle":"",
+     "walkSfx":"castleWalkSfx"
     },
  "propertytypes":
     {
@@ -424,7 +425,8 @@
      "mapScenePosition":"string",
      "music":"string",
      "paraBack":"string",
-     "paraMiddle":"string"
+     "paraMiddle":"string",
+     "walkSfx":"string"
     },
  "renderorder":"right-down",
  "tiledversion":"1.0.3",

@@ -602,7 +602,8 @@
      "music":"ambient1",
      "paraBack":"map3back",
      "paraMiddle":"map3middle",
-     "paraMiddle2":"map3middle2"
+     "paraMiddle2":"map3middle2",
+     "walkSfx":"graveyardWalkSfx"
     },
  "propertytypes":
     {
@@ -612,7 +613,8 @@
      "music":"string",
      "paraBack":"string",
      "paraMiddle":"string",
-     "paraMiddle2":"string"
+     "paraMiddle2":"string",
+     "walkSfx":"string"
     },
  "renderorder":"right-down",
  "tiledversion":"1.0.3",
