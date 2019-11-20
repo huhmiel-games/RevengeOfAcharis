@@ -13,6 +13,7 @@ export default class Skeleton extends Phaser.GameObjects.Sprite {
       hited: false,
       giveLife: config.life,
     };
+    this.family = 'enemies';
     this.setDepth(101);
     this.scene.physics.world.enable(this);
     this.scene.add.existing(this);

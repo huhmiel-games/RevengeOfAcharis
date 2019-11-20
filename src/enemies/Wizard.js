@@ -6,12 +6,13 @@ export default class Wizard extends Phaser.GameObjects.Sprite {
     this.name = config.name;
     this.state = {
       life: config.life,
-      damage: config.damage,
+      damage: 0,
       directionX: 20,
       directionY: 0,
       hited: false,
       giveLife: config.life / 2,
     };
+    this.family = 'enemies';
     this.setDepth(101);
     this.scene.physics.world.enable(this);
     this.scene.add.existing(this);

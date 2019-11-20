@@ -374,7 +374,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
     // pause the player
     this.state.pause = true;
     this.anims.play('playerSpell', true);
-    // this.setPipeline('GlowFixedFx');
+    this.setPipeline('GlowFixedFx');
     this.isSpelling = true;
     this.body.setVelocity(0, 0);
 
@@ -382,7 +382,6 @@ export default class Player extends Phaser.GameObjects.Sprite {
     const waterStorm = this.waterMagic.getFirstDead(true, 0, 0, 'water-storm', null, true);
     if (waterStorm) {
       waterStorm.name ='waterStorm';
-
       waterStorm.setOrigin(0.5, 0)
         .setPosition(this.scene.cameras.main.scrollX - 200, this.scene.cameras.main.scrollY + 56)
         .setVisible(true)
@@ -391,16 +390,10 @@ export default class Player extends Phaser.GameObjects.Sprite {
       this.scene.add.existing(waterStorm);
       waterStorm.anims.play('water-storm', true);
       waterStorm.setDepth(102);
-      
-      
-      // water sound
-      this.scene.sound.play('bullet', { volume: 0.08 });
-      //    BULLET ORIENTATION    ////
-      
       waterStorm.body.velocity.x = 300;
       
+      this.scene.sound.play('waterStormSfx', { volume: 1 });
       
-
       this.scene.time.addEvent({
         delay: 2500,
         callback: () => {
@@ -415,11 +408,63 @@ export default class Player extends Phaser.GameObjects.Sprite {
     }
   }
 
-  shootLavaStorm(time) {
+  shootLavaStorm() {
     if (this.state.energyTime < 75) {
       return;
     }
-    this.consumeEnergy(75)
+    const camView = this.scene.cameras.main.worldView;
+    const enemyListOnScreen = [...this.scene.sys.displayList.list].filter(e => {
+      return (e.family === 'enemies' && camView.contains(e.body.x, e.body.y))
+    });
+    if (!enemyListOnScreen.length) {
+      return;
+    }
+    this.consumeEnergy(75);
+    // pause the player
+    this.state.pause = true;
+    this.anims.play('playerSpell', true);
+    this.setPipeline('GlowFixedFx');
+    this.isSpelling = true;
+    this.body.setVelocity(0, 0);
+    
+    enemyListOnScreen.forEach((enemy, i) => {
+      const lavaStorm = this.lavaMagic.getFirstDead(true, 0, 0, 'lava-storm', null, true);
+      if (lavaStorm) {
+        this.scene.time.addEvent({
+          delay: Phaser.Math.Between(100, 600),
+          callback: () => {
+            if (!enemy.active) {
+              return;
+            }
+            lavaStorm.name ='lavaStorm';
+            lavaStorm.setOrigin(0.5, 0).setVisible(true);
+            lavaStorm.anims.play('lava-storm', true);
+            lavaStorm.body.setSize(64, 160).reset(enemy.body.x + enemy.body.width / 2, camView.y)
+            //lavaStorm.body.setCollideWorldBounds(true);
+            
+            this.scene.physics.world.enable(lavaStorm);
+            this.scene.add.existing(lavaStorm);
+            lavaStorm.body.setVelocityY(400)
+            lavaStorm.setDepth(102);
+            this.scene.shakeCamera(350)
+            
+            this.scene.sound.play('bullet', { volume: 0.08 });
+            
+            this.scene.time.addEvent({
+              delay: 1500,
+              callback: () => {
+                lavaStorm.destroy();
+                this.state.pause = false;
+                this.scene.physics.resume();
+                this.anims.play('stand');
+                this.isSpelling = false;
+                this.resetPipeline();
+              },
+            });
+          }
+        });
+      }
+    });
   }
 
   shootThunderStorm(time) {
@@ -440,7 +485,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
 
         const playerSpeed = Math.abs(this.body.velocity.x);
         
-        this.scene.sound.play('swell', { volume: 0.15 });
+        this.scene.sound.play('swell', { volume: 0.6 });
         //    BULLET ORIENTATION    ////
         if (this.state.bulletOrientationX === 'left') {
           swell.flipX = true;
@@ -478,7 +523,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
 
         const playerSpeed = Math.abs(this.body.velocity.x);
         
-        this.scene.sound.play('missile', { volume: 0.5 });
+        this.scene.sound.play('missile', { volume: 1 });
         // BULLET ORIENTATION
         if (this.state.bulletOrientationX === 'left') {
           missile.setAngle(0);
@@ -532,7 +577,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
         const playerSpeed = Math.abs(this.body.velocity.x);
         
         // bullet sound
-        this.scene.sound.play('bullet', { volume: 0.08 });
+        this.scene.sound.play('bullet', { volume: 0.7 });
         //    BULLET ORIENTATION    ////
         if (this.state.bulletOrientationX === 'left') {
           knife.body.velocity.x = -600 - playerSpeed;

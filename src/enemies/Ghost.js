@@ -12,6 +12,7 @@ export default class Ghost extends Phaser.GameObjects.Sprite {
       hited: false,
       giveLife: config.life / 2,
     };
+    this.family = 'enemies';
     this.setDepth(101);
     this.scene.physics.world.enable(this);
     this.scene.add.existing(this);

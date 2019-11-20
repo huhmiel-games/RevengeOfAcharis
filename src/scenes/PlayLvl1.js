@@ -147,7 +147,7 @@ export default class playLvl1 extends Scene {
     });
     this.player.lavaMagic = this.physics.add.group({
       defaultKey: 'lava-storm',
-      maxSize: 1,
+      maxSize: 25,
       allowGravity: false,
       createIfNull: true,
     });
@@ -230,7 +230,7 @@ export default class playLvl1 extends Scene {
     });
 
     // LAVA RISE
-    this.lavaRiseFlag = false;
+    this.playerIsPassingDoor = false;
     this.onSismic = false;
     this.isTheEnd = false; // My only friend, the end
 
@@ -641,18 +641,29 @@ export default class playLvl1 extends Scene {
     if (!el.getFired) {
       el.getFired = true;
 
+      // if skeleton not rised don't do anything
+      if (elm instanceof Skeleton) {
+        if (!el.isAttacking) {
+          el.getFired = false;
+          return;
+        }
+      }
+      // destroy the weapon
       if (this.player.state.selectedWeapon === 'missile'
       || this.player.state.selectedWeapon === 'bullet'
       || this.player.state.selectedWeapon === 'swell'
       ) {
         this.player[`${this.player.state.selectedWeapon}Kill`](bull);
       }
+
       if (this.player.state.selectedWeapon === 'waterStorm') {
+        // destroy the thunder door
         if ( el instanceof Thunder) {
           el.destroy();
           this.player.inventory.thunderDoorOpen = true;
           return;
         }
+        // No damage on hellBeast with waterStorm
         if ( el.name ==='hellBeast') {
           el.getFired = false;
           return;
@@ -809,6 +820,10 @@ export default class playLvl1 extends Scene {
     if (doorP && doorP.alpha === 1) {
       return;
     }
+    if (this.playerIsPassingDoor) {
+      return;
+    }
+    this.playerIsPassingDoor = true;
     console.clear();
     // destroy leaving room
     this.cameras.main.fadeOut(50);
@@ -868,6 +883,7 @@ export default class playLvl1 extends Scene {
     this.cameras.main.startFollow(this.player, true, 0.4, 0.1);
     this.cameras.main.fadeIn(50);
     this.physics.world.setBoundsCollision();
+    this.playerIsPassingDoor = false;
     console.log(this);
   }
 
@@ -964,8 +980,7 @@ export default class playLvl1 extends Scene {
       }
       this[e.name].checkCollision(d);
     }, null, this);
-    this.physics.add.collider([this.player.knives, this.player.swords], this.solLayer, this.player.bulletKill, null, this.player);
-    this.physics.add.collider(this.player.axes, this.solLayer, this.player.missileKill, null, this.player);
+    this.physics.add.collider([this.player.knives, this.player.swords, this.player.axes], this.solLayer, this.player.bulletKill, null, this.player);
     this.physics.add.collider([this.player.knives, this.player.swords, this.player.axes], this.doorGroup, (d, miss) => this.openDoor(d, miss), null, this);
     this.physics.add.overlap(this.giveLifeGroup, this.player, elm => this.player.getLife(elm), null, this.player);
     this.physics.add.overlap(this.powerups, this.player, elm => this.getPowerUp(elm), null, this);
@@ -978,8 +993,7 @@ export default class playLvl1 extends Scene {
       this.player.waterMagic,
       this.player.lavaMagic,
       this.player.thunderMagic,], this.enemyGroup, (elm, bull) => this.enemyIsHit(bull, elm), null, this.player);
-
-    this.physics.add.collider(this.player, this.doorGroup, (player, door) => this.changeRoom(player, door), null, this);
+    this.physics.add.overlap(this.player, this.doorGroup, (player, door) => this.changeRoom(player, door), null, this);
   }
 
   addLayers() {
@@ -1315,13 +1329,8 @@ export default class playLvl1 extends Scene {
   // ====================================================================
   // HANDLE ROOM ELEMENTS
   openDoor(d, miss) {
-    //if (d.state.openWith === 'any') {
-      d.openDoor();
-      //if (miss) miss.destroy();
-      //return;
-    //}
-    //if (miss) miss.destroy();
-    //this.sound.play('doorLocked', { volume: 0.5, rate: 0.5 });
+    d.openDoor();
+    if (miss) miss.destroy();
   }
 
   handleElevator(elm) {

@@ -13,6 +13,7 @@ export default class HellBeast extends Phaser.GameObjects.Sprite {
       lastFired: 0,
       fireRate: 20,
     };
+    this.family = 'enemies';
     this.setDepth(104);
     this.scene.physics.world.enable(this);
     this.scene.add.existing(this);

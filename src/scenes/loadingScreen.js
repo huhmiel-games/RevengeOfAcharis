@@ -7,9 +7,10 @@ import U from '../utils/usefull';
 // don't change the first part of the lines "bulletFX"
 // or the game breaks
 // we need to have a list of all sfx we need for better organization
-import bulletFX from '../assets/sounds/bullet.ogg'; // knife sfx
-import swellFX from '../assets/sounds/swell.ogg'; // sword sfx
-import missileFX from '../assets/sounds/missile.ogg'; // axe sfx
+import bulletFX from '../assets/sfx/knife_fire.ogg'; // knife sfx
+import swellFX from '../assets/sfx/sword_fire.ogg'; // sword sfx
+import missileFX from '../assets/sfx/axe_fire.ogg'; // axe sfx
+import waterStormSfx from '../assets/sfx/water_magic.ogg';
 import laserFX from '../assets/sounds/laser3.ogg'; // no use for now
 import impactFX from '../assets/sounds/explo.ogg'; // no use for now
 import explo2FX from '../assets/sounds/explo2.ogg'; // no use for now
@@ -251,6 +252,7 @@ export default class LoadingScreen extends Scene {
     this.load.audio('bullet', bulletFX);
     this.load.audio('swell', swellFX);
     this.load.audio('missile', missileFX);
+    this.load.audio('waterStormSfx', waterStormSfx);
     this.load.audio('laser', laserFX);
     this.load.audio('impact', impactFX);
     this.load.audio('explo2', explo2FX);
@@ -308,7 +310,7 @@ export default class LoadingScreen extends Scene {
         { key: 'player', frame: 'adventurer-run-04' },
         { key: 'player', frame: 'adventurer-run-05' },
       ],
-      frameRate: 12,
+      frameRate: 10,
       repeat: -1,
     });
     this.anims.create({
@@ -569,10 +571,10 @@ export default class LoadingScreen extends Scene {
     this.anims.create({
       key: 'lava-storm',
       frames: [
-        { key: 'storm', frame: 'lava-storm0' },
-        { key: 'storm', frame: 'lava-storm1' },
+        { key: 'hellBeast', frame: 'hell-beast-burn4' },
+        { key: 'hellBeast', frame: 'hell-beast-burn5' },
       ],
-      frameRate: 8,
+      frameRate: 10,
       repeat: -1,
     });
     
