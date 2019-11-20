@@ -7,7 +7,7 @@ export default class BurningGhoul extends Phaser.GameObjects.Sprite {
     this.state = {
       life: config.life,
       damage: config.damage,
-      directionX: -100,
+      directionX: -200,
       directionY: 0,
       hited: false,
       giveLife: config.life / 3,
@@ -16,10 +16,10 @@ export default class BurningGhoul extends Phaser.GameObjects.Sprite {
     this.scene.physics.world.enable(this);
     this.scene.add.existing(this);
     this.body
-      .setAllowGravity()
+      .setAllowGravity(true)
       .setGravityY(500)
-      .setSize(32, 16)
-      .setOffset(16, 12);
+      .setSize(16, 48)
+      .setOffset(16, 15);
     this.lastAnim = null;
     this.getFired = false;
     this.flipX = true;
@@ -60,10 +60,6 @@ export default class BurningGhoul extends Phaser.GameObjects.Sprite {
         this.animate(animationName, true);
       }
     }
-    if (this.active && this.scene[`path${this.name}`]) {
-      this.scene[`path${this.name}`].active ? this.startOnPath() : this.followPath = false;
-    }
-    
   }
 
   animate(str) {

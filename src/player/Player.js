@@ -34,6 +34,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
       fireRate: 420,
       boss1: false,
       thunderDoorReached: false,
+      thunderDoorOpen: false,
       townInFire: false,
       boss2: false,
       bossFinal: false,
@@ -373,7 +374,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
     // pause the player
     this.state.pause = true;
     this.anims.play('playerSpell', true);
-    this.setPipeline('GlowFixedFx');
+    // this.setPipeline('GlowFixedFx');
     this.isSpelling = true;
     this.body.setVelocity(0, 0);
 
@@ -381,10 +382,10 @@ export default class Player extends Phaser.GameObjects.Sprite {
     const waterStorm = this.waterMagic.getFirstDead(true, 0, 0, 'water-storm', null, true);
     if (waterStorm) {
       waterStorm.name ='waterStorm';
+
       waterStorm.setOrigin(0.5, 0)
         .setPosition(this.scene.cameras.main.scrollX - 200, this.scene.cameras.main.scrollY + 56)
         .setVisible(true)
-        .setPipeline('GlowFixedFx');
       waterStorm.body.setSize(280, 256).setOffset(60, -60)
       this.scene.physics.world.enable(waterStorm);
       this.scene.add.existing(waterStorm);

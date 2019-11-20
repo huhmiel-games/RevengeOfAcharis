@@ -650,6 +650,7 @@ export default class playLvl1 extends Scene {
       if (this.player.state.selectedWeapon === 'waterStorm') {
         if ( el instanceof Thunder) {
           el.destroy();
+          this.player.inventory.thunderDoorOpen = true;
           return;
         }
         if ( el.name ==='hellBeast') {
@@ -1139,21 +1140,23 @@ export default class playLvl1 extends Scene {
       this.enemyGroup.push(this[element.name]);
     });
     // the storm
-    const layerArray6 = this.checkObjectsLayerIndex('thunder');
-    layerArray6 && layerArray6.objects.forEach((element) => {
-      this[element.name] = new Thunder(this, element.x, element.y - 16, {
-        key: element.properties.key,
-        name: element.name,
-        life: element.properties.life,
-        damage: element.properties.damage,
+    if (!this.player.inventory.thunderDoorOpen) {
+      const layerArray6 = this.checkObjectsLayerIndex('thunder');
+      layerArray6 && layerArray6.objects.forEach((element) => {
+        this[element.name] = new Thunder(this, element.x, element.y - 16, {
+          key: element.properties.key,
+          name: element.name,
+          life: element.properties.life,
+          damage: element.properties.damage,
+        });
+        this[element.name].animate(element.properties.key, true);
+        this.enemyGroup.push(this[element.name]);
       });
-      this[element.name].animate(element.properties.key, true);
-      this.enemyGroup.push(this[element.name]);
-    });
+    }
     // the burning ghoul
     const layerArray8 = this.checkObjectsLayerIndex('burningGhoul');
     layerArray8 && layerArray8.objects.forEach((element) => {
-      this[element.name] = new Thunder(this, element.x, element.y - 16, {
+      this[element.name] = new BurningGhoul(this, element.x, element.y - 16, {
         key: element.properties.key,
         name: element.name,
         life: element.properties.life,
