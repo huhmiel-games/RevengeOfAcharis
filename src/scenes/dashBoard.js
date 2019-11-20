@@ -63,7 +63,7 @@ export default class DashBoard extends Scene {
       .setAlpha(0)
       .setDisplaySize(16, 16);
 
-    this.waterStorm = this.add.image(330, 2, 'knifeIcon')
+    this.waterStorm = this.add.image(330, 2, 'waterStormIcon')
       .setOrigin(0, 0)
       .setAlpha(0)
       .setDisplaySize(16, 16);

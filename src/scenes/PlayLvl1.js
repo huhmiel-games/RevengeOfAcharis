@@ -851,7 +851,7 @@ export default class playLvl1 extends Scene {
     if (doorP.state.side === 'left') {
       this.player.body.reset(doorP.state.playerX * 16, doorP.state.playerY * 16 + 20);
     } else {
-      this.player.body.reset(doorP.state.playerX * 16 + 16, doorP.state.playerY * 16 + 20);
+      this.player.body.reset(doorP.state.playerX * 16 + 12 , doorP.state.playerY * 16 + 20);
     }
     this.addEnemies();
     this.addColliders();
@@ -1020,7 +1020,7 @@ export default class playLvl1 extends Scene {
     const layerArray = this.checkObjectsLayerIndex('doors');
     layerArray.objects.forEach((element, i) => {
       if (element.properties.side === 'right') {
-        this[element.name] = new Doors(this, element.x + 3, element.y + 9, {
+        this[element.name] = new Doors(this, element.x + 6, element.y + 9, {
           key: 'blackPixel',
           name: element.name,
           side: element.properties.side,
@@ -1032,7 +1032,7 @@ export default class playLvl1 extends Scene {
         this[element.name].body.setSize(10, 47);
       }
       if (element.properties.side === 'left') {
-        this[element.name] = new Doors(this, element.x + 13, element.y + 9, {
+        this[element.name] = new Doors(this, element.x + 16, element.y + 9, {
           key: 'blackPixel',
           name: element.name,
           side: element.properties.side,

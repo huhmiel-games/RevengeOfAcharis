@@ -71,7 +71,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
     // this.setPipeline('Light2D');
     this.scene.physics.world.enable(this);
     this.scene.add.existing(this);
-    this.body.setSize(6, 25, true).setOffset(21, 10);
+    this.body.setSize(10, 25, true).setOffset(21, 10);
     // this.player.body.setSize(15, 35, 6, 11);
 
     const keysOptions = getConfigKeys();
@@ -214,7 +214,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
       }
       // not duck ? set body size to normal
       if (animationName !== 'duck' && this.lastAnim === 'duck') {
-        this.body.setSize(6, 25, true).setOffset(21, 10);
+        this.body.setSize(10, 25, true).setOffset(21, 10);
       }
       // positionne la hauteur du tir en marchant //ptet en courant aussi a verifier
       if (!keys.down.isDown && (keys.left.isDown || keys.right.isDown)) {
