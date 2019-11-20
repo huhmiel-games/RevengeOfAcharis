@@ -128,7 +128,15 @@ import map11back from '../maps/map11back.png';
 import map11middle2 from '../maps/map11middle2.png';
 import map12back from '../maps/map12back.png';
 
-
+// dashboard
+//import blackPixel from '../assets/blackPixel.png';
+import knifeIcon from '../assets/knifeIcon.png';
+import swordIcon from '../assets/swordIcon.png';
+import axeIcon from '../assets/axeIcon.png';
+import lavaStormIcon from '../assets/lavaStormIcon.png';
+import iconFullscreen from '../assets/iconFullscreen.png';
+//import heart from '../assets/heart.png';
+import energyBar from '../assets/energyBar.png';
 
 
 
@@ -208,6 +216,16 @@ export default class LoadingScreen extends Scene {
     // various map items
     this.load.image('head', head);
     this.load.image('blackPixel', blackPixel);
+
+    //dashboard
+    //this.load.image('blackpixel', blackPixel);
+    this.load.image('knifeIcon', knifeIcon);
+    this.load.image('swordIcon', swordIcon);
+    this.load.image('axeIcon', axeIcon);
+    this.load.image('lavaStormIcon', lavaStormIcon);
+    this.load.image('iconFullscreen', iconFullscreen);
+    this.load.image('energyBar', energyBar);
+    //this.load.spritesheet('heart', heart, { frameWidth: 12, frameHeight: 12 });
     
 
     // parralax

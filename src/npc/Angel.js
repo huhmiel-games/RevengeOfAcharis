@@ -69,6 +69,8 @@ export default class Angel extends Phaser.GameObjects.Sprite {
           console.log('here')
           this.showMsg.text = "";
           this.body.setVelocityY(-30);
+          const item = {};
+          item.state = { ability: 'waterStorm', id: 6 };
           this.scene.player.addMagic('waterStorm');
           this.scene.player.state.pause = false;
           this.scene.physics.resume();

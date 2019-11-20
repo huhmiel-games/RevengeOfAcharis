@@ -719,7 +719,7 @@
  <objectgroup name="powerup">
   <object id="18" name="knife" gid="76" x="192" y="160" width="16" height="16">
    <properties>
-    <property name="ability" value="gun"/>
+    <property name="ability" value="bullet"/>
     <property name="collides" type="bool" value="false"/>
     <property name="id" type="int" value="1"/>
     <property name="key" value="knife"/>

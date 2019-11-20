@@ -6,7 +6,7 @@ export default class HellBeast extends Phaser.GameObjects.Sprite {
     this.name = config.name;
     this.state = {
       life: 2000,
-      damage: 5,
+      damage: 0,
       directionX: -550,
       directionY: 0,
       hited: false,
@@ -208,7 +208,7 @@ export default class HellBeast extends Phaser.GameObjects.Sprite {
         if (lavaFireTimer.repeatCount === 0) {
           this.body.setSize(64, 64);
           this.setAlpha(0);
-          this.state.damage = 5;
+          this.state.damage = 0;
           this.body.setVelocityX(0)
           this.body.reset(-100, -100);
           this.hellBeastFadeOut();
@@ -282,6 +282,8 @@ export default class HellBeast extends Phaser.GameObjects.Sprite {
   explode() {
     this.isDead = true;
     this.body.setVelocity(0, 0);
+    this.scene.lavaStormPowerUp.body.reset(195, 195)
+    this.scene.lavaStormPowerUp.setAlpha(1);
     this.unlockDoors();
   }
 

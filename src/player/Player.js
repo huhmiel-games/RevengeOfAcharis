@@ -18,8 +18,8 @@ export default class Player extends Phaser.GameObjects.Sprite {
       savedPositionX: 80,
       savedPositionY: 135,
       map: 'map1',
-      selectableWeapon: ['bullet'],
-      gun: false,
+      selectableWeapon: [],
+      bullet: false,
       bulletDamage: 5,
       swell: false,
       swellDamage: 10,
@@ -517,7 +517,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
   }
 
   shootGun(time) {
-    if (time > this.state.lastFired && this.inventory.gun) {
+    if (time > this.state.lastFired && this.inventory.bullet) {
       const knife = this.knives.getFirstDead(true, this.body.x + this.state.bulletPositionX, this.body.y + this.state.bulletPositionY, 'knife', null, true);
       if (knife) {        
         this.state.lastFired = time + this.inventory.fireRate;
@@ -580,6 +580,12 @@ export default class Player extends Phaser.GameObjects.Sprite {
     this.scene.events.emit('addWeapon', { Weapon: 'missile' });
   }
 
+  addBullet() {
+    this.inventory.bullet = true;
+    this.inventory.selectableWeapon.push('bullet');
+    this.scene.events.emit('addWeapon', { Weapon: 'bullet' });
+  }
+
   addLaser() {
     this.inventory.laser = true;
     this.inventory.selectableWeapon.push('laser');
@@ -593,17 +599,21 @@ export default class Player extends Phaser.GameObjects.Sprite {
   }
 
   selectWeapon() {
-    if (!this.selectWeaponFlag && !this.keys.fire.isDown) {
+    if (!this.selectWeaponFlag) {
       this.selectWeaponFlag = true;
-      let count = this.inventory.selectableWeapon.indexOf(this.state.selectedWeapon);
-      if (count === this.inventory.selectableWeapon.length - 1) {
+      const totalWeaponList = ['bullet', 'swell', 'missile', 'waterStorm', 'lavaStorm', 'thunderStorm'];
+      const availableWeaponList = totalWeaponList.filter(e => {
+        return this.inventory.selectableWeapon.includes(e)
+      })
+      let count = availableWeaponList.indexOf(this.state.selectedWeapon);
+      if (count === availableWeaponList.length - 1) {
         count = -1;
       }
-      this.state.selectedWeapon = this.inventory.selectableWeapon[count + 1];
+      this.state.selectedWeapon = availableWeaponList[count + 1];
       this.scene.events.emit('selectWeapon', { selectedWeapon: this.state.selectedWeapon });
       this.scene.sound.play('select', { volume: 0.1 });
       this.scene.time.addEvent({
-        delay: 500,
+        delay: 300,
         callback: () => {
           this.selectWeaponFlag = false;
         },

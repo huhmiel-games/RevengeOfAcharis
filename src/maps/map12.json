@@ -63,7 +63,39 @@
         {
          "draworder":"topdown",
          "name":"powerup",
-         "objects":[],
+         "objects":[
+                {
+                 "gid":507,
+                 "height":16,
+                 "id":562,
+                 "name":"lavaStormPowerUp",
+                 "properties":
+                    {
+                     "ability":"lavaStorm",
+                     "collides":false,
+                     "id":7,
+                     "key":"lavaStormIcon",
+                     "name":"lavaStormPowerUp",
+                     "powerup":"lavaStorm",
+                     "text":"You get the lavaStorm magic"
+                    },
+                 "propertytypes":
+                    {
+                     "ability":"string",
+                     "collides":"bool",
+                     "id":"int",
+                     "key":"string",
+                     "name":"string",
+                     "powerup":"string",
+                     "text":"string"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":192,
+                 "y":16
+                }],
          "opacity":1,
          "type":"objectgroup",
          "visible":true,
@@ -320,7 +352,7 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":562,
+ "nextobjectid":563,
  "orientation":"orthogonal",
  "properties":
     {

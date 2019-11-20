@@ -68,7 +68,7 @@ export default class DashBoard extends Scene {
       .setAlpha(0)
       .setDisplaySize(16, 16);
 
-    this.lavaStorm = this.add.image(348, 2, 'swordIcon')
+    this.lavaStorm = this.add.image(348, 2, 'lavaStormIcon')
       .setOrigin(0, 0)
       .setAlpha(0)
       .setDisplaySize(16, 16);
@@ -96,7 +96,7 @@ export default class DashBoard extends Scene {
         .setAlpha(1)
         .setText(`${this.mainScene.player.inventory.life}/${this.mainScene.player.inventory.lifeEnergyBlock * 100}`);
 
-      if (this.mainScene.player.inventory.gun) {
+      if (this.mainScene.player.inventory.bullet) {
         this.bullet.setAlpha(1).setTint(0xFF3B00);
       }
       if (this.mainScene.player.inventory.missile) {

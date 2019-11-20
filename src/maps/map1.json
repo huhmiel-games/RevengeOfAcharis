@@ -71,7 +71,7 @@
                  "name":"knife",
                  "properties":
                     {
-                     "ability":"gun",
+                     "ability":"bullet",
                      "collides":false,
                      "id":1,
                      "key":"knife",

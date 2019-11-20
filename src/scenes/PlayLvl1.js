@@ -348,13 +348,22 @@ export default class playLvl1 extends Scene {
     if (elm.state.ability === 'energy') {
       this.player.addEnergy();
       this.events.emit('setHealth', { life: this.player.inventory.life });
-    } else if (elm.state.ability === 'speedfire') {
-      this.player.addSpeedFire();
+    } else if (elm.state.ability === 'bullet') {
+      this.player.addBullet(elm);
     } else if (elm.state.ability === 'missile') {
       this.player.addMissile();
     } else if (elm.state.ability === 'swell') {
       this.player.inventory[elm.state.ability] = true;
       this.player.addSwell();
+    } else if (elm.state.ability === 'waterStorm') {
+      this.player.inventory[elm.state.ability] = true;
+      this.player.addMagic('waterStorm');
+    } else if (elm.state.ability === 'lavaStorm') {
+      this.player.inventory[elm.state.ability] = true;
+      this.player.addMagic('lavaStorm');
+    } else if (elm.state.ability === 'thunderStorm') {
+      this.player.inventory[elm.state.ability] = true;
+      this.player.addMagic('thunderStorm');
     } else {
       this.player.inventory[elm.state.ability] = true;
     }
@@ -672,9 +681,9 @@ export default class playLvl1 extends Scene {
       });
     }
     // enemy is dead
-    if (el.state.life < 0) {
+    if (el.state.life <= 0) {
       el.clearTint();
-      //el.explode(this.tmpBullet);
+      el.explode();
       // kill the enemy
       this.giveLife = this.physics.add.sprite(el.x, el.y, 'heart');
       this.giveLife.setDepth(105)//.setPipeline('GlowFx');
@@ -1418,8 +1427,12 @@ export default class playLvl1 extends Scene {
 
   callHellBeast() {
     if (this.player.inventory.boss2) {
+      if (!this.player.inventory.lavaStorm) {
+        this.lavaStormPowerUp.setPosition(195, 195).setAlpha(1)
+      }
       return;
     }
+    this.lavaStormPowerUp.setAlpha(0);
     this.hellBeast = new HellBeast(this, -100, -100, { key: 'hell-beast-idle', name: 'hellBeast' });
     this.enemyGroup.push(this.hellBeast)
   }
