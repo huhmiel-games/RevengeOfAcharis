@@ -188,8 +188,8 @@
     <property name="destination" value="map13"/>
     <property name="key" value="doorBlue"/>
     <property name="openWith" value="any"/>
-    <property name="playerX" type="int" value="3"/>
-    <property name="playerY" type="int" value="10"/>
+    <property name="playerX" type="int" value="1"/>
+    <property name="playerY" type="int" value="2"/>
     <property name="side" value="left"/>
    </properties>
   </object>

@@ -43,7 +43,6 @@ export default class Player extends Phaser.GameObjects.Sprite {
     this.state = {
       canJump: false,
       stopJump: false,
-      onJump: false,
       jumpDelay: 500,
       onRun: false,
       onWalk: true,
@@ -68,12 +67,15 @@ export default class Player extends Phaser.GameObjects.Sprite {
     this.selectWeaponFlag = false;
     this.chooseDone = false;
     this.isSpelling = false;
+    this.isOnPlatform = false;
+    this.playOnTouchingGroundFlag = false;
     this.setDepth(105);
     // this.setPipeline('Light2D');
     this.scene.physics.world.enable(this);
     this.scene.add.existing(this);
-    this.body.setSize(10, 25, true).setOffset(21, 10);
+    this.body.setSize(10, 25, true).setOffset(21, 10).setAllowGravity(false);
     // this.player.body.setSize(15, 35, 6, 11);
+
 
     const keysOptions = getConfigKeys();
     this.keys = this.scene.input.keyboard.addKeys({
@@ -203,6 +205,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
             animationName = 'runJump';
           } else if (body.velocity.y !== 0 && !keys.jump.isDown) {
             animationName = 'fall';
+            this.playOnTouchingGroundFlag = true;
           } else {
             this.state.energyTime > 1 ? animationName = 'playerRun' : animationName = 'playerWalk';
           }
@@ -214,7 +217,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
           && (!keys.left.isDown || !keys.right.isDown)
           && !body.touching.down
           && !this.state.stopJump):
-          // saut droit et chute libre
+          // saut droit
           animationName = 'jump';
           this.body.setVelocityX(0);
           break;
@@ -224,12 +227,12 @@ export default class Player extends Phaser.GameObjects.Sprite {
           && (!keys.left.isDown || !keys.right.isDown)
           && !body.touching.down
           && this.state.stopJump):
-          // saut droit et chute libre
+          // chute libre
           animationName = 'fall';
           this.body.setVelocityX(0);
           break;
 
-        case (keys.down.isDown && !body.touching.down && !(keys.left.isDown || keys.right.isDown)):
+        case (keys.down.isDown && !(keys.left.isDown || keys.right.isDown)):
           // position baissée
           this.body.setVelocityX(0);
           this.state.bulletPositionY = 10;
@@ -266,13 +269,14 @@ export default class Player extends Phaser.GameObjects.Sprite {
       }
       //  PLAYER JUMP    ////
       // peut sauter
-      if (!keys.jump.isDown && body.blocked.down) {
+      if (!keys.jump.isDown && (body.blocked.down || body.touching.down)) {
         this.state.canJump = true;
         this.state.stopJump = false;
       }
       // saute
-      if (keys.jump.isDown && body.blocked.down && state.canJump) {
+      if (keys.jump.isDown && (body.blocked.down || body.touching.down) && state.canJump) {
         // saut droit
+        this.isOnPlatform = false;
         if (!keys.left.isDown || !keys.right.isDown) {
           this.body.setVelocityY(-this.state.speed);
         }
@@ -285,7 +289,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
           this.body.setVelocityY(-this.state.runSpeed + 100);
           
         }
-        this.state.onJump = true;
+        //this.state.onJump = true;
         this.isJumping();
         this.state.canJump = false;
       }
@@ -298,12 +302,21 @@ export default class Player extends Phaser.GameObjects.Sprite {
           this.state.runSpeed = 285;
         }
       }
+
+      // if on platform
+      // if (this.isOnPlatform) {
+      //   console.log('here')
+      //   this.body.setAllowGravity(true).setGravityY(1200);
+      // } else {
+      //   this.body.setAllowGravity(false);
+      // }
       // a l'atterissage
-      if (body.blocked.down) {
-        this.state.onJump = false;
-      }
-      if (!body.blocked.down) {
-        this.state.onJump = true;
+      // play a louder walk sound just once when touching floor
+      if (!body.onFloor()) {
+        this.playOnTouchingGroundFlag = true;
+      } else if (body.onFloor() && this.playOnTouchingGroundFlag === true) {
+        this.playOnTouchingGroundFlag = false;
+        this.scene.walkk && this.scene.walkk.play({ rate: 0.5 });
       }
       // reset jump
       if (state.stopJump) {
@@ -356,6 +369,19 @@ export default class Player extends Phaser.GameObjects.Sprite {
         this.state.stopJump = true;
       },
     });
+  }
+
+  playerOnPlatform(platform) {
+    console.log(platform)
+    this.isOnPlatform = true;
+    this.body.setVelocityX(platform.body.velocity.x)
+    // if () {
+    //   this.body.setVelocityX(200)
+    // } else {
+    //   this.body.setVelocityX(-200)
+    // }
+    // //this.body.reset(platform.x, platform.y - 16)
+
   }
 
   animate(str) {
@@ -549,11 +575,13 @@ export default class Player extends Phaser.GameObjects.Sprite {
     }
   }
 
-  swellKill(e) {
-    this.scene.sound.play('impact', { volume: 0.4 });
-    e.setVelocity(0, 0);
-    e.destroy();
-  }
+  // swellKill(e) {
+  //   console.log(e)
+  //   this.scene.sound.play('impact', { volume: 0.4 });
+  //   this.scene.weaponParticles.emitParticleAt(e.x, e.y);
+  //   e.setVelocity(0, 0);
+  //   e.destroy();
+  // }
 
   shootMissile(time) {
     if (time > this.state.lastFired) {
@@ -566,7 +594,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
 
         const playerSpeed = Math.abs(this.body.velocity.x);
         
-        this.scene.sound.play('missile', { volume: 1 });
+        this.scene.sound.play('missile', { volume: 1, rate: 0.8 });
         // BULLET ORIENTATION
         if (this.state.bulletOrientationX === 'left') {
           missile.setAngle(0);
@@ -589,21 +617,21 @@ export default class Player extends Phaser.GameObjects.Sprite {
     }
   }
 
-  missileKill(e) {
-    // e.setVelocity(0, 0);
-    if (this.onWater) {
-      e.setDepth(98);
-    } else {
-      e.setDepth(102);
-    }
-    this.scene.sound.play('explo2', { volume: 0.4 });
-    if (e.texture.key === 'missile') {
-      e.setPipeline('TestFx');
-      e.anims.play('enemyExplode', true).on('animationcomplete', () => { e.destroy(); });
-    } else {
-      e.destroy();
-    }
-  }
+  // missileKill(e) {
+  //   // e.setVelocity(0, 0);
+  //   if (this.onWater) {
+  //     e.setDepth(98);
+  //   } else {
+  //     e.setDepth(102);
+  //   }
+  //   this.scene.sound.play('explo2', { volume: 0.4 });
+  //   if (e.texture.key === 'missile') {
+  //     e.setPipeline('TestFx');
+  //     e.anims.play('enemyExplode', true).on('animationcomplete', () => { e.destroy(); });
+  //   } else {
+  //     e.destroy();
+  //   }
+  // }
 
   shootGun(time) {
     if (time > this.state.lastFired && this.inventory.bullet) {
@@ -640,12 +668,31 @@ export default class Player extends Phaser.GameObjects.Sprite {
   }
 
   bulletKill(e) {
+    const { blocked } = e.body;
+    const { body, texture, x, y } = e;
     e.setVelocity(0, 0);
-    e.setDepth(102);
     e.destroy();
-    // e.anims.play('impact', true);
+    const sideHit = Object.entries(blocked)
+    .filter((key) => {
+      return key[1] === true;
+    })[0][0];
+    const sideHitOffset = sideHit === 'right' ? body.width /2 : -body.width /2
+    this.scene.weaponParticles = this.scene.add.particles('whitePixel');
+    this.scene.weaponParticleEmitter = this.scene.weaponParticles.createEmitter({
+      //angle: { min: -e.body.velocity.x / 10, max: Math.abs(e.body.velocity.x / 10) },
+      speed: { min: 200, max: 400 },
+      quantity: 6,
+      lifespan: 100,
+      alpha: 1,
+      scale: texture.key === 'axe' ? 1 : 0.5,
+      gravityX: -(Math.abs(body.velocity.x)),
+      on: false,
+    });
+    this.scene.weaponParticleEmitter.explode(6, x + sideHitOffset, y);
+    // elm.setVelocity(0, 0);
+    // elm.setDepth(102);
+    // elm.destroy();
     this.scene.sound.play('impact', { volume: 0.4 });
-    //e.on('animationcomplete', () => { e.destroy(); });
   }
 
   addEnergy() {

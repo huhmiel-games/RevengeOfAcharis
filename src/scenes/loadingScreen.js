@@ -116,8 +116,10 @@ import savestation from '../assets/savestation.png';
 // import impact from '../assets/spritesheets/Fx/impact.png';
 
 import blackPixel from '../assets/blackPixel.png';
+import whitePixel from '../assets/whitePixel.png';
 import normalMapPixel from '../assets/normalMapPixel.png';
 import head from '../assets/head.png';
+import movingPlatform from '../assets/platform.png';
 
 // parralax
 import map1back from '../maps/map1back.png';
@@ -134,6 +136,7 @@ import map10back from '../maps/map10back.png';
 import map11back from '../maps/map11back.png';
 import map11middle2 from '../maps/map11middle2.png';
 import map12back from '../maps/map12back.png';
+import map13back from '../maps/map13back.png';
 
 // dashboard
 //import blackPixel from '../assets/blackPixel.png';
@@ -224,6 +227,8 @@ export default class LoadingScreen extends Scene {
     // various map items
     this.load.image('head', head);
     this.load.image('blackPixel', blackPixel);
+    this.load.image('whitePixel', whitePixel);
+    this.load.image('movingPlatform', movingPlatform);
 
     //dashboard
     //this.load.image('blackpixel', blackPixel);
@@ -252,6 +257,7 @@ export default class LoadingScreen extends Scene {
     this.load.image('map11back', map11back);
     this.load.image('map11middle2', map11middle2);
     this.load.image('map12back', map12back);
+    this.load.image('map13back', map13back);
     
 
     // sounds

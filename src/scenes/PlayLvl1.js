@@ -17,6 +17,7 @@ import Angel from '../npc/Angel';
 import BossDragon from '../enemies/BossDragon';
 import HellBeast from '../enemies/HellBeast';
 import Doors from '../utils/Doors';
+import Platform from '../utils/Platform';
 import SaveStation from '../utils/saveStation';
 import countDeadEnemies from '../utils/counDeadEnemies';
 import countTime from '../utils/countTime';
@@ -68,6 +69,7 @@ export default class playLvl1 extends Scene {
     this.doorGroup = [];
     this.saveStationGroup = [];
     this.pathGroup = [];
+    this.platformGroup = [];
     this.paraBackGroup = [];
     this.paraMiddleGroup = [];
     this.paraMiddle2Group = [];
@@ -92,7 +94,6 @@ export default class playLvl1 extends Scene {
 
     // player walk and run sounds
     this.walkplay = false;
-    
     this.walkk = this.sound.add('run', { volume: 0.8 });
     this.player.on('animationupdate', () => {
       const runSpeedNow = Math.abs(this.player.body.velocity.x);
@@ -217,8 +218,8 @@ export default class playLvl1 extends Scene {
     });
 
     // particles for map tiles exploded
-    this.tileParticles = this.add.particles('blackPixel');
-    this.tileEmitter = this.tileParticles.createEmitter({
+    this.weaponParticles = this.add.particles('blackPixel');
+    this.weaponParticleEmitter = this.weaponParticles.createEmitter({
       angle: { min: -30, max: -150 },
       speed: { min: 200, max: 400 },
       // frame: arr,
@@ -656,7 +657,7 @@ export default class playLvl1 extends Scene {
       || this.player.state.selectedWeapon === 'bullet'
       || this.player.state.selectedWeapon === 'swell'
       ) {
-        this.player[`${this.player.state.selectedWeapon}Kill`](bull);
+        this.player.bulletKill(bull);
       }
 
       if (this.player.state.selectedWeapon === 'waterStorm') {
@@ -840,6 +841,8 @@ export default class playLvl1 extends Scene {
     this.powerups = [];
     this.pathGroup.forEach(e => e.destroy());
     this.pathGroup = [];
+    this.platformGroup.forEach(e => e.destroy());
+    this.platformGroup = [];
     this.enemyGroup.forEach(e => e.destroy());
     this.enemyGroup = [];
     this.npcGroup.forEach(e => e.destroy());
@@ -873,6 +876,7 @@ export default class playLvl1 extends Scene {
     } else {
       this.player.body.reset(doorP.state.playerX * 16 + 12 , doorP.state.playerY * 16 + 20);
     }
+    this.addPath();
     this.addEnemies();
     this.addColliders();
     this.addPowerUp();
@@ -940,30 +944,38 @@ export default class playLvl1 extends Scene {
     if (!layerArray || layerArray.objects.length === 0) {
       return;
     }
+    console.log(layerArray)
     layerArray.objects.forEach((element) => {
-      const poly = element.polyline;
-      const pathOriginX = element.properties.originX;
-      const pathOriginY = element.properties.originY;
-      this.pathCrabs = new Phaser.Curves.Path(pathOriginX + poly[0].x, pathOriginY + poly[0].y);
-      poly.forEach(line => this.pathCrabs.lineTo(line.x + pathOriginX, line.y + pathOriginY));
-      this[`path${element.name}`] = this.add.follower(this.pathCrabs, pathOriginX, pathOriginY, 'blackPixel');
-      this[`path${element.name}`].setVisible(true);
-      this[`path${element.name}`].setTintFill(0xFF0000);
-      this[`path${element.name}`].name = element.name;
-      this[`path${element.name}`].startFollow({
+      // const poly = element.polyline;
+      // const pathOriginX = element.properties.originX * 16;
+      // const pathOriginY = element.properties.originY * 16;
+      // this.pathPlatform = new Phaser.Curves.Path(pathOriginX + poly[0].x, pathOriginY + poly[0].y);
+      // poly.forEach(line => this.pathPlatform.lineTo(line.x + pathOriginX, line.y + pathOriginY));
+      // this[`path${element.name}`] = this.add.follower(this.pathPlatform, pathOriginX, pathOriginY, 'blackPixel');
+      // this[`path${element.name}`].setVisible(true);
+      // this[`path${element.name}`].setTintFill(0xFF0000);
+      // this[`path${element.name}`].name = element.name;
+      // this[`path${element.name}`].startFollow({
+      //   duration: element.properties.duration,
+      //   yoyo: false,
+      //   repeat: -1,
+      //   rotateToPath: false,
+      //   verticalAdjust: false,
+      // });
+      // this.pathGroup.push(this[`path${element.name}`]);
+      this[element.name] = new Platform(this, element.x, element.y - 16, {
+        key: 'movingPlatform',
+        name: element.name,
         duration: element.properties.duration,
-        yoyo: false,
-        repeat: -1,
-        rotateToPath: true,
-        verticalAdjust: false,
+        directionType: element.properties.vertical,
       });
-      this.pathGroup.push(this[`path${element.name}`]);
+      this.platformGroup.push(this[element.name]);
       // graphics for debug
-      const graphics = this.add.graphics();
+      // const graphics = this.add.graphics();
 
-      graphics.lineStyle(1, 0xffffff, 1); // what is 1, , 1
+      // graphics.lineStyle(1, 0xffffff, 1); // what is 1, , 1
 
-      this.pathCrabs.draw(graphics, 328); // what is 328
+      // this.pathPlatform.draw(graphics, 328); // what is 328
     });
   }
 
@@ -976,7 +988,7 @@ export default class playLvl1 extends Scene {
       }
       return true;
     }, this);
-
+    this.physics.add.collider(this.platformGroup, this.player, (platform) => this.player.playerOnPlatform(platform), null, this);
     this.physics.add.collider(this.enemyGroup, this.solLayer, null);
     this.physics.add.collider(this.enemyGroup, this.doorGroup, (e, d) => {
       if (this[e.name] === undefined) {

@@ -252,8 +252,8 @@
                      "destination":"map13",
                      "key":"doorBlue",
                      "openWith":"any",
-                     "playerX":3,
-                     "playerY":10,
+                     "playerX":1,
+                     "playerY":2,
                      "side":"left"
                     },
                  "propertytypes":
