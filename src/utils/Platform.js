@@ -43,6 +43,9 @@ export default class Platform extends Phaser.GameObjects.Sprite {
   }
 
   handleDirection() {
+    if (!this.active) {
+      return;
+    }
     this.scene.time.addEvent({
       delay: this.duration,
       loop: true,
@@ -58,6 +61,9 @@ export default class Platform extends Phaser.GameObjects.Sprite {
   }
 
   startMoving(direction) {
+    if (!this.active) {
+      return;
+    }
     if (!this.directionType) {
       if(direction === 'right') {
         this.body.setVelocityX(100);

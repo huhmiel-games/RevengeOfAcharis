@@ -83,7 +83,7 @@ export default class playLvl1 extends Scene {
     this.ambient1 = this.sound.add('ambient1', { volume: 0.2, loop: true });
     this.ambient2 = this.sound.add('ambient2', { volume: 0.1, loop: true });
     this.ambient3 = this.sound.add('ambient3', { volume: 0.1, loop: true });
-
+    this.thunderGateSfx = this.sound.add('thunderGateSfx', { volume: 1, loop: true });
     this.musicGroup.push(this.ambient1, this.ambient2, this.ambient3);
 
     // ====================================================================
@@ -664,6 +664,7 @@ export default class playLvl1 extends Scene {
         // destroy the thunder door
         if ( el instanceof Thunder) {
           el.destroy();
+          this.thunderGateSfx.stop();
           this.player.inventory.thunderDoorOpen = true;
           return;
         }
@@ -800,6 +801,7 @@ export default class playLvl1 extends Scene {
     this.addColliders();
     this.addPowerUp();
     this.addEnemies();
+    this.addPath();
     // launch special functions from the room
     if (this.map.properties.callFunction && this.map.properties.callFunction.length) {
       const arr = this.map.properties.callFunction.split(',');
@@ -856,6 +858,9 @@ export default class playLvl1 extends Scene {
     this.paraBackGroup.forEach(e => e.destroy());
     this.paraMiddleGroup.forEach(e => e.destroy());
     this.paraMiddle2Group.forEach(e => e.destroy());
+    if(this.thunderGateSfx.isPlaying) {
+      this.thunderGateSfx.stop();
+    }
     // this.lights.lights.forEach(light => light.setPosition(-10000, -10000)); // this.lights.removeLight(light));
 
     // create new room
@@ -946,23 +951,6 @@ export default class playLvl1 extends Scene {
     }
     console.log(layerArray)
     layerArray.objects.forEach((element) => {
-      // const poly = element.polyline;
-      // const pathOriginX = element.properties.originX * 16;
-      // const pathOriginY = element.properties.originY * 16;
-      // this.pathPlatform = new Phaser.Curves.Path(pathOriginX + poly[0].x, pathOriginY + poly[0].y);
-      // poly.forEach(line => this.pathPlatform.lineTo(line.x + pathOriginX, line.y + pathOriginY));
-      // this[`path${element.name}`] = this.add.follower(this.pathPlatform, pathOriginX, pathOriginY, 'blackPixel');
-      // this[`path${element.name}`].setVisible(true);
-      // this[`path${element.name}`].setTintFill(0xFF0000);
-      // this[`path${element.name}`].name = element.name;
-      // this[`path${element.name}`].startFollow({
-      //   duration: element.properties.duration,
-      //   yoyo: false,
-      //   repeat: -1,
-      //   rotateToPath: false,
-      //   verticalAdjust: false,
-      // });
-      // this.pathGroup.push(this[`path${element.name}`]);
       this[element.name] = new Platform(this, element.x, element.y - 16, {
         key: 'movingPlatform',
         name: element.name,
@@ -970,12 +958,6 @@ export default class playLvl1 extends Scene {
         directionType: element.properties.vertical,
       });
       this.platformGroup.push(this[element.name]);
-      // graphics for debug
-      // const graphics = this.add.graphics();
-
-      // graphics.lineStyle(1, 0xffffff, 1); // what is 1, , 1
-
-      // this.pathPlatform.draw(graphics, 328); // what is 328
     });
   }
 
@@ -1182,6 +1164,7 @@ export default class playLvl1 extends Scene {
         });
         this[element.name].animate(element.properties.key, true);
         this.enemyGroup.push(this[element.name]);
+        this.thunderGateSfx.play();
       });
     }
     // the burning ghoul

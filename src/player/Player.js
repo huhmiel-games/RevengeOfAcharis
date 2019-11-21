@@ -67,7 +67,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
     this.selectWeaponFlag = false;
     this.chooseDone = false;
     this.isSpelling = false;
-    this.isOnPlatform = false;
+    // this.isOnPlatform = false;
     this.playOnTouchingGroundFlag = false;
     this.setDepth(105);
     // this.setPipeline('Light2D');
@@ -276,7 +276,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
       // saute
       if (keys.jump.isDown && (body.blocked.down || body.touching.down) && state.canJump) {
         // saut droit
-        this.isOnPlatform = false;
+        // this.isOnPlatform = false;
         if (!keys.left.isDown || !keys.right.isDown) {
           this.body.setVelocityY(-this.state.speed);
         }
@@ -303,13 +303,6 @@ export default class Player extends Phaser.GameObjects.Sprite {
         }
       }
 
-      // if on platform
-      // if (this.isOnPlatform) {
-      //   console.log('here')
-      //   this.body.setAllowGravity(true).setGravityY(1200);
-      // } else {
-      //   this.body.setAllowGravity(false);
-      // }
       // a l'atterissage
       // play a louder walk sound just once when touching floor
       if (!body.onFloor()) {
@@ -372,16 +365,8 @@ export default class Player extends Phaser.GameObjects.Sprite {
   }
 
   playerOnPlatform(platform) {
-    console.log(platform)
-    this.isOnPlatform = true;
+    // this.isOnPlatform = true;
     this.body.setVelocityX(platform.body.velocity.x)
-    // if () {
-    //   this.body.setVelocityX(200)
-    // } else {
-    //   this.body.setVelocityX(-200)
-    // }
-    // //this.body.reset(platform.x, platform.y - 16)
-
   }
 
   animate(str) {
@@ -508,8 +493,9 @@ export default class Player extends Phaser.GameObjects.Sprite {
             lavaStorm.name ='lavaStorm';
             lavaStorm.setOrigin(0.5, 0).setVisible(true);
             lavaStorm.anims.play('lava-storm', true);
-            lavaStorm.body.setSize(64, 160).reset(enemy.body.x + enemy.body.width / 2, camView.y)
-            //lavaStorm.body.setCollideWorldBounds(true);
+            lavaStorm.body.setSize(64, 160).reset(enemy.body.x + enemy.body.width / 2, camView.y);
+            lavaStorm.body.setCollideWorldBounds(true);
+            this.scene.sound.play('lavaStormSfx', { volume: 1 });
             
             this.scene.physics.world.enable(lavaStorm);
             this.scene.add.existing(lavaStorm);

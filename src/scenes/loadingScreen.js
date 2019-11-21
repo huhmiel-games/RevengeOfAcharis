@@ -11,6 +11,9 @@ import bulletFX from '../assets/sfx/knife_fire.ogg'; // knife sfx
 import swellFX from '../assets/sfx/sword_fire.ogg'; // sword sfx
 import missileFX from '../assets/sfx/axe_fire.ogg'; // axe sfx
 import waterStormSfx from '../assets/sfx/water_magic.ogg';
+import lavaStormSfx from '../assets/sfx/lava_magic.ogg';
+import thunderStormSfx from '../assets/sfx/thunder_magic.ogg';
+import thunderGateSfx from '../assets/sfx/thunder_gate.ogg';
 import forestWalkSfx from '../assets/sfx/forest_walk.ogg';
 import townWalkSfx from '../assets/sfx/town_walk.ogg';
 import graveyardWalkSfx from '../assets/sfx/graveyard_walk.ogg';
@@ -137,6 +140,8 @@ import map11back from '../maps/map11back.png';
 import map11middle2 from '../maps/map11middle2.png';
 import map12back from '../maps/map12back.png';
 import map13back from '../maps/map13back.png';
+import map14back from '../maps/map14back.png';
+import map19back from '../maps/map19back.png';
 
 // dashboard
 //import blackPixel from '../assets/blackPixel.png';
@@ -258,6 +263,8 @@ export default class LoadingScreen extends Scene {
     this.load.image('map11middle2', map11middle2);
     this.load.image('map12back', map12back);
     this.load.image('map13back', map13back);
+    this.load.image('map14back', map14back);
+    this.load.image('map19back', map19back);
     
 
     // sounds
@@ -265,6 +272,9 @@ export default class LoadingScreen extends Scene {
     this.load.audio('swell', swellFX);
     this.load.audio('missile', missileFX);
     this.load.audio('waterStormSfx', waterStormSfx);
+    this.load.audio('lavaStormSfx', lavaStormSfx);
+    this.load.audio('thunderStormSfx', thunderStormSfx);
+    this.load.audio('thunderGateSfx', thunderGateSfx);
     this.load.audio('forestWalkSfx', forestWalkSfx);
     this.load.audio('townWalkSfx', townWalkSfx);
     this.load.audio('graveyardWalkSfx', graveyardWalkSfx);
