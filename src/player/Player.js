@@ -86,7 +86,42 @@ export default class Player extends Phaser.GameObjects.Sprite {
       run: Phaser.Input.Keyboard.KeyCodes[keysOptions[6]],
       select: Phaser.Input.Keyboard.KeyCodes[keysOptions[7]],
       pause: Phaser.Input.Keyboard.KeyCodes[keysOptions[8]],
+      cheat: Phaser.Input.Keyboard.KeyCodes['Y'],
     });
+  }
+
+  cheat() {
+    this.inventory = {
+      boss1: true,
+      boss2: true,
+      bossFinal: false,
+      bullet: true,
+      bulletDamage: 5,
+      fireRate: 420,
+      lavaStorm: true,
+      lavaStormDamage: 150,
+      life: 300,
+      lifeEnergyBlock: 3,
+      map: "map10",
+      missile: true,
+      missileDamage: 30,
+      powerUp: [0, 1, 1, 1, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      savedPositionX: 223.25,
+      savedPositionY: 1215.5,
+      selectableWeapon: ["bullet", "waterStorm", "swell", "missile", "lavaStorm"],
+      swell: true,
+      swellDamage: 10,
+      thunderDoorOpen: true,
+      thunderDoorReached: true,
+      thunderStorm: false,
+      thunderStormDamage: 200,
+      townInFire: true,
+      waterStorm: true,
+      waterStormDamage: 100,
+    };
+    const s = JSON.stringify(this.inventory);
+    localStorage.setItem('RevengeOfAcharis', s);
+    this.cheatMsg = this.scene.add.bitmapText(this.x, this.y - 42, 'atomic', "reload the page to get full power", 8, 1)
   }
 
   preUpdate(time, delta) {
@@ -94,6 +129,14 @@ export default class Player extends Phaser.GameObjects.Sprite {
     const {
       body, keys, state, inventory,
     } = this;
+
+    //////////////CHEAT//////////////
+    if (keys.cheat.isDown) {
+      if (this.isCheating) return;
+      this.isCheating = true;
+      this.cheat();
+    }
+    /////////////////////////////////
     let animationName;
     // if not game pause
     if (!state.pause && !state.dead) {
