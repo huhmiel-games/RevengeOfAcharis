@@ -96,10 +96,11 @@ export default class playLvl1 extends Scene {
     this.walkk = this.sound.add('run', { volume: 0.8 });
     this.player.on('animationupdate', () => {
       const runSpeedNow = Math.abs(this.player.body.velocity.x);
+      const walkRate = Phaser.Math.RND.realInRange(0.75, 1.25)
       const runTimer = runSpeedNow > 0 ? (1000 / runSpeedNow) * 50 : 330;
       if (this.player.anims.currentAnim.key === 'playerRun' && !this.walkplay && this.player.body.blocked.down) {
         this.walkplay = true;
-        this.walkk.play();
+        this.walkk.play({ rate: walkRate });
         this.time.addEvent({
           delay: runTimer,
           callback: () => {
@@ -109,7 +110,7 @@ export default class playLvl1 extends Scene {
       }
       if (this.player.anims.currentAnim.key === 'playerWalk' && !this.walkplay && this.player.body.blocked.down) {
         this.walkplay = true;
-        this.walkk.play();
+        this.walkk.play({ rate: walkRate });
         this.time.addEvent({
           delay: 330,
           callback: () => {
@@ -318,6 +319,7 @@ export default class playLvl1 extends Scene {
   // ====================================================================
 
   playMusic(music) {
+    return; //disabled music for working on walk sounds
     for (let i = 0; i < this.musicGroup.length; i += 1) {
       if (this.musicGroup[i].isPlaying && this.musicGroup[i].key === music) {
         break;
@@ -802,7 +804,7 @@ export default class playLvl1 extends Scene {
       const arr = this.map.properties.callFunction.split(',');
       arr.forEach(elm => this[elm]());
     }
-    this.walkk = this.sound.add(this.map.properties.walkSfx, { volume: 0.8 });
+    this.walkk = this.sound.add(this.map.properties.walkSfx, { volume: 0.8, rate: 1 });
     this.cameras.main.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
     this.physics.world.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
     this.cameras.main.startFollow(this.player, true, 0.4, 0.1);
@@ -880,7 +882,7 @@ export default class playLvl1 extends Scene {
       arr.forEach(elm => this[elm]());
     }
     this.playMusic(this.map.properties.music);
-    this.walkk = this.sound.add(this.map.properties.walkSfx, { volume: 0.6 });
+    this.walkk = this.sound.add(this.map.properties.walkSfx, { volume: 0.6, rate: 1 });
     this.cameras.main.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
     this.physics.world.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
     this.cameras.main.startFollow(this.player, true, 0.4, 0.1);
