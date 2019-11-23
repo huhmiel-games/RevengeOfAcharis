@@ -38,6 +38,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
       townInFire: false,
       boss2: false,
       bossFinal: false,
+      escape: false,
       powerUp: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     };
     this.state = {

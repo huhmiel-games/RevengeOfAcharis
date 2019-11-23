@@ -96,6 +96,7 @@ export default class playLvl1 extends Scene {
     this.player = new Player(this, 80,170, { key: 'player' }); // 458, 122 4 * 16, 6 * 16
     this.playerHurt = false;
     this.player.body.setCollideWorldBounds(true);
+    this.thunderOnPlayer = false;
 
     // player walk and run sounds
     this.walkplay = false;
@@ -135,7 +136,7 @@ export default class playLvl1 extends Scene {
     // player missiles
     this.player.axes = this.physics.add.group({
       defaultKey: 'axe',
-      maxSize: 1,
+      maxSize: 10,
       allowGravity: false,
       createIfNull: true,
     });
@@ -160,6 +161,12 @@ export default class playLvl1 extends Scene {
       createIfNull: true,
     });
     this.player.thunderMagic = this.physics.add.group({
+      defaultKey: 'thunder-storm',
+      maxSize: 25,
+      allowGravity: false,
+      createIfNull: true,
+    });
+    this.thunderPower = this.physics.add.group({
       defaultKey: 'thunder-storm',
       maxSize: 1,
       allowGravity: false,
@@ -238,7 +245,7 @@ export default class playLvl1 extends Scene {
     this.explodeSprite = this.add.group({
       defaultKey: 'enemies',
       frame: ['enemy-death-1', 'enemy-death-2', 'enemy-death-3', 'enemy-death-4', 'enemy-death-5'],
-      maxSize: 30,
+      maxSize: 50,
       allowGravity: false,
       createIfNull: true,
     });
@@ -567,7 +574,7 @@ export default class playLvl1 extends Scene {
         ease: 'Sine.easeInOut',
         duration: 200,
         delay: 0,
-        repeat: 5,
+        repeat: 2,
         yoyo: true,
         alpha: {
           getStart: () => 0,
@@ -732,6 +739,16 @@ export default class playLvl1 extends Scene {
     }
     // enemy is dead
     if (el.state.life <= 0) {
+      if (el.name === 'demon' && el.phase === 0) {
+        el.clearTint();
+        el.startPhase1();
+        return;
+      }
+      if (el.name === 'demon' && el.phase === 2) {
+        el.clearTint();
+        el.startPhase3();
+        return;
+      }
       el.clearTint();
       el.explode();
       // kill the enemy
@@ -765,10 +782,13 @@ export default class playLvl1 extends Scene {
   }
 
   enemyExplode(x, y) {
-    const exp = this.explodeSprite.getFirstDead(true, x, y - 8, 'enemyExplode', null, true).setDepth(107);
-    exp.anims.play('enemyExplode').on('animationcomplete', () => {
+    const exp = this.explodeSprite.getFirstDead(true, x, y - 8, 'enemyExplode', null, true)
+    if (exp) {
+      exp.setDepth(107);
+      exp.anims.play('enemyExplode').on('animationcomplete', () => {
       exp.destroy();
     });
+    } 
   }
 
 
@@ -789,7 +809,6 @@ export default class playLvl1 extends Scene {
       this.player.inventory.savedPositionX = this.player.x;
       this.player.inventory.savedPositionY = this.player.y;
       this.player.inventory.map = savestation.state.destination;
-      console.log(this.player.inventory)
       const s = JSON.stringify(this.player.inventory);
       localStorage.setItem('RevengeOfAcharis', s);
       this.sound.play('melo');
@@ -896,7 +915,8 @@ export default class playLvl1 extends Scene {
     if(this.thunderGateSfx.isPlaying) {
       this.thunderGateSfx.stop();
     }
-    // this.lights.lights.forEach(light => light.setPosition(-10000, -10000)); // this.lights.removeLight(light));
+    if(this.demon) this.demon.destroy();
+    this.lights.lights.forEach(light => light.setPosition(-10000, -10000)); // this.lights.removeLight(light));
 
     // create new room
     this.map = this.make.tilemap({ key: doorP.state.destination, tileWidth: 16, tileHeight: 16 });
@@ -984,7 +1004,6 @@ export default class playLvl1 extends Scene {
     if (!layerArray || layerArray.objects.length === 0) {
       return;
     }
-    console.log(layerArray)
     layerArray.objects.forEach((element) => {
       this[element.name] = new Platform(this, element.x, element.y - 16, {
         key: 'movingPlatform',
@@ -1008,7 +1027,9 @@ export default class playLvl1 extends Scene {
     this.physics.add.collider(this.platformGroup, this.player, (platform) => this.player.playerOnPlatform(platform), null, this);
     this.physics.add.collider(this.platformSpikeGroup, this.solLayer, null);
     this.physics.add.collider(this.platformSpikeGroup, this.player, (platform) => this.playerIsHit(platform), null, this);
-    this.physics.add.collider(this.enemyGroup, this.solLayer, null);
+    this.physics.add.collider(this.enemyGroup, this.solLayer, null, (enemy, tile) => {
+      if (enemy.name !== 'demon') return true;
+    });
     this.physics.add.collider(this.enemyGroup, this.doorGroup, (e, d) => {
       if (this[e.name] === undefined) {
         e.destroy();
@@ -1453,7 +1474,6 @@ export default class playLvl1 extends Scene {
     if (!this.player.inventory.thunderDoorReached) {
       return;
     }
-    console.log(this.map)
     this.npcGroup.forEach(npc => npc.destroy())
     this.oldman = new Oldman(this, 144, 455 - 16, {
       key: 'oldman-walk',
@@ -1500,12 +1520,65 @@ export default class playLvl1 extends Scene {
   }
 
   callDemon() {
-    if (this.player.inventory.boss3) {
+    if (this.player.inventory.bossFinal) {
       return;
     }
     this.demon = new Demon(this, 24 *16, 24 *16, { key: 'finalBoss', name: 'demon' });
-    //this.enemyGroup.push(this.demon)
+    this.enemyGroup.push(this.demon)
     this.physics.add.overlap(this.demon, this.player, elm => this.playerIsHit(elm), null, this);
+    this.physics.add.overlap(this.skullGroup, this.player, elm => this.playerIsHit(elm), null, this);
+    this.physics.add.overlap(this.breathGroup, this.player, elm => this.playerIsHit(elm), null, this);
+    this.physics.add.overlap([
+      this.player.knives,
+      this.player.swords,
+      this.player.axes,
+      this.player.waterMagic,
+      this.player.lavaMagic,
+      this.player.thunderMagic,], this.skullGroup, (elm, bull) => {
+        this.player.bulletKill(bull);
+        this.enemyExplode(bull.x, bull.y)
+        bull.destroy()
+      }, null, this.player);
+
+      // this.physics.add.overlap([
+      // this.player.knives,
+      // this.player.swords,
+      // this.player.axes,
+      // this.player.waterMagic,
+      // this.player.lavaMagic,
+      // this.player.thunderMagic,], this.demon, (elm, bull) => {
+      //   console.log(bull, elm)
+      //   this.player.bulletKill(bull);
+      //   this.enemyIsHit(elm)
+      //   // this.enemyExplode(bull.x, bull.y)
+      //   // bull.destroy()
+      // }, null, this.player);
+
+    this.physics.add.overlap(this.thunderPower, this.player, (player, thunder) => {
+      if (this.thunderOnPlayer) {
+        return;
+      }
+      this.thunderOnPlayer = true;
+      thunder.body.setVelocity(0, 0);
+      this.time.addEvent({
+        delay: 100,
+        repeat: this.player.inventory.life - 1,
+        callback: () => {
+          if (this.player.inventory.life > 1) {
+            this.demon.resetPipeline();
+            this.player.setPipeline('GlowFx');
+            this.player.inventory.life -= 1;
+            this.sound.play('playerHit');
+            this.events.emit('setHealth', { life: Math.round(this.player.inventory.life) });
+          } else {
+            this.player.setPipeline('GlowFixedFx');
+            this.thunderGateSfx.stop();
+            this.demon.demonThunder.destroy();
+            this.demon.startPhase2();
+          }
+        }
+      });
+    }, null, this);
   }
 
   // ====================================================================

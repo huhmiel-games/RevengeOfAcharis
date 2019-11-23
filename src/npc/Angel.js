@@ -14,12 +14,13 @@ export default class Angel extends Phaser.GameObjects.Sprite {
     this.showMsg = null;
     this.isTalking = false;
     this.msgCount = 0;
+    this.finalSequence = false;
     this.animate('angel-idle', true);
   }
 
   preUpdate(time, delta) {
     super.preUpdate(time, delta);
-    if (this.active) {
+    if (this.active && !this.finalSequence) {
       // flip to face the player
       if (this.x > this.scene.player.x) {
         this.flipX = true;
@@ -32,6 +33,14 @@ export default class Angel extends Phaser.GameObjects.Sprite {
         this.stopTalking();
       }
     }
+    if (this.active && this.finalSequence) {
+      const distance = Phaser.Math.Distance.Between(this.scene.player.x, this.scene.player.y, this.x, this.y);
+      if (distance < 50) {
+        this.body.setVelocity(0, 0);
+        this.talkFinalSequence()
+      }
+    }
+
   }
 
   talkToPlayer() {
@@ -66,7 +75,6 @@ export default class Angel extends Phaser.GameObjects.Sprite {
           this.showMsg.text = msg[this.msgCount];
           this.walkplay = false;
         } else {
-          console.log('here')
           this.showMsg.text = "";
           this.body.setVelocityY(-30);
           const item = {};
@@ -83,6 +91,66 @@ export default class Angel extends Phaser.GameObjects.Sprite {
   stopTalking() {
     this.isTalking = false;
     this.showMsg && this.showMsg.setAlpha(0);
+  }
+
+  talkFinalSequence() {
+    if (this.isTalking) {
+      return;
+    }
+    this.isTalking = true;
+    const msg = [
+      `Hey Acharis!!`,
+      `Don't give up`,
+      `I can merge with you to defeat this demon`,
+      `Let's go!!`];
+    this.showMsg = this.scene.add.bitmapText(this.x, this.y - 42, 'atomic', msg[0], 8, 1)
+      .setOrigin(0.5, 0.5).setAlpha(1).setDepth(200);
+    // pause the player
+    this.scene.player.state.pause = true;
+
+    this.scene.time.addEvent({
+      delay: 2000,
+      repeat: 3,
+      callback: () => {
+        if (this.msgCount < msg.length - 1) {
+          this.msgCount += 1;
+          this.showMsg.text = msg[this.msgCount];
+          this.walkplay = false;
+        } else {
+          this.showMsg.text = "";
+          this.scene.tweens.add({
+            targets: this,
+            ease: 'Sine.easeInOut',
+            duration: 4200,
+            delay: 0,
+            repeat: 0,
+            yoyo: false,
+            scale: {
+              getStart: () => 1,
+              getEnd: () => 0,
+            },
+            onComplete: () => {
+              this.scene.player.inventory.bulletDamage = 5 * 10;
+              this.scene.player.inventory.swellDamage = 10 * 10;
+              this.scene.player.inventory.missileDamage = 30 * 10;
+              this.scene.player.inventory.life = 100 + 100 * this.scene.player.inventory.lifeEnergyBlock;
+              this.scene.events.emit('setHealth', { life: Math.round(this.scene.player.inventory.life) });
+              this.scene.sound.play('getLife', { volume: 0.05 });
+              // this.scene.player.inventory.waterStormDamage = 100 * 10;
+              // this.scene.player.inventory.lavaStormDamage = 150 * 10;
+              // this.scene.player.inventory.thunderStormDamage = 200 * 10;
+              this.scene.player.inventory.fireRate = 120;
+              this.scene.demon.phase = 2;
+              this.scene.player.body.setSize(10, 25, true).setOffset(21, 10)
+              this.scene.player.state.pause = false;
+              this.body.reset(-100, -100);
+              this.scene.player.setPipeline('GlowFx');
+              this.scene.demon.isFollowingPath = true;    
+            }
+          });
+        }
+      },
+    });
   }
 
   animate(str) {

@@ -5,7 +5,7 @@
          "encoding":"base64",
          "height":32,
          "name":"back",
-         "opacity":0.990000009536743,
+         "opacity":0,
          "type":"tilelayer",
          "visible":true,
          "width":50,
@@ -285,7 +285,7 @@
                         }, 
                         {
                          "x":0,
-                         "y":-192
+                         "y":-240
                         }, 
                         {
                          "x":48,
