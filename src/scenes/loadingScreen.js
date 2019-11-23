@@ -104,7 +104,7 @@ import map16 from '../maps/map16.json';
 import map17 from '../maps/map17.json';
 import map18 from '../maps/map18.json';
 import map19 from '../maps/map19.json';
-import map20 from '../maps/map20.json';
+//import map20 from '../maps/map20.json';
 
 
 // Various
@@ -123,6 +123,7 @@ import whitePixel from '../assets/whitePixel.png';
 import normalMapPixel from '../assets/normalMapPixel.png';
 import head from '../assets/head.png';
 import movingPlatform from '../assets/platform.png';
+import platformSpike from '../assets/platformSpike.png';
 
 // parralax
 import map1back from '../maps/map1back.png';
@@ -141,6 +142,10 @@ import map11middle2 from '../maps/map11middle2.png';
 import map12back from '../maps/map12back.png';
 import map13back from '../maps/map13back.png';
 import map14back from '../maps/map14back.png';
+import map15back from '../maps/map15back.png';
+import map16back from '../maps/map16back.png';
+import map17back from '../maps/map17back.png';
+import map18back from '../maps/map18back.png';
 import map19back from '../maps/map19back.png';
 
 // dashboard
@@ -208,7 +213,7 @@ export default class LoadingScreen extends Scene {
     this.load.tilemapTiledJSON('map17', map17);
     this.load.tilemapTiledJSON('map18', map18);
     this.load.tilemapTiledJSON('map19', map19);
-    this.load.tilemapTiledJSON('map20', map20);
+    //this.load.tilemapTiledJSON('map20', map20);
     
     // player animation
     this.load.atlas('player', spritesheetPlayer, spritesheetPlayerJSON);
@@ -234,6 +239,7 @@ export default class LoadingScreen extends Scene {
     this.load.image('blackPixel', blackPixel);
     this.load.image('whitePixel', whitePixel);
     this.load.image('movingPlatform', movingPlatform);
+    this.load.image('platformSpike', platformSpike);
 
     //dashboard
     //this.load.image('blackpixel', blackPixel);
@@ -264,6 +270,10 @@ export default class LoadingScreen extends Scene {
     this.load.image('map12back', map12back);
     this.load.image('map13back', map13back);
     this.load.image('map14back', map14back);
+    this.load.image('map15back', map15back);
+    this.load.image('map16back', map16back);
+    this.load.image('map17back', map17back);
+    this.load.image('map18back', map18back);
     this.load.image('map19back', map19back);
     
 
@@ -568,6 +578,98 @@ export default class LoadingScreen extends Scene {
       frames: [
         { key: 'hellBeast', frame: 'hell-beast-burn4' },
         { key: 'hellBeast', frame: 'hell-beast-burn5' },
+      ],
+      frameRate: 10,
+      repeat: -1,
+    });
+    // demon
+    this.anims.create({
+      key: 'demon-idle',
+      frames: [
+        { key: 'finalBoss', frame: 'demon-idle0' },
+        { key: 'finalBoss', frame: 'demon-idle1' },
+        { key: 'finalBoss', frame: 'demon-idle2' },
+        { key: 'finalBoss', frame: 'demon-idle3' },
+        { key: 'finalBoss', frame: 'demon-idle4' },
+        { key: 'finalBoss', frame: 'demon-idle5' },
+      ],
+      frameRate: 10,
+      repeat: -1,
+    });
+    this.anims.create({
+      key: 'demon-attack',
+      frames: [
+        { key: 'finalBoss', frame: 'demon-attack0' },
+        { key: 'finalBoss', frame: 'demon-attack1' },
+        { key: 'finalBoss', frame: 'demon-attack2' },
+        { key: 'finalBoss', frame: 'demon-attack3' },
+        { key: 'finalBoss', frame: 'demon-attack4' },
+        { key: 'finalBoss', frame: 'demon-attack5' },
+        { key: 'finalBoss', frame: 'demon-attack6' },
+        { key: 'finalBoss', frame: 'demon-attack7' },
+      ],
+      frameRate: 10,
+      repeat: 0,
+    });
+    this.anims.create({
+      key: 'demon-attack-end',
+      frames: [
+        { key: 'finalBoss', frame: 'demon-attack7' },
+        { key: 'finalBoss', frame: 'demon-attack7' },
+        { key: 'finalBoss', frame: 'demon-attack7' },
+        { key: 'finalBoss', frame: 'demon-attack7' },
+        { key: 'finalBoss', frame: 'demon-attack7' },
+      ],
+      frameRate: 10,
+      repeat: -1,
+    });
+    this.anims.create({
+      key: 'breathBlue',
+      frames: [
+        { key: 'finalBoss', frame: 'breath0' },
+        { key: 'finalBoss', frame: 'breath1' },
+        { key: 'finalBoss', frame: 'breath2' },
+        { key: 'finalBoss', frame: 'breath3' },
+        { key: 'finalBoss', frame: 'breath1' },
+        { key: 'finalBoss', frame: 'breath2' },
+        { key: 'finalBoss', frame: 'breath3' },
+        { key: 'finalBoss', frame: 'breath1' },
+        { key: 'finalBoss', frame: 'breath2' },
+        { key: 'finalBoss', frame: 'breath3' },
+        { key: 'finalBoss', frame: 'breath4' },
+      ],
+      frameRate: 10,
+      repeat: 0,
+    });
+    this.anims.create({
+      key: 'breathFire',
+      frames: [
+        { key: 'finalBoss', frame: 'breath-fire0' },
+        { key: 'finalBoss', frame: 'breath-fire1' },
+        { key: 'finalBoss', frame: 'breath-fire2' },
+        { key: 'finalBoss', frame: 'breath-fire3' },
+        { key: 'finalBoss', frame: 'breath-fire1' },
+        { key: 'finalBoss', frame: 'breath-fire2' },
+        { key: 'finalBoss', frame: 'breath-fire3' },
+        { key: 'finalBoss', frame: 'breath-fire1' },
+        { key: 'finalBoss', frame: 'breath-fire2' },
+        { key: 'finalBoss', frame: 'breath-fire3' },
+        { key: 'finalBoss', frame: 'breath-fire4' },
+      ],
+      frameRate: 10,
+      repeat: 0,
+    });
+    this.anims.create({
+      key: 'fire-skull',
+      frames: [
+        { key: 'finalBoss', frame: 'fire-skull0' },
+        { key: 'finalBoss', frame: 'fire-skull1' },
+        { key: 'finalBoss', frame: 'fire-skull2' },
+        { key: 'finalBoss', frame: 'fire-skull3' },
+        { key: 'finalBoss', frame: 'fire-skull4' },
+        { key: 'finalBoss', frame: 'fire-skull5' },
+        { key: 'finalBoss', frame: 'fire-skull6' },
+        { key: 'finalBoss', frame: 'fire-skull7' },
       ],
       frameRate: 10,
       repeat: -1,

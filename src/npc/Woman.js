@@ -38,9 +38,10 @@ export default class Woman extends Phaser.GameObjects.Sprite {
       return;
     }
     this.isTalking = true;
-    const msg = `Take care!!
-    Monsters attacks the town regularly...
-    I'm afraid for my childrens...`;
+    const msg = `Be careful Acharis,
+    our town has been regularly attacked by monsters,
+    it's a nightmare...
+    I fear for my children every day.`;
     this.showMsg = this.scene.add.bitmapText(this.x, this.y - 42, 'atomic', msg, 8, 1)
       .setOrigin(0.5, 0.5).setAlpha(1).setDepth(200);
   }

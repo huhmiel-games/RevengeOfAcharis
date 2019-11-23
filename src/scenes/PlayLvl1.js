@@ -16,8 +16,10 @@ import Oldman from '../npc/Oldman';
 import Angel from '../npc/Angel';
 import BossDragon from '../enemies/BossDragon';
 import HellBeast from '../enemies/HellBeast';
+import Demon from '../enemies/Demon';
 import Doors from '../utils/Doors';
 import Platform from '../utils/Platform';
+import PlatformSpike from '../enemies/PlatformSpike';
 import SaveStation from '../utils/saveStation';
 import countDeadEnemies from '../utils/counDeadEnemies';
 import countTime from '../utils/countTime';
@@ -75,6 +77,9 @@ export default class playLvl1 extends Scene {
     this.paraMiddle2Group = [];
     this.fireballGroup = [];
     this.npcGroup = [];
+    this.platformSpikeGroup = [];
+    this.breathGroup = [];
+    this.skullGroup = [];
 
 
     // ====================================================================
@@ -167,6 +172,27 @@ export default class playLvl1 extends Scene {
       allowGravity: false,
       createIfNull: true,
     });
+    // breathBlue
+    this.breathBlue = this.physics.add.group({
+      defaultKey: 'finalBoss',
+      maxSize: 1,
+      allowGravity: false,
+      createIfNull: true,
+    });
+    // breath-fire
+    this.breathFire = this.physics.add.group({
+      defaultKey: 'finalBoss',
+      maxSize: 1,
+      allowGravity: false,
+      createIfNull: true,
+    });
+    this.skullHeads = this.physics.add.group({
+      defaultKey: 'finalBoss',
+      frame: ['fire-skull1', 'fire-skull2', 'fire-skull3', 'fire-skull4', 'fire-skull5', 'fire-skull6', 'fire-skull7'],
+      maxSize: 8,
+      allowGravity: false,
+      createIfNull: true,
+    });
     this.playerFlashTween = null;
     console.log(this);
 
@@ -216,6 +242,7 @@ export default class playLvl1 extends Scene {
       allowGravity: false,
       createIfNull: true,
     });
+
 
     // particles for map tiles exploded
     this.weaponParticles = this.add.particles('blackPixel');
@@ -525,6 +552,12 @@ export default class playLvl1 extends Scene {
     if (elm.state.damage === 0) {
       return;
     }
+    if (elm instanceof PlatformSpike && elm.body.touching.down) {
+      this.player.inventory.life = 0;
+      this.events.emit('setHealth', { life: Math.round(this.player.inventory.life) });
+      this.playerDeathSequence();
+      return;
+    }
     if (!this.playerHurt) {
       this.playerHurt = true; // flag
       this.sound.play('playerHit');
@@ -593,7 +626,7 @@ export default class playLvl1 extends Scene {
     this.physics.pause();
     this.input.enabled = false;
     this.player.anims.play('die');
-    this.playerFlashTween.stop();
+    if (this.playerFlashTween) this.playerFlashTween.stop();
     this.player.inventory.life = 0;
     this.player.setPipeline('GlowFixedFx')
     this.player.setDepth(2000);
@@ -801,7 +834,7 @@ export default class playLvl1 extends Scene {
     this.addColliders();
     this.addPowerUp();
     this.addEnemies();
-    this.addPath();
+    this.addMovingPlatform();
     // launch special functions from the room
     if (this.map.properties.callFunction && this.map.properties.callFunction.length) {
       const arr = this.map.properties.callFunction.split(',');
@@ -845,6 +878,8 @@ export default class playLvl1 extends Scene {
     this.pathGroup = [];
     this.platformGroup.forEach(e => e.destroy());
     this.platformGroup = [];
+    this.platformSpikeGroup.forEach(e => e.destroy());
+    this.platformSpikeGroup = [];
     this.enemyGroup.forEach(e => e.destroy());
     this.enemyGroup = [];
     this.npcGroup.forEach(e => e.destroy());
@@ -881,7 +916,7 @@ export default class playLvl1 extends Scene {
     } else {
       this.player.body.reset(doorP.state.playerX * 16 + 12 , doorP.state.playerY * 16 + 20);
     }
-    this.addPath();
+    this.addMovingPlatform();
     this.addEnemies();
     this.addColliders();
     this.addPowerUp();
@@ -944,7 +979,7 @@ export default class playLvl1 extends Scene {
 
   // ====================================================================
   // ADD ROOM STUFF
-  addPath() {
+  addMovingPlatform() {
     const layerArray = this.checkObjectsLayerIndex('path');
     if (!layerArray || layerArray.objects.length === 0) {
       return;
@@ -971,6 +1006,8 @@ export default class playLvl1 extends Scene {
       return true;
     }, this);
     this.physics.add.collider(this.platformGroup, this.player, (platform) => this.player.playerOnPlatform(platform), null, this);
+    this.physics.add.collider(this.platformSpikeGroup, this.solLayer, null);
+    this.physics.add.collider(this.platformSpikeGroup, this.player, (platform) => this.playerIsHit(platform), null, this);
     this.physics.add.collider(this.enemyGroup, this.solLayer, null);
     this.physics.add.collider(this.enemyGroup, this.doorGroup, (e, d) => {
       if (this[e.name] === undefined) {
@@ -1149,6 +1186,7 @@ export default class playLvl1 extends Scene {
         name: element.name,
         life: element.properties.life,
         damage: element.properties.damage,
+        delay: element.properties.delay || 0,
       });
       this.enemyGroup.push(this[element.name]);
     });
@@ -1178,6 +1216,18 @@ export default class playLvl1 extends Scene {
       });
       this[element.name].animate(element.properties.key, true);
       this.enemyGroup.push(this[element.name]);
+    });
+    // the plaptfom spike
+    const layerArray9 = this.checkObjectsLayerIndex('platformSpike');
+    layerArray9 && layerArray9.objects.forEach((element) => {
+      this[element.name] = new PlatformSpike(this, element.x, element.y - 16, {
+        key: 'platformSpike',
+        name: element.name,
+        directionType: element.properties.vertical,
+        duration: element.properties.duration,
+        damage: element.properties.damage,
+      });
+      this.platformSpikeGroup.push(this[element.name]);
     });
 
 
@@ -1447,6 +1497,15 @@ export default class playLvl1 extends Scene {
     this.lavaStormPowerUp.setAlpha(0);
     this.hellBeast = new HellBeast(this, -100, -100, { key: 'hell-beast-idle', name: 'hellBeast' });
     this.enemyGroup.push(this.hellBeast)
+  }
+
+  callDemon() {
+    if (this.player.inventory.boss3) {
+      return;
+    }
+    this.demon = new Demon(this, 24 *16, 24 *16, { key: 'finalBoss', name: 'demon' });
+    //this.enemyGroup.push(this.demon)
+    this.physics.add.overlap(this.demon, this.player, elm => this.playerIsHit(elm), null, this);
   }
 
   // ====================================================================

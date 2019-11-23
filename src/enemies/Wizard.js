@@ -11,6 +11,7 @@ export default class Wizard extends Phaser.GameObjects.Sprite {
       directionY: 0,
       hited: false,
       giveLife: config.life / 2,
+      delay: config.delay,
     };
     this.family = 'enemies';
     this.setDepth(101);
@@ -55,7 +56,7 @@ export default class Wizard extends Phaser.GameObjects.Sprite {
       return;
     }
     this.wizardTimer = this.scene.time.addEvent({
-      delay: 5000, //Phaser.Math.Between(2000, 5000),
+      delay: 5000 + this.state.delay, //Phaser.Math.Between(2000, 5000),
       callback: () => {
         if (this.isHidden && this.active) {
           this.isAppearing = true;
