@@ -363,7 +363,7 @@
  "properties":
     {
      "ambientColor":"0xDDDDDD",
-     "callFunction":"bossDragon",
+     "callFunction":"bossDragon,callBackEndMission",
      "music":"ambient3",
      "paraBack":"map3back",
      "paraMiddle":"map3middle",

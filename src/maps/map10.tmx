@@ -2,7 +2,7 @@
 <map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="25" height="80" tilewidth="16" tileheight="16" nextobjectid="557">
  <properties>
   <property name="ambientColor" value="0xDDDDDD"/>
-  <property name="callFunction" value="addThunderDoorCallback"/>
+  <property name="callFunction" value="addThunderDoorCallback,escape"/>
   <property name="mapScenePosition" value="5,3,0xCC2485"/>
   <property name="music" value="ambient3"/>
   <property name="paraBack" value="map10back"/>

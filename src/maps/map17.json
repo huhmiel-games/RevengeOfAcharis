@@ -323,7 +323,7 @@
  "properties":
     {
      "ambientColor":"0xDDDDDD",
-     "callFunction":"",
+     "callFunction":"escape",
      "music":"ambient1",
      "paraBack":"map17back",
      "paraMiddle":"",

@@ -641,6 +641,7 @@ export default class Demon extends Phaser.GameObjects.Sprite {
             delay: 1000,
             callback: () => {
               this.showMsg.destroy();
+              this.scene.escape();
             }
           });
         }

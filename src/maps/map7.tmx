@@ -2,7 +2,7 @@
 <map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="50" height="16" tilewidth="16" tileheight="16" nextobjectid="588">
  <properties>
   <property name="ambientColor" value="0xDDDDDD"/>
-  <property name="callFunction" value=""/>
+  <property name="callFunction" value="escape"/>
   <property name="mapScenePosition" value="17,5,0xCC2485"/>
   <property name="music" value="ambient1"/>
   <property name="paraBack" value="map7back"/>

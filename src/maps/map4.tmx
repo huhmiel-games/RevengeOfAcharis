@@ -2,7 +2,7 @@
 <map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="25" height="16" tilewidth="16" tileheight="16" nextobjectid="546">
  <properties>
   <property name="ambientColor" value="0xDDDDDD"/>
-  <property name="callFunction" value="bossDragon"/>
+  <property name="callFunction" value="bossDragon,callBackEndMission"/>
   <property name="music" value="ambient3"/>
   <property name="paraBack" value="map3back"/>
   <property name="paraMiddle" value="map3middle"/>

@@ -5,7 +5,7 @@
   <property name="CrumbleStartX" type="int" value="45"/>
   <property name="CrumbleStartY" type="int" value="11"/>
   <property name="ambientColor" value="0xDDDDDD"/>
-  <property name="callFunction" value="addCrumbleTiles"/>
+  <property name="callFunction" value="addCrumbleTiles,escape"/>
   <property name="mapScenePosition" value="13,2,0xCC2485"/>
   <property name="music" value="ambient1"/>
   <property name="paraBack" value="map5back"/>

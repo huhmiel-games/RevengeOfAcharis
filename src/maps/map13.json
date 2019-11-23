@@ -874,7 +874,7 @@
      "CrumbleStartX":21,
      "CrumbleStartY":7,
      "ambientColor":"0xDDDDDD",
-     "callFunction":"",
+     "callFunction":"escape",
      "mapScenePosition":"8,7,0xCC2485",
      "music":"ambient1",
      "paraBack":"map13back",

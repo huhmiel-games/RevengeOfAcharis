@@ -916,6 +916,7 @@ export default class playLvl1 extends Scene {
       this.thunderGateSfx.stop();
     }
     if(this.demon) this.demon.destroy();
+    if(this.escapeTimer) this.escapeTimer = null;
     this.lights.lights.forEach(light => light.setPosition(-10000, -10000)); // this.lights.removeLight(light));
 
     // create new room
@@ -1581,9 +1582,41 @@ export default class playLvl1 extends Scene {
     }, null, this);
   }
 
+  escape() {
+    if (!this.player.inventory.escape) {
+      return;
+    }
+    let rdm = Phaser.Math.Between(2000, 5000);
+    this.escapeTimer = this.time.addEvent({
+      delay: rdm,
+      repeat: -1,
+      callback: () => {
+        if (!this.player.inventory.escape) {
+          rdm = null;
+          return;
+        }
+        this.shakeCameraEscape(1000)
+      }
+    });
+  }
+
   // ====================================================================
   // CAMERA EFFECTS
   shakeCamera(e) {
+    if (!this.cameraIsShaking) {
+      this.cameraIsShaking = true;
+      this.cameras.main.shake(e, 0.025);
+      this.sound.play('impact', { rate: 0.5 });
+      this.time.addEvent({
+        delay: e,
+        callback: () => {
+          this.cameraIsShaking = false;
+        },
+      });
+    }
+  }
+
+  shakeCameraEscape(e) {
     if (!this.cameraIsShaking) {
       this.cameraIsShaking = true;
       this.cameras.main.shake(e, 0.025);
@@ -1647,33 +1680,50 @@ export default class playLvl1 extends Scene {
     });
   }
 
-  endMission() {
-    if (!this.isTheEnd) {
-      this.isTheEnd = true;
-      this.round = this.add.sprite(this.player.x, this.player.y, 'whitePixel')
-        .setOrigin(0.5, 0.5)
-        .setDepth(1000)
-        .setDisplaySize(4096, 4096)
-        .setAlpha(0);
-      this.countTime();
-      this.ambient1.stop();
-      this.tween = this.tweens.add({
-        targets: this.round,
-        ease: 'Sine.easeInOut',
-        duration: 1500,
-        delay: 0,
-        repeat: 0,
-        yoyo: false,
-        alpha: {
-          getStart: () => 0,
-          getEnd: () => 1,
-        },
-        onComplete: () => {
-          this.lavaRise = null;
-          this.ambient1.stop();
-          this.scene.start('endGame');
-        },
-      });
+  callBackEndMission() {
+    if (!this.player.inventory.escape) {
+      return;
     }
+    this.solLayer.setTileLocationCallback(0, 10, 20, 4, (e, t) => {
+      if (e instanceof Player) {
+        this.endMission();
+      }
+    }, this);
+
+
+  }
+
+  endMission() {
+    if (this.isTheEnd) {
+      return;
+    }
+    this.isTheEnd = true;
+    this.battleWithBoss = true;
+    this.player.inventory.escape = false;
+    this.showMsg = this.add.bitmapText(U.WIDTH / 2, U.HEIGHT / 2, 'atomic', `
+    Congratulations Acharis!!
+    You got your revenge!!!`, 14, 1)
+      .setOrigin(0.5, 0.5).setAlpha(0).setDepth(200);
+    this.countTime();
+    this.tween = this.tweens.add({
+      targets: this.showMsg,
+      ease: 'Sine.easeInOut',
+      duration: 2000,
+      delay: 2000,
+      repeat: 0,
+      yoyo: false,
+      alpha: {
+        getStart: () => 0,
+        getEnd: () => 1,
+      },
+      onComplete: () => {
+        this.time.addEvent({
+          delay: 3000,
+          callback: () => {
+            this.scene.start('endGame');
+          }
+        });
+      },
+    });
   }
 }

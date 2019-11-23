@@ -39,7 +39,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
       boss2: false,
       bossFinal: false,
       escape: false,
-      powerUp: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      powerUp: [0, 0, 0, 0, 0, 0, 0, 0],
     };
     this.state = {
       canJump: false,

@@ -411,7 +411,7 @@
  "properties":
     {
      "ambientColor":"0xDDDDDD",
-     "callFunction":"addThunderDoorCallback",
+     "callFunction":"addThunderDoorCallback,escape",
      "mapScenePosition":"5,3,0xCC2485",
      "music":"ambient3",
      "paraBack":"map10back",

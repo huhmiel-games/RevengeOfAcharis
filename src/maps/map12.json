@@ -357,7 +357,7 @@
  "properties":
     {
      "ambientColor":"0xDDDDDD",
-     "callFunction":"callHellBeast",
+     "callFunction":"callHellBeast,escape",
      "mapScenePosition":"6,7,0xCC2485",
      "music":"ambient1",
      "paraBack":"map12back",

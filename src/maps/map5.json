@@ -370,7 +370,7 @@
      "CrumbleStartX":45,
      "CrumbleStartY":11,
      "ambientColor":"0xDDDDDD",
-     "callFunction":"addCrumbleTiles",
+     "callFunction":"addCrumbleTiles,escape",
      "mapScenePosition":"13,2,0xCC2485",
      "music":"ambient1",
      "paraBack":"map5back",

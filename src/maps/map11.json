@@ -347,7 +347,7 @@
  "properties":
     {
      "ambientColor":"0xDDDDDD",
-     "callFunction":"",
+     "callFunction":"escape",
      "mapScenePosition":"4,6,0xCC2485",
      "music":"ambient3",
      "paraBack":"map11back",

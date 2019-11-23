@@ -357,6 +357,7 @@
  "properties":
     {
      "ambientColor":"0xDDDDDD",
+     "callFunction":"escape",
      "mapScenePosition":"16,2,0xCC2485",
      "music":"ambient3",
      "paraBack":"map6back",
@@ -366,6 +367,7 @@
  "propertytypes":
     {
      "ambientColor":"string",
+     "callFunction":"string",
      "mapScenePosition":"string",
      "music":"string",
      "paraBack":"string",

@@ -483,7 +483,7 @@
  "properties":
     {
      "ambientColor":"0xDDDDDD",
-     "callFunction":"",
+     "callFunction":"escape",
      "mapScenePosition":"11,5,0xCC2485",
      "music":"ambient1",
      "paraBack":"map14back",

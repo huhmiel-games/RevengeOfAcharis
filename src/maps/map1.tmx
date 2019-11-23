@@ -722,7 +722,7 @@
    <properties>
     <property name="ability" value="bullet"/>
     <property name="collides" type="bool" value="false"/>
-    <property name="id" type="int" value="1"/>
+    <property name="id" type="int" value="0"/>
     <property name="key" value="knife"/>
     <property name="name" value="knife"/>
     <property name="powerup" value="knife"/>

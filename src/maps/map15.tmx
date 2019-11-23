@@ -2,7 +2,7 @@
 <map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="75" height="32" tilewidth="16" tileheight="16" nextobjectid="573">
  <properties>
   <property name="ambientColor" value="0xDDDDDD"/>
-  <property name="callFunction" value=""/>
+  <property name="callFunction" value="escape"/>
   <property name="mapScenePosition" value="15,5,0xCC2485"/>
   <property name="music" value="ambient3"/>
   <property name="paraBack" value="map15back"/>
@@ -485,7 +485,7 @@
  <objectgroup name="octopus"/>
  <objectgroup name="fireball"/>
  <objectgroup name="rhino"/>
- <objectgroup name="savestation" visible="0">
+ <objectgroup name="savestation">
   <object id="569" name="save1" gid="440" x="864" y="272" width="16" height="16">
    <properties>
     <property name="destination" value="map15"/>
