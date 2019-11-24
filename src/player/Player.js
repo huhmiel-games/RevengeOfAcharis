@@ -549,7 +549,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
 
     const pos = this.scene.getCamOrigin();
 
-    const cloud = this.scene.add.image(pos.x - 400, pos.y - 10, 'darkClouds').setOrigin(0, 0).setDepth(103);
+    const cloud = this.scene.add.image(pos.x - 400, pos.y - 5, 'darkClouds').setOrigin(0, 0).setDepth(103);
     const cloudTween =  this.scene.tweens.add({
       targets: cloud,
       ease: 'Sine.easeInOut',
@@ -580,12 +580,12 @@ export default class Player extends Phaser.GameObjects.Sprite {
                 this.scene.add.existing(thunderStorm);
                 // thunderStorm.body.setVelocityY(400)
                 thunderStorm.setDepth(102);
-                this.scene.shakeCamera(350)
+                this.scene.shakeCamera(450)
                 
                 this.scene.sound.play('bullet', { volume: 0.08 });
                 
                 this.scene.time.addEvent({
-                  delay: 1500,
+                  delay: 1800,
                   callback: () => {
                     const cloudsAway = this.scene.tweens.add({
                       targets: cloud,
@@ -630,6 +630,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
       if (swell) {
         this.state.lastFired = time + this.inventory.fireRate;
         swell.visible = true;
+        swell.name = 'sword';
         swell.anims.play('sword', true);
         swell.setDepth(102);
 
@@ -662,6 +663,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
       if (missile) {
         this.state.lastFired = time + this.inventory.fireRate;
         missile.visible = true;
+        missile.name = 'axe';
         missile.anims.play('axe', true);
         missile.setDepth(102);
 
@@ -696,6 +698,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
       if (knife) {        
         this.state.lastFired = time + this.inventory.fireRate;
         knife.visible = true;
+        knife.name = 'knife';
         // knife.setPipeline('TestFx');
         this.scene.physics.world.enable(knife);
         this.scene.add.existing(knife);
@@ -749,7 +752,19 @@ export default class Player extends Phaser.GameObjects.Sprite {
     // elm.setVelocity(0, 0);
     // elm.setDepth(102);
     // elm.destroy();
-    this.scene.sound.play('impact', { volume: 0.4 });
+    console.log(e)
+    switch (e.name) {
+      case 'knife':
+        this.scene.sound.play('knifeIcon', { volume: 0.4, rate: 1.5 });
+        break;
+      case 'sword':
+        this.scene.sound.play('knifeIcon', { volume: 0.4, rate: 1.2 });
+        break;
+      case 'axe':
+        this.scene.sound.play('knifeIcon', { volume: 0.4, rate: 0.5 });
+        break;
+    }
+    
   }
 
   addEnergy() {
@@ -804,7 +819,27 @@ export default class Player extends Phaser.GameObjects.Sprite {
       }
       this.state.selectedWeapon = availableWeaponList[count + 1];
       this.scene.events.emit('selectWeapon', { selectedWeapon: this.state.selectedWeapon });
-      this.scene.sound.play(this.state.selectedWeapon, { volume: 0.7 });
+      switch (this.state.selectedWeapon) {
+        case 'bullet':
+          this.scene.sound.play('knifeIcon', { volume: 0.7 });
+          break;
+        case 'swell':
+          this.scene.sound.play('swordIcon', { volume: 0.7 });
+          break;
+        case 'missile':
+          this.scene.sound.play('axeIcon', { volume: 0.7 });
+          break;
+        case 'waterStorm':
+          this.scene.sound.play('waterStormIcon', { volume: 0.7 });
+          break;
+        case 'lavaStorm':
+          this.scene.sound.play('lavaStormIcon', { volume: 1 });
+          break;
+        case 'thunderStorm':
+          this.scene.sound.play('thunderStormIcon', { volume: 0.7 });
+          break;
+      }
+      
       this.scene.time.addEvent({
         delay: 300,
         callback: () => {

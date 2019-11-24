@@ -21,9 +21,12 @@ import castleWalkSfx from '../assets/sfx/castle_walk.ogg';
 import churchWalkSfx from '../assets/sfx/church_walk.ogg';
 
 // sfx for weapon select
-import waterIcon from '../assets/sfx/water_icon.ogg';
-import lavaIcon from '../assets/sfx/lava_icon.ogg';
-import thunderIcon from '../assets/sfx/thunder_icon.ogg';
+import knifeIconSfx from '../assets/sfx/knife_icon.ogg';
+import swordIconSfx from '../assets/sfx/sword_icon.ogg';
+import axeIconSfx from '../assets/sfx/axe_icon.ogg';
+import waterIconSfx from '../assets/sfx/water_icon.ogg';
+import lavaIconSfx from '../assets/sfx/lava_icon.ogg';
+import thunderIconSfx from '../assets/sfx/thunder_icon.ogg';
 
 //HUD sfx
 import playerDead from '../assets/sfx/Death_melody.ogg';
@@ -339,9 +342,12 @@ export default class LoadingScreen extends Scene {
     this.load.audio('graveyardWalkSfx', graveyardWalkSfx);
     this.load.audio('castleWalkSfx', castleWalkSfx);
     this.load.audio('churchWalkSfx', churchWalkSfx);
-    this.load.audio('waterStorm', waterIcon);
-    this.load.audio('lavaStorm', lavaIcon);
-    this.load.audio('thunderStorm', thunderIcon);
+    this.load.audio('knifeIcon', knifeIconSfx);
+    this.load.audio('swordIcon', swordIconSfx);
+    this.load.audio('axeIcon', axeIconSfx);
+    this.load.audio('waterStormIcon', waterIconSfx);
+    this.load.audio('lavaStormIcon', lavaIconSfx);
+    this.load.audio('thunderStormIcon', thunderIconSfx);
     this.load.audio('laser', laserFX);
     this.load.audio('impact', impactFX);
     this.load.audio('explo2', explo2FX);
