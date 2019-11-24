@@ -73,7 +73,7 @@ export default class DashBoard extends Scene {
       .setAlpha(0)
       .setDisplaySize(16, 16);
 
-    this.thunderStorm = this.add.image(366, 2, 'axeIcon')
+    this.thunderStorm = this.add.image(366, 2, 'thunderStormIcon')
       .setOrigin(0, 0)
       .setAlpha(0)
       .setDisplaySize(16, 16);

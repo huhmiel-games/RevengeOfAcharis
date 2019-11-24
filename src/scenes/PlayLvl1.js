@@ -154,16 +154,14 @@ export default class playLvl1 extends Scene {
       allowGravity: false,
       createIfNull: true,
     });
-    this.player.waterMagic.height = 256;
     this.player.lavaMagic = this.physics.add.group({
       defaultKey: 'lava-storm',
       maxSize: 25,
       allowGravity: false,
       createIfNull: true,
     });
-    
     this.player.thunderMagic = this.physics.add.group({
-      defaultKey: 'thunder-storm',
+      defaultKey: 'thunder-magic',
       maxSize: 25,
       allowGravity: false,
       createIfNull: true,
@@ -1646,6 +1644,10 @@ export default class playLvl1 extends Scene {
 
   getCamCenter() {
     return { x: this.cameras.main.scrollX + U.WIDTH / 2, y: this.cameras.main.scrollY + U.HEIGHT / 2};
+  }
+
+  getCamOrigin() {
+    return { x: this.cameras.main.scrollX, y: this.cameras.main.scrollY};
   }
 
   // ====================================================================

@@ -366,6 +366,9 @@ export default class Player extends Phaser.GameObjects.Sprite {
   }
 
   playerOnPlatform(platform) {
+    if (this.isSpelling) {
+      return;
+    }
     // this.isOnPlatform = true;
     this.body.setVelocityX(platform.body.velocity.x)
   }
@@ -438,12 +441,11 @@ export default class Player extends Phaser.GameObjects.Sprite {
     if (waterStorm) {
       waterStorm.name ='waterStorm';
       waterStorm.setOrigin(0.5, 0)
-        .setPosition(this.scene.cameras.main.scrollX - 200, this.scene.cameras.main.scrollY + 56)
+        .setPosition(this.scene.cameras.main.scrollX - 200, this.scene.cameras.main.scrollY)
         .setVisible(true)
         .setSize(400, 256)
-      waterStorm.height = 256
-        console.log(waterStorm)
-      waterStorm.body.setSize(280, 256).setOffset(60, -60)
+
+      waterStorm.body.setSize(64, 256).setOffset(168, 0)
       this.scene.physics.world.enable(waterStorm);
       this.scene.add.existing(waterStorm);
       waterStorm.anims.play('water-storm', true);
@@ -497,7 +499,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
             lavaStorm.name ='lavaStorm';
             lavaStorm.setOrigin(0.5, 0).setVisible(true);
             lavaStorm.anims.play('lava-storm', true);
-            lavaStorm.body.setSize(64, 160).reset(enemy.body.x + enemy.body.width / 2, camView.y);
+            lavaStorm.body.setSize(64, 256).reset(enemy.body.x + enemy.body.width / 2, camView.y);
             lavaStorm.body.setCollideWorldBounds(true);
             this.scene.sound.play('lavaStormSfx', { volume: 1 });
             
@@ -530,7 +532,96 @@ export default class Player extends Phaser.GameObjects.Sprite {
     if (this.state.energyTime < 75) {
       return;
     }
-    this.consumeEnergy(75)
+    const camView = this.scene.cameras.main.worldView;
+    const enemyListOnScreen = [...this.scene.sys.displayList.list].filter(e => {
+      return (e.family === 'enemies' && camView.contains(e.body.x, e.body.y))
+    });
+    if (!enemyListOnScreen.length) {
+      return;
+    }
+    this.consumeEnergy(75);
+    // pause the player
+    this.state.pause = true;
+    this.anims.play('playerSpell', true);
+    this.setPipeline('GlowFixedFx');
+    this.isSpelling = true;
+    this.body.setVelocity(0, 0);
+
+    const pos = this.scene.getCamOrigin();
+
+    const cloud = this.scene.add.image(pos.x - 400, pos.y - 10, 'darkClouds').setOrigin(0, 0).setDepth(103);
+    const cloudTween =  this.scene.tweens.add({
+      targets: cloud,
+      ease: 'Sine.easeInOut',
+      duration: 1000,
+      delay: 0,
+      repeat: 0,
+      x: { from: pos.x - 400, to: pos.x },
+      onComplete: () => {
+        enemyListOnScreen.forEach((enemy, i) => {
+          const thunderStorm = this.thunderMagic.getFirstDead(true, 0, 0, 'thunder-magic', null, true);
+          if (thunderStorm) {
+            this.scene.time.addEvent({
+              delay: Phaser.Math.Between(100, 600),
+              callback: () => {
+                if (!enemy.active) {
+                  return;
+                }
+                this.scene.cameras.main.flash(10);
+                this.scene.cameras.main.shake(1000, 0.025);
+                thunderStorm.name ='thunderStorm';
+                thunderStorm.setOrigin(0.5, 0).setVisible(true);
+                thunderStorm.anims.play('thunder-magic', true);
+                thunderStorm.body.setSize(64, 256).reset(enemy.body.x + enemy.body.width / 2, camView.y);
+                thunderStorm.body.setCollideWorldBounds(true);
+                this.scene.sound.play('thunderStormSfx', { volume: 1 });
+                
+                this.scene.physics.world.enable(thunderStorm);
+                this.scene.add.existing(thunderStorm);
+                // thunderStorm.body.setVelocityY(400)
+                thunderStorm.setDepth(102);
+                this.scene.shakeCamera(350)
+                
+                this.scene.sound.play('bullet', { volume: 0.08 });
+                
+                this.scene.time.addEvent({
+                  delay: 1500,
+                  callback: () => {
+                    const cloudsAway = this.scene.tweens.add({
+                      targets: cloud,
+                      ease: 'Sine.easeInOut',
+                      duration: 1000,
+                      delay: 0,
+                      repeat: 0,
+                      x: { from: pos.x, to: pos.x + 400 },
+                      onComplete: () => {
+                        cloud.destroy();
+                      }
+                    });
+                    const thunderStormFadeOut = this.scene.tweens.add({
+                      targets: thunderStorm,
+                      ease: 'Sine.easeInOut',
+                      duration: 200,
+                      delay: 0,
+                      repeat: 0,
+                      alpha: { from: 1, to: 0 },
+                      onComplete: () => {
+                        thunderStorm.destroy();
+                      }
+                    });
+                    this.state.pause = false;
+                    this.scene.physics.resume();
+                    this.anims.play('stand');
+                    this.isSpelling = false;
+                    this.resetPipeline();
+                  },
+                });
+              }
+            });
+          }
+        });
+      }
+    });
   }
 
   shootSwell(time) {
@@ -565,14 +656,6 @@ export default class Player extends Phaser.GameObjects.Sprite {
     }
   }
 
-  // swellKill(e) {
-  //   console.log(e)
-  //   this.scene.sound.play('impact', { volume: 0.4 });
-  //   this.scene.weaponParticles.emitParticleAt(e.x, e.y);
-  //   e.setVelocity(0, 0);
-  //   e.destroy();
-  // }
-
   shootMissile(time) {
     if (time > this.state.lastFired) {
       const missile = this.axes.getFirstDead(true, this.body.x + this.state.bulletPositionX, this.body.y + this.state.bulletPositionY, 'axe', null, true);
@@ -606,22 +689,6 @@ export default class Player extends Phaser.GameObjects.Sprite {
       }
     }
   }
-
-  // missileKill(e) {
-  //   // e.setVelocity(0, 0);
-  //   if (this.onWater) {
-  //     e.setDepth(98);
-  //   } else {
-  //     e.setDepth(102);
-  //   }
-  //   this.scene.sound.play('explo2', { volume: 0.4 });
-  //   if (e.texture.key === 'missile') {
-  //     e.setPipeline('TestFx');
-  //     e.anims.play('enemyExplode', true).on('animationcomplete', () => { e.destroy(); });
-  //   } else {
-  //     e.destroy();
-  //   }
-  // }
 
   shootGun(time) {
     if (time > this.state.lastFired && this.inventory.bullet) {

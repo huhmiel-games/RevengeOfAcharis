@@ -101,6 +101,7 @@ import angelAtlasJSON from '../assets/atlas/angel_atlas.json';
 // Magic
 import stormAtlas from '../assets/atlas/storm_atlas.png';
 import stormAtlasJSON from '../assets/atlas/storm_atlas.json';
+import darkClouds from '../assets/darkClouds.png';
 
 // Map
 import tiles from '../assets/environment/layers/tilesets.png';
@@ -198,6 +199,7 @@ import swordIcon from '../assets/swordIcon.png';
 import axeIcon from '../assets/axeIcon.png';
 import lavaStormIcon from '../assets/lavaStormIcon.png';
 import waterStormIcon from '../assets/waterStormIcon.png';
+import thunderStormIcon from '../assets/thunderStormIcon.png';
 import iconFullscreen from '../assets/iconFullscreen.png';
 //import heart from '../assets/heart.png';
 import energyBar from '../assets/energyBar.png';
@@ -283,6 +285,7 @@ export default class LoadingScreen extends Scene {
     this.load.image('whitePixel', whitePixel);
     this.load.image('movingPlatform', movingPlatform);
     this.load.image('platformSpike', platformSpike);
+    this.load.image('darkClouds', darkClouds);
 
     //dashboard
     //this.load.image('blackpixel', blackPixel);
@@ -291,6 +294,7 @@ export default class LoadingScreen extends Scene {
     this.load.image('axeIcon', axeIcon);
     this.load.image('lavaStormIcon', lavaStormIcon);
     this.load.image('waterStormIcon', waterStormIcon);
+    this.load.image('thunderStormIcon', thunderStormIcon);
     this.load.image('iconFullscreen', iconFullscreen);
     this.load.image('energyBar', energyBar);
     //this.load.spritesheet('heart', heart, { frameWidth: 12, frameHeight: 12 });
@@ -734,6 +738,16 @@ export default class LoadingScreen extends Scene {
       repeat: -1,
     });
     this.anims.create({
+      key: 'thunder-magic',
+      frames: [
+        { key: 'storm', frame: 'thunder-magic0' },
+        { key: 'storm', frame: 'thunder-magic1' },
+        { key: 'storm', frame: 'thunder-magic2' },
+      ],
+      frameRate: 8,
+      repeat: -1,
+    });
+    this.anims.create({
       key: 'water-storm',
       frames: [
         { key: 'storm', frame: 'water-storm0' },
@@ -748,8 +762,8 @@ export default class LoadingScreen extends Scene {
     this.anims.create({
       key: 'lava-storm',
       frames: [
-        { key: 'hellBeast', frame: 'hell-beast-burn4' },
-        { key: 'hellBeast', frame: 'hell-beast-burn5' },
+        { key: 'storm', frame: 'lava-storm0' },
+        { key: 'storm', frame: 'lava-storm1' },
       ],
       frameRate: 10,
       repeat: -1,
