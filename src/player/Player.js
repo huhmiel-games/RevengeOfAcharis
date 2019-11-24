@@ -440,6 +440,9 @@ export default class Player extends Phaser.GameObjects.Sprite {
       waterStorm.setOrigin(0.5, 0)
         .setPosition(this.scene.cameras.main.scrollX - 200, this.scene.cameras.main.scrollY + 56)
         .setVisible(true)
+        .setSize(400, 256)
+      waterStorm.height = 256
+        console.log(waterStorm)
       waterStorm.body.setSize(280, 256).setOffset(60, -60)
       this.scene.physics.world.enable(waterStorm);
       this.scene.add.existing(waterStorm);

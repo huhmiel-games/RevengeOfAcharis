@@ -64,7 +64,7 @@ export default class LoadSavedGame extends Scene {
         this.sound.play('bullet', { volume: 0.8 });
         this.choose(-1);
       } else if (this.keys.fire.isDown && event.key === this.keys.fire.originalEvent.key) {
-        this.sound.play('melo', { volume: 1 });
+        this.sound.play('swell', { volume: 0.8 });
         this.launch();
       }
     });
