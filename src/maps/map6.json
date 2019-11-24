@@ -5,10 +5,19 @@
          "encoding":"base64",
          "height":64,
          "name":"back",
-         "opacity":1,
+         "opacity":0,
          "type":"tilelayer",
          "visible":true,
          "width":25,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "image":"map6back.png",
+         "name":"Calque d'image 1",
+         "opacity":1,
+         "type":"imagelayer",
+         "visible":true,
          "x":0,
          "y":0
         }, 
@@ -345,18 +354,90 @@
         {
          "draworder":"topdown",
          "name":"lights",
-         "objects":[],
+         "objects":[
+                {
+                 "gid":321,
+                 "height":16,
+                 "id":548,
+                 "name":"light1",
+                 "properties":
+                    {
+                     "color":"0xDDDDDD",
+                     "intensity":2,
+                     "radius":384
+                    },
+                 "propertytypes":
+                    {
+                     "color":"string",
+                     "intensity":"float",
+                     "radius":"int"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":200,
+                 "y":208
+                }, 
+                {
+                 "gid":321,
+                 "height":16,
+                 "id":549,
+                 "name":"light2",
+                 "properties":
+                    {
+                     "color":"0xDDDDDD",
+                     "intensity":2,
+                     "radius":384
+                    },
+                 "propertytypes":
+                    {
+                     "color":"string",
+                     "intensity":"float",
+                     "radius":"int"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":200,
+                 "y":512
+                }, 
+                {
+                 "gid":321,
+                 "height":16,
+                 "id":550,
+                 "name":"light3",
+                 "properties":
+                    {
+                     "color":"0xDDDDDD",
+                     "intensity":2,
+                     "radius":384
+                    },
+                 "propertytypes":
+                    {
+                     "color":"string",
+                     "intensity":"float",
+                     "radius":"int"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":200,
+                 "y":816
+                }],
          "opacity":1,
          "type":"objectgroup",
          "visible":true,
          "x":0,
          "y":0
         }],
- "nextobjectid":548,
+ "nextobjectid":551,
  "orientation":"orthogonal",
  "properties":
     {
-     "ambientColor":"0xDDDDDD",
+     "ambientColor":"0x333333",
      "callFunction":"escape",
      "mapScenePosition":"16,2,0xCC2485",
      "music":"ambient3",

@@ -326,12 +326,12 @@
                  "gid":1,
                  "height":16,
                  "id":558,
-                 "name":"ambient1",
+                 "name":"light1",
                  "properties":
                     {
-                     "color":"0xFCDEC4",
+                     "color":"0xEEC061",
                      "intensity":1,
-                     "radius":512
+                     "radius":92
                     },
                  "propertytypes":
                     {
@@ -343,20 +343,44 @@
                  "type":"",
                  "visible":true,
                  "width":16,
-                 "x":192,
-                 "y":32
+                 "x":76,
+                 "y":136
+                }, 
+                {
+                 "gid":1,
+                 "height":16,
+                 "id":563,
+                 "name":"light2",
+                 "properties":
+                    {
+                     "color":"0xEEC061",
+                     "intensity":1,
+                     "radius":92
+                    },
+                 "propertytypes":
+                    {
+                     "color":"string",
+                     "intensity":"int",
+                     "radius":"int"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":316,
+                 "y":136
                 }],
          "opacity":1,
          "type":"objectgroup",
-         "visible":false,
+         "visible":true,
          "x":0,
          "y":0
         }],
- "nextobjectid":563,
+ "nextobjectid":564,
  "orientation":"orthogonal",
  "properties":
     {
-     "ambientColor":"0xDDDDDD",
+     "ambientColor":"0x444444",
      "callFunction":"callHellBeast,escape",
      "mapScenePosition":"6,7,0xCC2485",
      "music":"ambient1",

@@ -71,7 +71,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
     // this.isOnPlatform = false;
     this.playOnTouchingGroundFlag = false;
     this.setDepth(105);
-    // this.setPipeline('Light2D');
+    this.setPipeline('Light2D');
     this.scene.physics.world.enable(this);
     this.scene.add.existing(this);
     this.body.setSize(10, 25, true).setOffset(21, 10).setAllowGravity(false);

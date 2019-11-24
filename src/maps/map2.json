@@ -61,6 +61,15 @@
          "y":0
         }, 
         {
+         "image":"map2.png",
+         "name":"Calque d'image 1",
+         "opacity":1,
+         "type":"imagelayer",
+         "visible":true,
+         "x":0,
+         "y":0
+        }, 
+        {
          "draworder":"topdown",
          "name":"powerup",
          "objects":[],
@@ -607,7 +616,31 @@
         {
          "draworder":"topdown",
          "name":"lights",
-         "objects":[],
+         "objects":[
+                {
+                 "gid":321,
+                 "height":16,
+                 "id":562,
+                 "name":"ambient1",
+                 "properties":
+                    {
+                     "color":"0xFCDEC4",
+                     "intensity":1,
+                     "radius":512
+                    },
+                 "propertytypes":
+                    {
+                     "color":"string",
+                     "intensity":"int",
+                     "radius":"int"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":400,
+                 "y":208
+                }],
          "opacity":1,
          "type":"objectgroup",
          "visible":true,
@@ -624,11 +657,11 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":562,
+ "nextobjectid":563,
  "orientation":"orthogonal",
  "properties":
     {
-     "ambientColor":"0xDDDDDD",
+     "ambientColor":"0xCCCCCC",
      "callFunction":"checkThunderDoorReached,checkWaterStorm",
      "mapScenePosition":"9,2,0xCC2485",
      "music":"ambient1",

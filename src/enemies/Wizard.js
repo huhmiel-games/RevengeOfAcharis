@@ -22,6 +22,7 @@ export default class Wizard extends Phaser.GameObjects.Sprite {
       .setSize(20, 40)
       .setOffset(32, 24);
     this.setAlpha(0);
+    this.setPipeline('Light2D');
     this.lastAnim = null;
     this.getFired = false;
     this.flipX = true;

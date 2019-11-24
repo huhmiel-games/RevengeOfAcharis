@@ -311,18 +311,162 @@
         {
          "draworder":"topdown",
          "name":"lights",
-         "objects":[],
+         "objects":[
+                {
+                 "gid":321,
+                 "height":16,
+                 "id":546,
+                 "name":"light1",
+                 "properties":
+                    {
+                     "color":"0xEEC061",
+                     "intensity":1,
+                     "radius":128
+                    },
+                 "propertytypes":
+                    {
+                     "color":"string",
+                     "intensity":"int",
+                     "radius":"int"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":184,
+                 "y":132
+                }, 
+                {
+                 "gid":321,
+                 "height":16,
+                 "id":547,
+                 "name":"light2",
+                 "properties":
+                    {
+                     "color":"0xEEC061",
+                     "intensity":1,
+                     "radius":48
+                    },
+                 "propertytypes":
+                    {
+                     "color":"string",
+                     "intensity":"int",
+                     "radius":"int"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":64,
+                 "y":184
+                }, 
+                {
+                 "gid":321,
+                 "height":16,
+                 "id":548,
+                 "name":"light3",
+                 "properties":
+                    {
+                     "color":"0xEEC061",
+                     "intensity":1,
+                     "radius":48
+                    },
+                 "propertytypes":
+                    {
+                     "color":"string",
+                     "intensity":"int",
+                     "radius":"int"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":192,
+                 "y":184
+                }, 
+                {
+                 "gid":321,
+                 "height":16,
+                 "id":549,
+                 "name":"light4",
+                 "properties":
+                    {
+                     "color":"0xEEC061",
+                     "intensity":1,
+                     "radius":48
+                    },
+                 "propertytypes":
+                    {
+                     "color":"string",
+                     "intensity":"int",
+                     "radius":"int"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":320,
+                 "y":184
+                }, 
+                {
+                 "gid":321,
+                 "height":16,
+                 "id":550,
+                 "name":"light5",
+                 "properties":
+                    {
+                     "color":"0xEEC061",
+                     "intensity":1,
+                     "radius":64
+                    },
+                 "propertytypes":
+                    {
+                     "color":"string",
+                     "intensity":"int",
+                     "radius":"int"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":340,
+                 "y":132
+                }, 
+                {
+                 "gid":321,
+                 "height":16,
+                 "id":551,
+                 "name":"light6",
+                 "properties":
+                    {
+                     "color":"0xEEC061",
+                     "intensity":1,
+                     "radius":64
+                    },
+                 "propertytypes":
+                    {
+                     "color":"string",
+                     "intensity":"int",
+                     "radius":"int"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":52,
+                 "y":132
+                }],
          "opacity":1,
          "type":"objectgroup",
          "visible":true,
          "x":0,
          "y":0
         }],
- "nextobjectid":546,
+ "nextobjectid":552,
  "orientation":"orthogonal",
  "properties":
     {
-     "ambientColor":"0xDDDDDD",
+     "ambientColor":"0x444444",
      "callFunction":"escape",
      "music":"ambient1",
      "paraBack":"map17back",

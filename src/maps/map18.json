@@ -376,12 +376,12 @@
                  "gid":1,
                  "height":16,
                  "id":541,
-                 "name":"ambient1",
+                 "name":"light1",
                  "properties":
                     {
-                     "color":"0x333333",
-                     "intensity":0,
-                     "radius":512
+                     "color":"0xEEC061",
+                     "intensity":1,
+                     "radius":128
                     },
                  "propertytypes":
                     {
@@ -393,20 +393,164 @@
                  "type":"",
                  "visible":true,
                  "width":16,
-                 "x":192,
-                 "y":336
+                 "x":264,
+                 "y":408
+                }, 
+                {
+                 "gid":1,
+                 "height":16,
+                 "id":544,
+                 "name":"light2",
+                 "properties":
+                    {
+                     "color":"0xEEC061",
+                     "intensity":1,
+                     "radius":128
+                    },
+                 "propertytypes":
+                    {
+                     "color":"string",
+                     "intensity":"int",
+                     "radius":"int"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":536,
+                 "y":408
+                }, 
+                {
+                 "gid":1,
+                 "height":16,
+                 "id":545,
+                 "name":"light3",
+                 "properties":
+                    {
+                     "color":"0xEEC061",
+                     "intensity":1,
+                     "radius":64
+                    },
+                 "propertytypes":
+                    {
+                     "color":"string",
+                     "intensity":"int",
+                     "radius":"int"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":92,
+                 "y":312
+                }, 
+                {
+                 "gid":1,
+                 "height":16,
+                 "id":546,
+                 "name":"light4",
+                 "properties":
+                    {
+                     "color":"0xEEC061",
+                     "intensity":1,
+                     "radius":64
+                    },
+                 "propertytypes":
+                    {
+                     "color":"string",
+                     "intensity":"int",
+                     "radius":"int"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":88,
+                 "y":152
+                }, 
+                {
+                 "gid":1,
+                 "height":16,
+                 "id":547,
+                 "name":"light5",
+                 "properties":
+                    {
+                     "color":"0xEEC061",
+                     "intensity":1,
+                     "radius":64
+                    },
+                 "propertytypes":
+                    {
+                     "color":"string",
+                     "intensity":"int",
+                     "radius":"int"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":708,
+                 "y":152
+                }, 
+                {
+                 "gid":1,
+                 "height":16,
+                 "id":548,
+                 "name":"light6",
+                 "properties":
+                    {
+                     "color":"0xEEC061",
+                     "intensity":1,
+                     "radius":64
+                    },
+                 "propertytypes":
+                    {
+                     "color":"string",
+                     "intensity":"int",
+                     "radius":"int"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":708,
+                 "y":312
+                }, 
+                {
+                 "gid":1,
+                 "height":16,
+                 "id":549,
+                 "name":"light7",
+                 "properties":
+                    {
+                     "color":"0xDDDDDD",
+                     "intensity":2,
+                     "radius":256
+                    },
+                 "propertytypes":
+                    {
+                     "color":"string",
+                     "intensity":"int",
+                     "radius":"int"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":392,
+                 "y":212
                 }],
          "opacity":1,
          "type":"objectgroup",
-         "visible":false,
+         "visible":true,
          "x":0,
          "y":0
         }],
- "nextobjectid":544,
+ "nextobjectid":550,
  "orientation":"orthogonal",
  "properties":
     {
-     "ambientColor":"0xDDDDDD",
+     "ambientColor":"0x444444",
      "callFunction":"callDemon",
      "mapScenePosition":"14,11,0xCC2485",
      "music":"ambient3",

@@ -17,10 +17,12 @@ export default class Ghost extends Phaser.GameObjects.Sprite {
     this.scene.physics.world.enable(this);
     this.scene.add.existing(this);
     this.body.setCollideWorldBounds(true);
+    this.setPipeline('Light2D');
     this.body.setAllowGravity(false).setSize(20, 28).setOffset(10, 20);
     this.state.directionY = Math.sin(300 + Math.PI / 4);
     this.getFired = false;
     this.waspFX = this.scene.sound.add('guepe', { volume: 0.2 });
+    this.ghostLight = this.scene.lights.addLight(this.x, this.y + 48, 48, 0xFCDECA, 0.6);
   }
 
   preUpdate(time, delta) {
@@ -55,6 +57,11 @@ export default class Ghost extends Phaser.GameObjects.Sprite {
         this.flipX = false;
       } else {
         this.flipX = true;
+      }
+      if (this.ghostLight && this.active) {
+        this.ghostLight.setPosition(this.body.x, this.body.y);
+      } else {
+        this.ghostLight.setPosition(-10000, -10000);
       }
     }
   }

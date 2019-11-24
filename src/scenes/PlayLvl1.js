@@ -311,6 +311,11 @@ export default class playLvl1 extends Scene {
       this.t += 0.1;
       this.t2 += 0.03;
     }
+    if (this.playerLight && this.player) {
+      this.playerLight.setPosition(this.player.body.x, this.player.body.y);
+    } else {
+      this.playerLight.setPosition(-10000, -10000);
+    }
     
     //
 
@@ -784,7 +789,7 @@ export default class playLvl1 extends Scene {
   enemyExplode(x, y) {
     const exp = this.explodeSprite.getFirstDead(true, x, y - 8, 'enemyExplode', null, true)
     if (exp) {
-      exp.setDepth(107);
+      exp.setDepth(107).setPipeline('Light2D');;
       exp.anims.play('enemyExplode').on('animationcomplete', () => {
       exp.destroy();
     });
@@ -837,7 +842,7 @@ export default class playLvl1 extends Scene {
     this.enemyGroup.forEach(e => e.destroy());
     this.elevatorGroup.forEach(e => e.destroy());
     this.lavaGroup.forEach(e => e.destroy());
-    this.lights.lights.forEach(light => this.lights.removeLight(light));
+    this.lights.lights.forEach(light => light.setPosition(-100, -100));
     // create room
     this.map = this.make.tilemap({ key: room, tileWidth: 16, tileHeight: 16 });
     this.playerPosition = room;
@@ -846,7 +851,7 @@ export default class playLvl1 extends Scene {
     this.addParaMiddle(this.map.properties.paraMiddle);
     this.addParaMiddle2(this.map.properties.paraMiddle2);
     this.addLayers();
-    // this.addSceneLights();
+    this.addSceneLights();
     this.addDoors();
     this.player.x = this.player.inventory.savedPositionX + 24;
     this.player.y = this.player.inventory.savedPositionY;
@@ -924,7 +929,7 @@ export default class playLvl1 extends Scene {
     this.playerPosition = doorP.state.destination;
     this.tileset = this.map.addTilesetImage('tileground', 'tiles', 16, 16);
     this.addLayers();
-    // this.addSceneLights();
+    this.addSceneLights();
     this.addDoors();
     this.addParaBack(this.map.properties.paraBack);
     this.addParaMiddle(this.map.properties.paraMiddle);
@@ -1056,15 +1061,15 @@ export default class playLvl1 extends Scene {
 
   addLayers() {
     this.solLayer = this.map.createDynamicLayer('collideGround', this.tileset, 0, 0)
-      .setDepth(11);
+      .setDepth(11).setPipeline('Light2D');
     this.backLayer = this.map.createStaticLayer('back', this.tileset, 0, 0)
-      .setDepth(4);
+      .setDepth(4).setPipeline('Light2D');;
     this.middleLayer = this.map.createStaticLayer('middle', this.tileset, 0, 0)
-      .setDepth(5);
+      .setDepth(5).setPipeline('Light2D');;
     this.middleLayer2 = this.map.createDynamicLayer('middle2', this.tileset, 0, 0)
-      .setDepth(10);
+      .setDepth(10).setPipeline('Light2D');;
     this.frontLayer = this.map.createDynamicLayer('front', this.tileset, 0, 0)
-      .setDepth(106)//.setPipeline('Light2D');
+      .setDepth(106).setPipeline('Light2D');
   }
 
   addPowerUp() {
@@ -1123,22 +1128,22 @@ export default class playLvl1 extends Scene {
   }
 
   addSceneLights() {
-    return;
     // Clean up existing lights (need more testing and optimization)
     if (this.lights.lights.length > 0) {
-      this.lights.culledLights.forEach(light => this.lights.removeLight(light));
-      this.lights.lightPool.forEach(light => this.lights.removeLight(light));
-      this.lights.lights.forEach(light => this.lights.removeLight(light));
+      this.lights.culledLights.forEach(light => light.setPosition(-1000, -1000));
+      this.lights.lightPool.forEach(light => light.setPosition(-1000, -1000));
+      this.lights.lights.forEach(light => light.setPosition(-1000, -1000));
       this.lights.forEachLight(elm => this.lights.removeLight(elm));
     }
     // enable the light system
     this.lights.enable();
     // Player light
-    this.playerLight = this.lights.addLight(this.player.x, this.player.y + 48, 48, 0xFCDECA, 0.4);
+    this.playerLight = this.lights.addLight(this.player.x, this.player.y + 48, 48, 0xD9B537, 0.2); //FCDECA
     // add room ambient lights
     const layerArray = this.checkObjectsLayerIndex('lights');
     if (layerArray) {
       layerArray.objects.forEach((element) => {
+        // this.add.image(element.x, element.y, 'heart').setDepth(500).setFrame('1') // for debug lights
         this.lights.addLight(element.x, element.y, element.properties.radius, element.properties.color, element.properties.intensity);
       });
     }
@@ -1146,7 +1151,7 @@ export default class playLvl1 extends Scene {
       this.lights.setAmbientColor(this.map.properties.ambientColor);
       return;
     }
-    this.lights.setAmbientColor(0x222222);
+    this.lights.setAmbientColor(0x444444);
   }
 
   addEnemies() {
@@ -1320,11 +1325,11 @@ export default class playLvl1 extends Scene {
     const tex = this.textures.get(image);
     tex.getSourceImage();
     const imgSize = { width: tex.source[0].width, height: tex.source[0].height };
-    this.paraBack = this.add.image(0, 0, image).setOrigin(0, 0);
+    this.paraBack = this.add.image(0, 0, image).setOrigin(0, 0).setPipeline('Light2D');
 
     // this.paraBack
-    //   .setScrollFactor(0.3, 1)
-    //   .setOrigin(0.3, 0)
+    //   .setScrollFactor(0.2, 1)
+    //   .setOrigin(0, 0)
     this.paraBackGroup.push(this.paraBack);
     // check how many images are needed
     // const nbrWidth = Math.ceil(this.map.widthInPixels / imgSize.width);
@@ -1351,10 +1356,10 @@ export default class playLvl1 extends Scene {
     tex.getSourceImage();
     const imgSize = { width: tex.source[0].width, height: tex.source[0].height };
 
-    this.paraMiddle = this.add.image(0, 0, image)
-    this.paraMiddle
-      .setScrollFactor(0.4, 1)
-      .setOrigin(0, 0)
+    this.paraMiddle = this.add.image(0, 0, image).setOrigin(0, 0).setPipeline('Light2D');
+    // this.paraMiddle
+    //   //.setScrollFactor(-0.1, 1)
+    //   .setOrigin(0, 0)
     this.paraMiddleGroup.push(this.paraMiddle);
     return;
     // check how many images are needed
@@ -1452,6 +1457,10 @@ export default class playLvl1 extends Scene {
         this[e.name[0]].setTint(0x333333);
       }
     });
+  }
+
+  adjustParaBack() {
+    this.paraBack.setOrigin(0.3, -0.1);
   }
 
   bossDragon() {

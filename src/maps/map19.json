@@ -296,12 +296,12 @@
                  "gid":1,
                  "height":16,
                  "id":557,
-                 "name":"ambient1",
+                 "name":"light1",
                  "properties":
                     {
-                     "color":"0xFCDEC4",
+                     "color":"0xEEC061",
                      "intensity":1,
-                     "radius":512
+                     "radius":64
                     },
                  "propertytypes":
                     {
@@ -313,20 +313,116 @@
                  "type":"",
                  "visible":true,
                  "width":16,
-                 "x":192,
-                 "y":48
+                 "x":300,
+                 "y":140
+                }, 
+                {
+                 "gid":1,
+                 "height":16,
+                 "id":563,
+                 "name":"light2",
+                 "properties":
+                    {
+                     "color":"0xEEC061",
+                     "intensity":1,
+                     "radius":64
+                    },
+                 "propertytypes":
+                    {
+                     "color":"string",
+                     "intensity":"int",
+                     "radius":"int"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":112,
+                 "y":144
+                }, 
+                {
+                 "gid":1,
+                 "height":16,
+                 "id":564,
+                 "name":"light3",
+                 "properties":
+                    {
+                     "color":"0xEEC061",
+                     "intensity":1,
+                     "radius":64
+                    },
+                 "propertytypes":
+                    {
+                     "color":"string",
+                     "intensity":"int",
+                     "radius":"int"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":160,
+                 "y":120
+                }, 
+                {
+                 "gid":1,
+                 "height":16,
+                 "id":565,
+                 "name":"light4",
+                 "properties":
+                    {
+                     "color":"0xEEC061",
+                     "intensity":1,
+                     "radius":64
+                    },
+                 "propertytypes":
+                    {
+                     "color":"string",
+                     "intensity":"int",
+                     "radius":"int"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":208,
+                 "y":108
+                }, 
+                {
+                 "gid":1,
+                 "height":16,
+                 "id":566,
+                 "name":"light5",
+                 "properties":
+                    {
+                     "color":"0xEEC061",
+                     "intensity":1,
+                     "radius":64
+                    },
+                 "propertytypes":
+                    {
+                     "color":"string",
+                     "intensity":"int",
+                     "radius":"int"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":252,
+                 "y":124
                 }],
          "opacity":1,
          "type":"objectgroup",
-         "visible":false,
+         "visible":true,
          "x":0,
          "y":0
         }],
- "nextobjectid":563,
+ "nextobjectid":567,
  "orientation":"orthogonal",
  "properties":
     {
-     "ambientColor":"0xDDDDDD",
+     "ambientColor":"0x444444",
      "callFunction":"",
      "mapScenePosition":"20,5,0x51B9DB",
      "music":"ambient1",

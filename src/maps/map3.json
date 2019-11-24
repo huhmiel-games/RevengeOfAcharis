@@ -575,7 +575,31 @@
         {
          "draworder":"topdown",
          "name":"lights",
-         "objects":[],
+         "objects":[
+                {
+                 "gid":321,
+                 "height":16,
+                 "id":564,
+                 "name":"ambient1",
+                 "properties":
+                    {
+                     "color":"0xFCDEC4",
+                     "intensity":1,
+                     "radius":512
+                    },
+                 "propertytypes":
+                    {
+                     "color":"string",
+                     "intensity":"int",
+                     "radius":"int"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":816,
+                 "y":16
+                }],
          "opacity":1,
          "type":"objectgroup",
          "visible":true,
@@ -592,17 +616,17 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":564,
+ "nextobjectid":565,
  "orientation":"orthogonal",
  "properties":
     {
-     "ambientColor":"0xDDDDDD",
+     "ambientColor":"0x444444",
      "callFunction":"",
      "mapScenePosition":"11,2,0xCC2485",
      "music":"ambient1",
      "paraBack":"map3back",
-     "paraMiddle":"map3middle",
-     "paraMiddle2":"map3middle2",
+     "paraMiddle":"",
+     "paraMiddle2":"",
      "walkSfx":"graveyardWalkSfx"
     },
  "propertytypes":

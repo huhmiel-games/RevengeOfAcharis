@@ -27,6 +27,7 @@ export default class Demon extends Phaser.GameObjects.Sprite {
     this.body.allowGravity = false;
     this.body.setSize(64, 92).setOffset(68, 64);
     this.body.setCollideWorldBounds(true);
+    this.setPipeline('Light2D');
     this.getFired = false;
     this.lastAnim = null;
     this.isBreathFire = false;

@@ -17,6 +17,7 @@ export default class BossDragon extends Phaser.GameObjects.Sprite {
     this.setDepth(104);
     this.scene.physics.world.enable(this);
     this.scene.add.existing(this);
+    this.setPipeline('Light2D');
     this.body.allowGravity = true;
     this.body.setGravityY(200)
     this.getFired = false;

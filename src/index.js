@@ -17,6 +17,7 @@ const config = {
   width: U.WIDTH,
   height: U.HEIGHT,
   pixelArt: true,
+  maxLights: 16,
   scale: {
     parent: 'gamecanvas',
     mode: Phaser.Scale.HEIGHT_CONTROLS_WIDTH,

@@ -57,25 +57,31 @@ import ambient3 from '../assets/music/grotte.ogg';
 // GRAPHICS LOAD
 import background from '../assets/menuBackgound4.png';
 import backgroundWithoutTitles from '../assets/backWithoutTitles.png';
+
+//Player
 import spritesheetPlayer from '../assets/atlas/player_atlas.png';
-// import spritesheetPlayerN from '../assets/spritesheets/player/atlas/spritesheetPlayer_n.png';
+import spritesheetPlayerN from '../assets/atlas/player_atlas_n.png';
 import spritesheetPlayerJSON from '../assets/atlas/player_atlas.json';
 
 // Enemies
 import spritesheetEnemies from '../assets/atlas/enemies_atlas.png';
-// import spritesheetEnemiesN from '../assets/atlas/atlasEnemies_n.png';
+import spritesheetEnemiesN from '../assets/atlas/enemies_atlas_n.png';
 import spritesheetEnemiesJSON from '../assets/atlas/enemies_atlas.json';
 
 // Boss
 import dragonAtlas from '../assets/atlas/dragon_atlas.png';
+import dragonAtlasN from '../assets/atlas/dragon_atlas_n.png';
 import dragonAtlasJSON from '../assets/atlas/dragon_atlas.json';
 import hellBeastAtlas from '../assets/atlas/hellBeast_atlas.png';
+import hellBeastAtlasN from '../assets/atlas/hellBeast_atlas_n.png';
 import hellBeastAtlasJSON from '../assets/atlas/hellBeast_atlas.json';
 import finalBossAtlas from '../assets/atlas/finalBoss_atlas.png';
+import finalBossAtlasN from '../assets/atlas/finalBoss_atlas_n.png';
 import finalBossAtlasJSON from '../assets/atlas/finalBoss_atlas.json';
 
 // Angel
 import angelAtlas from '../assets/atlas/angel_atlas.png';
+import angelAtlasN from '../assets/atlas/angel_atlas_n.png';
 import angelAtlasJSON from '../assets/atlas/angel_atlas.json';
 
 // Magic
@@ -127,26 +133,49 @@ import platformSpike from '../assets/platformSpike.png';
 
 // parralax
 import map1back from '../maps/map1back.png';
+import map1backN from '../maps/map1back_n.png';
 import map1middle from '../maps/map1middle.png';
-import map2back from '../maps/map2.png';
-import map3back from '../maps/map3back.png';
+import map1middleN from '../maps/map1middle_n.png';
+import map2back from '../maps/map2back.png';
+import map2backN from '../maps/map2back_n.png';
+import map3backTest from '../maps/map3backTest.png';
+import map3backTestN from '../maps/map3backTest_n.png';
 import map3middle from '../maps/map3middle.png';
 import map3middle2 from '../maps/map3middle2.png';
+import map4back from '../maps/map4back.png';
+import map4backN from '../maps/map4back_n.png';
 import map5back from '../maps/map5back.png';
+import map5backN from '../maps/map5back_n.png';
 import map6back from '../maps/map6back.png';
+import map6backN from '../maps/map6back_n.png';
 import map7back from '../maps/map7back.png';
+import map7backN from '../maps/map7back_n.png';
 import map8back from '../maps/map8back.png';
+import map8backN from '../maps/map8back_n.png';
+import map9back from '../maps/map9back.png';
+import map9backN from '../maps/map9back_n.png';
 import map10back from '../maps/map10back.png';
+import map10backN from '../maps/map10back_n.png';
 import map11back from '../maps/map11back.png';
+import map11backN from '../maps/map11back_n.png';
 import map11middle2 from '../maps/map11middle2.png';
 import map12back from '../maps/map12back.png';
+import map12backN from '../maps/map12back_n.png';
 import map13back from '../maps/map13back.png';
+import map13backN from '../maps/map13back_n.png';
 import map14back from '../maps/map14back.png';
+import map14backN from '../maps/map14back_n.png';
 import map15back from '../maps/map15back.png';
+import map15backN from '../maps/map15back_n.png';
 import map16back from '../maps/map16back.png';
+import map16backN from '../maps/map16back_n.png';
 import map17back from '../maps/map17back.png';
+import map17backN from '../maps/map17back_n.png';
 import map18back from '../maps/map18back.png';
+import map18backN from '../maps/map18back_n.png';
 import map19back from '../maps/map19back.png';
+import map19backN from '../maps/map19back_n.png';
+
 
 // dashboard
 //import blackPixel from '../assets/blackPixel.png';
@@ -216,7 +245,7 @@ export default class LoadingScreen extends Scene {
     //this.load.tilemapTiledJSON('map20', map20);
     
     // player animation
-    this.load.atlas('player', spritesheetPlayer, spritesheetPlayerJSON);
+    this.load.atlas('player', [spritesheetPlayer, spritesheetPlayerN], spritesheetPlayerJSON);
 
     // player bullets
     this.load.spritesheet('knife', knife, { frameWidth: 8, frameHeight: 8 });
@@ -227,12 +256,12 @@ export default class LoadingScreen extends Scene {
     this.load.spritesheet('heart', heart, { frameWidth: 12, frameHeight: 12 });
 
     // Enemies
-    this.load.atlas('enemies', spritesheetEnemies, spritesheetEnemiesJSON);
-    this.load.atlas('dragon', dragonAtlas, dragonAtlasJSON);
-    this.load.atlas('hellBeast', hellBeastAtlas, hellBeastAtlasJSON);
-    this.load.atlas('finalBoss', finalBossAtlas, finalBossAtlasJSON);
+    this.load.atlas('enemies', [spritesheetEnemies, spritesheetEnemiesN], spritesheetEnemiesJSON);
+    this.load.atlas('dragon', [dragonAtlas, dragonAtlasN], dragonAtlasJSON);
+    this.load.atlas('hellBeast', [hellBeastAtlas, hellBeastAtlasN], hellBeastAtlasJSON);
+    this.load.atlas('finalBoss', [finalBossAtlas, finalBossAtlasN], finalBossAtlasJSON);
     this.load.atlas('storm', stormAtlas, stormAtlasJSON);
-    this.load.atlas('angel', angelAtlas, angelAtlasJSON);
+    this.load.atlas('angel', [angelAtlas, angelAtlasN], angelAtlasJSON);
 
     // various map items
     this.load.image('head', head);
@@ -254,27 +283,29 @@ export default class LoadingScreen extends Scene {
     
 
     // parralax
-    this.load.image('map1back', map1back);
-    this.load.image('map1middle', map1middle);
-    this.load.image('map2back', map2back);
-    this.load.image('map3back', map3back);
+    this.load.image('map1back', [map1back, map1backN]);
+    this.load.image('map1middle', [map1middle, map1middleN]);
+    this.load.image('map2back', [map2back, map2backN]);
+    this.load.image('map3back', [map3backTest, map3backTestN]);
     this.load.image('map3middle', map3middle);
     this.load.image('map3middle2', map3middle2);
-    this.load.image('map5back', map5back);
-    this.load.image('map6back', map6back);
-    this.load.image('map7back', map7back);
-    this.load.image('map8back', map8back);
-    this.load.image('map10back', map10back);
-    this.load.image('map11back', map11back);
+    this.load.image('map4back', [map4back, map4backN]);
+    this.load.image('map5back', [map5back, map5backN]);
+    this.load.image('map6back', [map6back, map6backN]);
+    this.load.image('map7back', [map7back, map7backN]);
+    this.load.image('map8back', [map8back, map8backN]);
+    this.load.image('map9back', [map9back, map9backN]);
+    this.load.image('map10back', [map10back, map10backN]);
+    this.load.image('map11back', [map11back, map11backN]);
     this.load.image('map11middle2', map11middle2);
-    this.load.image('map12back', map12back);
-    this.load.image('map13back', map13back);
-    this.load.image('map14back', map14back);
-    this.load.image('map15back', map15back);
-    this.load.image('map16back', map16back);
-    this.load.image('map17back', map17back);
-    this.load.image('map18back', map18back);
-    this.load.image('map19back', map19back);
+    this.load.image('map12back', [map12back, map12backN]);
+    this.load.image('map13back', [map13back, map13backN]);
+    this.load.image('map14back', [map14back, map14backN]);
+    this.load.image('map15back', [map15back, map15backN]);
+    this.load.image('map16back', [map16back, map16backN]);
+    this.load.image('map17back', [map17back, map17backN]);
+    this.load.image('map18back', [map18back, map18backN]);
+    this.load.image('map19back', [map19back, map19backN]);
     
 
     // sounds

@@ -17,6 +17,7 @@ export default class HellBeast extends Phaser.GameObjects.Sprite {
     this.setDepth(104);
     this.scene.physics.world.enable(this);
     this.scene.add.existing(this);
+    this.setPipeline('Light2D');
     this.body.allowGravity = false;
     this.body.setSize(64, 64);
     this.getFired = false;

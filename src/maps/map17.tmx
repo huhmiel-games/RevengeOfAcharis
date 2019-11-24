@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="25" height="16" tilewidth="16" tileheight="16" nextobjectid="546">
+<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="25" height="16" tilewidth="16" tileheight="16" nextobjectid="552">
  <properties>
-  <property name="ambientColor" value="0xDDDDDD"/>
+  <property name="ambientColor" value="0x444444"/>
   <property name="callFunction" value="escape"/>
   <property name="music" value="ambient1"/>
   <property name="paraBack" value="map17back"/>
@@ -152,5 +152,48 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup name="lights"/>
+ <objectgroup name="lights">
+  <object id="546" name="light1" gid="321" x="184" y="132" width="16" height="16">
+   <properties>
+    <property name="color" value="0xEEC061"/>
+    <property name="intensity" type="int" value="1"/>
+    <property name="radius" type="int" value="128"/>
+   </properties>
+  </object>
+  <object id="547" name="light2" gid="321" x="64" y="184" width="16" height="16">
+   <properties>
+    <property name="color" value="0xEEC061"/>
+    <property name="intensity" type="int" value="1"/>
+    <property name="radius" type="int" value="48"/>
+   </properties>
+  </object>
+  <object id="548" name="light3" gid="321" x="192" y="184" width="16" height="16">
+   <properties>
+    <property name="color" value="0xEEC061"/>
+    <property name="intensity" type="int" value="1"/>
+    <property name="radius" type="int" value="48"/>
+   </properties>
+  </object>
+  <object id="549" name="light4" gid="321" x="320" y="184" width="16" height="16">
+   <properties>
+    <property name="color" value="0xEEC061"/>
+    <property name="intensity" type="int" value="1"/>
+    <property name="radius" type="int" value="48"/>
+   </properties>
+  </object>
+  <object id="550" name="light5" gid="321" x="340" y="132" width="16" height="16">
+   <properties>
+    <property name="color" value="0xEEC061"/>
+    <property name="intensity" type="int" value="1"/>
+    <property name="radius" type="int" value="64"/>
+   </properties>
+  </object>
+  <object id="551" name="light6" gid="321" x="52" y="132" width="16" height="16">
+   <properties>
+    <property name="color" value="0xEEC061"/>
+    <property name="intensity" type="int" value="1"/>
+    <property name="radius" type="int" value="64"/>
+   </properties>
+  </object>
+ </objectgroup>
 </map>

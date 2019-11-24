@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="100" height="16" tilewidth="16" tileheight="16" nextobjectid="564">
+<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="100" height="16" tilewidth="16" tileheight="16" nextobjectid="565">
  <properties>
-  <property name="ambientColor" value="0xDDDDDD"/>
+  <property name="ambientColor" value="0x444444"/>
   <property name="callFunction" value=""/>
   <property name="mapScenePosition" value="11,2,0xCC2485"/>
   <property name="music" value="ambient1"/>
   <property name="paraBack" value="map3back"/>
-  <property name="paraMiddle" value="map3middle"/>
-  <property name="paraMiddle2" value="map3middle2"/>
+  <property name="paraMiddle" value=""/>
+  <property name="paraMiddle2" value=""/>
   <property name="walkSfx" value="graveyardWalkSfx"/>
  </properties>
  <tileset firstgid="1" name="tileground" tilewidth="16" tileheight="16" tilecount="4096" columns="64">
@@ -227,6 +227,14 @@
  <objectgroup name="fireball"/>
  <objectgroup name="rhino"/>
  <objectgroup name="savestation"/>
- <objectgroup name="lights"/>
+ <objectgroup name="lights">
+  <object id="564" name="ambient1" gid="321" x="816" y="16" width="16" height="16">
+   <properties>
+    <property name="color" value="0xFCDEC4"/>
+    <property name="intensity" type="int" value="1"/>
+    <property name="radius" type="int" value="512"/>
+   </properties>
+  </object>
+ </objectgroup>
  <objectgroup name="path"/>
 </map>

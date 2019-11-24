@@ -302,7 +302,7 @@
  "orientation":"orthogonal",
  "properties":
     {
-     "ambientColor":"0xDDDDDD",
+     "ambientColor":"0x333333",
      "mapScenePosition":"18,2,0xCC2485",
      "music":"ambient3",
      "paraBack":"map9back",

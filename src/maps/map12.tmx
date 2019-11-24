@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="25" height="16" tilewidth="16" tileheight="16" nextobjectid="563">
+<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="25" height="16" tilewidth="16" tileheight="16" nextobjectid="564">
  <properties>
-  <property name="ambientColor" value="0xDDDDDD"/>
+  <property name="ambientColor" value="0x444444"/>
   <property name="callFunction" value="callHellBeast,escape"/>
   <property name="mapScenePosition" value="6,7,0xCC2485"/>
   <property name="music" value="ambient1"/>
@@ -198,12 +198,19 @@
  <objectgroup name="fireball"/>
  <objectgroup name="rhino"/>
  <objectgroup name="savestation"/>
- <objectgroup name="lights" visible="0">
-  <object id="558" name="ambient1" gid="1" x="192" y="32" width="16" height="16">
+ <objectgroup name="lights">
+  <object id="558" name="light1" gid="1" x="76" y="136" width="16" height="16">
    <properties>
-    <property name="color" value="0xFCDEC4"/>
+    <property name="color" value="0xEEC061"/>
     <property name="intensity" type="int" value="1"/>
-    <property name="radius" type="int" value="512"/>
+    <property name="radius" type="int" value="92"/>
+   </properties>
+  </object>
+  <object id="563" name="light2" gid="1" x="316" y="136" width="16" height="16">
+   <properties>
+    <property name="color" value="0xEEC061"/>
+    <property name="intensity" type="int" value="1"/>
+    <property name="radius" type="int" value="92"/>
    </properties>
   </object>
  </objectgroup>

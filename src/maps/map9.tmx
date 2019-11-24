@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="25" height="16" tilewidth="16" tileheight="16" nextobjectid="545">
  <properties>
-  <property name="ambientColor" value="0xDDDDDD"/>
+  <property name="ambientColor" value="0x333333"/>
   <property name="mapScenePosition" value="18,2,0xCC2485"/>
   <property name="music" value="ambient3"/>
   <property name="paraBack" value="map9back"/>

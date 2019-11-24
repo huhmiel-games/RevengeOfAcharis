@@ -16,6 +16,7 @@ export default class BurningGhoul extends Phaser.GameObjects.Sprite {
     this.setDepth(101);
     this.scene.physics.world.enable(this);
     this.scene.add.existing(this);
+    this.setPipeline('Light2D');
     this.body
       .setAllowGravity(true)
       .setGravityY(500)
