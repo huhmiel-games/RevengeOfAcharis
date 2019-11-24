@@ -5,10 +5,19 @@
          "encoding":"base64",
          "height":16,
          "name":"back",
-         "opacity":1,
+         "opacity":0,
          "type":"tilelayer",
          "visible":true,
          "width":100,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "image":"map3backTest.png",
+         "name":"Calque d'image 1",
+         "opacity":1,
+         "type":"imagelayer",
+         "visible":true,
          "x":0,
          "y":0
         }, 
@@ -580,12 +589,12 @@
                  "gid":321,
                  "height":16,
                  "id":564,
-                 "name":"ambient1",
+                 "name":"light1",
                  "properties":
                     {
-                     "color":"0xFCDEC4",
-                     "intensity":1,
-                     "radius":512
+                     "color":"0xD071AE",
+                     "intensity":2,
+                     "radius":2048
                     },
                  "propertytypes":
                     {
@@ -597,8 +606,8 @@
                  "type":"",
                  "visible":true,
                  "width":16,
-                 "x":816,
-                 "y":16
+                 "x":852,
+                 "y":68
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -620,7 +629,7 @@
  "orientation":"orthogonal",
  "properties":
     {
-     "ambientColor":"0x444444",
+     "ambientColor":"0x666666",
      "callFunction":"",
      "mapScenePosition":"11,2,0xCC2485",
      "music":"ambient1",

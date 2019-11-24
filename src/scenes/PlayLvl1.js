@@ -333,10 +333,10 @@ export default class playLvl1 extends Scene {
     // }
     // ====================================================================
 
-    if (this.state.displayPowerUpMsg) {
-      this.msgtext.x = this.player.x;
-      this.msgtext.y = this.player.y - 60;
-    }
+    // if (this.state.displayPowerUpMsg) {
+    //   this.msgtext.x = this.player.x;
+    //   this.msgtext.y = this.player.y - 60;
+    // }
     if (this.modalText) {
       this.modalText.x = this.player.x;
       this.modalText.y = this.player.y - 100;
@@ -414,7 +414,8 @@ export default class playLvl1 extends Scene {
     this.player.inventory.powerUp[elm.state.id] = 1;
 
     this.pauseGamePowerUp();
-    this.msgtext = this.add.bitmapText(0, 0, 'atomic', elm.state.text, 12, 1)
+    const pos = this.getCamCenter();
+    this.msgtext = this.add.bitmapText(pos.x, pos.y, 'atomic', elm.state.text, 12, 1)
       .setOrigin(0.5, 0.5)
       .setAlpha(1)
       .setDepth(210);
@@ -432,7 +433,8 @@ export default class playLvl1 extends Scene {
         getEnd: () => 0,
       },
       onComplete: () => {
-        this.state.displayPowerUpMsg = false;
+        this.msgtext.destroy();
+        //this.state.displayPowerUpMsg = false;
       },
     });
   }
@@ -487,8 +489,9 @@ export default class playLvl1 extends Scene {
       this.player.anims.play('stand');
       this.player.state.pause = true;
       this.physics.pause();
-      this.lifeText = this.add.bitmapText(U.WIDTH/2, U.HEIGHT/2, 'atomic', 'PAUSE')
-      .setFontSize(10)
+      const pos = this.getCamCenter();
+      this.lifeText = this.add.bitmapText(pos.x, pos.y, 'atomic', 'PAUSE', 10, 1)
+      //.setFontSize(10)
       .setAlpha(1);
       this.time.addEvent({
         delay: 120,
@@ -572,7 +575,7 @@ export default class playLvl1 extends Scene {
     }
     if (!this.playerHurt) {
       this.playerHurt = true; // flag
-      this.sound.play('playerHit');
+      this.sound.play('playerHit', { volume: 2});
       this.player.inventory.life -= elm.state.damage;
       this.playerFlashTween = this.tweens.add({
         targets: this.player,
@@ -651,7 +654,7 @@ export default class playLvl1 extends Scene {
       .setTintFill(0x0C1D1C)
       .setDisplaySize(U.WIDTH, U.HEIGHT);
     
-    this.sound.play('playerDead', { volume: 0.2 });
+    this.sound.play('playerDead', { volume: 1 });
 
     this.tween = this.tweens.add({
       targets: this.round,
@@ -728,10 +731,12 @@ export default class playLvl1 extends Scene {
       // enemy loose life
       el.looseLife(this.player.inventory[`${this.player.state.selectedWeapon}Damage`]);
       el.setTintFill(0xDDDDDD);
+      el.setPipeline('GlowFixedFx');
       this.time.addEvent({
         delay: 50,
         callback: () => {
           el.clearTint();
+          el.resetPipeline();
         },
       });
 
@@ -842,7 +847,7 @@ export default class playLvl1 extends Scene {
     this.enemyGroup.forEach(e => e.destroy());
     this.elevatorGroup.forEach(e => e.destroy());
     this.lavaGroup.forEach(e => e.destroy());
-    this.lights.lights.forEach(light => light.setPosition(-100, -100));
+    this.lights.lights.forEach(light => light.setPosition(-1000, -1000));
     // create room
     this.map = this.make.tilemap({ key: room, tileWidth: 16, tileHeight: 16 });
     this.playerPosition = room;
@@ -1635,6 +1640,10 @@ export default class playLvl1 extends Scene {
 
   countTime() {
     this.firstTimestamp = countTime(this.firstTimestamp);
+  }
+
+  getCamCenter() {
+    return { x: this.cameras.main.scrollX + U.WIDTH / 2, y: this.cameras.main.scrollY + U.HEIGHT / 2};
   }
 
   // ====================================================================

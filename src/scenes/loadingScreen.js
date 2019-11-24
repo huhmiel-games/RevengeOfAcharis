@@ -20,21 +20,35 @@ import graveyardWalkSfx from '../assets/sfx/graveyard_walk.ogg';
 import castleWalkSfx from '../assets/sfx/castle_walk.ogg';
 import churchWalkSfx from '../assets/sfx/church_walk.ogg';
 
+// sfx for weapon select
+import waterIcon from '../assets/sfx/water_icon.ogg';
+import lavaIcon from '../assets/sfx/lava_icon.ogg';
+import thunderIcon from '../assets/sfx/thunder_icon.ogg';
+
+//HUD sfx
+import playerDead from '../assets/sfx/Death_melody.ogg';
+import melo from '../assets/sfx/SavePoint.ogg';
+import powerUpFX from '../assets/sfx/Acharis_upgrade.ogg';
+import playerHitFX from '../assets/sfx/Acharis_hit.ogg';
+import lowLifeSfx from '../assets/sfx/Acharis_life_low.ogg';
+import getLifeFX from '../assets/sfx/Acharis_heart_get.ogg';
+
+
 import laserFX from '../assets/sounds/laser3.ogg'; // no use for now
 import impactFX from '../assets/sounds/explo.ogg'; // no use for now
 import explo2FX from '../assets/sounds/explo2.ogg'; // no use for now
 import enemyImpactFX from '../assets/sounds/enemyHit.ogg'; 
-import playerHitFX from '../assets/sounds/playerHit.ogg'; // when player is hit
+//import playerHitFX from '../assets/sounds/playerHit.ogg'; // when player is hit
 import morphFX from '../assets/sounds/playerHit2.ogg'; // no use for now
-import powerUpFX from '../assets/sounds/powerup.ogg'; // when player got a item, could be cool to have a little melody instead
+//simport powerUpFX from '../assets/sounds/powerup.ogg'; // when player got a item, could be cool to have a little melody instead
 import selectFX from '../assets/sounds/select.ogg'; // menu navigation i guess
 import doorFX from '../assets/sounds/elevator.ogg'; // door sfx but not used anu
 import jumpBoosterFX from '../assets/sounds/jumpboost.ogg'; // no use for now
-import getLifeFX from '../assets/sounds/getlife2.ogg'; // when player get life from dead enemies
+//import getLifeFX from '../assets/sounds/getlife2.ogg'; // when player get life from dead enemies
 import runFX from '../assets/sounds/walk.ogg'; // player walk sfx
 import explo3FX from '../assets/sounds/explo3.ogg'; // no use for now
-import melo from '../assets/sounds/melo1.ogg'; // when we save the game on checkpoints
-import playerDead from '../assets/sounds/playerdead.ogg'; // when player die, a little melody could be cool
+//import melo from '../assets/sounds/melo1.ogg'; // when we save the game on checkpoints
+//import playerDead from '../assets/sounds/playerdead.ogg'; // when player die, a little melody could be cool
 import shake from '../assets/sounds/shake3.ogg'; // when i shake the camera like earthquake
 import shake2 from '../assets/sounds/shake4.ogg'; // when i shake the camera like earthquake
 import guepeFX from '../assets/sounds/guepe.ogg'; // the flying ghost in cemitary
@@ -321,6 +335,9 @@ export default class LoadingScreen extends Scene {
     this.load.audio('graveyardWalkSfx', graveyardWalkSfx);
     this.load.audio('castleWalkSfx', castleWalkSfx);
     this.load.audio('churchWalkSfx', churchWalkSfx);
+    this.load.audio('waterStorm', waterIcon);
+    this.load.audio('lavaStorm', lavaIcon);
+    this.load.audio('thunderStorm', thunderIcon);
     this.load.audio('laser', laserFX);
     this.load.audio('impact', impactFX);
     this.load.audio('explo2', explo2FX);

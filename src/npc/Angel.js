@@ -15,6 +15,7 @@ export default class Angel extends Phaser.GameObjects.Sprite {
     this.showMsg = null;
     this.isTalking = false;
     this.msgCount = 0;
+    this.firstEncounter = false;
     this.finalSequence = false;
     this.animate('angel-idle', true);
   }
@@ -28,7 +29,7 @@ export default class Angel extends Phaser.GameObjects.Sprite {
       } else {
         this.flipX = false;
       }
-      if (Math.abs(this.x - this.scene.player.x) < 20) {
+      if (Math.abs(this.x - this.scene.player.x) < 20 && !this.firstEncounter) {
         this.talkToPlayer();
       } else {
         this.stopTalking();
@@ -59,7 +60,7 @@ export default class Angel extends Phaser.GameObjects.Sprite {
     it will allow you to open
     the door of thunder,
     and kill nearby enemies`, `Good luck Acharis`];
-    this.showMsg = this.scene.add.bitmapText(this.x, this.y - 42, 'atomic', msg[0], 8, 1)
+    this.showMsg = this.scene.add.bitmapText(this.x + 10, this.y - 42, 'atomic', msg[0], 8, 1)
       .setOrigin(0.5, 0.5).setAlpha(1).setDepth(200);
     
     // pause the player
@@ -83,6 +84,7 @@ export default class Angel extends Phaser.GameObjects.Sprite {
           this.scene.player.addMagic('waterStorm');
           this.scene.player.state.pause = false;
           this.scene.physics.resume();
+          this.firstEncounter = true;
           //this.scene.player.anims.resume(this.player.anims.currentFrame);
         }
       },

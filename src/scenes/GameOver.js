@@ -42,13 +42,13 @@ export default class GameOver extends Scene {
 
     this.input.keyboard.on('keydown', (event) => {
       if (this.keys.down.isDown && event.key === this.keys.down.originalEvent.key) {
-        this.sound.play('bip', { volume: 0.2 });
+        this.sound.play('bullet', { volume: 0.8 });
         this.choose(1);
       } else if (this.keys.up.isDown && event.key === this.keys.up.originalEvent.key) {
-        this.sound.play('bip', { volume: 0.2 });
+        this.sound.play('bullet', { volume: 0.8 });
         this.choose(-1);
       } else if (this.keys.fire.isDown && event.key === this.keys.fire.originalEvent.key) {
-        this.sound.play('bip2', { volume: 0.1 });
+        this.sound.play('melo', { volume: 1 });
         this.launch();
       }
     });

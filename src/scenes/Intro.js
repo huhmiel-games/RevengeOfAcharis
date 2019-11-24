@@ -41,7 +41,7 @@ export default class Intro extends Scene {
       .setTint(0xDDDDDD);
 
     this.input.keyboard.once('keydown', () => {
-      this.sound.play('bip2', { volume: 0.1 });
+      this.sound.play('melo', { volume: 0.8 });
       this.scene.start('loadSavedGame');
     });
 

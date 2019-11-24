@@ -27,7 +27,7 @@ export default class bootGame extends Scene {
       .setTint(0xDDDDDD);
 
     this.input.keyboard.once('keydown', () => {
-      this.sound.play('bip2', { volume: 0.1 });
+      // this.sound.play('bip2', { volume: 0.1 });
       this.ambient2.stop();
       this.scene.start('LoadingScreen');
     });

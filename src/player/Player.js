@@ -734,7 +734,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
       }
       this.state.selectedWeapon = availableWeaponList[count + 1];
       this.scene.events.emit('selectWeapon', { selectedWeapon: this.state.selectedWeapon });
-      this.scene.sound.play('select', { volume: 0.1 });
+      this.scene.sound.play(this.state.selectedWeapon, { volume: 0.7 });
       this.scene.time.addEvent({
         delay: 300,
         callback: () => {
@@ -777,7 +777,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
       this.playerDead = true;
       this.scene.physics.pause();
       this.scene.events.emit('setHealth', { life: 0 });
-      this.scene.sound.play('playerDead', { volume: 0.2 });
+      this.scene.sound.play('playerDead', { volume: 1 });
       this.scene.input.enabled = false;
       this.scene.player.anims.pause(this.scene.player.anims.currentFrame);
       this.playerFlashTween.stop();
@@ -812,7 +812,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
     } else {
       this.inventory.life = this.inventory.lifeEnergyBlock * 100;
     }
-    this.scene.sound.play('getLife', { volume: 0.05 });
+    this.scene.sound.play('getLife', { volume: 2 });
     l.destroy();
     this.scene.events.emit('setHealth', { life: this.inventory.life });
   }
