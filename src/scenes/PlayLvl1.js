@@ -1326,25 +1326,7 @@ export default class playLvl1 extends Scene {
     tex.getSourceImage();
     const imgSize = { width: tex.source[0].width, height: tex.source[0].height };
     this.paraBack = this.add.image(0, 0, image).setOrigin(0, 0).setPipeline('Light2D');
-
-    // this.paraBack
-    //   .setScrollFactor(0.2, 1)
-    //   .setOrigin(0, 0)
     this.paraBackGroup.push(this.paraBack);
-    // check how many images are needed
-    // const nbrWidth = Math.ceil(this.map.widthInPixels / imgSize.width);
-    // const nbrHeight = Math.ceil(this.map.heightInPixels / imgSize.height);
-    // // create new image
-    // for (let i = 0; i < nbrWidth; i += 1) {
-    //   for (let k = 0; k < nbrHeight; k += 1) {
-    //     this[`para_back${i}${k}`] = this.add.image(0 + (imgSize.width * i), 0 + (imgSize.height * k), image)
-    //       .setDepth(0)
-    //       .setScrollFactor(0.2, 1)
-    //       .setOrigin(0, 0)
-    //     this[`para_back${i}${k}`].name = [`para_back${i}${k}`];
-    //     this.paraBackGroup.push(this[`para_back${i}${k}`]);
-    //   }
-    // }
   }
 
   addParaMiddle(image) {
@@ -1357,9 +1339,6 @@ export default class playLvl1 extends Scene {
     const imgSize = { width: tex.source[0].width, height: tex.source[0].height };
 
     this.paraMiddle = this.add.image(0, 0, image).setOrigin(0, 0).setPipeline('Light2D');
-    // this.paraMiddle
-    //   //.setScrollFactor(-0.1, 1)
-    //   .setOrigin(0, 0)
     this.paraMiddleGroup.push(this.paraMiddle);
     return;
     // check how many images are needed

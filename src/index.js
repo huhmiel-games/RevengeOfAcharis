@@ -18,12 +18,12 @@ const config = {
   height: U.HEIGHT,
   pixelArt: true,
   maxLights: 16,
-  scale: {
-    parent: 'gamecanvas',
-    mode: Phaser.Scale.HEIGHT_CONTROLS_WIDTH,
-    autoRound: true,
-    autoCenter: Phaser.DOM.CENTER_BOTH,
-  },
+  // scale: {
+  //   parent: 'gamecanvas',
+  //   mode: Phaser.Scale.HEIGHT_CONTROLS_WIDTH,
+  //   autoRound: true,
+  //   autoCenter: Phaser.DOM.CENTER_BOTH,
+  // },
   physics: {
     default: 'arcade',
     arcade: {
