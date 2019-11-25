@@ -18,7 +18,6 @@ export default class EndGame extends Scene {
     d = JSON.parse(d);
 
     const arr = this.mainScene.player.inventory.powerUp.filter(e => e === 1);
-    console.log(this.mainScene.player.inventory.powerUp, arr)
     const percent = Math.floor(arr.length * 100 / 7);
 
     let t = localStorage.getItem('time');
@@ -125,7 +124,7 @@ export default class EndGame extends Scene {
   }
 
   credits() {
-    this.trans = 'Credits---Designer:-Philippe Pereira---Graphics:-Luis Zuno---Music and SFX:-Sound a Head---Programming:-Philippe Pereira--- -- -- -- -- -- -- -- -- -- -- --Thanks for playing-- -- -- --';
+    this.trans = 'Credits---Designer:-Philippe Pereira---Graphics:-Luis Zuno-rvros---Music and SFX:-Sound a Head---Programming:-Philippe Pereira--- -- -- -- -- -- -- -- -- -- --Thanks for playing-- -- -- --';
     this.cnt = 0;
     this.transDisplay = this.add.bitmapText(U.WIDTH / 2, U.HEIGHT / 2 - 70, 'atomic', '', 20, 1)
       .setOrigin(0.5, 0.8)

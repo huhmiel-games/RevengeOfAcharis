@@ -27,6 +27,24 @@ export default class BurningGhoul extends Phaser.GameObjects.Sprite {
     this.flipX = true;
     this.followPath = false;
     this.speed = 200;
+    this.walkplay = false;
+    this.walkk = this.scene.sound.add('ghoulStep', { volume: 1});
+    this.on('animationupdate', () => {
+      const runSpeedNow = Math.abs(this.body.velocity.x);
+      //const walkRate = Phaser.Math.RND.realInRange(0.75, 1.25)
+      const runTimer = runSpeedNow > 0 ? (750 / runSpeedNow) * 50 : 330;
+      if (this.anims.currentAnim.key === 'burning-ghoul' && !this.walkplay && this.body.blocked.down && this.distance < 350) {
+        this.walkplay = true;
+        this.walkk.play();//{ rate: walkRate }
+        this.scene.time.addEvent({
+          delay: runTimer,
+          callback: () => {
+            this.walkk.stop()
+            this.walkplay = false;
+          },
+        });
+      }
+    });
   }
 
   preUpdate(time, delta) {
@@ -36,6 +54,8 @@ export default class BurningGhoul extends Phaser.GameObjects.Sprite {
       this.body.setVelocityY(this.state.directionY);
       let animationName;
       animationName = 'burning-ghoul';
+      const distance = Phaser.Math.Distance.Between(this.scene.player.x, this.scene.player.y, this.x, this.y);
+      this.distance = distance;
       // turn back if blocked
       if (this.body.blocked.left) {
         this.state.directionX = this.speed;
@@ -69,8 +89,12 @@ export default class BurningGhoul extends Phaser.GameObjects.Sprite {
   }
 
   looseLife(e) {
-    this.scene.sound.play('enemyHit');
+    this.scene.sound.play('ghoulHit');
     this.state.life = this.state.life - e;
+  }
+
+  playSfxDeath() {
+    this.scene.sound.play('ghoulDeath', { volume: 1, rate: 1 });
   }
 
   checkCollision(d) {

@@ -21,7 +21,7 @@ export default class Ghost extends Phaser.GameObjects.Sprite {
     this.body.setAllowGravity(false).setSize(20, 28).setOffset(10, 20);
     this.state.directionY = Math.sin(300 + Math.PI / 4);
     this.getFired = false;
-    this.waspFX = this.scene.sound.add('guepe', { volume: 0.2 });
+    this.waspFX = this.scene.sound.add('ghostFly', { volume: 1 });
     this.ghostLight = this.scene.lights.addLight(this.x, this.y + 48, 48, 0xFCDECA, 0.6);
   }
 
@@ -74,12 +74,16 @@ export default class Ghost extends Phaser.GameObjects.Sprite {
     }
   }
 
+  playSfxDeath() {
+    this.scene.sound.play('ghostDeath', { volume: 1, rate: 1 });
+  }
+
   animate(str) {
     this.anims.play(str, true);
   }
 
   looseLife(e) {
-    this.scene.sound.play('enemyHit');
+    this.scene.sound.play('ghostHit');
     this.state.life = this.state.life - e;
   }
 

@@ -281,6 +281,10 @@ export default class HellBeast extends Phaser.GameObjects.Sprite {
     }
   }
 
+  playSfxDeath() {
+    this.scene.sound.play('skeletonDeath', { volume: 1, rate: 1 });
+  }
+
   explode() {
     this.isDead = true;
     this.body.setVelocity(0, 0);

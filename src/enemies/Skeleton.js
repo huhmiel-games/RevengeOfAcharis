@@ -3,7 +3,7 @@ export default class Skeleton extends Phaser.GameObjects.Sprite {
     super(scene, x, y, config.key);
 
     this.scene = scene;
-    this.name = config.name;
+    this.name = 'skeleton';
     this.damage = config.damage;
     this.state = {
       life: config.life,
@@ -30,6 +30,23 @@ export default class Skeleton extends Phaser.GameObjects.Sprite {
     this.speed = 120;
     this.visible = false;
     this.isAttacking = false;
+    this.walkplay = false;
+    this.walkk = this.scene.sound.add('skeletonStep', { volume: 1 });
+    this.on('animationupdate', () => {
+      const runSpeedNow = Math.abs(this.body.velocity.x);
+      const walkRate = Phaser.Math.RND.realInRange(0.75, 1.25)
+      const runTimer = runSpeedNow > 0 ? (1000 / runSpeedNow) * 50 : 330;
+      if (this.anims.currentAnim.key === 'skeleton' && !this.walkplay && this.body.blocked.down && this.distance < 350) {
+        this.walkplay = true;
+        this.walkk.play({ rate: walkRate });
+        this.scene.time.addEvent({
+          delay: runTimer,
+          callback: () => {
+            this.walkplay = false;
+          },
+        });
+      }
+    });
   }
 
   preUpdate(time, delta) {
@@ -38,7 +55,8 @@ export default class Skeleton extends Phaser.GameObjects.Sprite {
       
       let animationName;
       const distance = Phaser.Math.Distance.Between(this.scene.player.x, this.scene.player.y, this.x, this.y);
-      
+      this.distance = distance;
+
       if (distance <= 120 && !this.isAttacking) {
         this.visible = true;
           const dx = this.scene.player.x - this.x;
@@ -88,8 +106,13 @@ export default class Skeleton extends Phaser.GameObjects.Sprite {
     this.followPath = true;
   }
 
+  playSfxDeath() {
+    this.scene.sound.play('skeletonDeath', { volume: 1, rate: 1 });
+  }
+
   animate(str) {
     if (str === 'skeletonRise') {
+      this.scene.sound.play('skeletonRising', { volume: 1, rate: 1 });
       this.anims.play(str, true).on('animationcomplete', () => {
         this.isAttacking = true;
         this.state.damage = this.damage;
@@ -102,7 +125,7 @@ export default class Skeleton extends Phaser.GameObjects.Sprite {
     if (!this.isAttacking) {
       return;
     }
-    this.scene.sound.play('enemyHit');
+    this.scene.sound.play('skeletonHit', { volume: 1, rate: 1 });
     this.state.life = this.state.life - e;
   }
 

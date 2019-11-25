@@ -705,7 +705,7 @@ export default class playLvl1 extends Scene {
       || this.player.state.selectedWeapon === 'bullet'
       || this.player.state.selectedWeapon === 'swell'
       ) {
-        this.player.bulletKill(bull);
+        this.player.bulletKill(bull, false);
       }
 
       if (this.player.state.selectedWeapon === 'waterStorm') {
@@ -732,6 +732,7 @@ export default class playLvl1 extends Scene {
       el.looseLife(this.player.inventory[`${this.player.state.selectedWeapon}Damage`]);
       el.setTintFill(0xDDDDDD);
       el.setPipeline('GlowFixedFx');
+      
       this.time.addEvent({
         delay: 50,
         callback: () => {
@@ -760,6 +761,7 @@ export default class playLvl1 extends Scene {
         return;
       }
       el.clearTint();
+      el.playSfxDeath();
       el.explode();
       // kill the enemy
       this.giveLife = this.physics.add.sprite(el.x, el.y, 'heart');

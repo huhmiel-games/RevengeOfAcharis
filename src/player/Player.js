@@ -727,7 +727,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
     }
   }
 
-  bulletKill(e) {
+  bulletKill(e, playSfxBool = true) {
     const { blocked } = e.body;
     const { body, texture, x, y } = e;
     e.setVelocity(0, 0);
@@ -749,10 +749,11 @@ export default class Player extends Phaser.GameObjects.Sprite {
       on: false,
     });
     this.scene.weaponParticleEmitter.explode(6, x + sideHitOffset, y);
-    // elm.setVelocity(0, 0);
-    // elm.setDepth(102);
-    // elm.destroy();
-    console.log(e)
+    // leave if hit enemy, or play sfx on wall
+    if (!playSfxBool) {
+      return;
+    }
+    
     switch (e.name) {
       case 'knife':
         this.scene.sound.play('knifeIcon', { volume: 0.4, rate: 1.5 });

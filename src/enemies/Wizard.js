@@ -77,7 +77,8 @@ export default class Wizard extends Phaser.GameObjects.Sprite {
     this.animate('wizard-idle', true);
     const randomX = Phaser.Math.Between(this.scene.player.x - 180, this.scene.player.x + 180);
     const randomY = Phaser.Math.Between(this.scene.player.y - 50, this.scene.player.y + 50);
-    this.setPosition(randomX, randomY)
+    this.setPosition(randomX, randomY);
+    this.scene.sound.play('wizardAppear', { volume: 1, rate: 1 });
     this.fadingTween = this.scene.tweens.add({
       targets: this,
       ease: 'Sine.easeInOut',
@@ -98,10 +99,12 @@ export default class Wizard extends Phaser.GameObjects.Sprite {
   }
 
   fireThePlayer() {
-    if (!this.isFiring) {
+    if (!this.active || !this.isFiring) {
       return;
     }
     this.isFiring = false;
+    
+    this.scene.sound.play('wizardFireLaugh', { volume: 1, rate: 1 });
     this.on('animationcomplete', (wizard) => {
       this.shootThePlayer()
           // const angle = Math.atan2(dy, dx);
@@ -117,6 +120,10 @@ export default class Wizard extends Phaser.GameObjects.Sprite {
           getEnd: () => 0,
         },
         onComplete: () => {
+          if (!this.active || !this.isFiring) {
+            return;
+          }
+          this.scene.sound.play('wizardDisappear', { volume: 1, rate: 1 });
           this.isFiring = false;
           this.isHidden = true;
           this.setPosition(-100, -100);
@@ -147,7 +154,7 @@ export default class Wizard extends Phaser.GameObjects.Sprite {
       ball.body.setVelocity(Math.cos(angle) * 330, Math.sin(angle) * 330);
 
       ball.setRotation(angle + Math.PI/2)
-      this.scene.sound.play('swell', { volume: 0.15 });
+      this.scene.sound.play('wizardFire', { volume: 1 });
       this.scene.time.addEvent({
         delay: 1500,
         callback: () => {
@@ -163,8 +170,12 @@ export default class Wizard extends Phaser.GameObjects.Sprite {
   }
 
   looseLife(e) {
-    this.scene.sound.play('enemyHit');
+    this.scene.sound.play('wizardHit');
     this.state.life = this.state.life - e;
+  }
+
+  playSfxDeath() {
+    this.scene.sound.play('wizardDeathLaugh', { volume: 1, rate: 1 });
   }
 
   checkCollision(d) {

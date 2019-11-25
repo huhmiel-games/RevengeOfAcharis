@@ -36,6 +36,35 @@ import playerHitFX from '../assets/sfx/Acharis_hit.ogg';
 import lowLifeSfx from '../assets/sfx/Acharis_life_low.ogg';
 import getLifeFX from '../assets/sfx/Acharis_heart_get.ogg';
 
+// skeleton sfx
+import skeletonRising from '../assets/sfx/Skeleton/Skeleton_Rising.ogg';
+import skeletonHit from '../assets/sfx/Skeleton/Skeleton_hit.ogg';
+import skeletonDeath from '../assets/sfx/Skeleton/Skeleton_death.ogg';
+import skeletonStep from '../assets/sfx/Skeleton/Skeleton_step.ogg';
+// wizard sfx
+import wizardAppear from '../assets/sfx/Cynical/Cynical_appear.ogg';
+import wizardDisappear from '../assets/sfx/Cynical/Cynical_disaappear.ogg';
+import wizardFire from '../assets/sfx/Cynical/fire_enemy.ogg';
+import wizardFireLaugh from '../assets/sfx/Cynical/cynical_fire_laugh.ogg';
+import wizardDeathLaugh from '../assets/sfx/Cynical/cynical_death_laugh.ogg';
+import wizardHit from '../assets/sfx/Cynical/cynical_hit.ogg';
+// hellhound sfx
+import hellhoundDeath from '../assets/sfx/Hound_dog/hound_dog_death.ogg';
+import hellhoundAttack from '../assets/sfx/Hound_dog/hound_dog_attack.ogg';
+import hellhoundStep from '../assets/sfx/Hound_dog/hound_dog_walk.ogg';
+// thing sfx
+import thingDeath from '../assets/sfx/Swamp_monster/Swamp_monster_death.ogg';
+import thingStep from '../assets/sfx/Swamp_monster/Swamp_monster_step.ogg';
+import thingHit from '../assets/sfx/Swamp_monster/Swamp_monster_hit.ogg';
+// ghost
+import ghostDeath from '../assets/sfx/flying_ghoul/Flying_ghoul_death.ogg';
+import ghostFly from '../assets/sfx/flying_ghoul/Flying_ghoul_fly.ogg';
+import ghostHit from '../assets/sfx/flying_ghoul/Flying_ghoul_hit.ogg';
+// burning ghoul
+import ghoulDeath from '../assets/sfx/Pumpikin/Pumpikim_death.ogg';
+import ghoulHit from '../assets/sfx/Pumpikin/Pumpikim_hit.ogg';
+import ghoulStep from '../assets/sfx/Pumpikin/Pumpikim_step.ogg';
+
 
 import laserFX from '../assets/sounds/laser3.ogg'; // no use for now
 import impactFX from '../assets/sounds/explo.ogg'; // no use for now
@@ -72,7 +101,7 @@ import ambient3 from '../assets/music/grotte.ogg';
 
 
 // GRAPHICS LOAD
-import background from '../assets/menuBackgound4.png';
+import background from '../assets/menuBackgound5.png';
 import backgroundWithoutTitles from '../assets/backWithoutTitles.png';
 
 //Player
@@ -348,6 +377,39 @@ export default class LoadingScreen extends Scene {
     this.load.audio('waterStormIcon', waterIconSfx);
     this.load.audio('lavaStormIcon', lavaIconSfx);
     this.load.audio('thunderStormIcon', thunderIconSfx);
+
+    //skeleton sfx
+    this.load.audio('skeletonRising', skeletonRising);
+    this.load.audio('skeletonHit', skeletonHit);
+    this.load.audio('skeletonDeath', skeletonDeath);
+    this.load.audio('skeletonStep', skeletonStep);
+    //wizard sfx
+    this.load.audio('wizardAppear', wizardAppear);
+    this.load.audio('wizardDisappear', wizardDisappear);
+    this.load.audio('wizardFire', wizardFire);
+    this.load.audio('wizardFireLaugh', wizardFireLaugh);
+    this.load.audio('wizardDeathLaugh', wizardDeathLaugh);
+    this.load.audio('wizardHit', wizardHit);
+    // hellhound sfx
+    this.load.audio('hellhoundDeath', hellhoundDeath);
+    this.load.audio('hellhoundAttack', hellhoundAttack);
+    this.load.audio('hellhoundStep', hellhoundStep);
+    // thing sfx
+    this.load.audio('thingDeath', thingDeath);
+    this.load.audio('thingStep', thingStep);
+    this.load.audio('thingHit', thingHit);
+    // ghost
+    this.load.audio('ghostDeath', ghostDeath);
+    this.load.audio('ghostFly', ghostFly);
+    this.load.audio('ghostHit', ghostHit);
+    // burning ghoul
+    this.load.audio('ghoulDeath', ghoulDeath);
+    this.load.audio('ghoulHit', ghoulHit);
+    this.load.audio('ghoulStep', ghoulStep);
+
+
+
+    // old sfx
     this.load.audio('laser', laserFX);
     this.load.audio('impact', impactFX);
     this.load.audio('explo2', explo2FX);
@@ -865,7 +927,7 @@ export default class LoadingScreen extends Scene {
         { key: 'enemies', frame: 'thing3' },
         { key: 'enemies', frame: 'thing4' },
       ],
-      frameRate: 8,
+      frameRate: 6,
       yoyo: false,
       repeat: -1,
     });

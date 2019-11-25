@@ -1,6 +1,6 @@
 import { Scene } from 'phaser';
 import U from '../utils/usefull';
-import background from '../assets/menuBackgound4.png';
+import background from '../assets/menuBackgound5.png';
 import bip2 from '../assets/sounds/piou.ogg';
 import ambient2 from '../assets/music/ambient2.ogg';
 

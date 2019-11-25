@@ -118,6 +118,10 @@ export default class BossDragon extends Phaser.GameObjects.Sprite {
     }
   }
 
+  playSfxDeath() {
+    this.scene.sound.play('ghoulDeath', { volume: 1, rate: 1 });
+  }
+
   explode() {
     this.isDead = true;
     this.body.setVelocity(0, 0);

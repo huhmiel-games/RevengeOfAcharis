@@ -27,6 +27,28 @@ export default class HellHound extends Phaser.GameObjects.Sprite {
     this.flipX = true;
     this.followPath = false;
     this.speed = 100;
+    this.isAttacking = false;
+    this.walkplay = false;
+    this.attackSfx = this.scene.sound.add('hellhoundAttack').on('complete', () => {
+      this.isAttacking = false;
+    });
+    this.walkk = this.scene.sound.add('hellhoundStep', { volume: 0.5 });
+    this.on('animationupdate', () => {
+      const runSpeedNow = Math.abs(this.body.velocity.x);
+      const walkRate = Phaser.Math.RND.realInRange(0.75, 1.25)
+      const runTimer = runSpeedNow > 0 ? (1000 / runSpeedNow) * 50 : 330;
+      if (this.anims.currentAnim.key === 'hellHoundRun' && !this.walkplay && this.body.blocked.down && this.distance < 350) {
+        this.walkplay = true;
+        this.walkk.play();//{ rate: walkRate }
+        this.scene.time.addEvent({
+          delay: runTimer,
+          callback: () => {
+            this.walkk.stop()
+            this.walkplay = false;
+          },
+        });
+      }
+    });
   }
 
   preUpdate(time, delta) {
@@ -36,13 +58,14 @@ export default class HellHound extends Phaser.GameObjects.Sprite {
       this.body.setVelocityY(this.state.directionY);
       let animationName;
       const distance = Phaser.Math.Distance.Between(this.scene.player.x, this.scene.player.y, this.x, this.y);
-      
-      if (distance <= 60) {
-          const dx = this.scene.player.x - this.x;
-          const dy = this.scene.player.y - this.y;
-          const angle = Math.atan2(dy, dx);
-          this.body.setVelocityY(Math.sin(angle) * (this.speed/2));
-          animationName = 'hellHoundJump';
+      this.distance = distance;
+      if (distance <= 40) {
+        this.playAttackSfx();
+        const dx = this.scene.player.x - this.x;
+        const dy = this.scene.player.y - this.y;
+        const angle = Math.atan2(dy, dx);
+        this.body.setVelocityY(Math.sin(angle) * (this.speed/2));
+        animationName = 'hellHoundJump';
       } else {
         animationName = 'hellHoundRun';
         // turn back if blocked
@@ -78,6 +101,18 @@ export default class HellHound extends Phaser.GameObjects.Sprite {
     
   }
 
+  playAttackSfx() {
+    if (this.isAttacking) {
+      return;
+    }
+    this.isAttacking = true;
+    this.attackSfx.play();
+  }
+
+  playSfxDeath() {
+    this.scene.sound.play('hellhoundDeath', { volume: 1, rate: 1 });
+  }
+
   startOnPath() {
     this.setPosition(this.scene[`path${this.name}`].x, this.scene[`path${this.name}`].y);
     this.body.setAllowGravity(false);
@@ -90,7 +125,7 @@ export default class HellHound extends Phaser.GameObjects.Sprite {
   }
 
   looseLife(e) {
-    this.scene.sound.play('enemyHit');
+    this.scene.sound.play('hellhoundDeath', { rate: 4 });
     this.state.life = this.state.life - e;
   }
 
