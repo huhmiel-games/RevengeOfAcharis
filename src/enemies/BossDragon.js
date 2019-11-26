@@ -28,8 +28,53 @@ export default class BossDragon extends Phaser.GameObjects.Sprite {
     this.battleStarted = false;
     this.attackTime = null;
     this.isDead = false;
+    this.walkplay = false;
     this.blockDoors();
+    this.walkk = this.scene.sound.add('dragonWalkSfx', { volume: 0.5 });
+    this.on('animationstart', (e) => {
+      if (this.anims.currentAnim.key === 'dragon-breath') {
+        this.scene.sound.play('dragonBreathSfx')
+      }
+      if (this.anims.currentAnim.key === 'dragon-tail') {
+        this.scene.sound.play('dragonTailSfx', { volume: 2 })
+      }
+    });
+
+    this.on('animationcomplete', (e) => {
+      if (this.anims.currentAnim.key === 'dragon-breath' && this.isFireAttacking) {
+        this.isFireAttacking = false;
+        this.body.setVelocity(0, 0);
+      }
+      if (this.anims.currentAnim.key === 'dragon-tail' && this.isTailAttacking) {
+        this.isTailAttacking = false;
+        this.body.setVelocity(0, 0);
+      }
+    });
+
+    
+    this.on('animationupdate', () => {
+      const runSpeedNow = Math.abs(this.body.velocity.x);
+      //const walkRate = Phaser.Math.RND.realInRange(0.75, 1.25)
+      const runTimer = runSpeedNow > 0 ? (250 / runSpeedNow) * 50 : 330;
+      if (this.anims.currentAnim.key === 'dragon-idle' && !this.walkplay && this.body.blocked.down) {
+        this.walkplay = true;
+        this.walkk.play();//{ rate: walkRate }
+        this.scene.time.addEvent({
+          delay: runTimer,
+          callback: () => {
+            // this.walkk.stop()
+            this.walkplay = false;
+          },
+        });
+      }
+    });
   }
+
+  // this.load.audio('dragonDeathSfx', dragonDeathSfx);
+  //   this.load.audio('dragonBreathSfx', dragonBreathSfx);
+  //   this.load.audio('dragonHitSfx', dragonHitSfx);
+  //   this.load.audio('dragonTailSfx', dragonTailSfx);
+  //   this.load.audio('dragonWalkSfx', dragonWalkSfx);
 
   preUpdate(time, delta) {
     super.preUpdate(time, delta);
@@ -49,12 +94,7 @@ export default class BossDragon extends Phaser.GameObjects.Sprite {
           this.body.setVelocity(Math.cos(angle) * 30, 0);
           animationName = 'dragon-tail';
       } 
-      if (this.isTailAttacking) {
-        this.on('animationcomplete', (e) => {
-          this.isTailAttacking = false;
-          this.body.setVelocity(0, 0);
-        });
-      }
+
       if (distance <= 150 && distance > 60 && !this.isTailAttacking) {
           const dx = this.scene.player.x - this.x;
           const dy = this.scene.player.y - this.y;
@@ -63,17 +103,12 @@ export default class BossDragon extends Phaser.GameObjects.Sprite {
           this.body.setVelocity(Math.cos(angle) * 50, 0);
           animationName = 'dragon-breath';
       } 
-      if (this.isFireAttacking) {
-        this.on('animationcomplete', (e) => {
-          this.isFireAttacking = false;
-          this.body.setVelocity(0, 0);
-        });
-      }
+      
       if (distance > 150 && !this.isTailAttacking && !this.isTailAttacking) {
           const dx = this.scene.player.x - this.x;
           const dy = this.scene.player.y - this.y;
           const angle = Math.atan2(dy, dx);
-          this.isFireAttacking = true;
+          //this.isFireAttacking = true;
           this.body.setVelocity(Math.cos(angle) * 30, 0);
           animationName = 'dragon-idle';
       } 
@@ -109,6 +144,7 @@ export default class BossDragon extends Phaser.GameObjects.Sprite {
   }
 
   looseLife(e) {
+    this.scene.sound.play('dragonHitSfx', { volume: 1, rate: 1 });
     this.state.life = this.state.life - e;
     if (this.state.life <= 0) {
       this.unlockDoors();
@@ -116,7 +152,7 @@ export default class BossDragon extends Phaser.GameObjects.Sprite {
   }
 
   playSfxDeath() {
-    this.scene.sound.play('ghoulDeath', { volume: 1, rate: 1 });
+    this.scene.sound.play('dragonDeathSfx', { volume: 1, rate: 1 });
   }
 
   explode() {

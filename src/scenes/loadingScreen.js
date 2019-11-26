@@ -98,6 +98,13 @@ import oldmanDoubtSfx from '../assets/sfx/Town/old_man_doubt.ogg';
 import oldmanHeySfx from '../assets/sfx/Town/old_man_hey.ogg';
 import oldmanSadSfx from '../assets/sfx/Town/old_man_sad.ogg';
 
+// dragon
+import dragonDeathSfx from '../assets/sfx/Dragon_mix/dragon_death.ogg';
+import dragonBreathSfx from '../assets/sfx/Dragon_mix/dragon_fire_attack.ogg';
+import dragonHitSfx from '../assets/sfx/Dragon_mix/dragon_hit.ogg';
+import dragonTailSfx from '../assets/sfx/Dragon_mix/dragon_tail_attack.ogg';
+import dragonWalkSfx from '../assets/sfx/Dragon_mix/dragon_walk.ogg';
+
 
 
 // Various sfx
@@ -466,6 +473,14 @@ export default class LoadingScreen extends Scene {
     this.load.audio('oldmanDoubtSfx', oldmanDoubtSfx);
     this.load.audio('oldmanHeySfx', oldmanHeySfx);
     this.load.audio('oldmanSadSfx', oldmanSadSfx);
+
+    // dragon
+    this.load.audio('dragonDeathSfx', dragonDeathSfx);
+    this.load.audio('dragonBreathSfx', dragonBreathSfx);
+    this.load.audio('dragonHitSfx', dragonHitSfx);
+    this.load.audio('dragonTailSfx', dragonTailSfx);
+    this.load.audio('dragonWalkSfx', dragonWalkSfx);
+    
 
     // Various
     this.load.audio('impact', impactFX);
