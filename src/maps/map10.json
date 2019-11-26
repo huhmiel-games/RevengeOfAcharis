@@ -183,8 +183,60 @@
         }, 
         {
          "draworder":"topdown",
-         "name":"guepes",
-         "objects":[],
+         "name":"skeleton",
+         "objects":[
+                {
+                 "gid":329,
+                 "height":16,
+                 "id":562,
+                 "name":"skel1",
+                 "properties":
+                    {
+                     "damage":25,
+                     "key":"skeletonRise",
+                     "life":10,
+                     "name":"skeletonRise"
+                    },
+                 "propertytypes":
+                    {
+                     "damage":"int",
+                     "key":"string",
+                     "life":"int",
+                     "name":"string"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":192,
+                 "y":928
+                }, 
+                {
+                 "gid":329,
+                 "height":16,
+                 "id":563,
+                 "name":"skel2",
+                 "properties":
+                    {
+                     "damage":25,
+                     "key":"skeletonRise",
+                     "life":10,
+                     "name":"skeletonRise"
+                    },
+                 "propertytypes":
+                    {
+                     "damage":"int",
+                     "key":"string",
+                     "life":"int",
+                     "name":"string"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":16,
+                 "y":528
+                }],
          "opacity":1,
          "type":"objectgroup",
          "visible":true,
@@ -193,8 +245,34 @@
         }, 
         {
          "draworder":"topdown",
-         "name":"jumpers",
-         "objects":[],
+         "name":"ghost",
+         "objects":[
+                {
+                 "gid":395,
+                 "height":16,
+                 "id":564,
+                 "name":"ghost1",
+                 "properties":
+                    {
+                     "damage":10,
+                     "key":"ghost",
+                     "life":10,
+                     "name":"ghost"
+                    },
+                 "propertytypes":
+                    {
+                     "damage":"int",
+                     "key":"string",
+                     "life":"int",
+                     "name":"string"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":212,
+                 "y":224
+                }],
          "opacity":1,
          "type":"objectgroup",
          "visible":true,
@@ -535,7 +613,7 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":562,
+ "nextobjectid":565,
  "orientation":"orthogonal",
  "properties":
     {

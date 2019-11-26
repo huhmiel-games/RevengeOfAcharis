@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="25" height="80" tilewidth="16" tileheight="16" nextobjectid="562">
+<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="25" height="80" tilewidth="16" tileheight="16" nextobjectid="565">
  <properties>
   <property name="ambientColor" value="0x444444"/>
   <property name="callFunction" value="addThunderDoorCallback,escape,noSaveIfEscape"/>
@@ -1830,8 +1830,34 @@
   </data>
  </layer>
  <objectgroup name="elevators"/>
- <objectgroup name="guepes"/>
- <objectgroup name="jumpers"/>
+ <objectgroup name="skeleton">
+  <object id="562" name="skel1" gid="329" x="192" y="928" width="16" height="16">
+   <properties>
+    <property name="damage" type="int" value="25"/>
+    <property name="key" value="skeletonRise"/>
+    <property name="life" type="int" value="10"/>
+    <property name="name" value="skeletonRise"/>
+   </properties>
+  </object>
+  <object id="563" name="skel2" gid="329" x="16" y="528" width="16" height="16">
+   <properties>
+    <property name="damage" type="int" value="25"/>
+    <property name="key" value="skeletonRise"/>
+    <property name="life" type="int" value="10"/>
+    <property name="name" value="skeletonRise"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup name="ghost">
+  <object id="564" name="ghost1" gid="395" x="212" y="224" width="16" height="16">
+   <properties>
+    <property name="damage" type="int" value="10"/>
+    <property name="key" value="ghost"/>
+    <property name="life" type="int" value="10"/>
+    <property name="name" value="ghost"/>
+   </properties>
+  </object>
+ </objectgroup>
  <objectgroup name="waterFall"/>
  <layer name="front" width="25" height="80">
   <data encoding="base64">

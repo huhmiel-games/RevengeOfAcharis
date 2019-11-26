@@ -237,6 +237,7 @@ export default class playLvl1 extends Scene {
       gravityY: 500,
       on: false,
     });
+    
 
     // LAVA RISE
     this.playerIsPassingDoor = false;
@@ -1570,6 +1571,32 @@ export default class playLvl1 extends Scene {
     if (!this.player.inventory.escape) {
       return;
     }
+    let arr = []
+    for (let i = 0; i < 16; i += 1) {
+      arr.push(i);
+    };
+    this.escapeParticles;
+    if (this.map.properties.walkSfx === 'churchWalkSfx') {
+      this.escapeParticles = this.add.particles('churchParticles').setDepth(200)
+    } else {
+      this.escapeParticles = this.add.particles('castleParticles').setDepth(200)
+    }
+    // this.escapeParticles.tint = 0x333333;
+    this.escapeParticleEmitter = this.escapeParticles.createEmitter({
+      angle: { min: -30, max: -150 },
+      speed: { min: 100, max: 200 },
+      frame: arr,
+      quantity: 16,
+      lifespan: 3000,
+      alpha: 1,
+      scale: { min: 0.2, max: 3 },
+      rotate: {onEmit: (e) => {
+        //console.log(e)
+        return Phaser.Math.Between(0, 90);
+      }},
+      gravityY: 500,
+      on: false,
+    });
 
     // shake camera
     this.events.emit('count');
@@ -1579,10 +1606,13 @@ export default class playLvl1 extends Scene {
       repeat: -1,
       callback: () => {
         if (!this.player.inventory.escape) {
-          rdm = null;
+          this.escapeTimer = null;
           return;
         }
         this.shakeCameraEscape(1000);
+        const pos = this.getCamCenter();
+        const rdm = Phaser.Math.Between(-400, 600);
+        this.escapeParticleEmitter.explode(10, pos.x + rdm, pos.y - 150);
       }
     });
   }

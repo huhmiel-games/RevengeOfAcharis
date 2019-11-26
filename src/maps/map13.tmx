@@ -363,14 +363,6 @@
   </object>
  </objectgroup>
  <objectgroup name="thing">
-  <object id="564" name="thing1" gid="324" x="128" y="208" width="16" height="16">
-   <properties>
-    <property name="damage" type="int" value="20"/>
-    <property name="key" value="thing"/>
-    <property name="life" type="int" value="15"/>
-    <property name="name" value="thing"/>
-   </properties>
-  </object>
   <object id="565" name="thing2" gid="324" x="1072" y="48" width="16" height="16">
    <properties>
     <property name="damage" type="int" value="20"/>
@@ -403,7 +395,7 @@
     <property name="name" value="thing"/>
    </properties>
   </object>
-  <object id="569" name="thing6" gid="324" x="960" y="432" width="16" height="16">
+  <object id="569" name="thing1" gid="324" x="960" y="432" width="16" height="16">
    <properties>
     <property name="damage" type="int" value="20"/>
     <property name="key" value="thing"/>
@@ -446,14 +438,14 @@
   </object>
  </objectgroup>
  <objectgroup name="path">
-  <object id="553" name="platform1" x="352" y="48">
+  <object id="553" name="platform1" x="352" y="64">
    <properties>
     <property name="duration" type="int" value="2000"/>
     <property name="originX" type="int" value="22"/>
-    <property name="originY" type="int" value="3"/>
+    <property name="originY" type="int" value="5"/>
     <property name="vertical" type="bool" value="false"/>
    </properties>
-   <polyline points="0,0 160,0 160,32 0,32 0,0"/>
+   <polyline points="0,0 160,0 160,16 0,16 0,0"/>
   </object>
   <object id="554" name="platform2" x="448" y="128">
    <properties>

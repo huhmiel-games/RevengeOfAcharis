@@ -116,8 +116,34 @@
         }, 
         {
          "draworder":"topdown",
-         "name":"guepes",
-         "objects":[],
+         "name":"wizard",
+         "objects":[
+                {
+                 "gid":329,
+                 "height":16,
+                 "id":567,
+                 "name":"wizard1",
+                 "properties":
+                    {
+                     "damage":2,
+                     "key":"wizard-idle",
+                     "life":100,
+                     "name":"wizard-idle"
+                    },
+                 "propertytypes":
+                    {
+                     "damage":"int",
+                     "key":"string",
+                     "life":"int",
+                     "name":"string"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":384,
+                 "y":768
+                }],
          "opacity":1,
          "type":"objectgroup",
          "visible":true,
@@ -598,7 +624,7 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":567,
+ "nextobjectid":568,
  "orientation":"orthogonal",
  "properties":
     {

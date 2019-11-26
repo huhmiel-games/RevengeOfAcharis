@@ -366,32 +366,6 @@
                 {
                  "gid":324,
                  "height":16,
-                 "id":564,
-                 "name":"thing1",
-                 "properties":
-                    {
-                     "damage":20,
-                     "key":"thing",
-                     "life":15,
-                     "name":"thing"
-                    },
-                 "propertytypes":
-                    {
-                     "damage":"int",
-                     "key":"string",
-                     "life":"int",
-                     "name":"string"
-                    },
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":16,
-                 "x":128,
-                 "y":208
-                }, 
-                {
-                 "gid":324,
-                 "height":16,
                  "id":565,
                  "name":"thing2",
                  "properties":
@@ -497,7 +471,7 @@
                  "gid":324,
                  "height":16,
                  "id":569,
-                 "name":"thing6",
+                 "name":"thing1",
                  "properties":
                     {
                      "damage":20,
@@ -680,11 +654,11 @@
                         }, 
                         {
                          "x":160,
-                         "y":32
+                         "y":16
                         }, 
                         {
                          "x":0,
-                         "y":32
+                         "y":16
                         }, 
                         {
                          "x":0,
@@ -694,7 +668,7 @@
                     {
                      "duration":2000,
                      "originX":22,
-                     "originY":3,
+                     "originY":5,
                      "vertical":false
                     },
                  "propertytypes":
@@ -709,7 +683,7 @@
                  "visible":true,
                  "width":0,
                  "x":352,
-                 "y":48
+                 "y":64
                 }, 
                 {
                  "height":0,

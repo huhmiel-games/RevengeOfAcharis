@@ -125,7 +125,7 @@ export default class HellHound extends Phaser.GameObjects.Sprite {
   }
 
   looseLife(e) {
-    this.scene.sound.play('hellhoundDeath', { rate: 4 });
+    this.scene.sound.play('hellhoundHit', { volume: 1 });
     this.state.life = this.state.life - e;
   }
 

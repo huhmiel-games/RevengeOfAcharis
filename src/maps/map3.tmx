@@ -131,7 +131,7 @@
   </object>
  </objectgroup>
  <objectgroup name="skeleton">
-  <object id="544" name="skel1" gid="507" x="224" y="160" width="16" height="16">
+  <object id="544" name="skel1" gid="507" x="208" y="176" width="16" height="16">
    <properties>
     <property name="damage" type="int" value="25"/>
     <property name="key" value="skeletonRise"/>

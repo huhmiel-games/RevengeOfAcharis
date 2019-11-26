@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="50" height="16" tilewidth="16" tileheight="16" nextobjectid="553">
+<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="50" height="16" tilewidth="16" tileheight="16" nextobjectid="555">
  <properties>
   <property name="ambientColor" value="0x444444"/>
   <property name="callFunction" value="escape,noSaveIfEscape"/>
@@ -140,7 +140,25 @@
   </data>
  </layer>
  <objectgroup name="elevators"/>
- <objectgroup name="guepes"/>
+ <objectgroup name="wizard">
+  <object id="553" name="wizard1" gid="385" x="256" y="16" width="16" height="16">
+   <properties>
+    <property name="damage" type="int" value="2"/>
+    <property name="delay" type="int" value="2500"/>
+    <property name="key" value="wizard-idle"/>
+    <property name="life" type="int" value="100"/>
+    <property name="name" value="wizard-idle"/>
+   </properties>
+  </object>
+  <object id="554" name="wizard2" gid="385" x="288" y="16" width="16" height="16">
+   <properties>
+    <property name="damage" type="int" value="2"/>
+    <property name="key" value="wizard-idle"/>
+    <property name="life" type="int" value="100"/>
+    <property name="name" value="wizard-idle"/>
+   </properties>
+  </object>
+ </objectgroup>
  <objectgroup name="jumpers"/>
  <objectgroup name="waterFall"/>
  <layer name="front" width="50" height="16">

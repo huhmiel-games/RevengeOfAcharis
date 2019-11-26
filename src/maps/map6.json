@@ -81,8 +81,34 @@
         }, 
         {
          "draworder":"topdown",
-         "name":"enemies",
-         "objects":[],
+         "name":"thing",
+         "objects":[
+                {
+                 "gid":323,
+                 "height":16,
+                 "id":551,
+                 "name":"thing1",
+                 "properties":
+                    {
+                     "damage":20,
+                     "key":"thing",
+                     "life":15,
+                     "name":"thing"
+                    },
+                 "propertytypes":
+                    {
+                     "damage":"int",
+                     "key":"string",
+                     "life":"int",
+                     "name":"string"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":300,
+                 "y":256
+                }],
          "opacity":1,
          "type":"objectgroup",
          "visible":true,
@@ -115,8 +141,34 @@
         }, 
         {
          "draworder":"topdown",
-         "name":"elevators",
-         "objects":[],
+         "name":"skeleton",
+         "objects":[
+                {
+                 "gid":329,
+                 "height":16,
+                 "id":552,
+                 "name":"skel1",
+                 "properties":
+                    {
+                     "damage":25,
+                     "key":"skeletonRise",
+                     "life":10,
+                     "name":"skeletonRise"
+                    },
+                 "propertytypes":
+                    {
+                     "damage":"int",
+                     "key":"string",
+                     "life":"int",
+                     "name":"string"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":352,
+                 "y":192
+                }],
          "opacity":1,
          "type":"objectgroup",
          "visible":true,
@@ -131,7 +183,7 @@
                  "gid":328,
                  "height":16,
                  "id":547,
-                 "name":"wizard2",
+                 "name":"wizard1",
                  "properties":
                     {
                      "damage":2,
@@ -433,7 +485,7 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":551,
+ "nextobjectid":553,
  "orientation":"orthogonal",
  "properties":
     {

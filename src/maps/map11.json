@@ -116,8 +116,62 @@
         }, 
         {
          "draworder":"topdown",
-         "name":"guepes",
-         "objects":[],
+         "name":"wizard",
+         "objects":[
+                {
+                 "gid":385,
+                 "height":16,
+                 "id":553,
+                 "name":"wizard1",
+                 "properties":
+                    {
+                     "damage":2,
+                     "delay":2500,
+                     "key":"wizard-idle",
+                     "life":100,
+                     "name":"wizard-idle"
+                    },
+                 "propertytypes":
+                    {
+                     "damage":"int",
+                     "delay":"int",
+                     "key":"string",
+                     "life":"int",
+                     "name":"string"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":256,
+                 "y":16
+                }, 
+                {
+                 "gid":385,
+                 "height":16,
+                 "id":554,
+                 "name":"wizard2",
+                 "properties":
+                    {
+                     "damage":2,
+                     "key":"wizard-idle",
+                     "life":100,
+                     "name":"wizard-idle"
+                    },
+                 "propertytypes":
+                    {
+                     "damage":"int",
+                     "key":"string",
+                     "life":"int",
+                     "name":"string"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":288,
+                 "y":16
+                }],
          "opacity":1,
          "type":"objectgroup",
          "visible":true,
@@ -438,7 +492,7 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":553,
+ "nextobjectid":555,
  "orientation":"orthogonal",
  "properties":
     {

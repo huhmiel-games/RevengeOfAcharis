@@ -73,6 +73,7 @@ import wizardHit from '../assets/sfx/Cynical/cynical_hit.ogg';
 import hellhoundDeath from '../assets/sfx/Hound_dog/hound_dog_death.ogg';
 import hellhoundAttack from '../assets/sfx/Hound_dog/hound_dog_attack.ogg';
 import hellhoundStep from '../assets/sfx/Hound_dog/hound_dog_walk.ogg';
+import hellhoundHit from '../assets/sfx/Hound_dog/hound_dog_hit.ogg';
 
 // thing sfx
 import thingDeath from '../assets/sfx/Swamp_monster/Swamp_monster_death.ogg';
@@ -192,6 +193,8 @@ import movingPlatformN from '../assets/platform_n.png';
 import platformSpike from '../assets/platformSpike.png';
 import platformSpikeN from '../assets/platformSpike_n.png';
 import jumpBoots from '../assets/jumpBoots.png';
+import churchParticles from '../assets/churchParticles.png';
+import castleParticles from '../assets/castleParticles.png';
 
 // map backgrounds
 import map1back from '../maps/map1back.png';
@@ -320,6 +323,8 @@ export default class LoadingScreen extends Scene {
     this.load.spritesheet('savestation', savestation, { frameWidth: 16, frameHeight: 32 });
     this.load.spritesheet('heart', heart, { frameWidth: 12, frameHeight: 12 });
     this.load.spritesheet('jumpBoots', jumpBoots, { frameWidth: 24, frameHeight: 16 });
+    this.load.spritesheet('churchParticles', churchParticles, { frameWidth: 16, frameHeight: 16 });
+    this.load.spritesheet('castleParticles', castleParticles, { frameWidth: 16, frameHeight: 16 });
 
     // Enemies
     this.load.atlas('enemies', [spritesheetEnemies, spritesheetEnemiesN], spritesheetEnemiesJSON);
@@ -440,6 +445,7 @@ export default class LoadingScreen extends Scene {
     this.load.audio('hellhoundDeath', hellhoundDeath);
     this.load.audio('hellhoundAttack', hellhoundAttack);
     this.load.audio('hellhoundStep', hellhoundStep);
+    this.load.audio('hellhoundHit', hellhoundHit);
     // thing sfx
     this.load.audio('thingDeath', thingDeath);
     this.load.audio('thingStep', thingStep);
