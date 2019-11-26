@@ -31,35 +31,7 @@ export default class Thunder extends Phaser.GameObjects.Sprite {
   preUpdate(time, delta) {
     super.preUpdate(time, delta);
     if (this.active && !this.followPath && this.body.blocked.down) {
-      // this.body.setVelocityX(this.state.directionX)
-      // this.body.setVelocityY(this.state.directionY);
-      // let animationName;
-
-      // if (this.state.directionX < 0) {
-      //   const thingPositionInTileX = Math.floor(this.body.x / 16);
-      //   const thingPositionInTileY = Math.floor(this.body.y / 16);
-      //   const tileThingLeftBottom = this.scene.solLayer.getTileAt(thingPositionInTileX, thingPositionInTileY + 2);
-
-      //   if (tileThingLeftBottom === null) {
-      //     this.state.directionX = this.speed;
-      //   }
-      //   this.flipX = false;
-      // } else if (this.state.directionX > 0) {
-      //   const thingPositionInTileX = Math.floor(this.body.x / 16);
-      //   const thingPositionInTileY = Math.floor(this.body.y / 16);
-      //   const tileThingRightBottom = this.scene.solLayer.getTileAt(thingPositionInTileX + 1 , thingPositionInTileY + 2);
-        
-      //   if (tileThingRightBottom === null) {
-      //     this.state.directionX = -this.speed;
-      //   }
-      //   this.flipX = true;
-      // }
-      // if (this.body.blocked.left) {
-      //   this.state.directionX = Math.abs(this.speed);
-      // }
-      // if (this.body.blocked.right) {
-      //   this.state.directionX = -this.speed;
-      // }
+      
     }
   }
 
@@ -68,8 +40,7 @@ export default class Thunder extends Phaser.GameObjects.Sprite {
   }
 
   looseLife(e) {
-    this.scene.sound.play('enemyHit');
-    this.state.life = this.state.life - e;
+    return;
   }
 
   checkCollision(d) {

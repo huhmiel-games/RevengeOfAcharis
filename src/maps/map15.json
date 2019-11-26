@@ -440,7 +440,7 @@
                 }],
          "opacity":1,
          "type":"objectgroup",
-         "visible":false,
+         "visible":true,
          "x":0,
          "y":0
         }, 
@@ -1067,7 +1067,7 @@
  "properties":
     {
      "ambientColor":"0x444444",
-     "callFunction":"escape",
+     "callFunction":"escape,noSaveIfEscape",
      "mapScenePosition":"15,5,0xCC2485",
      "music":"ambient3",
      "paraBack":"map15back",

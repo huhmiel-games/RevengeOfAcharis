@@ -10,7 +10,7 @@ export default class PlatformSpike extends Phaser.GameObjects.Sprite {
     }
     this.setDepth(101);
     this.durationTimer = 4000;
-    //this.setPipeline('Light2D');
+    this.setPipeline('Light2D');
     this.scene.physics.world.enable(this);
     this.scene.add.existing(this);
     this.body.setAllowGravity(false).setImmovable();

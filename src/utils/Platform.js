@@ -6,7 +6,7 @@ export default class Platform extends Phaser.GameObjects.Sprite {
     this.duration = config.duration;
     this.directionType = config.directionType
     this.setDepth(101);
-    //this.setPipeline('Light2D');
+    this.setPipeline('Light2D');
     this.scene.physics.world.enable(this);
     this.scene.add.existing(this);
     this.body.setAllowGravity(false).setImmovable(true).setFriction(1, 0);

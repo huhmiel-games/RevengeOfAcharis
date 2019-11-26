@@ -603,7 +603,7 @@
  "properties":
     {
      "ambientColor":"0x444444",
-     "callFunction":"escape",
+     "callFunction":"escape,noSaveIfEscape",
      "mapScenePosition":"11,5,0xCC2485",
      "music":"ambient1",
      "paraBack":"map14back",

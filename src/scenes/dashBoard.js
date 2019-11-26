@@ -86,6 +86,13 @@ export default class DashBoard extends Scene {
         this.scale.toggleFullscreen();
       }, this);
 
+    // counter for final escape sequence
+    this.initialTime = 150;  // 2:30 in seconds
+    this.counterText = this.add.bitmapText(U.WIDTH / 2, 0, 'atomic', '', 20, 1).setTint(0xB00000);
+    this.timedEvent = null;
+    this.escapeStarted = false;
+
+
     // loading
     this.mainScene.events.on('loadingDone', () => {
       this.fullscreenBtn.setAlpha(0);
@@ -118,6 +125,11 @@ export default class DashBoard extends Scene {
 
     this.mainScene.events.on('setHealth', (elm) => {
       this.Health.setText(`${elm.life}/${this.mainScene.player.inventory.lifeEnergyBlock * 100}`);
+      if (elm.life <= 30) {
+        this.alertLife(true);
+      } else {
+        this.alertLife(false);
+      }
     });
 
     this.mainScene.events.on('addEnergyPack', (elm) => {
@@ -144,12 +156,59 @@ export default class DashBoard extends Scene {
       this.energyBar.setCrop(0, 0, Math.abs(elm.energy) / 2, 4)
     });
 
-    this.mainScene.events.on('pause', () => {
-      // this.cameras.main.setBackgroundColor(0x000000);
+    this.mainScene.events.on('count', () => {
+      this.countDown();
     });
 
-    this.mainScene.events.on('unpause', () => {
+    this.mainScene.events.on('countStop', () => {
+      this.timedEvent.destroy();
       // this.cameras.main.setBackgroundColor('rgba(0,0,0,0)');
     });
+  }
+
+  alertLife(lowLevelBool) {
+    if (lowLevelBool) {
+      this.Health.setTintFill(0xFF0000);
+    }
+    if (!lowLevelBool) {
+      this.Health.clearTint();
+    }
+  }
+
+  countDown() {
+    if (this.escapeStarted) {
+      return;
+    }
+    this.escapeStarted = true;
+    this.timedEvent = this.time.addEvent({
+      delay: 1000,
+      repeat: 150,
+      //loop: true,
+      callback: () =>{
+        if (!this.timedEvent) {
+          return;
+        }
+        if (this.timedEvent.repeatCount === 0) { //(this.initialTime < 1) {
+          this.timedEvent = null;
+          this.initialTime = 150;
+          this.mainScene.playerDeathSequence();
+          this.timedEvent = null;
+          return;
+        }
+        this.initialTime -= 1; // One second
+        this.counterText.setText(this.formatTime(this.initialTime));
+      },
+    });
+  }
+
+  formatTime(seconds){
+    // Minutes
+    const minutes = Math.floor(seconds / 60);
+    // Seconds
+    let partInSeconds = seconds % 60;
+    // Adds left zeros to seconds
+    partInSeconds = partInSeconds.toString().padStart(2, '0');
+    // Returns formated time
+    return `${minutes}:${partInSeconds}`;
   }
 }

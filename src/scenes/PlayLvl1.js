@@ -98,34 +98,7 @@ export default class playLvl1 extends Scene {
     this.player.body.setCollideWorldBounds(true);
     this.thunderOnPlayer = false;
 
-    // player walk and run sounds
-    this.walkplay = false;
-    this.walkk = this.sound.add('run', { volume: 0.8 });
-    this.player.on('animationupdate', () => {
-      const runSpeedNow = Math.abs(this.player.body.velocity.x);
-      const walkRate = Phaser.Math.RND.realInRange(0.75, 1.25)
-      const runTimer = runSpeedNow > 0 ? (1000 / runSpeedNow) * 50 : 330;
-      if (this.player.anims.currentAnim.key === 'playerRun' && !this.walkplay && this.player.body.blocked.down) {
-        this.walkplay = true;
-        this.walkk.play({ rate: walkRate });
-        this.time.addEvent({
-          delay: runTimer,
-          callback: () => {
-            this.walkplay = false;
-          },
-        });
-      }
-      if (this.player.anims.currentAnim.key === 'playerWalk' && !this.walkplay && this.player.body.blocked.down) {
-        this.walkplay = true;
-        this.walkk.play({ rate: walkRate });
-        this.time.addEvent({
-          delay: 330,
-          callback: () => {
-            this.walkplay = false;
-          },
-        });
-      }
-    });
+    
     // player bullets
     this.player.knives = this.physics.add.group({
       defaultKey: 'knife',
@@ -234,7 +207,6 @@ export default class playLvl1 extends Scene {
     }
     // creating new game
     if (!localStorage.getItem('RevengeOfAcharis')) {
-      // this.transmission('New transmision-A problem occured during-the material transfer on planet-Sorry for inconvenience.');
       this.player.inventory.savedPositionX = 4 * 16;
       this.player.inventory.savedPositionY = 9 * 16;
       const s = JSON.stringify(this.player.inventory);
@@ -301,8 +273,14 @@ export default class playLvl1 extends Scene {
 
   // ====================================================================
   update(time) {
-    // DEBUG
-    const pointer = this.input.activePointer;
+    // DEBUG ////////////////////
+    //const pointer = this.input.activePointer;
+    // this.text1.setText([
+    //   `x: ${Math.round(pointer.worldX)}`,
+    //   `y: ${Math.round(pointer.worldY)}`,
+    // ]);
+    // this.text1.setPosition(this.cameras.main.scrollX, this.cameras.main.scrollY + 226);
+    /////////////////////////////
     // test shaders
     if (this.glowFx) {
       this.glowFx.setFloat1('time', this.t);
@@ -316,27 +294,12 @@ export default class playLvl1 extends Scene {
     } else {
       this.playerLight.setPosition(-10000, -10000);
     }
+    if (this.angelLight && this.angel) {
+      this.angelLight.setPosition(this.angel.x, this.angel.y);
+    } else if (this.angelLight && !this.angel) {
+      this.angelLight.setPosition(-10000, -10000);
+    }
     
-    //
-
-    this.text1.setText([
-      `x: ${Math.round(pointer.worldX)}`,
-      `y: ${Math.round(pointer.worldY)}`,
-    ]);
-    this.text1.setPosition(this.cameras.main.scrollX, this.cameras.main.scrollY + 226);
-    
-
-    // if (this.playerLight && this.player) {
-    //   this.playerLight.setPosition(this.player.body.x, this.player.body.y);
-    // } else {
-    //   this.playerLight.setPosition(-10000, -10000);
-    // }
-    // ====================================================================
-
-    // if (this.state.displayPowerUpMsg) {
-    //   this.msgtext.x = this.player.x;
-    //   this.msgtext.y = this.player.y - 60;
-    // }
     if (this.modalText) {
       this.modalText.x = this.player.x;
       this.modalText.y = this.player.y - 100;
@@ -395,6 +358,8 @@ export default class playLvl1 extends Scene {
       this.player.addBullet(elm);
     } else if (elm.state.ability === 'missile') {
       this.player.addMissile();
+    } else if (elm.state.ability === 'jumpBoots') {
+      this.player.addJumpBoots();
     } else if (elm.state.ability === 'swell') {
       this.player.inventory[elm.state.ability] = true;
       this.player.addSwell();
@@ -447,18 +412,10 @@ export default class playLvl1 extends Scene {
     }
     if (!this.isPausing && !this.player.state.pause) {
       this.isPausing = true;
-      // this.events.emit('pause');
-      // this.countTime();
       this.player.state.pause = true;
       this.physics.pause();
       this.player.anims.play('stand');
       this.player.setFrame('adventurer-cast-01');
-      // this.time.addEvent({
-      //   delay: 120,
-      //   callback: () => {
-      //     this.isPausing = false;
-      //   },
-      // });
       this.time.addEvent({
       delay: 3000,
       callback: () => {
@@ -470,12 +427,6 @@ export default class playLvl1 extends Scene {
     });
       return;
     }
-    // this.isPausing = true;
-    // this.events.emit('unpause');
-    // this.player.state.pause = false;
-    // this.scene.scene.physics.resume();
-    // this.player.anims.resume(this.player.anims.currentFrame);
-    
   }
 
   pauseGame() {
@@ -490,8 +441,9 @@ export default class playLvl1 extends Scene {
       this.player.state.pause = true;
       this.physics.pause();
       const pos = this.getCamCenter();
-      this.lifeText = this.add.bitmapText(pos.x, pos.y, 'atomic', 'PAUSE', 10, 1)
-      //.setFontSize(10)
+      this.lifeText = this.add.bitmapText(pos.x, pos.y, 'atomic', 'PAUSE', 14, 1)
+      .setDepth(300)
+      .setOrigin(0.5, 0.5)
       .setAlpha(1);
       this.time.addEvent({
         delay: 120,
@@ -575,8 +527,11 @@ export default class playLvl1 extends Scene {
     }
     if (!this.playerHurt) {
       this.playerHurt = true; // flag
-      this.sound.play('playerHit', { volume: 2});
+      this.player.hitSfx.play();
       this.player.inventory.life -= elm.state.damage;
+      if (this.player.inventory.life <= 30) {
+        this.sound.play('lowLifeSfx');
+      }
       this.playerFlashTween = this.tweens.add({
         targets: this.player,
         ease: 'Sine.easeInOut',
@@ -607,8 +562,11 @@ export default class playLvl1 extends Scene {
     if (!this.playerHurt) {
       this.playerHurt = true; // flag
       this.player.state.runSpeed = 285;
-      this.sound.play('playerHit');
+      this.player.hitSfx.play();
       this.player.inventory.life -= int;
+      if (this.player.inventory.life <= 30) {
+        this.sound.play('lowLifeSfx');
+      }
       this.playerFlashTween = this.tweens.add({
         targets: this.player,
         ease: 'Sine.easeInOut',
@@ -651,7 +609,7 @@ export default class playLvl1 extends Scene {
       .setOrigin(0, 0)
       .setDepth(1000)
       .setAlpha(0)
-      .setTintFill(0x0C1D1C)
+      .setTintFill(0x272638) // 0C1D1C
       .setDisplaySize(U.WIDTH, U.HEIGHT);
     
     this.sound.play('playerDead', { volume: 1 });
@@ -864,6 +822,7 @@ export default class playLvl1 extends Scene {
     this.player.y = this.player.inventory.savedPositionY;
     this.addColliders();
     this.addPowerUp();
+    this.addPlayerSfx();
     this.addEnemies();
     this.addMovingPlatform();
     // launch special functions from the room
@@ -871,7 +830,6 @@ export default class playLvl1 extends Scene {
       const arr = this.map.properties.callFunction.split(',');
       arr.forEach(elm => this[elm]());
     }
-    this.walkk = this.sound.add(this.map.properties.walkSfx, { volume: 0.8, rate: 1 });
     this.cameras.main.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
     this.physics.world.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
     this.cameras.main.startFollow(this.player, true, 0.4, 0.1);
@@ -953,13 +911,14 @@ export default class playLvl1 extends Scene {
     this.addEnemies();
     this.addColliders();
     this.addPowerUp();
+    this.addPlayerSfx()
     // launch special functions from the room
     if (this.map.properties.callFunction && this.map.properties.callFunction.length) {
       const arr = this.map.properties.callFunction.split(',');
       arr.forEach(elm => this[elm]());
     }
     this.playMusic(this.map.properties.music);
-    this.walkk = this.sound.add(this.map.properties.walkSfx, { volume: 0.6, rate: 1 });
+    
     this.cameras.main.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
     this.physics.world.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
     this.cameras.main.startFollow(this.player, true, 0.4, 0.1);
@@ -1012,6 +971,42 @@ export default class playLvl1 extends Scene {
 
   // ====================================================================
   // ADD ROOM STUFF
+  addPlayerSfx() {
+    switch(this.map.properties.walkSfx) {
+      case 'castleWalkSfx': {
+        this.player.fallSfx = this.sound.add('fallingCastleSfx', { volume: 1, rate: 1 });
+        this.player.jumpSfx = this.sound.add('jumpCastleSfx', { volume: 1, rate: 1 });
+        this.player.hitSfx = this.sound.add('hitCastleSfx', { volume: 2, rate: 1 });
+        break;
+      }
+      case 'churchWalkSfx': {
+        this.player.fallSfx = this.sound.add('fallingChurchSfx', { volume: 1, rate: 1 });
+        this.player.jumpSfx = this.sound.add('jumpChurchSfx', { volume: 1, rate: 1 });
+        this.player.hitSfx = this.sound.add('hitChurchSfx', { volume: 2, rate: 1 });
+        break;
+      }
+      case 'graveyardWalkSfx': {
+        this.player.fallSfx = this.sound.add('fallingGraveyardSfx', { volume: 1, rate: 1 });
+        this.player.jumpSfx = this.sound.add('jumpGraveyardSfx', { volume: 1, rate: 1 });
+        this.player.hitSfx = this.sound.add('hitGraveyardSfx', { volume: 2, rate: 1 });
+        break;
+      }
+      case 'townWalkSfx': {
+        this.player.fallSfx = this.sound.add('fallingTownSfx', { volume: 1, rate: 1 });
+        this.player.jumpSfx = this.sound.add('jumpTownSfx', { volume: 1, rate: 1 });
+        this.player.hitSfx = this.sound.add('hitTownSfx', { volume: 2, rate: 1 });
+        break;
+      }
+      case 'forestWalkSfx': {
+        this.player.fallSfx = this.sound.add('fallingForestSfx', { volume: 1, rate: 1 });
+        this.player.jumpSfx = this.sound.add('jumpForestSfx', { volume: 1, rate: 1 });
+        this.player.hitSfx = this.sound.add('hitForestSfx', { volume: 2, rate: 1 });
+        break;
+      }
+    }
+    this.player.walkk = this.sound.add(this.map.properties.walkSfx, { volume: 0.6, rate: 1 });
+  }
+
   addMovingPlatform() {
     const layerArray = this.checkObjectsLayerIndex('path');
     if (!layerArray || layerArray.objects.length === 0) {
@@ -1348,20 +1343,6 @@ export default class playLvl1 extends Scene {
     this.paraMiddle = this.add.image(0, 0, image).setOrigin(0, 0).setPipeline('Light2D');
     this.paraMiddleGroup.push(this.paraMiddle);
     return;
-    // check how many images are needed
-    const nbrWidth = Math.ceil(this.map.widthInPixels / imgSize.width);
-    const nbrHeight = Math.ceil(this.map.heightInPixels / imgSize.height);
-    // create new image
-    for (let i = 0; i < nbrWidth; i += 1) {
-      for (let k = 0; k < nbrHeight; k += 1) {
-        this[`para_middle${i}${k}`] = this.add.image(0 + (imgSize.width * i), 0 + (imgSize.height * k), image)
-          .setDepth(3)
-          .setScrollFactor(0.4, 1)
-          .setOrigin(0, 0)
-        this[`para_middle${i}${k}`].name = [`para_middle${i}${k}`];
-        this.paraMiddleGroup.push(this[`para_middle${i}${k}`]);
-      }
-    }
   }
 
   addParaMiddle2(image) {
@@ -1564,7 +1545,7 @@ export default class playLvl1 extends Scene {
             this.demon.resetPipeline();
             this.player.setPipeline('GlowFx');
             this.player.inventory.life -= 1;
-            this.sound.play('playerHit');
+            this.player.hitSfx.play();
             this.events.emit('setHealth', { life: Math.round(this.player.inventory.life) });
           } else {
             this.player.setPipeline('GlowFixedFx');
@@ -1577,10 +1558,21 @@ export default class playLvl1 extends Scene {
     }, null, this);
   }
 
+  noSaveIfEscape() {
+    if (!this.player.inventory.escape) {
+      return;
+    }
+    // disable checkpoints during escape
+    this.saveStationGroup.forEach(checkpoint => checkpoint.destroy());
+  }
+
   escape() {
     if (!this.player.inventory.escape) {
       return;
     }
+
+    // shake camera
+    this.events.emit('count');
     let rdm = Phaser.Math.Between(2000, 5000);
     this.escapeTimer = this.time.addEvent({
       delay: rdm,
@@ -1590,7 +1582,7 @@ export default class playLvl1 extends Scene {
           rdm = null;
           return;
         }
-        this.shakeCameraEscape(1000)
+        this.shakeCameraEscape(1000);
       }
     });
   }
@@ -1653,35 +1645,7 @@ export default class playLvl1 extends Scene {
   }
 
   // ====================================================================
-  transmission(txt) {
-    let count = 0;
-    this.modalText = this.add.bitmapText(this.player.x, this.player.y - 480, 'atomic', '', 6, 1)
-      .setOrigin(0.5, 0.5)
-      .setAlpha(1)
-      .setDepth(201);
-    this.time.addEvent({
-      delay: 100,
-      repeat: txt.length - 1,
-      callback: () => {
-        if (txt[count] === '-') {
-          this.modalText.text += '\n';
-          this.modalText.y -= 10;
-          this.sound.play('bip3', { volume: 0.5 });
-          count += 1;
-        } else {
-          this.modalText.text += txt[count];
-          this.sound.play('bip1', { volume: 1 });
-          count += 1;
-        }
-      },
-    });
-    this.time.addEvent({
-      delay: 12000,
-      callback: () => {
-        this.modalText.destroy();
-      },
-    });
-  }
+  // The end
 
   callBackEndMission() {
     if (!this.player.inventory.escape) {
@@ -1700,10 +1664,11 @@ export default class playLvl1 extends Scene {
     if (this.isTheEnd) {
       return;
     }
+    this.events.emit('countStop');
     this.isTheEnd = true;
     this.battleWithBoss = true;
     this.player.inventory.escape = false;
-    this.showMsg = this.add.bitmapText(U.WIDTH / 2, U.HEIGHT / 2, 'atomic', `
+    this.showMsg = this.add.bitmapText(U.WIDTH / 2, U.HEIGHT / 2, 'alagard', `
     Congratulations Acharis!!
     You got your revenge!!!`, 14, 1)
       .setOrigin(0.5, 0.5).setAlpha(0).setDepth(200);

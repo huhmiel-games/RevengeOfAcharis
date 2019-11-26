@@ -28,12 +28,12 @@ export default class LoadSavedGame extends Scene {
     if (localStorage.getItem('RevengeOfAcharis')) {
       this.position = [74, 114, 154];
       this.position = [U.HEIGHT / 4, U.HEIGHT / 2, U.HEIGHT / 4 * 3];
-      this.loadGame = this.add.bitmapText(U.WIDTH / 4, this.position[0], 'atomic', ' Load Game ', 18, 1);
-      this.timeGame = this.add.bitmapText(U.WIDTH / 4 * 3 - 24, this.position[0] + 5, 'atomic', ` ${totalTime} `, 10, 2);
-      this.deleteSavedGame = this.add.bitmapText(U.WIDTH / 4, this.position[2], 'atomic', ' Delete Game ', 18, 1);
+      this.loadGame = this.add.bitmapText(U.WIDTH / 4, this.position[0], 'alagard', ' Load Game ', 18, 1).setTintFill(0xA30000);
+      this.timeGame = this.add.bitmapText(U.WIDTH / 4 * 3 - 24, this.position[0] + 5, 'alagard', ` ${totalTime} `, 10, 2);
+      this.deleteSavedGame = this.add.bitmapText(U.WIDTH / 4, this.position[2], 'alagard', ' Delete Game ', 18, 1).setTintFill(0xA20000);
     } else {
       this.position = [74, 114];
-      this.newGame = this.add.bitmapText(U.WIDTH / 4, this.position[0], 'atomic', ' New Game ', 18, 1);
+      this.newGame = this.add.bitmapText(U.WIDTH / 4, this.position[0], 'alagard', ' New Game ', 18, 1).setTintFill(0xA30000);
     }
     if (!localStorage.getItem('d')) {
       localStorage.setItem('d', '0');
@@ -50,7 +50,7 @@ export default class LoadSavedGame extends Scene {
       fire: Phaser.Input.Keyboard.KeyCodes[keysOptions[4]],
     });
 
-    this.options = this.add.bitmapText(U.WIDTH / 4, this.position[1], 'atomic', ' Options ', 18, 1);
+    this.options = this.add.bitmapText(U.WIDTH / 4, this.position[1], 'alagard', ' Options ', 18, 1).setTintFill(0xA30000);
 
     this.head = this.add.image(U.WIDTH / 4 - 16, this.position[0] + 11, 'head')
       //.setOrigin(0, 0)

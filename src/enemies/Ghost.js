@@ -75,6 +75,7 @@ export default class Ghost extends Phaser.GameObjects.Sprite {
   }
 
   playSfxDeath() {
+    this.ghostLight.setPosition(-10000, -10000);
     this.scene.sound.play('ghostDeath', { volume: 1, rate: 1 });
   }
 

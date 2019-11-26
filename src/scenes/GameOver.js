@@ -17,16 +17,18 @@ export default class GameOver extends Scene {
       .setOrigin(0, 0)
       .setDisplaySize(U.WIDTH, U.HEIGHT);
 
-    this.title = this.add.bitmapText(U.WIDTH / 2, U.HEIGHT / 2 - 40, 'atomic', ' No revenge today... ')
+    this.title = this.add.bitmapText(U.WIDTH / 2, U.HEIGHT / 2 - 40, 'alagard2', ' No revenge today... ')
       .setFontSize(20)
       .setOrigin(0.5, 0.5)
-      .setTint(0xFF3B00);
+      .setTintFill(0xA20000);
 
-    this.retry = this.add.bitmapText(U.WIDTH / 4, this.position[0], 'atomic', ' Try again ')
-      .setFontSize(18);
+    this.retry = this.add.bitmapText(U.WIDTH / 4, this.position[0], 'alagard', ' Try again ')
+      .setFontSize(18)
+      .setTintFill(0xA20000);
 
-    this.quit = this.add.bitmapText(U.WIDTH / 4, this.position[1], 'atomic', ' Quit ')
-      .setFontSize(18);
+    this.quit = this.add.bitmapText(U.WIDTH / 4, this.position[1], 'alagard', ' Quit ')
+      .setFontSize(18)
+      .setTintFill(0xA20000);
 
     this.head = this.add.image(U.WIDTH / 4 - 16, this.position[0], 'head')
       .setOrigin(0, 0)

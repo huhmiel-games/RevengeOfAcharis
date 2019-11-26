@@ -17,7 +17,7 @@
          "name":"Calque d'image 1",
          "opacity":1,
          "type":"imagelayer",
-         "visible":true,
+         "visible":false,
          "x":0,
          "y":0
         }, 
@@ -445,7 +445,7 @@
                  "properties":
                     {
                      "color":"0xDDDDDD",
-                     "intensity":3,
+                     "intensity":2,
                      "radius":256
                     },
                  "propertytypes":
@@ -499,7 +499,7 @@
      "CrumbleStartX":45,
      "CrumbleStartY":11,
      "ambientColor":"0x333333",
-     "callFunction":"addCrumbleTiles,escape",
+     "callFunction":"addCrumbleTiles,escape,noSaveIfEscape",
      "mapScenePosition":"13,2,0xCC2485",
      "music":"ambient1",
      "paraBack":"map5back",

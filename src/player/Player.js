@@ -18,9 +18,11 @@ export default class Player extends Phaser.GameObjects.Sprite {
       savedPositionX: 80,
       savedPositionY: 135,
       map: 'map1',
+      jumpBoots: false,
+      jumpBootsValue: 0,
       selectableWeapon: [],
       bullet: false,
-      bulletDamage: 5,
+      bulletDamage: 4,
       swell: false,
       swellDamage: 10,
       missile: false,
@@ -39,7 +41,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
       boss2: false,
       bossFinal: false,
       escape: false,
-      powerUp: [0, 0, 0, 0, 0, 0, 0, 0],
+      powerUp: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     };
     this.state = {
       canJump: false,
@@ -48,7 +50,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
       onRun: false,
       onWalk: true,
       speed: 125,
-      runSpeed: 165,
+      runSpeed: 250,
       maxSpeed: 200,
       selectedWeapon: 'bullet',
       lastFired: 0,
@@ -68,7 +70,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
     this.selectWeaponFlag = false;
     this.chooseDone = false;
     this.isSpelling = false;
-    // this.isOnPlatform = false;
+    this.onJump = false;
     this.playOnTouchingGroundFlag = false;
     this.setDepth(105);
     this.setPipeline('Light2D');
@@ -90,6 +92,41 @@ export default class Player extends Phaser.GameObjects.Sprite {
       select: Phaser.Input.Keyboard.KeyCodes[keysOptions[7]],
       pause: Phaser.Input.Keyboard.KeyCodes[keysOptions[8]],
       cheat: Phaser.Input.Keyboard.KeyCodes['Y'],
+    });
+
+    // player walk, jump, fall and hit sfx
+    // loaded from the start and change room method
+    this.fallSfx;
+    this.jumpSfx;
+    this.hitSfx;
+    this.walkk;
+
+    // handle player walk and run sounds
+    this.walkplay = false;
+    this.on('animationupdate', () => {
+      const runSpeedNow = Math.abs(this.body.velocity.x);
+      const walkRate = Phaser.Math.RND.realInRange(0.75, 1.25)
+      const runTimer = runSpeedNow > 0 ? (1000 / runSpeedNow) * 50 : 330;
+      if (this.anims.currentAnim.key === 'playerRun' && !this.walkplay && this.body.blocked.down) {
+        this.walkplay = true;
+        this.walkk.play({ rate: walkRate });
+        this.scene.time.addEvent({
+          delay: runTimer,
+          callback: () => {
+            this.walkplay = false;
+          },
+        });
+      }
+      if (this.anims.currentAnim.key === 'playerWalk' && !this.walkplay && this.body.blocked.down) {
+        this.walkplay = true;
+        this.walkk.play({ rate: walkRate });
+        this.scene.time.addEvent({
+          delay: 330,
+          callback: () => {
+            this.walkplay = false;
+          },
+        });
+      }
     });
   }
 
@@ -253,7 +290,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
           this.body.setVelocityX(0);
           this.body.setOffset(21, 10);
           animationName = 'stand';
-          this.state.runSpeed = 285;
+          //this.state.runSpeed = 285;
           
       }
       if (this.isSpelling) {
@@ -277,17 +314,16 @@ export default class Player extends Phaser.GameObjects.Sprite {
       // saute
       if (keys.jump.isDown && (body.blocked.down || body.touching.down) && state.canJump) {
         // saut droit
-        // this.isOnPlatform = false;
         if (!keys.left.isDown || !keys.right.isDown) {
-          this.body.setVelocityY(-this.state.speed);
+          this.body.setVelocityY(-this.state.speed -this.inventory.jumpBootsValue);
         }
         // saut en marchant
         if ((keys.left.isDown || keys.right.isDown) && state.canJump) {
-          this.body.setVelocityY(-this.state.speed);
+          this.body.setVelocityY(-this.state.speed -this.inventory.jumpBootsValue);
         }
         // saut en courant
         if (keys.run.isDown && (keys.left.isDown || keys.right.isDown) && state.canJump) {
-          this.body.setVelocityY(-this.state.runSpeed + 100);
+          this.body.setVelocityY(-this.state.runSpeed + 50 - this.inventory.jumpBootsValue);
           
         }
         //this.state.onJump = true;
@@ -309,8 +345,11 @@ export default class Player extends Phaser.GameObjects.Sprite {
       if (!body.onFloor()) {
         this.playOnTouchingGroundFlag = true;
       } else if (body.onFloor() && this.playOnTouchingGroundFlag === true) {
+        this.onJump = false;
         this.playOnTouchingGroundFlag = false;
-        this.scene.walkk && this.scene.walkk.play({ rate: 0.5 });
+        this.walkk.play({ rate: 0.5 });
+        //play the fall sfx for enough bug jump
+        !this.jumpSfx.isPlaying ? this.fallSfx.play() : null;
       }
       // reset jump
       if (state.stopJump) {
@@ -357,6 +396,11 @@ export default class Player extends Phaser.GameObjects.Sprite {
   }
 
   isJumping() {
+    if (this.onJump) {
+      return;
+    }
+    this.onJump = true;
+    this.jumpSfx.play();
     this.jumpCooldownTimer = this.scene.time.addEvent({
       delay: this.state.jumpDelay,
       callback: () => {
@@ -369,7 +413,6 @@ export default class Player extends Phaser.GameObjects.Sprite {
     if (this.isSpelling) {
       return;
     }
-    // this.isOnPlatform = true;
     this.body.setVelocityX(platform.body.velocity.x)
   }
 
@@ -509,7 +552,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
             lavaStorm.setDepth(102);
             this.scene.shakeCamera(350)
             
-            this.scene.sound.play('bullet', { volume: 0.08 });
+            //this.scene.sound.play('bullet', { volume: 0.08 });
             
             this.scene.time.addEvent({
               delay: 1500,
@@ -582,7 +625,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
                 thunderStorm.setDepth(102);
                 this.scene.shakeCamera(450)
                 
-                this.scene.sound.play('bullet', { volume: 0.08 });
+                //this.scene.sound.play('bullet', { volume: 0.08 });
                 
                 this.scene.time.addEvent({
                   delay: 1800,
@@ -773,8 +816,9 @@ export default class Player extends Phaser.GameObjects.Sprite {
     this.inventory.life = this.inventory.lifeEnergyBlock * 100;
   }
 
-  addSpeedFire() {
-    this.inventory.fireRate -= 50;
+  addJumpBoots() {
+    this.inventory.jumpBoots = true;
+    this.inventory.jumpBootsValue = 50;
   }
 
   addMagic(magic) {

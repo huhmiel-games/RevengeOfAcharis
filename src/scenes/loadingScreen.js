@@ -1,24 +1,44 @@
 import { Scene } from 'phaser';
 import U from '../utils/usefull';
 
-// SFX LOAD
-// sound_ahead, you can change a sound this way:
-// import bulletFX from '../assets/sounds/yoursoundname.ogg;
-// don't change the first part of the lines "bulletFX"
-// or the game breaks
-// we need to have a list of all sfx we need for better organization
+// Acharis sfx
+// walk
+import forestWalkSfx from '../assets/sfx/Acharis/forest_walk.ogg';
+import townWalkSfx from '../assets/sfx/Acharis/town_walk.ogg';
+import graveyardWalkSfx from '../assets/sfx/Acharis/graveyard_walk.ogg';
+import castleWalkSfx from '../assets/sfx/Acharis/castle_walk.ogg';
+import churchWalkSfx from '../assets/sfx/Acharis/church_walk.ogg';
+
+// jump
+import jumpCastleSfx from '../assets/sfx/Acharis/jumping_castle.ogg';
+import jumpChurchSfx from '../assets/sfx/Acharis/jumping_church.ogg';
+import jumpTownSfx from '../assets/sfx/Acharis/jumping_town.ogg';
+import jumpForestSfx from '../assets/sfx/Acharis/jumping_forest.ogg';
+import jumpGraveyardSfx from '../assets/sfx/Acharis/jumping_graveyard.ogg';
+
+// falling
+import fallingCastleSfx from '../assets/sfx/Acharis/falling_castle.ogg';
+import fallingChurchSfx from '../assets/sfx/Acharis/falling_church.ogg';
+import fallingForestSfx from '../assets/sfx/Acharis/falling_forest.ogg';
+import fallingGraveyardSfx from '../assets/sfx/Acharis/falling_graveyard.ogg';
+import fallingTownSfx from '../assets/sfx/Acharis/falling_town.ogg';
+
+// hit
+import hitCastleSfx from '../assets/sfx/Acharis/hit_castle.ogg';
+import hitChurchSfx from '../assets/sfx/Acharis/hit_church.ogg';
+import hitForestSfx from '../assets/sfx/Acharis/hit_forest.ogg';
+import hitGraveyardSfx from '../assets/sfx/Acharis/hit_graveyard.ogg';
+import hitTownSfx from '../assets/sfx/Acharis/hit_town.ogg';
+
+// weapons
 import bulletFX from '../assets/sfx/knife_fire.ogg'; // knife sfx
 import swellFX from '../assets/sfx/sword_fire.ogg'; // sword sfx
 import missileFX from '../assets/sfx/axe_fire.ogg'; // axe sfx
+
+//magic
 import waterStormSfx from '../assets/sfx/water_magic.ogg';
 import lavaStormSfx from '../assets/sfx/lava_magic.ogg';
 import thunderStormSfx from '../assets/sfx/thunder_magic.ogg';
-import thunderGateSfx from '../assets/sfx/thunder_gate.ogg';
-import forestWalkSfx from '../assets/sfx/forest_walk.ogg';
-import townWalkSfx from '../assets/sfx/town_walk.ogg';
-import graveyardWalkSfx from '../assets/sfx/graveyard_walk.ogg';
-import castleWalkSfx from '../assets/sfx/castle_walk.ogg';
-import churchWalkSfx from '../assets/sfx/church_walk.ogg';
 
 // sfx for weapon select
 import knifeIconSfx from '../assets/sfx/knife_icon.ogg';
@@ -29,18 +49,18 @@ import lavaIconSfx from '../assets/sfx/lava_icon.ogg';
 import thunderIconSfx from '../assets/sfx/thunder_icon.ogg';
 
 //HUD sfx
-import playerDead from '../assets/sfx/Death_melody.ogg';
-import melo from '../assets/sfx/SavePoint.ogg';
-import powerUpFX from '../assets/sfx/Acharis_upgrade.ogg';
-import playerHitFX from '../assets/sfx/Acharis_hit.ogg';
-import lowLifeSfx from '../assets/sfx/Acharis_life_low.ogg';
-import getLifeFX from '../assets/sfx/Acharis_heart_get.ogg';
+import playerDead from '../assets/sfx/Acharis/Death_melody.ogg';
+import melo from '../assets/sfx/Acharis/SavePoint.ogg';
+import powerUpFX from '../assets/sfx/Acharis/Acharis_upgrade.ogg';
+import lowLifeSfx from '../assets/sfx/Acharis/Acharis_life_low.ogg';
+import getLifeFX from '../assets/sfx/Acharis/Acharis_heart_get.ogg';
 
 // skeleton sfx
 import skeletonRising from '../assets/sfx/Skeleton/Skeleton_Rising.ogg';
 import skeletonHit from '../assets/sfx/Skeleton/Skeleton_hit.ogg';
 import skeletonDeath from '../assets/sfx/Skeleton/Skeleton_death.ogg';
 import skeletonStep from '../assets/sfx/Skeleton/Skeleton_step.ogg';
+
 // wizard sfx
 import wizardAppear from '../assets/sfx/Cynical/Cynical_appear.ogg';
 import wizardDisappear from '../assets/sfx/Cynical/Cynical_disaappear.ogg';
@@ -48,49 +68,47 @@ import wizardFire from '../assets/sfx/Cynical/fire_enemy.ogg';
 import wizardFireLaugh from '../assets/sfx/Cynical/cynical_fire_laugh.ogg';
 import wizardDeathLaugh from '../assets/sfx/Cynical/cynical_death_laugh.ogg';
 import wizardHit from '../assets/sfx/Cynical/cynical_hit.ogg';
+
 // hellhound sfx
 import hellhoundDeath from '../assets/sfx/Hound_dog/hound_dog_death.ogg';
 import hellhoundAttack from '../assets/sfx/Hound_dog/hound_dog_attack.ogg';
 import hellhoundStep from '../assets/sfx/Hound_dog/hound_dog_walk.ogg';
+
 // thing sfx
 import thingDeath from '../assets/sfx/Swamp_monster/Swamp_monster_death.ogg';
 import thingStep from '../assets/sfx/Swamp_monster/Swamp_monster_step.ogg';
 import thingHit from '../assets/sfx/Swamp_monster/Swamp_monster_hit.ogg';
+
 // ghost
 import ghostDeath from '../assets/sfx/flying_ghoul/Flying_ghoul_death.ogg';
 import ghostFly from '../assets/sfx/flying_ghoul/Flying_ghoul_fly.ogg';
 import ghostHit from '../assets/sfx/flying_ghoul/Flying_ghoul_hit.ogg';
+
 // burning ghoul
 import ghoulDeath from '../assets/sfx/Pumpikin/Pumpikim_death.ogg';
 import ghoulHit from '../assets/sfx/Pumpikin/Pumpikim_hit.ogg';
 import ghoulStep from '../assets/sfx/Pumpikin/Pumpikim_step.ogg';
 
+// town npc
+import ladySfx from '../assets/sfx/Town/lady.ogg';
+import hatmanSfx from '../assets/sfx/Town/Desperate_man.ogg';
+import beardedSfx from '../assets/sfx/Town/Grumpy_man.ogg';
+import oldmanDoubtSfx from '../assets/sfx/Town/old_man_doubt.ogg';
+import oldmanHeySfx from '../assets/sfx/Town/old_man_hey.ogg';
+import oldmanSadSfx from '../assets/sfx/Town/old_man_sad.ogg';
 
-import laserFX from '../assets/sounds/laser3.ogg'; // no use for now
-import impactFX from '../assets/sounds/explo.ogg'; // no use for now
+
+
+// Various sfx
+import thunderGateSfx from '../assets/sfx/thunder_gate.ogg';
+import impactFX from '../assets/sounds/explo.ogg'; // used when camera shake
 import explo2FX from '../assets/sounds/explo2.ogg'; // no use for now
-import enemyImpactFX from '../assets/sounds/enemyHit.ogg'; 
-//import playerHitFX from '../assets/sounds/playerHit.ogg'; // when player is hit
-import morphFX from '../assets/sounds/playerHit2.ogg'; // no use for now
-//simport powerUpFX from '../assets/sounds/powerup.ogg'; // when player got a item, could be cool to have a little melody instead
 import selectFX from '../assets/sounds/select.ogg'; // menu navigation i guess
-import doorFX from '../assets/sounds/elevator.ogg'; // door sfx but not used anu
-import jumpBoosterFX from '../assets/sounds/jumpboost.ogg'; // no use for now
-//import getLifeFX from '../assets/sounds/getlife2.ogg'; // when player get life from dead enemies
-import runFX from '../assets/sounds/walk.ogg'; // player walk sfx
 import explo3FX from '../assets/sounds/explo3.ogg'; // no use for now
-//import melo from '../assets/sounds/melo1.ogg'; // when we save the game on checkpoints
-//import playerDead from '../assets/sounds/playerdead.ogg'; // when player die, a little melody could be cool
 import shake from '../assets/sounds/shake3.ogg'; // when i shake the camera like earthquake
 import shake2 from '../assets/sounds/shake4.ogg'; // when i shake the camera like earthquake
-import guepeFX from '../assets/sounds/guepe.ogg'; // the flying ghost in cemitary
-import grog from '../assets/sounds/grog.ogg'; // need to investigate this one
-import bip2 from '../assets/sounds/piou.ogg'; // used mainly on menu
 import bip1 from '../assets/sounds/walk.ogg'; // used mainly on menu
 import bip3 from '../assets/sounds/noname.ogg'; // used mainly on menu
-import bip from '../assets/sounds/bip.ogg'; // used mainly on menu
-
-
 
 // MUSIC LOAD
 // musics are launched by the maps and i don't changed them yet
@@ -157,8 +175,7 @@ import map16 from '../maps/map16.json';
 import map17 from '../maps/map17.json';
 import map18 from '../maps/map18.json';
 import map19 from '../maps/map19.json';
-//import map20 from '../maps/map20.json';
-
+import map20 from '../maps/map20.json';
 
 // Various
 import knife from '../assets/knife.png';
@@ -167,24 +184,22 @@ import axe from '../assets/axe.png';
 import heart from '../assets/heart.png';
 import fireBall from '../assets/fire-ball.png';
 import savestation from '../assets/savestation.png';
-
-
-// import impact from '../assets/spritesheets/Fx/impact.png';
-
 import blackPixel from '../assets/blackPixel.png';
-import whitePixel from '../assets/whitePixel.png';
 import normalMapPixel from '../assets/normalMapPixel.png';
 import head from '../assets/head.png';
 import movingPlatform from '../assets/platform.png';
+import movingPlatformN from '../assets/platform_n.png';
 import platformSpike from '../assets/platformSpike.png';
+import platformSpikeN from '../assets/platformSpike_n.png';
+import jumpBoots from '../assets/jumpBoots.png';
 
-// parralax
+// map backgrounds
 import map1back from '../maps/map1back.png';
 import map1backN from '../maps/map1back_n.png';
 import map1middle from '../maps/map1middle.png';
 import map1middleN from '../maps/map1middle_n.png';
-import map2back from '../maps/map2back.png';
-import map2backN from '../maps/map2back_n.png';
+import map2back from '../maps/map2back2.png';
+import map2backN from '../maps/map2back2_n.png';
 import map3backTest from '../maps/map3backTest.png';
 import map3backTestN from '../maps/map3backTest_n.png';
 import map3middle from '../maps/map3middle.png';
@@ -220,6 +235,8 @@ import map17back from '../maps/map17back.png';
 import map17backN from '../maps/map17back_n.png';
 import map18back from '../maps/map18back.png';
 import map18backN from '../maps/map18back_n.png';
+import map18backBroken from '../maps/map18backBroken.png';
+import map18backBrokenN from '../maps/map18backBroken_n.png';
 import map19back from '../maps/map19back.png';
 import map19backN from '../maps/map19back_n.png';
 
@@ -290,7 +307,7 @@ export default class LoadingScreen extends Scene {
     this.load.tilemapTiledJSON('map17', map17);
     this.load.tilemapTiledJSON('map18', map18);
     this.load.tilemapTiledJSON('map19', map19);
-    //this.load.tilemapTiledJSON('map20', map20);
+    this.load.tilemapTiledJSON('map20', map20);
     
     // player animation
     this.load.atlas('player', [spritesheetPlayer, spritesheetPlayerN], spritesheetPlayerJSON);
@@ -302,6 +319,7 @@ export default class LoadingScreen extends Scene {
     this.load.spritesheet('fireBall', fireBall, { frameWidth: 16, frameHeight: 16 });
     this.load.spritesheet('savestation', savestation, { frameWidth: 16, frameHeight: 32 });
     this.load.spritesheet('heart', heart, { frameWidth: 12, frameHeight: 12 });
+    this.load.spritesheet('jumpBoots', jumpBoots, { frameWidth: 24, frameHeight: 16 });
 
     // Enemies
     this.load.atlas('enemies', [spritesheetEnemies, spritesheetEnemiesN], spritesheetEnemiesJSON);
@@ -314,9 +332,8 @@ export default class LoadingScreen extends Scene {
     // various map items
     this.load.image('head', head);
     this.load.image('blackPixel', blackPixel);
-    this.load.image('whitePixel', whitePixel);
-    this.load.image('movingPlatform', movingPlatform);
-    this.load.image('platformSpike', platformSpike);
+    this.load.image('movingPlatform', [movingPlatform, movingPlatformN]);
+    this.load.image('platformSpike', [platformSpike, platformSpikeN]);
     this.load.image('darkClouds', darkClouds);
 
     //dashboard
@@ -355,22 +372,50 @@ export default class LoadingScreen extends Scene {
     this.load.image('map16back', [map16back, map16backN]);
     this.load.image('map17back', [map17back, map17backN]);
     this.load.image('map18back', [map18back, map18backN]);
+    this.load.image('map18backBroken', [map18backBroken, map18backBrokenN]);
     this.load.image('map19back', [map19back, map19backN]);
     
 
     // sounds
-    this.load.audio('bullet', bulletFX);
-    this.load.audio('swell', swellFX);
-    this.load.audio('missile', missileFX);
-    this.load.audio('waterStormSfx', waterStormSfx);
-    this.load.audio('lavaStormSfx', lavaStormSfx);
-    this.load.audio('thunderStormSfx', thunderStormSfx);
-    this.load.audio('thunderGateSfx', thunderGateSfx);
+    // player sfx
+    // walk and run
+    this.load.audio('lowLifeSfx', lowLifeSfx);
     this.load.audio('forestWalkSfx', forestWalkSfx);
     this.load.audio('townWalkSfx', townWalkSfx);
     this.load.audio('graveyardWalkSfx', graveyardWalkSfx);
     this.load.audio('castleWalkSfx', castleWalkSfx);
     this.load.audio('churchWalkSfx', churchWalkSfx);
+    // jump
+    this.load.audio('jumpCastleSfx', jumpCastleSfx);
+    this.load.audio('jumpChurchSfx', jumpChurchSfx);
+    this.load.audio('jumpTownSfx', jumpTownSfx);
+    this.load.audio('jumpForestSfx', jumpForestSfx);
+    this.load.audio('jumpGraveyardSfx', jumpGraveyardSfx);
+    // falling
+    this.load.audio('fallingCastleSfx', fallingCastleSfx);
+    this.load.audio('fallingChurchSfx', fallingChurchSfx);
+    this.load.audio('fallingForestSfx', fallingForestSfx);
+    this.load.audio('fallingGraveyardSfx', fallingGraveyardSfx);
+    this.load.audio('fallingTownSfx', fallingTownSfx);
+    // hit
+    this.load.audio('hitCastleSfx', hitCastleSfx);
+    this.load.audio('hitChurchSfx', hitChurchSfx);
+    this.load.audio('hitForestSfx', hitForestSfx);
+    this.load.audio('hitGraveyardSfx', hitGraveyardSfx);
+    this.load.audio('hitTownSfx', hitTownSfx);
+
+    // weapons
+    this.load.audio('bullet', bulletFX);
+    this.load.audio('swell', swellFX);
+    this.load.audio('missile', missileFX);
+
+    //magic
+    this.load.audio('waterStormSfx', waterStormSfx);
+    this.load.audio('lavaStormSfx', lavaStormSfx);
+    this.load.audio('thunderStormSfx', thunderStormSfx);
+    this.load.audio('thunderGateSfx', thunderGateSfx);
+    
+    // hud
     this.load.audio('knifeIcon', knifeIconSfx);
     this.load.audio('swordIcon', swordIconSfx);
     this.load.audio('axeIcon', axeIconSfx);
@@ -378,6 +423,7 @@ export default class LoadingScreen extends Scene {
     this.load.audio('lavaStormIcon', lavaIconSfx);
     this.load.audio('thunderStormIcon', thunderIconSfx);
 
+    // Enemies sfx
     //skeleton sfx
     this.load.audio('skeletonRising', skeletonRising);
     this.load.audio('skeletonHit', skeletonHit);
@@ -407,36 +453,29 @@ export default class LoadingScreen extends Scene {
     this.load.audio('ghoulHit', ghoulHit);
     this.load.audio('ghoulStep', ghoulStep);
 
+    // town npc
+    this.load.audio('ladySfx', ladySfx);
+    this.load.audio('hatmanSfx', hatmanSfx);
+    this.load.audio('beardedSfx', beardedSfx);
+    this.load.audio('oldmanDoubtSfx', oldmanDoubtSfx);
+    this.load.audio('oldmanHeySfx', oldmanHeySfx);
+    this.load.audio('oldmanSadSfx', oldmanSadSfx);
 
+    // Various
+    this.load.audio('impact', impactFX);
 
     // old sfx
-    this.load.audio('laser', laserFX);
-    this.load.audio('impact', impactFX);
     this.load.audio('explo2', explo2FX);
     this.load.audio('explo3', explo3FX);
-    this.load.audio('enemyHit', enemyImpactFX);
-    this.load.audio('playerHit', playerHitFX);
     this.load.audio('powerUp', powerUpFX);
     this.load.audio('select', selectFX);
-    this.load.audio('jumpBooster', jumpBoosterFX);
     this.load.audio('getLife', getLifeFX);
-    this.load.audio('run', runFX);
-    this.load.audio('morph', morphFX);
     this.load.audio('melo', melo);
     this.load.audio('playerDead', playerDead);
     this.load.audio('shake', shake);
     this.load.audio('shake2', shake2);
-    this.load.audio('guepe', guepeFX);
-    this.load.audio('jumpers', grog);
-    this.load.audio('door', doorFX);
-    this.load.audio('doorLocked', morphFX);
-    this.load.audio('bip2', bip2);
     this.load.audio('bip1', bip1);
     this.load.audio('bip3', bip3);
-    this.load.audio('bip', bip);
-
-    // sounds boss1
-
 
     // music
     this.load.audio('ambient1', ambient1);
@@ -467,7 +506,7 @@ export default class LoadingScreen extends Scene {
         { key: 'player', frame: 'adventurer-run-04' },
         { key: 'player', frame: 'adventurer-run-05' },
       ],
-      frameRate: 10,
+      frameRate: 8,
       repeat: -1,
     });
     this.anims.create({
@@ -851,6 +890,12 @@ export default class LoadingScreen extends Scene {
       frameRate: 10,
       repeat: -1,
     });
+    this.anims.create({
+      key: 'jumpBoots',
+      frames: this.anims.generateFrameNumbers('jumpBoots', { start: 0, end: 0, first: 0 }),
+      frameRate: 1,
+      repeat: 0,
+    });
 
     // savestation anim
     this.anims.create({
@@ -1149,6 +1194,8 @@ export default class LoadingScreen extends Scene {
     this.add.image(0, 0, 'background')
       .setOrigin(0, 0)
       .setDisplaySize(U.WIDTH, U.HEIGHT);
+    this.add.image(U.WIDTH / 2, U.HEIGHT / 4 * 3 + 8, 'whitePixel')
+      .setDisplaySize(242, 18);
   }
 
   showProgressBar() {
@@ -1159,7 +1206,7 @@ export default class LoadingScreen extends Scene {
     const img = this.add.sprite(U.WIDTH / 2, U.HEIGHT / 4 * 3, 'progressBar').setOrigin(0.5, 0);
 
     // Add percentage text
-    const loadingpercentage = this.add.bitmapText(U.WIDTH / 2, U.HEIGHT / 4 * 3 - 10, 'atomic', 'Loading:', 10, 1)
+    const loadingpercentage = this.add.bitmapText(U.WIDTH / 2, U.HEIGHT / 4 * 3 - 10, 'alagard', 'Loading:', 10, 1)
       .setOrigin(0.5, 0.5)
       .setAlpha(1)
       .setTint(0xDDDDDD);

@@ -26,7 +26,7 @@ export default class Woman extends Phaser.GameObjects.Sprite {
       } else {
         this.flipX = false;
       }
-      if (Math.abs(this.x - this.scene.player.x) < 20) {
+      if (Math.abs(this.x - this.scene.player.x) < 20 && !this.scene.oldman.isTalking) {
         this.talkToPlayer();
       } else {
         this.stopTalking();
@@ -39,6 +39,7 @@ export default class Woman extends Phaser.GameObjects.Sprite {
       return;
     }
     this.isTalking = true;
+    this.scene.sound.play('ladySfx');
     const msg = `Be careful Acharis,
     our town has been regularly attacked by monsters,
     it's a nightmare...

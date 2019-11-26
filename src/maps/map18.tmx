@@ -5,8 +5,8 @@
   <property name="callFunction" value="callDemon"/>
   <property name="mapScenePosition" value="14,11,0xCC2485"/>
   <property name="music" value="ambient3"/>
-  <property name="paraBack" value="map18back"/>
-  <property name="paraMiddle" value=""/>
+  <property name="paraBack" value="map18backBroken"/>
+  <property name="paraMiddle" value="map18back"/>
   <property name="walkSfx" value="churchWalkSfx"/>
  </properties>
  <tileset firstgid="1" name="tileground" tilewidth="16" tileheight="16" tilecount="4096" columns="64">

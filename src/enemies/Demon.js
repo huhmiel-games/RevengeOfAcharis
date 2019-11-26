@@ -545,7 +545,7 @@ export default class Demon extends Phaser.GameObjects.Sprite {
         this.demonThunder = this.scene.thunderPower.getFirstDead(true, -100, this.scene.player.body - 256, 'storm', null, true);
         if (this.demonThunder) {
           this.demonThunder.visible = true;
-          this.demonThunder.anims.play('thunder-storm', true)
+          this.demonThunder.anims.play('thunder-magic', true)
           this.demonThunder.on('animationcomplete', () => {
             //this.demonThunder.destroy();
           });
@@ -591,13 +591,22 @@ export default class Demon extends Phaser.GameObjects.Sprite {
           gravityY: 800,
           on: false,
         });
+        this.scene.paraMiddle.setAlpha(0);
         this.windowParticleEmitter.explode(36, 394, 204);
 
         // angel appears
+        
         this.scene.angel = new Angel(this.scene, 394, 274, {
           key: 'angel-idle',
           name: 'angel',
         });
+        this.scene.enemyGroup.forEach(enemy => {
+          if (enemy.active && enemy.name !== 'demon') {
+            this.scene.enemyExplode(enemy.body.x, enemy.body.y);
+            enemy.destroy();
+          }
+        })
+        this.scene.angelLight = this.scene.lights.addLight(this.scene.angel.x, this.scene.angel.y, 256, 0xDDDDDD, 2);
         this.resetPipeline();
         this.scene.angel.finalSequence = true;
         this.scene.angel.animate('angel-idle', true);
@@ -612,13 +621,13 @@ export default class Demon extends Phaser.GameObjects.Sprite {
     if (this.isDead) {
       return;
     }
+    this.isDead = true;
     this.scene.player.inventory.bossFinal = true;
     this.isFollowingPath = false;
     this.body.setVelocity(0, 0);
-    this.isDead = true;
     const demonExplode = this.scene.time.addEvent({
-      delay: 200,
-      repeat: 20,
+      delay: 150,
+      repeat: 30,
       callback: () => {
         if (!this.active) {
           return;
@@ -634,13 +643,17 @@ export default class Demon extends Phaser.GameObjects.Sprite {
           this.scene.giveLife.body.setSize(23, 21);
           this.scene.giveLife.anims.play('heart'); 
           this.scene.giveLifeGroup.push(this.scene.giveLife);
-          this.body.reset(-100, -100);
+          this.body.reset(-1000, -1000);
           this.scene.player.inventory.escape = true;
-          this.showMsg = this.scene.add.bitmapText(this.scene.player.x, this.scene.player.y - 42, 'atomic', 'Get out of here, quick!!!', 8, 1)
+          const pos = this.scene.getCamCenter();
+          this.showMsg = this.scene.add.bitmapText(pos.x, pos.y - 42, 'atomic', `two and a half minutes before the castle collapses
+          Get out of here, quick!!!`, 12, 1)
             .setOrigin(0.5, 0.5).setAlpha(1).setDepth(200);
           this.scene.time.addEvent({
-            delay: 1000,
+            delay: 5000,
             callback: () => {
+              // display counter
+              this.scene.events.emit('count');
               this.showMsg.destroy();
               this.scene.escape();
             }

@@ -554,8 +554,8 @@
      "callFunction":"callDemon",
      "mapScenePosition":"14,11,0xCC2485",
      "music":"ambient3",
-     "paraBack":"map18back",
-     "paraMiddle":"",
+     "paraBack":"map18backBroken",
+     "paraMiddle":"map18back",
      "walkSfx":"churchWalkSfx"
     },
  "propertytypes":

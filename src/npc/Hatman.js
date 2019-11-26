@@ -26,7 +26,7 @@ export default class Hatman extends Phaser.GameObjects.Sprite {
       } else {
         this.flipX = false;
       }
-      if (Math.abs(this.x - this.scene.player.x) < 20) {
+      if (Math.abs(this.x - this.scene.player.x) < 20 && !this.scene.oldman.isTalking) {
         this.talkToPlayer();
       } else {
         this.stopTalking();
@@ -39,6 +39,7 @@ export default class Hatman extends Phaser.GameObjects.Sprite {
       return;
     }
     this.isTalking = true;
+    this.scene.sound.play('hatmanSfx', { volume: 2 });
     const msg = `I must leave this town...
     I must leave this town...
     I must leave this town...quickly`;

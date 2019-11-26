@@ -18,8 +18,8 @@ export default class Intro extends Scene {
     
     this.text = 'My name is Acharis.-My parents were murdered-by a demon when i was young.-Since then, i have been training-all my life in combat.-Now It\'s time to take revenge!!';
     this.count = 0;
-    this.chief = this.add.bitmapText(U.WIDTH / 2, U.HEIGHT / 2, 'atomic', '', 12, 1)
-      .setOrigin(0.5, 0.5).setTint(0xDB4D35);
+    this.chief = this.add.bitmapText(U.WIDTH / 2, U.HEIGHT / 2, 'alagard', '', 12, 1)
+      .setOrigin(0.5, 0.5).setTintFill(0xA20000);
 
     this.time.addEvent({
       delay: 100,
@@ -36,7 +36,7 @@ export default class Intro extends Scene {
     });
 
 
-    this.start = this.add.bitmapText(U.WIDTH / 2, U.HEIGHT - 60, 'atomic', 'press any key to skip', 14, 1)
+    this.start = this.add.bitmapText(U.WIDTH / 2, U.HEIGHT - 60, 'alagard', 'press any key to skip', 14, 1)
       .setOrigin(0.5, 0.5)
       .setTint(0xDDDDDD);
 

@@ -3,6 +3,7 @@ import U from '../utils/usefull';
 import atomicsc from '../assets/atomicsc.png';
 import atomicscXML from '../assets/atomicsc.xml';
 import progressBar from '../assets/progress-bar.png';
+import whitePixel from '../assets/whitePixel.png';
 
 export default class Huhmiel extends Scene {
   constructor() {
@@ -27,6 +28,7 @@ export default class Huhmiel extends Scene {
   preload() {
     this.load.bitmapFont('atomic', atomicsc, atomicscXML);
     this.load.image('progressBar', progressBar);
+    this.load.image('whitePixel', whitePixel);
   }
 
   create() {

@@ -42,7 +42,6 @@ export default class BossDragon extends Phaser.GameObjects.Sprite {
       const distance = Phaser.Math.Distance.Between(this.scene.player.x, this.scene.player.y, this.x, this.y);
       
       if (distance <= 60 && !this.isFireAttacking) {
-        console.log('tailAttack')
           const dx = this.scene.player.x - this.x;
           const dy = this.scene.player.y - this.y;
           const angle = Math.atan2(dy, dx);
@@ -57,7 +56,6 @@ export default class BossDragon extends Phaser.GameObjects.Sprite {
         });
       }
       if (distance <= 150 && distance > 60 && !this.isTailAttacking) {
-          console.log('fireAttack')
           const dx = this.scene.player.x - this.x;
           const dy = this.scene.player.y - this.y;
           const angle = Math.atan2(dy, dx);
@@ -72,7 +70,6 @@ export default class BossDragon extends Phaser.GameObjects.Sprite {
         });
       }
       if (distance > 150 && !this.isTailAttacking && !this.isTailAttacking) {
-          console.log('run')
           const dx = this.scene.player.x - this.x;
           const dy = this.scene.player.y - this.y;
           const angle = Math.atan2(dy, dx);
