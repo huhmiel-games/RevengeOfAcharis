@@ -33,7 +33,8 @@ export default class HellBeast extends Phaser.GameObjects.Sprite {
     this.fireBallAttackCount = 0;
     this.isDead = false;
     this.blockDoors();
-    this.handleHellBeast();
+    this.startBattle()
+
     this.on('animationcomplete', () => {
       const actualKey = this.anims.currentAnim.key;
       if (this.isLavaAttack && actualKey === 'hell-beast-burn') {
@@ -73,6 +74,27 @@ export default class HellBeast extends Phaser.GameObjects.Sprite {
         this.flipX = true;
       }
     }
+  }
+
+  startBattle() {
+    this.setPosition(190, 180).setAlpha(1);
+    const msg = `Hmm fresh meat...`;
+    this.scene.time.addEvent({
+      delay: 600,
+      callback: () => {
+        this.showMsg = this.scene.add.bitmapText(this.x, this.y - 42, 'atomic', msg, 8, 1)
+          .setOrigin(0.5, 0.5).setAlpha(1).setDepth(200);
+      }
+    });
+    
+    this.scene.time.addEvent({
+      delay: 2000,
+      callback: () => {
+        this.showMsg.destroy();
+        this.handleHellBeast();
+      }
+    });
+    
   }
 
   handleHellBeast() {
