@@ -44,21 +44,27 @@ export default class BossDragon extends Phaser.GameObjects.Sprite {
       if (this.anims.currentAnim.key === 'dragon-breath' && this.isFireAttacking) {
         this.isFireAttacking = false;
         this.body.setVelocity(0, 0);
+        this.animate('dragon-idle', true);
       }
       if (this.anims.currentAnim.key === 'dragon-tail' && this.isTailAttacking) {
         this.isTailAttacking = false;
         this.body.setVelocity(0, 0);
+        this.animate('dragon-idle', true);
+      }
+      if (this.lastAnim !== 'dragon-idle') {
+        this.lastAnim = 'dragon-idle';
+        this.animate('dragon-idle', true);
       }
     });
 
     
     this.on('animationupdate', () => {
       const runSpeedNow = Math.abs(this.body.velocity.x);
-      //const walkRate = Phaser.Math.RND.realInRange(0.75, 1.25)
+      const walkRate = Phaser.Math.RND.realInRange(0.95, 1.05)
       const runTimer = runSpeedNow > 0 ? (250 / runSpeedNow) * 50 : 330;
       if (this.anims.currentAnim.key === 'dragon-idle' && !this.walkplay && this.body.blocked.down) {
         this.walkplay = true;
-        this.walkk.play();//{ rate: walkRate }
+        this.walkk.play({ rate: walkRate });//{ rate: walkRate }
         this.scene.time.addEvent({
           delay: runTimer,
           callback: () => {
@@ -70,12 +76,6 @@ export default class BossDragon extends Phaser.GameObjects.Sprite {
     });
   }
 
-  // this.load.audio('dragonDeathSfx', dragonDeathSfx);
-  //   this.load.audio('dragonBreathSfx', dragonBreathSfx);
-  //   this.load.audio('dragonHitSfx', dragonHitSfx);
-  //   this.load.audio('dragonTailSfx', dragonTailSfx);
-  //   this.load.audio('dragonWalkSfx', dragonWalkSfx);
-
   preUpdate(time, delta) {
     super.preUpdate(time, delta);
     this.body.width = this.width;
@@ -84,34 +84,41 @@ export default class BossDragon extends Phaser.GameObjects.Sprite {
     let animationName;
     
     if (this.active && !this.isDead && this.body.blocked.down) {
-      const distance = Phaser.Math.Distance.Between(this.scene.player.x, this.scene.player.y, this.x, this.y);
-      
-      if (distance <= 60 && !this.isFireAttacking) {
+      if (!this.scene.player.state.dead) {
+        const distance = Phaser.Math.Distance.Between(this.scene.player.x, this.scene.player.y, this.x, this.y);
+        // tail attack
+        if (distance <= 50 && !this.isFireAttacking) {
           const dx = this.scene.player.x - this.x;
           const dy = this.scene.player.y - this.y;
           const angle = Math.atan2(dy, dx);
           this.isTailAttacking = true;
-          this.body.setVelocity(Math.cos(angle) * 30, 0);
+          distance > 30 ? this.body.setVelocity(Math.cos(angle) * 15, 0) : null;
           animationName = 'dragon-tail';
-      } 
+        } 
 
-      if (distance <= 150 && distance > 60 && !this.isTailAttacking) {
+        // breath attack
+        if (distance <= 100 && distance > 50 && !this.isTailAttacking) {
           const dx = this.scene.player.x - this.x;
           const dy = this.scene.player.y - this.y;
           const angle = Math.atan2(dy, dx);
           this.isFireAttacking = true;
-          this.body.setVelocity(Math.cos(angle) * 50, 0);
+          this.body.setVelocity(Math.cos(angle) * 30, 0);
           animationName = 'dragon-breath';
-      } 
-      
-      if (distance > 150 && !this.isTailAttacking && !this.isTailAttacking) {
+        } 
+        
+        if (distance > 100 && !this.isTailAttacking && !this.isFireAttacking) {
           const dx = this.scene.player.x - this.x;
           const dy = this.scene.player.y - this.y;
           const angle = Math.atan2(dy, dx);
-          //this.isFireAttacking = true;
           this.body.setVelocity(Math.cos(angle) * 30, 0);
           animationName = 'dragon-idle';
-      } 
+        }
+      } else if (this.scene.player.state.dead) {
+        animationName = 'dragon-idle';
+        this.isFireAttacking = false;
+        this.isTailAttacking = false;
+        this.body.setVelocity(0, 0);
+      }
 
       if (this.body.velocity.x > 0) {
         this.flipX = true;
@@ -119,6 +126,9 @@ export default class BossDragon extends Phaser.GameObjects.Sprite {
         this.flipX = false;
       }
 
+      if (animationName === undefined) {
+        animationName = 'dragon-idle'
+      }
       if (this.lastAnim !== animationName) {
         this.lastAnim = animationName;
         this.animate(animationName, true);

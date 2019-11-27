@@ -671,9 +671,9 @@ export default class LoadingScreen extends Scene {
         { key: 'dragon', frame: 'dragon-tail6' },
         { key: 'dragon', frame: 'dragon-tail7' },
       ],
-      frameRate: 10,
-      yoyo: true,
-      repeat: -1,
+      frameRate: 16,
+      yoyo: false,
+      repeat: 0,
     });
     this.anims.create({
       key: 'dragon-breath',
@@ -691,7 +691,7 @@ export default class LoadingScreen extends Scene {
         { key: 'dragon', frame: 'dragon-breath6' },
       ],
       frameRate: 16,
-      repeat: -1,
+      repeat: 0,
     });
     // hell beast
     this.anims.create({
