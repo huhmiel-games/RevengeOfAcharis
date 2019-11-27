@@ -176,6 +176,9 @@ export default class BossDragon extends Phaser.GameObjects.Sprite {
   }
 
   unlockDoors() {
+    if (this.scene.player.inventory.townInFire) {
+      return;
+    }
     this.scene.battleWithBoss = false;
     this.scene.player.inventory.boss1 = true;
   }

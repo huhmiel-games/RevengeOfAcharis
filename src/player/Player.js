@@ -336,7 +336,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
         if (this.jumpCooldownTimer) {
           this.jumpCooldownTimer.remove();
           this.state.stopJump = true;
-          this.state.runSpeed = 285;
+          //this.state.runSpeed = 285;
         }
       }
 
@@ -347,9 +347,9 @@ export default class Player extends Phaser.GameObjects.Sprite {
       } else if (body.onFloor() && this.playOnTouchingGroundFlag === true) {
         this.onJump = false;
         this.playOnTouchingGroundFlag = false;
-        this.walkk.play({ rate: 0.5 });
+        this.walkk.play({ volume: 0.7, rate: 0.8 });
         //play the fall sfx for enough bug jump
-        !this.jumpSfx.isPlaying ? this.fallSfx.play() : null;
+        !this.jumpSfx.isPlaying ? this.fallSfx.play({ volume: 1.5}) : null;
       }
       // reset jump
       if (state.stopJump) {

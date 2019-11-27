@@ -660,6 +660,18 @@ export default class playLvl1 extends Scene {
           return;
         }
       }
+      //destroy flames
+      if (elm instanceof Flames && bull.name === 'waterStorm') {
+        elm.destroy();
+        const leftFlames = this.enemyGroup.filter(e => {
+          if (e.name === 'flame' && e.active) return e;
+          
+        });
+        if (leftFlames.length === 0) {
+          this.battleWithBoss = false;
+        }
+        return;
+      }
       // destroy the weapon
       if (this.player.state.selectedWeapon === 'missile'
       || this.player.state.selectedWeapon === 'bullet'
@@ -696,8 +708,9 @@ export default class playLvl1 extends Scene {
       this.time.addEvent({
         delay: 50,
         callback: () => {
+          if (!el.active) return;
           el.clearTint();
-          el.resetPipeline();
+          el.setPipeline('Light2D');
         },
       });
 

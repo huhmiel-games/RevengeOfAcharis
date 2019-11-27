@@ -47,6 +47,10 @@ export default class Skeleton extends Phaser.GameObjects.Sprite {
         });
       }
     });
+    this.on('animationcomplete', () => {
+        this.isAttacking = true;
+        this.state.damage = this.damage;
+    });
   }
 
   preUpdate(time, delta) {
@@ -65,7 +69,7 @@ export default class Skeleton extends Phaser.GameObjects.Sprite {
           }
           animationName = 'skeletonRise';
       } 
-      if (this.isAttacking) {
+      if (this.isAttacking && distance <= 120) {
         animationName = 'skeleton';
         const dx = this.scene.player.x - this.x;
         const dy = this.scene.player.y - this.y;
@@ -84,6 +88,22 @@ export default class Skeleton extends Phaser.GameObjects.Sprite {
         if (this.body.blocked.right) {
           this.state.directionX = -this.speed;
         }
+        // flip the sprite
+        if (this.state.directionX > 0) {
+          this.flipX = true;
+        } else {
+          this.flipX = false;
+        }
+      }
+      if (this.isAttacking && distance > 120) {
+        // turn back if blocked
+        if (this.body.blocked.left) {
+          this.state.directionX = this.speed;
+        }
+        if (this.body.blocked.right) {
+          this.state.directionX = -this.speed;
+        }
+        this.body.setVelocityX(this.state.directionX);
         // flip the sprite
         if (this.state.directionX > 0) {
           this.flipX = true;
@@ -113,10 +133,7 @@ export default class Skeleton extends Phaser.GameObjects.Sprite {
   animate(str) {
     if (str === 'skeletonRise') {
       this.scene.sound.play('skeletonRising', { volume: 1, rate: 1 });
-      this.anims.play(str, true).on('animationcomplete', () => {
-        this.isAttacking = true;
-        this.state.damage = this.damage;
-      });
+      this.anims.play(str, true)
     }
     this.anims.play(str, true);
   }
