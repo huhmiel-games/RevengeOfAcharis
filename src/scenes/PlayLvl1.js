@@ -9,6 +9,7 @@ import Ghost from '../enemies/Ghost';
 import Wizard from '../enemies/Wizard';
 import BurningGhoul from '../enemies/BurningGhoul';
 import Thunder from '../enemies/Thunder';
+import Flames from '../enemies/Flames';
 import Woman from '../npc/Woman';
 import Bearded from '../npc/Bearded';
 import Hatman from '../npc/Hatman';
@@ -1258,6 +1259,16 @@ export default class playLvl1 extends Scene {
         damage: element.properties.damage,
       });
       this.platformSpikeGroup.push(this[element.name]);
+    });
+    // the flames
+    const layerArray10 = this.checkObjectsLayerIndex('flames');
+    layerArray10 && layerArray10.objects.forEach((element) => {
+      this[element.name] = new Flames(this, element.x, element.y - 16, {
+        key: 'flames',
+        name: 'flame',
+      });
+      this[element.name].animate(element.properties.key, true);
+      this.enemyGroup.push(this[element.name]);
     });
 
 

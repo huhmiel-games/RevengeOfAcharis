@@ -960,6 +960,20 @@ export default class LoadingScreen extends Scene {
 
     // anims enemies
     this.anims.create({
+      key: 'flames',
+      frames: [
+        //{ key: 'enemies', frame: 'enemy-death-0' },
+        //{ key: 'enemies', frame: 'enemy-death-1' },
+        { key: 'enemies', frame: 'enemy-death-2' },
+        { key: 'enemies', frame: 'enemy-death-3' },
+        { key: 'enemies', frame: 'enemy-death-4' },
+        //{ key: 'enemies', frame: 'enemy-death-5' },
+      ],
+      frameRate: 20,
+      yoyo: false,
+      repeat: -1,
+    });
+    this.anims.create({
       key: 'hellHoundRun',
       frames: [
         { key: 'enemies', frame: 'hell-hound-run0' },
