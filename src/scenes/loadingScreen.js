@@ -105,7 +105,15 @@ import dragonHitSfx from '../assets/sfx/Dragon_mix/dragon_hit.ogg';
 import dragonTailSfx from '../assets/sfx/Dragon_mix/dragon_tail_attack.ogg';
 import dragonWalkSfx from '../assets/sfx/Dragon_mix/dragon_walk.ogg';
 
-
+// hellBeast
+import hellBeastDeathSfx from '../assets/sfx/HellBeast_ogg/Hell_beast_death.ogg';
+import hellBeastFireballSfx from '../assets/sfx/HellBeast_ogg/Hell_beast_fireball.ogg';
+import hellBeastHitSfx from '../assets/sfx/HellBeast_ogg/Hell_beast_hit.ogg';
+import hellBeastLavaAttackSfx from '../assets/sfx/HellBeast_ogg/Hell_beast_Lava_Attack.ogg';
+import hellBeastFirstLaughSfx from '../assets/sfx/HellBeast_ogg/Hell_beast_first_laugh.ogg';
+import hellBeastAppearLaughSfx from '../assets/sfx/HellBeast_ogg/Hell_beast_appear_laugh.ogg';
+import hellBeastDisappearLaughSfx from '../assets/sfx/HellBeast_ogg/Hell_beast_disappear_laugh.ogg';
+import hellBeastGlowingSfx from '../assets/sfx/HellBeast_ogg/Hell_beast_glowing.ogg';
 
 // Various sfx
 import thunderGateSfx from '../assets/sfx/thunder_gate.ogg';
@@ -480,7 +488,16 @@ export default class LoadingScreen extends Scene {
     this.load.audio('dragonHitSfx', dragonHitSfx);
     this.load.audio('dragonTailSfx', dragonTailSfx);
     this.load.audio('dragonWalkSfx', dragonWalkSfx);
-    
+
+    // hellBeast
+    this.load.audio('hellBeastDeathSfx', hellBeastDeathSfx);
+    this.load.audio('hellBeastFireballSfx', hellBeastFireballSfx);
+    this.load.audio('hellBeastHitSfx', hellBeastHitSfx);
+    this.load.audio('hellBeastLavaAttackSfx', hellBeastLavaAttackSfx);
+    this.load.audio('hellBeastFirstLaughSfx', hellBeastFirstLaughSfx);
+    this.load.audio('hellBeastAppearLaughSfx', hellBeastAppearLaughSfx);
+    this.load.audio('hellBeastDisappearLaughSfx', hellBeastDisappearLaughSfx);
+    this.load.audio('hellBeastGlowingSfx', hellBeastGlowingSfx);
 
     // Various
     this.load.audio('impact', impactFX);

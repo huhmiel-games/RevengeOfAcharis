@@ -31,14 +31,17 @@ export default class HellBeast extends Phaser.GameObjects.Sprite {
     this.battleStarted = false;
     this.attackTime = null;
     this.fireBallAttackCount = 0;
+    this.isGlowing = false;
     this.isDead = false;
+    this.glowingSfx = this.scene.sound.add('hellBeastGlowingSfx');
     this.blockDoors();
-    this.startBattle()
+    this.startBattle();
 
     this.on('animationcomplete', () => {
       const actualKey = this.anims.currentAnim.key;
       if (this.isLavaAttack && actualKey === 'hell-beast-burn') {
         this.animate('hell-beast-lava', true);
+        this.scene.sound.play('hellBeastLavaAttackSfx');
         this.state.damage = 75;
         this.body.setSize(64, 160);
         this.scene.shakeCamera(350)
@@ -48,10 +51,12 @@ export default class HellBeast extends Phaser.GameObjects.Sprite {
       }
       if (actualKey === 'hell-beast-breath') {
         this.shootThePlayer();
+        this.scene.sound.play('hellBeastFireballSfx');
         return;
       }
       if (actualKey === 'hell-beast-breath-stroke') {
         this.shootThePlayer();
+        this.scene.sound.play('hellBeastFireballSfx');
         return;
       }
     });
@@ -65,6 +70,15 @@ export default class HellBeast extends Phaser.GameObjects.Sprite {
   // hell-beast-burn
   // hell-beast-lava
 
+    // hellBeastDeathSfx
+    // hellBeastFireballSfx
+    // hellBeastHitSfx
+    // hellBeastLavaAttackSfx
+    // hellBeastFirstLaughSfx
+    // hellBeastAppearLaughSfx
+    // hellBeastDisappearLaughSfx
+    // hellBeastGlowingSfx
+
   preUpdate(time, delta) {
     super.preUpdate(time, delta);
     if (this.active) {
@@ -76,17 +90,25 @@ export default class HellBeast extends Phaser.GameObjects.Sprite {
     }
   }
 
+  playGlowing() {
+    if (this.isGlowing) {
+      return;
+    }
+    this.isGlowing = true;
+    this.glowingSfx.play({ loop: true });
+  }
+
   startBattle() {
-    //this.setPosition(190, 180).setAlpha(1);
     const msg = `Hmm fresh meat...`;
     this.scene.time.addEvent({
       delay: 600,
       callback: () => {
         this.showMsg = this.scene.add.bitmapText(190, 138, 'atomic', msg, 8, 1)
           .setOrigin(0.5, 0.5).setAlpha(1).setDepth(200);
+        this.scene.sound.play('hellBeastFirstLaughSfx');
       }
     });
-    
+
     this.scene.time.addEvent({
       delay: 2000,
       callback: () => {
@@ -126,7 +148,8 @@ export default class HellBeast extends Phaser.GameObjects.Sprite {
     this.animate(selectAnim, true);
     this.body.setSize(64, 64);
     const randomX = Phaser.Math.Between(24, 376);
-    this.body.reset(randomX, 188)
+    this.body.reset(randomX, 188);
+    this.scene.sound.play('hellBeastAppearLaughSfx');
     this.fadingTween = this.scene.tweens.add({
       targets: this,
       ease: 'Sine.easeInOut',
@@ -167,6 +190,9 @@ export default class HellBeast extends Phaser.GameObjects.Sprite {
           return;
         }
         const selectAnim = this.state.life > 750 ? 'hell-beast-breath' : 'hell-beast-breath-stroke';
+        if (selectAnim === 'hell-beast-breath-stroke') {
+          this.playGlowing();
+        }
         this.animate(selectAnim, true);
         if (fireTimer.repeatCount === 0) {
           this.hellBeastFadeOut()
@@ -179,6 +205,7 @@ export default class HellBeast extends Phaser.GameObjects.Sprite {
     if (!this.active) {
       return;
     }
+    this.scene.sound.play('hellBeastDisappearLaughSfx');
     this.fadingTween = this.scene.tweens.add({
       targets: this,
       ease: 'Sine.easeInOut',
@@ -284,14 +311,16 @@ export default class HellBeast extends Phaser.GameObjects.Sprite {
       return;
     }
     this.state.life = this.state.life - e;
+    this.scene.sound.play('hellBeastHitSfx', { volume: 1, rate: 1 });
     if (this.state.life <= 0) {
+      this.glowingSfx.stop();
       this.unlockDoors();
       this.scene.player.inventory.boss2 = true;
     }
   }
 
   playSfxDeath() {
-    this.scene.sound.play('skeletonDeath', { volume: 1, rate: 1 });
+    this.scene.sound.play('hellBeastDeathSfx');
   }
 
   explode() {

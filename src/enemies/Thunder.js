@@ -25,7 +25,7 @@ export default class Thunder extends Phaser.GameObjects.Sprite {
     this.flipX = true;
     this.followPath = false;
     this.speed = 20;
-    this.setPipeline('GlowFx')
+    this.setPipeline('GlowFx');
   }
 
   preUpdate(time, delta) {

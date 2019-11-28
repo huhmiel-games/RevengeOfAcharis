@@ -588,6 +588,9 @@ export default class playLvl1 extends Scene {
     this.player.state.dead = true;
     this.playerDead = true;
     this.physics.pause();
+    if(this.thunderGateSfx.isPlaying) {
+      this.thunderGateSfx.stop();
+    }
     this.input.enabled = false;
     this.player.anims.play('die');
     if (this.playerFlashTween) this.playerFlashTween.stop();
@@ -668,26 +671,29 @@ export default class playLvl1 extends Scene {
       ) {
         this.player.bulletKill(bull, false);
       }
-
-      if (this.player.state.selectedWeapon === 'waterStorm') {
-        // destroy the thunder door
-        if ( el instanceof Thunder) {
-          el.destroy();
-          this.thunderGateSfx.stop();
-          this.player.inventory.thunderDoorOpen = true;
-          return;
-        }
-        // No damage on hellBeast with waterStorm
-        if ( el.name ==='hellBeast') {
-          el.getFired = false;
-          return;
-        }
+      
+      // destroy the thunder door
+      if ( el.name === 'thunder1' && bull.name === 'waterStorm') {
+        el.destroy();
+        this.thunderGateSfx.stop();
+        this.player.inventory.thunderDoorOpen = true;
+        return;
+      } else if (el.name === 'thunder1' && bull.name !== 'waterStorm') {
+        el.getFired = false;
+        return;
       }
+
+      // No damage on hellBeast with waterStorm
+      if ( el.name ==='hellBeast' && bull.name === 'waterStorm') {
+        el.getFired = false;
+        return;
+      }
+      
       // No damage to hellBeast during his lava attacks
       if (el.name ==='hellBeast' && el.isLavaAttack) {
         el.getFired = false;
         return;
-      }
+      } 
       
       // enemy loose life
       el.looseLife(this.player.inventory[`${this.player.state.selectedWeapon}Damage`]);
@@ -812,6 +818,9 @@ export default class playLvl1 extends Scene {
     this.elevatorGroup.forEach(e => e.destroy());
     this.lavaGroup.forEach(e => e.destroy());
     this.lights.lights.forEach(light => light.setPosition(-1000, -1000));
+    if(this.thunderGateSfx.isPlaying) {
+      this.thunderGateSfx.stop();
+    }
     // create room
     this.map = this.make.tilemap({ key: room, tileWidth: 16, tileHeight: 16 });
     this.playerPosition = room;
