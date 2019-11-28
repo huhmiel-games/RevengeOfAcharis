@@ -87,6 +87,9 @@ export default class HellBeast extends Phaser.GameObjects.Sprite {
       } else if (this.x < this.scene.player.x) {
         this.flipX = true;
       }
+      if (this.scene.player.state.dead) {
+        this.glowingSfx.stop();
+      }
     }
   }
 
