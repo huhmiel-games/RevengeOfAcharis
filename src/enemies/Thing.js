@@ -108,24 +108,6 @@ export default class Thing extends Phaser.GameObjects.Sprite {
   }
 
   explode(bullet) {
-    // const arr = [];
-    // for (let i = 0; i < 30; i += 1) {
-    //   arr.push(i.toString());
-    // }
-    // const bulletSpeed = bullet.x !== 0 ? bullet.x / 2 : bullet.y / 2;
-    // this.scene.particles = null;
-    //this.scene.crabParticles = this.scene.add.particles('explodedCrab');
-    // this.scene.crabEmitter = this.scene.crabParticles.createEmitter({
-    //   angle: { min: -30, max: -150 },
-    //   speed: { min: 200, max: 300 },
-    //   frame: arr,
-    //   quantity: 16,
-    //   lifespan: 3000,
-    //   alpha: 1,
-    //   rotate: { start: 0, end: 3, ease: 'Linear' },
-    //   gravityY: 300,
-    //   on: false,
-    // });
-    // this.scene.crabParticles.emitParticleAt(this.x, this.y).setDepth(2000).setPipeline('Light2D');
+    
   }
 }

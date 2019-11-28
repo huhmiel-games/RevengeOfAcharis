@@ -959,20 +959,20 @@ export default class LoadingScreen extends Scene {
     });
 
     // anims enemies
+    // flames
     this.anims.create({
       key: 'flames',
       frames: [
-        //{ key: 'enemies', frame: 'enemy-death-0' },
-        //{ key: 'enemies', frame: 'enemy-death-1' },
         { key: 'enemies', frame: 'enemy-death-2' },
         { key: 'enemies', frame: 'enemy-death-3' },
         { key: 'enemies', frame: 'enemy-death-4' },
-        //{ key: 'enemies', frame: 'enemy-death-5' },
       ],
       frameRate: 20,
       yoyo: false,
       repeat: -1,
     });
+
+    // hellhound
     this.anims.create({
       key: 'hellHoundRun',
       frames: [
@@ -999,6 +999,8 @@ export default class LoadingScreen extends Scene {
       yoyo: false,
       repeat: -1,
     });
+
+    // thing
     this.anims.create({
       key: 'thing',
       frames: [
@@ -1011,6 +1013,8 @@ export default class LoadingScreen extends Scene {
       yoyo: false,
       repeat: -1,
     });
+
+    // keleton
     this.anims.create({
       key: 'skeletonRise',
       frames: [
@@ -1043,6 +1047,8 @@ export default class LoadingScreen extends Scene {
       yoyo: false,
       repeat: -1,
     });
+
+    // ghost
     this.anims.create({
       key: 'ghost',
       frames: [
@@ -1055,6 +1061,8 @@ export default class LoadingScreen extends Scene {
       yoyo: false,
       repeat: -1,
     });
+
+    // wizard
     this.anims.create({
       key: 'wizard-idle',
       frames: [
@@ -1086,6 +1094,8 @@ export default class LoadingScreen extends Scene {
       yoyo: false,
       repeat: 0,
     });
+
+    // burning ghoul
     this.anims.create({
       key: 'burning-ghoul',
       frames: [
@@ -1102,6 +1112,8 @@ export default class LoadingScreen extends Scene {
       yoyo: false,
       repeat: -1,
     });
+
+    // NPC
     this.anims.create({
       key: 'woman-idle',
       frames: [

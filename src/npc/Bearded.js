@@ -39,7 +39,7 @@ export default class Bearded extends Phaser.GameObjects.Sprite {
       return;
     }
     this.isTalking = true;
-    this.scene.sound.play('beardedSfx', { volume: 2 });
+    this.scene.sound.play('beardedSfx', { volume: 4 });
     const msg = `Where are you going ??
     It's full of monsters here !!
     Go back home!!`;

@@ -10,7 +10,7 @@ export default class Angel extends Phaser.GameObjects.Sprite {
     this.setPipeline('Light2D');
     this.body
       .setAllowGravity(false)
-      .setSize(20, 40);
+      .setSize(20, 40).setOffset(50, 40);
     this.flipX = true;
     this.showMsg = null;
     this.isTalking = false;
@@ -128,20 +128,20 @@ export default class Angel extends Phaser.GameObjects.Sprite {
             delay: 0,
             repeat: 0,
             yoyo: false,
+            x: { from: this.body.x + 10, to: this.scene.player.body.x + 5 },
+            y: { from: this.body.y, to: this.scene.player.body.y },
             scale: {
               getStart: () => 1,
               getEnd: () => 0,
             },
             onComplete: () => {
+              this.scene.cameras.main.startFollow(this.scene.player);
               this.scene.player.inventory.bulletDamage = 5 * 10;
               this.scene.player.inventory.swellDamage = 10 * 10;
               this.scene.player.inventory.missileDamage = 30 * 10;
               this.scene.player.inventory.life = 100 + 100 * this.scene.player.inventory.lifeEnergyBlock;
               this.scene.events.emit('setHealth', { life: Math.round(this.scene.player.inventory.life) });
               this.scene.sound.play('getLife', { volume: 0.05 });
-              // this.scene.player.inventory.waterStormDamage = 100 * 10;
-              // this.scene.player.inventory.lavaStormDamage = 150 * 10;
-              // this.scene.player.inventory.thunderStormDamage = 200 * 10;
               this.scene.player.inventory.fireRate = 120;
               this.scene.demon.phase = 2;
               this.scene.player.body.setSize(10, 25, true).setOffset(21, 10)

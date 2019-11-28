@@ -23,9 +23,7 @@ export default class Flames extends Phaser.GameObjects.Sprite {
   }
 
   looseLife(e) {
-    console.log(e)
     if (e.name === 'waterStorm') {
-      //this.scene.sound.play('skeletonHit', { volume: 1, rate: 1 });
       this.destroy();
     }
   }

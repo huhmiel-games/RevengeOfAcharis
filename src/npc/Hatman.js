@@ -39,7 +39,7 @@ export default class Hatman extends Phaser.GameObjects.Sprite {
       return;
     }
     this.isTalking = true;
-    this.scene.sound.play('hatmanSfx', { volume: 2 });
+    this.scene.sound.play('hatmanSfx', { volume: 4 });
     const msg = `I must leave this town...
     I must leave this town...
     I must leave this town...quickly`;

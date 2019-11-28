@@ -188,15 +188,15 @@ export default class playLvl1 extends Scene {
       this.glowFx.setFloat1('alpha', 1.0);
       this.glowFixedFx = this.game.renderer.addPipeline('GlowFixedFx', new GlowFixedFx(this.game));
       this.glowFixedFx.setFloat1('alpha', 1.0);
-      // heat
-      this.heatFx = this.game.renderer.addPipeline('HeatFx', new HeatFx(this.game));
-      this.heatFx.setFloat1('time', this.t2);
+      // // heat
+      // this.heatFx = this.game.renderer.addPipeline('HeatFx', new HeatFx(this.game));
+      // this.heatFx.setFloat1('time', this.t2);
 
-      // TEST SHADERS
-      this.testFx = this.game.renderer.addPipeline('TestFx', new TestFx(this.game));
-      this.testFx.setFloat2('u_resolution', this.game.config.width, this.game.config.height);
-      this.testFx.setFloat2('resolution', this.game.config.width, this.game.config.height);
-      this.testFx.setFloat2('mouse', this.player.x, this.player.y);
+      // // TEST SHADERS
+      // this.testFx = this.game.renderer.addPipeline('TestFx', new TestFx(this.game));
+      // this.testFx.setFloat2('u_resolution', this.game.config.width, this.game.config.height);
+      // this.testFx.setFloat2('resolution', this.game.config.width, this.game.config.height);
+      // this.testFx.setFloat2('mouse', this.player.x, this.player.y);
     }
     
     
@@ -275,21 +275,13 @@ export default class playLvl1 extends Scene {
 
   // ====================================================================
   update(time) {
-    // DEBUG ////////////////////
-    //const pointer = this.input.activePointer;
-    // this.text1.setText([
-    //   `x: ${Math.round(pointer.worldX)}`,
-    //   `y: ${Math.round(pointer.worldY)}`,
-    // ]);
-    // this.text1.setPosition(this.cameras.main.scrollX, this.cameras.main.scrollY + 226);
-    /////////////////////////////
     // test shaders
     if (this.glowFx) {
       this.glowFx.setFloat1('time', this.t);
-      this.heatFx.setFloat1('time', this.t2);
-      this.testFx.setFloat1('time', this.t2 * 10);
+      // this.heatFx.setFloat1('time', this.t2);
+      // this.testFx.setFloat1('time', this.t2 * 10);
       this.t += 0.1;
-      this.t2 += 0.03;
+      //this.t2 += 0.03;
     }
     if (this.playerLight && this.player) {
       this.playerLight.setPosition(this.player.body.x, this.player.body.y);
@@ -340,7 +332,6 @@ export default class playLvl1 extends Scene {
       const rdm = Phaser.Math.Between(2000, 5000);
       this.shakeCamera(1000);
       this.sound.play('shake', { volume: 0.5 });
-      // this.sound.play('shake2', { volume: 0.5 });
       this.time.addEvent({
         delay: rdm,
         callback: () => {
@@ -548,7 +539,6 @@ export default class playLvl1 extends Scene {
         onComplete: () => {
           this.player.alpha = 1;
           this.playerHurt = false;
-          // this.player.animate('stand');
         },
       });
       // if player is dead, launch deadth sequence
@@ -583,7 +573,6 @@ export default class playLvl1 extends Scene {
         onComplete: () => {
           this.player.alpha = 1;
           this.playerHurt = false;
-          // this.player.animate('stand');
         },
       });
       // if player is dead, launch deadth sequence
@@ -902,7 +891,7 @@ export default class playLvl1 extends Scene {
     }
     if(this.demon) this.demon.destroy();
     if(this.escapeTimer) this.escapeTimer = null;
-    this.lights.lights.forEach(light => light.setPosition(-10000, -10000)); // this.lights.removeLight(light));
+    this.lights.lights.forEach(light => light.setPosition(-10000, -10000));
 
     // create new room
     this.map = this.make.tilemap({ key: doorP.state.destination, tileWidth: 16, tileHeight: 16 });
@@ -1160,7 +1149,6 @@ export default class playLvl1 extends Scene {
     const layerArray = this.checkObjectsLayerIndex('lights');
     if (layerArray) {
       layerArray.objects.forEach((element) => {
-        // this.add.image(element.x, element.y, 'heart').setDepth(500).setFrame('1') // for debug lights
         this.lights.addLight(element.x, element.y, element.properties.radius, element.properties.color, element.properties.intensity);
       });
     }
@@ -1542,20 +1530,6 @@ export default class playLvl1 extends Scene {
         bull.destroy()
       }, null, this.player);
 
-      // this.physics.add.overlap([
-      // this.player.knives,
-      // this.player.swords,
-      // this.player.axes,
-      // this.player.waterMagic,
-      // this.player.lavaMagic,
-      // this.player.thunderMagic,], this.demon, (elm, bull) => {
-      //   console.log(bull, elm)
-      //   this.player.bulletKill(bull);
-      //   this.enemyIsHit(elm)
-      //   // this.enemyExplode(bull.x, bull.y)
-      //   // bull.destroy()
-      // }, null, this.player);
-
     this.physics.add.overlap(this.thunderPower, this.player, (player, thunder) => {
       if (this.thunderOnPlayer) {
         return;
@@ -1605,7 +1579,6 @@ export default class playLvl1 extends Scene {
     } else {
       this.escapeParticles = this.add.particles('castleParticles').setDepth(200)
     }
-    // this.escapeParticles.tint = 0x333333;
     this.escapeParticleEmitter = this.escapeParticles.createEmitter({
       angle: { min: -30, max: -150 },
       speed: { min: 100, max: 200 },
@@ -1615,7 +1588,6 @@ export default class playLvl1 extends Scene {
       alpha: 1,
       scale: { min: 0.2, max: 3 },
       rotate: {onEmit: (e) => {
-        //console.log(e)
         return Phaser.Math.Between(0, 90);
       }},
       gravityY: 500,

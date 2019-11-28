@@ -8,7 +8,7 @@ export default class Skeleton extends Phaser.GameObjects.Sprite {
     this.state = {
       life: config.life,
       damage: 0,
-      directionX: 120,
+      directionX: -120,
       directionY: 0,
       hited: false,
       giveLife: config.life,
@@ -48,8 +48,11 @@ export default class Skeleton extends Phaser.GameObjects.Sprite {
       }
     });
     this.on('animationcomplete', () => {
+      if (this.anims.currentAnim.key === 'skeletonRise') {
         this.isAttacking = true;
         this.state.damage = this.damage;
+        this.lastAnim = 'skeletonRise';
+      }  
     });
   }
 
@@ -63,11 +66,11 @@ export default class Skeleton extends Phaser.GameObjects.Sprite {
 
       if (distance <= 120 && !this.isAttacking) {
         this.visible = true;
-          const dx = this.scene.player.x - this.x;
-          if (dx < 0) {
-            this.flipX = false;
-          }
-          animationName = 'skeletonRise';
+        const dx = this.scene.player.x - this.x;
+        if (dx < 0) {
+          this.flipX = false;
+        }
+        animationName = 'skeletonRise';
       } 
       if (this.isAttacking && distance <= 120) {
         animationName = 'skeleton';
@@ -95,7 +98,10 @@ export default class Skeleton extends Phaser.GameObjects.Sprite {
           this.flipX = false;
         }
       }
-      if (this.isAttacking && distance > 120) {
+      //console.log(this.lastAnim)
+      if (this.isAttacking && distance > 120 && this.lastAnim === 'skeletonRise') {
+        animationName = 'skeleton';
+        //console.log(distance, this.body.velocity.x)
         // turn back if blocked
         if (this.body.blocked.left) {
           this.state.directionX = this.speed;

@@ -77,7 +77,6 @@ export default class Player extends Phaser.GameObjects.Sprite {
     this.scene.physics.world.enable(this);
     this.scene.add.existing(this);
     this.body.setSize(10, 25, true).setOffset(21, 10).setAllowGravity(false);
-    // this.player.body.setSize(15, 35, 6, 11);
 
 
     const keysOptions = getConfigKeys();

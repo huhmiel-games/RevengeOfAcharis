@@ -162,7 +162,6 @@ export default class DashBoard extends Scene {
 
     this.mainScene.events.on('countStop', () => {
       this.timedEvent.destroy();
-      // this.cameras.main.setBackgroundColor('rgba(0,0,0,0)');
     });
   }
 

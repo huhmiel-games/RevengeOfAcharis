@@ -68,7 +68,6 @@ export default class BossDragon extends Phaser.GameObjects.Sprite {
         this.scene.time.addEvent({
           delay: runTimer,
           callback: () => {
-            // this.walkk.stop()
             this.walkplay = false;
           },
         });
@@ -110,7 +109,7 @@ export default class BossDragon extends Phaser.GameObjects.Sprite {
           const dx = this.scene.player.x - this.x;
           const dy = this.scene.player.y - this.y;
           const angle = Math.atan2(dy, dx);
-          this.body.setVelocity(Math.cos(angle) * 30, 0);
+          this.body.setVelocity(Math.cos(angle) * 40, 0);
           animationName = 'dragon-idle';
         }
       } else if (this.scene.player.state.dead) {
@@ -133,19 +132,6 @@ export default class BossDragon extends Phaser.GameObjects.Sprite {
         this.lastAnim = animationName;
         this.animate(animationName, true);
       }
-    }
-  }
-
-  playRoar(cri) {
-    if (!this.roar) {
-      this.roar = true;
-      this.scene.sound.play(cri);
-      this.scene.time.addEvent({
-        delay: 1800,
-        callback: () => {
-          this.roar = false;
-        },
-      });
     }
   }
 
