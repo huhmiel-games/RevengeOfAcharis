@@ -33,7 +33,7 @@ export default class HellBeast extends Phaser.GameObjects.Sprite {
     this.fireBallAttackCount = 0;
     this.isGlowing = false;
     this.isDead = false;
-    this.glowingSfx = this.scene.sound.add('hellBeastGlowingSfx');
+    // this.glowingSfx = this.scene.sound.add('hellBeastGlowingSfx');
     this.blockDoors();
     this.startBattle();
 
@@ -87,19 +87,19 @@ export default class HellBeast extends Phaser.GameObjects.Sprite {
       } else if (this.x < this.scene.player.x) {
         this.flipX = true;
       }
-      if (this.scene.player.state.dead) {
-        this.glowingSfx.stop();
-      }
+      // if (this.scene.player.state.dead) {
+      //   this.glowingSfx.stop();
+      // }
     }
   }
 
-  playGlowing() {
-    if (this.isGlowing) {
-      return;
-    }
-    this.isGlowing = true;
-    this.glowingSfx.play({ loop: true });
-  }
+  // playGlowing() {
+  //   if (this.isGlowing) {
+  //     return;
+  //   }
+  //   this.isGlowing = true;
+  //   this.glowingSfx.play({ loop: true });
+  // }
 
   startBattle() {
     const msg = `Hmm fresh meat...`;
@@ -193,9 +193,9 @@ export default class HellBeast extends Phaser.GameObjects.Sprite {
           return;
         }
         const selectAnim = this.state.life > 750 ? 'hell-beast-breath' : 'hell-beast-breath-stroke';
-        if (selectAnim === 'hell-beast-breath-stroke') {
-          this.playGlowing();
-        }
+        // if (selectAnim === 'hell-beast-breath-stroke') {
+        //   this.playGlowing();
+        // }
         this.animate(selectAnim, true);
         if (fireTimer.repeatCount === 0) {
           this.hellBeastFadeOut()
@@ -316,7 +316,7 @@ export default class HellBeast extends Phaser.GameObjects.Sprite {
     this.state.life = this.state.life - e;
     this.scene.sound.play('hellBeastHitSfx', { volume: 1, rate: 1 });
     if (this.state.life <= 0) {
-      this.glowingSfx.stop();
+      // this.glowingSfx.stop();
       this.unlockDoors();
       this.scene.player.inventory.boss2 = true;
     }

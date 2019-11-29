@@ -348,7 +348,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
         this.playOnTouchingGroundFlag = false;
         this.walkk.play({ volume: 0.7, rate: 0.8 });
         //play the fall sfx for enough bug jump
-        !this.jumpSfx.isPlaying ? this.fallSfx.play({ volume: 1.5}) : null;
+        //!this.jumpSfx.isPlaying ? this.fallSfx.play({ volume: 1.5}) : null;
       }
       // reset jump
       if (state.stopJump) {
