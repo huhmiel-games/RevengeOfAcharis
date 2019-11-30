@@ -1648,7 +1648,7 @@
   </data>
  </layer>
  <objectgroup name="powerup">
-  <object id="544" gid="440" x="16" y="176" width="16" height="16">
+  <object id="544" name="energy" gid="440" x="16" y="176" width="16" height="16">
    <properties>
     <property name="ability" value="energy"/>
     <property name="collides" type="bool" value="false"/>

@@ -337,7 +337,7 @@ export default class LoadingScreen extends Scene {
     this.load.spritesheet('fireBall', fireBall, { frameWidth: 16, frameHeight: 16 });
     this.load.spritesheet('savestation', savestation, { frameWidth: 16, frameHeight: 32 });
     this.load.spritesheet('heart', heart, { frameWidth: 12, frameHeight: 12 });
-    this.load.spritesheet('jumpBoots', jumpBoots, { frameWidth: 24, frameHeight: 16 });
+    this.load.spritesheet('jumpBoots', jumpBoots, { frameWidth: 24, frameHeight: 24 });
     this.load.spritesheet('churchParticles', churchParticles, { frameWidth: 16, frameHeight: 16 });
     this.load.spritesheet('castleParticles', castleParticles, { frameWidth: 16, frameHeight: 16 });
 

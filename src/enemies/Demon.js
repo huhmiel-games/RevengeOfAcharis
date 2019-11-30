@@ -499,11 +499,40 @@ export default class Demon extends Phaser.GameObjects.Sprite {
 
   startBattle() {
     this.animate('demon-idle', true);
-    let startTimer = this.scene.time.addEvent({
+    const msg = `Hey kid...
+    I'm waiting
+    for you ...`;
+    this.scene.player.animate('stand');
+    this.scene.player.state.pause = true;
+    this.scene.time.addEvent({
       delay: 1000,
-      repeat: 1,
       callback: () => {
+        this.showMsg = this.scene.add.bitmapText(this.body.x - 48, this.body.y - 48, 'atomic', msg, 8, 1)
+          .setOrigin(0.5, 0.5).setAlpha(1).setDepth(200);
+        this.scene.sound.play('hellBeastFirstLaughSfx');
+      }
+    });
+    let startTimer = this.scene.time.addEvent({
+      delay: 2000,
+      repeat: 5,
+      callback: () => {
+        if (startTimer.repeatCount === 5) {
+          this.showMsg
+            .setX(this.scene.player.x + 48)
+            .setY(this.scene.player.y - 48)
+            .setText('Hello');
+        }
+        if (startTimer.repeatCount === 4) {
+          this.showMsg.setText('My name is Acharis');
+        }
+        if (startTimer.repeatCount === 3) {
+          this.showMsg.setText('You killed my father');
+        }
+        if (startTimer.repeatCount === 2) {
+          this.showMsg.setText('Prepare to die');
+        }
         if (startTimer.repeatCount === 1) {
+          this.showMsg.destroy();
           this.setFlipX(true);
           this.body.setOffset(75, 64);
         }
@@ -511,6 +540,7 @@ export default class Demon extends Phaser.GameObjects.Sprite {
           this.setFlipX(false);
           this.body.setOffset(56, 64);
           this.battleStarted = true;
+          this.scene.player.state.pause = false;
           //this.skullRotates = true;
           startTimer = null;
           //this.handleSkullHeads();
@@ -526,46 +556,70 @@ export default class Demon extends Phaser.GameObjects.Sprite {
     this.skullRotates = false;
     this.isFollowingPath = false;
     this.state.life = 30000;
+    // this.scene.player.animate('stand');
+    // this.scene.player.state.pause = true;
+    
     this.body.setVelocity(0, 0);
     this.setPipeline('GlowFx');
-    this.scene.time.addEvent({
-      delay: 2000,
-      callback: () => {
-        const positionX = this.flipX ? this.body.x + 74 : this.body.x - 12;
-        this.demonThunder = this.scene.thunderPower.getFirstDead(true, -100, this.scene.player.body - 256, 'storm', null, true);
-        if (this.demonThunder) {
-          this.demonThunder.visible = true;
-          this.demonThunder.anims.play('thunder-magic', true)
-          // this.demonThunder.on('animationcomplete', () => {
-          //   //this.demonThunder.destroy();
-          // });
-          this.demonThunder.setDepth(105);
-          this.demonThunder.state = { damage: 30 };
-          this.demonThunder.name = 'demonThunder';
-          
-          // const dx = this.scene.player.x - this.x;
-          // const dy = this.scene.player.y - this.y;
-          // const angle = Math.atan2(dy, dx);
-          
-          this.demonThunder.body.setSize(32, 240).setOffset(24, 0);
-          this.scene.player.state.pause = true;
-          this.scene.player.animate('duck', true)
-          this.scene.player.body.setSize(10, 15, true).setOffset(21, 20);
-          this.scene.player.body.setVelocity(0, 0);
-          this.demonThunder.body.reset(this.scene.player.body.center.x, -100);
-          this.demonThunder.body.setVelocity(0, 1900);
-          this.scene.thunderGateSfx.play();
+    this.scene.cameras.main.startFollow(this);
+    
+    
+    this.showMsg = this.scene.add.bitmapText(this.body.x - 48, this.body.y - 48, 'atomic', '', 8, 1)
+      .setOrigin(0.5, 0.5).setAlpha(1).setDepth(200);
 
-          // destroy all enemies
-          this.scene.enemyGroup.forEach(enemy => {
-          if (enemy.active && enemy.name !== 'demon') {
-            this.scene.enemyExplode(enemy.body.x, enemy.body.y);
-            enemy.destroy();
+    const startTimer = this.scene.time.addEvent({
+      delay: 2000,
+      repeat: 4,
+      callback: () => {
+        if (startTimer.repeatCount === 4) {
+          this.showMsg.setText('Kid...');
+        }
+        if (startTimer.repeatCount === 3) {
+          this.showMsg.setText('I\'m bored to play with you');
+        }
+        if (startTimer.repeatCount === 2) {
+          this.showMsg.setText('Let\'s end this joke');
+        }
+        if (startTimer.repeatCount === 1) {
+          this.showMsg.destroy();
+        
+          const positionX = this.flipX ? this.body.x + 74 : this.body.x - 12;
+          this.demonThunder = this.scene.thunderPower.getFirstDead(true, -100, this.scene.player.body - 256, 'storm', null, true);
+          if (this.demonThunder) {
+            this.scene.cameras.main.startFollow(this.scene.player);
+            this.demonThunder.visible = true;
+            this.demonThunder.anims.play('thunder-magic', true);
+            // this.demonThunder.on('animationcomplete', () => {
+            //   //this.demonThunder.destroy();
+            // });
+            this.demonThunder.setDepth(105);
+            this.demonThunder.state = { damage: 30 };
+            this.demonThunder.name = 'demonThunder';
+            
+            // const dx = this.scene.player.x - this.x;
+            // const dy = this.scene.player.y - this.y;
+            // const angle = Math.atan2(dy, dx);
+            
+            this.demonThunder.body.setSize(32, 240).setOffset(24, 0);
+            this.scene.player.state.pause = true;
+            this.scene.player.animate('duck', true)
+            this.scene.player.body.setSize(10, 15, true).setOffset(21, 20);
+            this.scene.player.body.setVelocity(0, 0);
+            this.demonThunder.body.reset(this.scene.player.body.center.x, -100);
+            this.demonThunder.body.setVelocity(0, 1900);
+            this.scene.thunderGateSfx.play();
+
+            // destroy all enemies
+            this.scene.enemyGroup.forEach(enemy => {
+              if (enemy.active && enemy.name !== 'demon') {
+                this.scene.enemyExplode(enemy.body.x, enemy.body.y);
+                enemy.destroy();
+              }
+            });
           }
-        });
         }
       }
-    });
+    }, this);
   }
 
   startPhase2() {
@@ -592,8 +646,17 @@ export default class Demon extends Phaser.GameObjects.Sprite {
         this.scene.paraMiddle.setAlpha(0);
         this.windowParticleEmitter.explode(36, 394, 204);
 
-        // angel appears
+        this.showMsg = this.scene.add.bitmapText(this.body.x - 48, this.body.y - 48, 'atomic', 'What !??', 8, 1)
+          .setOrigin(0.5, 0.5).setAlpha(1).setDepth(200);
         
+        this.scene.time.addEvent({
+          delay: 2000,
+          callback: () => {
+            this.showMsg.destroy();
+          }
+        });
+
+        // angel appears
         this.scene.angel = new Angel(this.scene, 394, 274, {
           key: 'angel-idle',
           name: 'angel',

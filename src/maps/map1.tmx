@@ -848,7 +848,7 @@
  <objectgroup name="fireball"/>
  <objectgroup name="rhino"/>
  <objectgroup name="savestation">
-  <object id="549" name="save1" gid="124" x="256" y="152" width="16" height="16">
+  <object id="549" name="save1" gid="124" x="256" y="154" width="16" height="16">
    <properties>
     <property name="destination" value="map1"/>
     <property name="key" value="savestation"/>

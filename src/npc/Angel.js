@@ -82,6 +82,7 @@ export default class Angel extends Phaser.GameObjects.Sprite {
           const item = {};
           item.state = { ability: 'waterStorm', id: 6 };
           this.scene.player.addMagic('waterStorm');
+          this.scene.sound.play('powerUp');
           this.scene.player.state.pause = false;
           this.scene.physics.resume();
           this.firstEncounter = true;
@@ -139,7 +140,7 @@ export default class Angel extends Phaser.GameObjects.Sprite {
               this.scene.player.inventory.bulletDamage = 5 * 10;
               this.scene.player.inventory.swellDamage = 10 * 10;
               this.scene.player.inventory.missileDamage = 30 * 10;
-              this.scene.player.inventory.life = 100 + 100 * this.scene.player.inventory.lifeEnergyBlock;
+              this.scene.player.inventory.life = 100 * this.scene.player.inventory.lifeEnergyBlock;
               this.scene.events.emit('setHealth', { life: Math.round(this.scene.player.inventory.life) });
               this.scene.sound.play('getLife', { volume: 0.05 });
               this.scene.player.inventory.fireRate = 120;

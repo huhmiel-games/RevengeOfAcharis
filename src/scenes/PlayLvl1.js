@@ -175,7 +175,7 @@ export default class playLvl1 extends Scene {
       createIfNull: true,
     });
     this.playerFlashTween = null;
-    console.log(this);
+    // console.log(this);
 
     // SHADERS for player
     // ondulation
@@ -721,6 +721,7 @@ export default class playLvl1 extends Scene {
       if (el.name === 'demon' && el.phase === 0) {
         el.clearTint();
         el.startPhase1();
+        this.battleWithBoss = true;
         return;
       }
       if (el.name === 'demon' && el.phase === 2) {
@@ -938,7 +939,7 @@ export default class playLvl1 extends Scene {
     this.cameras.main.fadeIn(50);
     this.physics.world.setBoundsCollision();
     this.playerIsPassingDoor = false;
-    console.log(this);
+    // console.log(this);
   }
 
   // ====================================================================
