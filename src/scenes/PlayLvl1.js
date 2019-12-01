@@ -512,6 +512,7 @@ export default class playLvl1 extends Scene {
     if (elm.state.damage === 0) {
       return;
     }
+
     if (elm instanceof PlatformSpike && elm.body.touching.down) {
       this.player.inventory.life = 0;
       this.events.emit('setHealth', { life: Math.round(this.player.inventory.life) });
@@ -524,6 +525,9 @@ export default class playLvl1 extends Scene {
       this.player.inventory.life -= elm.state.damage;
       if (this.player.inventory.life <= 30) {
         this.sound.play('lowLifeSfx');
+      }
+      if (elm.name === 'skullHead' || elm.name === 'demonBreath') {
+        this.sound.play('hellBeastFirstLaughSfx');
       }
       this.playerFlashTween = this.tweens.add({
         targets: this.player,
@@ -1535,8 +1539,8 @@ export default class playLvl1 extends Scene {
       this.player.waterMagic,
       this.player.lavaMagic,
       this.player.thunderMagic,], this.skullGroup, (elm, bull) => {
-        this.player.bulletKill(bull);
-        this.enemyExplode(bull.x, bull.y)
+        this.enemyExplode(bull.x, bull.y);
+        this.sound.play('demonSkullHitSfx');
         bull.destroy()
       }, null, this.player);
 

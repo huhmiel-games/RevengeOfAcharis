@@ -14,7 +14,7 @@ export default class Demon extends Phaser.GameObjects.Sprite {
     this.scene = scene;
     this.name = config.name;
     this.state = {
-      life: 5000,
+      life: 10000,
       damage: 20,
       hited: false,
       skullHeadQuantity: 8,
@@ -44,21 +44,12 @@ export default class Demon extends Phaser.GameObjects.Sprite {
     this.lastAnim = null;
     this.diameter = { x: 0 };
     this.phase2started = false;
+    this.deathMsg = null;
     this.blockDoors();
-    //this.handleHellBeast();
     this.handleSkullHeads();
     //this.body.setVelocityX(-200);
     this.on('animationcomplete', () => {
       const actualKey = this.anims.currentAnim.key;
-      // if (actualKey === 'demon-idle') {
-      //   this.animate('demon-idle', true);
-      //   this.state.damage = 75;
-  
-      //   this.scene.shakeCamera(350)
-      //   //this.body.reset(this.body.x + 32, 23 * 16);
-      //   //this.body.setVelocityX(Phaser.Math.Between(-50, 50));
-      //   return;
-      // }
       if (actualKey === 'demon-attack' && !this.releaseEnemy) {
         this.isFollowingPath = false;
         this.body.setVelocity(0, 0);
@@ -73,11 +64,6 @@ export default class Demon extends Phaser.GameObjects.Sprite {
         this.animate('demon-attack-end', true);
         return;
       }
-      // if (actualKey === 'demon-attack-end') {
-      //   this.scene.shakeCamera(350)
-      //   //this.animate('demon-attack-end', true);
-      //   return;
-      // }
     });
     this.addPath();
     this.startBattle();
@@ -103,6 +89,17 @@ export default class Demon extends Phaser.GameObjects.Sprite {
   // breathBlue
   // breathFire
   // fire-skull
+
+    // demonDeathSfx
+    // demonHitSfx
+    // demonDyingFireSfx
+    // demonFlySfx
+    // demonBreathSfx
+    // demonBreathBlueSfx
+    // demonScreamSfx
+    // demonlightingLaughSfx
+    // demonSkullAttackSfx
+    // demonSkullHitSfx
 
   preUpdate(time, delta) {
     super.preUpdate(time, delta);
@@ -154,25 +151,6 @@ export default class Demon extends Phaser.GameObjects.Sprite {
     }
   }
 
-  handleHellBeast() {
-    if (this.hellBeastTimer !== null || !this.active) {
-      return;
-    }
-    if (!this.scene) {
-      return;
-    }
-    this.hellBeastTimer = this.scene.time.addEvent({
-      delay: this.state.life,
-      callback: () => {
-        if (this.isHidden && this.active) {
-          this.isAppearing = true;
-          this.appears();
-          this.hellBeastTimer = null;
-        }
-      },
-    });
-  }
-
   handleSkullHeads() {
     if (!this.active || this.phase === 1) {
       return;
@@ -196,12 +174,14 @@ export default class Demon extends Phaser.GameObjects.Sprite {
             this[`skull${i}`].anims.play('fire-skull', true)
             this[`skull${i}`].setDepth(103);
             this[`skull${i}`].state = { damage: 25 };
+            this[`skull${i}`].name = 'skullHead';
             this[`skull${i}`].body.setSize(24, 28).setOffset(12, 18).reset(arrPositionsX[i] , arrPositionsY[i]);
             this.scene.skullGroup.push(this[`skull${i}`])
           }
         }
         this.twee.play();
         this.skullRotates = true;
+        this.scene.sound.play('demonSkullSummonSfx');
         this.skullHeadsAppears();
       }
     });
@@ -223,8 +203,10 @@ export default class Demon extends Phaser.GameObjects.Sprite {
           if (!this.active) {
             return;
           }
+          
           this.scene.skullGroup.forEach((skull) => {
             if (skull.active) {
+              this.scene.sound.play('demonSkullAttackSfx', { volume: 0.1 });
               this.skullRotates = false;
               const angle = Phaser.Math.Angle.Between(skull.x, skull.y, this.scene.player.x, this.scene.player.y);// Math.atan2(dy, dx);
               skull.body.setVelocity(Math.cos(angle) * 400, Math.sin(angle) * 400);
@@ -304,7 +286,7 @@ export default class Demon extends Phaser.GameObjects.Sprite {
       });
       ball.setDepth(105);
       ball.state = { damage: 30 };
-      ball.name = 'fireball';
+      ball.name = 'demonBreath';
       ball.body.setSize(102, 46).setOffset(28, 28);
       this.scene.breathGroup.push(ball)
 
@@ -321,7 +303,7 @@ export default class Demon extends Phaser.GameObjects.Sprite {
       }
 
       //ball.setRotation(angle + Math.PI/2)
-      this.scene.sound.play('swell', { volume: 0.15 });
+      this.scene.sound.play('demonBreathSfx');
       this.endFire = this.scene.time.addEvent({
         delay: 50,
         callback: () => {
@@ -442,7 +424,7 @@ export default class Demon extends Phaser.GameObjects.Sprite {
       }
 
       //////////////
-      this.scene.sound.play('swell', { volume: 0.15 });
+      this.scene.sound.play('demonBreathBlueSfx');
       this.endFire = this.scene.time.addEvent({
         delay: 50,
         callback: () => {
@@ -507,9 +489,8 @@ export default class Demon extends Phaser.GameObjects.Sprite {
     this.scene.time.addEvent({
       delay: 1000,
       callback: () => {
-        this.showMsg = this.scene.add.bitmapText(this.body.x - 48, this.body.y - 48, 'atomic', msg, 8, 1)
+        this.showMsg = this.scene.add.bitmapText(this.body.x - 48, this.body.y, 'atomic', msg, 8, 1)
           .setOrigin(0.5, 0.5).setAlpha(1).setDepth(200);
-        this.scene.sound.play('hellBeastFirstLaughSfx');
       }
     });
     let startTimer = this.scene.time.addEvent({
@@ -530,6 +511,7 @@ export default class Demon extends Phaser.GameObjects.Sprite {
         }
         if (startTimer.repeatCount === 2) {
           this.showMsg.setText('Prepare to die');
+          this.scene.sound.play('hellBeastFirstLaughSfx');
         }
         if (startTimer.repeatCount === 1) {
           this.showMsg.destroy();
@@ -541,30 +523,32 @@ export default class Demon extends Phaser.GameObjects.Sprite {
           this.body.setOffset(56, 64);
           this.battleStarted = true;
           this.scene.player.state.pause = false;
-          //this.skullRotates = true;
+          this.scene.sound.play('demonScreamSfx');
           startTimer = null;
-          //this.handleSkullHeads();
         }
       }
     });
   }
 
   startPhase1() {
+    if (this.scene.player.state.dead) {
+      return;
+    }
     this.phase = 1;
     this.isBreathFire = false;
     this.isBbreathBlue = false;
     this.skullRotates = false;
     this.isFollowingPath = false;
     this.state.life = 30000;
-    // this.scene.player.animate('stand');
-    // this.scene.player.state.pause = true;
+    this.scene.player.animate('stand');
+    this.scene.player.state.pause = true;
     
     this.body.setVelocity(0, 0);
     this.setPipeline('GlowFx');
     this.scene.cameras.main.startFollow(this);
     
     
-    this.showMsg = this.scene.add.bitmapText(this.body.x - 48, this.body.y - 48, 'atomic', '', 8, 1)
+    this.showMsg = this.scene.add.bitmapText(this.body.x, this.body.y - 48, 'atomic', '', 8, 1)
       .setOrigin(0.5, 0.5).setAlpha(1).setDepth(200);
 
     const startTimer = this.scene.time.addEvent({
@@ -601,13 +585,19 @@ export default class Demon extends Phaser.GameObjects.Sprite {
             // const angle = Math.atan2(dy, dx);
             
             this.demonThunder.body.setSize(32, 240).setOffset(24, 0);
-            this.scene.player.state.pause = true;
+            //this.scene.player.state.pause = true;
             this.scene.player.animate('duck', true)
             this.scene.player.body.setSize(10, 15, true).setOffset(21, 20);
             this.scene.player.body.setVelocity(0, 0);
             this.demonThunder.body.reset(this.scene.player.body.center.x, -100);
             this.demonThunder.body.setVelocity(0, 1900);
             this.scene.thunderGateSfx.play();
+            this.scene.time.addEvent({
+              delay: 2000,
+              callback: () => {
+                this.scene.sound.play('demonlightingLaughSfx');
+              }
+            });
 
             // destroy all enemies
             this.scene.enemyGroup.forEach(enemy => {
@@ -619,7 +609,7 @@ export default class Demon extends Phaser.GameObjects.Sprite {
           }
         }
       }
-    }, this);
+    });
   }
 
   startPhase2() {
@@ -682,6 +672,8 @@ export default class Demon extends Phaser.GameObjects.Sprite {
     this.scene.player.inventory.bossFinal = true;
     this.isFollowingPath = false;
     this.body.setVelocity(0, 0);
+    this.deathMsg = this.scene.add.bitmapText(this.body.x - 140, this.body.y - 48, 'atomic', '', 10, 1).setDepth(300);
+    
     const demonExplode = this.scene.time.addEvent({
       delay: 150,
       repeat: 30,
@@ -691,7 +683,35 @@ export default class Demon extends Phaser.GameObjects.Sprite {
         }
         const X = Phaser.Math.Between(this.body.x, this.body.x + this.body.width);
         const Y = Phaser.Math.Between(this.body.y, this.body.y + this.body.height);
-        this.scene.enemyExplode(X, Y)
+        this.scene.enemyExplode(X, Y);
+        this.scene.sound.play('demonDyingFireSfx');
+        
+        if (demonExplode.repeatCount === 1) {
+          this.scene.sound.play('demonDeathSfx', { rate: 0.5 });
+        }
+        if (demonExplode.repeatCount > 25) {
+          this.deathMsg.setText(`
+          No
+          `);
+        }
+        if (demonExplode.repeatCount < 26) {
+          this.deathMsg.setText(`
+          NOooooo
+          `);
+        }
+        if (demonExplode.repeatCount < 16) {
+          this.deathMsg.setText(`
+          You got your revenge
+                  but
+          this is not the end`);
+        }
+        if (demonExplode.repeatCount < 6) {
+          this.deathMsg.setText(`
+          Survive this castle 
+            or i'll see you
+              in hell!`);
+        }
+
         if (demonExplode.repeatCount === 0) {
           this.unlockDoors();
           this.scene.giveLife = this.scene.physics.add.sprite(this.body.center.x, this.body.center.y, 'heart');
@@ -702,6 +722,8 @@ export default class Demon extends Phaser.GameObjects.Sprite {
           this.scene.giveLifeGroup.push(this.scene.giveLife);
           this.body.reset(-1000, -1000);
           this.scene.player.inventory.escape = true;
+          this.deathMsg.destroy();
+          
           const pos = this.scene.getCamCenter();
           this.showMsg = this.scene.add.bitmapText(pos.x, pos.y - 42, 'atomic', `two and a half minutes
         before the castle collapses
@@ -726,14 +748,8 @@ export default class Demon extends Phaser.GameObjects.Sprite {
   }
 
   looseLife(e) {
-    if (this.isLavaAttack) {
-      return;
-    }
+    this.scene.sound.play('demonHitSfx');
     this.state.life = this.state.life - e;
-    if (this.state.life <= 0) {
-      this.unlockDoors();
-      this.scene.player.inventory.boss2 = true;
-    }
   }
 
   explode() {

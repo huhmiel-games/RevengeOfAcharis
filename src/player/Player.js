@@ -178,7 +178,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
     /////////////////////////////////
     let animationName;
     // if not game pause
-    if (!state.pause && !state.dead) {
+    if (!state.pause && !state.dead) { 
       if (keys.fire.isDown) {
         this.shoot(time);
       }
@@ -365,6 +365,9 @@ export default class Player extends Phaser.GameObjects.Sprite {
       if (keys.select.isDown) {
         this.selectWeapon();
       }
+
+      // check for consumed energy
+      this.consumeEnergy();
       
       // flip player animation and bullets positions
       if (body.velocity.x < 0) {
@@ -380,7 +383,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
       if (keys.pause.isDown) {
         this.scene.pauseGame();
       }
-    } else if (state.pause) {
+    } else if (this.state.pause) {
       // GAME PAUSE
       if (!this.scene.isPausing && keys.pause.isDown) {
         this.scene.pauseGame();
@@ -391,7 +394,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
       this.lastAnim = animationName;
       this.animate(animationName, true);
     }
-    this.consumeEnergy();
+    
   }
 
   isJumping() {
@@ -500,6 +503,13 @@ export default class Player extends Phaser.GameObjects.Sprite {
         delay: 2500,
         callback: () => {
           waterStorm.destroy();
+          if (this.scene.demon && this.scene.demon.phase === 1) {
+            this.scene.physics.resume();
+            this.anims.play('stand');
+            this.isSpelling = false;
+            this.resetPipeline();
+            return;
+          }
           this.state.pause = false;
           this.scene.physics.resume();
           this.anims.play('stand');
@@ -557,6 +567,13 @@ export default class Player extends Phaser.GameObjects.Sprite {
               delay: 1500,
               callback: () => {
                 lavaStorm.destroy();
+                if (this.scene.demon && this.scene.demon.phase === 1) {
+                  this.scene.physics.resume();
+                  this.anims.play('stand');
+                  this.isSpelling = false;
+                  this.resetPipeline();
+                  return;
+                }
                 this.state.pause = false;
                 this.scene.physics.resume();
                 this.anims.play('stand');
@@ -651,6 +668,13 @@ export default class Player extends Phaser.GameObjects.Sprite {
                         thunderStorm.destroy();
                       }
                     });
+                    if (this.scene.demon && this.scene.demon.phase === 1) {
+                      this.scene.physics.resume();
+                      this.anims.play('stand');
+                      this.isSpelling = false;
+                      this.resetPipeline();
+                      return
+                    }
                     this.state.pause = false;
                     this.scene.physics.resume();
                     this.anims.play('stand');

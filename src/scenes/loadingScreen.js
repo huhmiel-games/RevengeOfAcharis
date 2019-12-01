@@ -115,6 +115,20 @@ import hellBeastAppearLaughSfx from '../assets/sfx/HellBeast_ogg/Hell_beast_appe
 import hellBeastDisappearLaughSfx from '../assets/sfx/HellBeast_ogg/Hell_beast_disappear_laugh.ogg';
 import hellBeastGlowingSfx from '../assets/sfx/HellBeast_ogg/Hell_beast_glowing.ogg';
 
+// demon
+import demonDeathSfx from '../assets/sfx/Demon_ogg/demon_death.ogg';
+import demonHitSfx from '../assets/sfx/Demon_ogg/demon_hit.ogg';
+import demonDyingFireSfx from '../assets/sfx/Demon_ogg/demon_dying_fire.ogg';
+import demonFlySfx from '../assets/sfx/Demon_ogg/demon_fly.ogg';
+import demonBreathSfx from '../assets/sfx/Demon_ogg/demon_orange_fire.ogg';
+import demonBreathBlueSfx from '../assets/sfx/Demon_ogg/demon_blue_fire.ogg';
+import demonScreamSfx from '../assets/sfx/Demon_ogg/demon_first_scream.ogg';
+import demonlightingLaughSfx from '../assets/sfx/Demon_ogg/demon_lightining_laugh.ogg';
+import demonSkullSummonSfx from '../assets/sfx/Demon_ogg/demon_skull_summon.ogg';
+import demonSkullAttackSfx from '../assets/sfx/Demon_ogg/demon_skull_attack.ogg';
+import demonSkullHitSfx from '../assets/sfx/Demon_ogg/demon_skull_hit.ogg';
+
+
 // Various sfx
 import thunderGateSfx from '../assets/sfx/thunder_gate.ogg';
 import impactFX from '../assets/sounds/explo.ogg'; // used when camera shake
@@ -498,6 +512,19 @@ export default class LoadingScreen extends Scene {
     this.load.audio('hellBeastAppearLaughSfx', hellBeastAppearLaughSfx);
     this.load.audio('hellBeastDisappearLaughSfx', hellBeastDisappearLaughSfx);
     this.load.audio('hellBeastGlowingSfx', hellBeastGlowingSfx);
+
+    // demon
+    this.load.audio('demonDeathSfx', demonDeathSfx);
+    this.load.audio('demonHitSfx', demonHitSfx);
+    this.load.audio('demonDyingFireSfx', demonDyingFireSfx);
+    this.load.audio('demonFlySfx', demonFlySfx);
+    this.load.audio('demonBreathSfx', demonBreathSfx);
+    this.load.audio('demonBreathBlueSfx', demonBreathBlueSfx);
+    this.load.audio('demonScreamSfx', demonScreamSfx);
+    this.load.audio('demonlightingLaughSfx', demonlightingLaughSfx);
+    this.load.audio('demonSkullSummonSfx', demonSkullSummonSfx);
+    this.load.audio('demonSkullAttackSfx', demonSkullAttackSfx);
+    this.load.audio('demonSkullHitSfx', demonSkullHitSfx);
 
     // Various
     this.load.audio('impact', impactFX);

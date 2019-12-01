@@ -147,6 +147,7 @@ export default class Angel extends Phaser.GameObjects.Sprite {
               this.scene.demon.phase = 2;
               this.scene.player.body.setSize(10, 25, true).setOffset(21, 10)
               this.scene.player.state.pause = false;
+              this.scene.physics.resume();
               this.body.reset(-100, -100);
               this.scene.player.setPipeline('GlowFx');
               this.scene.demon.isFollowingPath = true;    
