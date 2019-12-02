@@ -21,6 +21,8 @@ export default class LoadSavedGame extends Scene {
       totalTime = new Date(t).toISOString().substr(11, 8);
     }
 
+    this.sound.play('titleMenu');
+
     this.background = this.add.image(0, 0, 'backgroundWithoutTitles')
       .setOrigin(0, 0)
       .setDisplaySize(U.WIDTH, U.HEIGHT);

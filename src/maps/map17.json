@@ -5,7 +5,7 @@
          "encoding":"base64",
          "height":16,
          "name":"back",
-         "opacity":0,
+         "opacity":1,
          "type":"tilelayer",
          "visible":true,
          "width":25,
@@ -468,7 +468,7 @@
     {
      "ambientColor":"0x444444",
      "callFunction":"escape",
-     "music":"ambient1",
+     "music":"churchTheme",
      "paraBack":"map17back",
      "paraMiddle":"",
      "walkSfx":"churchWalkSfx"

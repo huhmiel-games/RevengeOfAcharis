@@ -150,7 +150,9 @@ export default class Angel extends Phaser.GameObjects.Sprite {
               this.scene.physics.resume();
               this.body.reset(-100, -100);
               this.scene.player.setPipeline('GlowFx');
-              this.scene.demon.isFollowingPath = true;    
+              this.scene.demon.isFollowingPath = true;
+              this.scene.stopMusic();
+              this.scene.playMusic('demonFight2');
             }
           });
         }

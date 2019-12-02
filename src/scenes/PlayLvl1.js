@@ -86,11 +86,37 @@ export default class playLvl1 extends Scene {
     // ====================================================================
     // AMBIENT MUSIC
     this.musicGroup = [];
-    this.ambient1 = this.sound.add('ambient1', { volume: 0.2, loop: true });
-    this.ambient2 = this.sound.add('ambient2', { volume: 0.1, loop: true });
-    this.ambient3 = this.sound.add('ambient3', { volume: 0.1, loop: true });
-    this.thunderGateSfx = this.sound.add('thunderGateSfx', { volume: 1, loop: true });
-    this.musicGroup.push(this.ambient1, this.ambient2, this.ambient3);
+    this.hauntedForest = this.sound.add('hauntedForest', { volume: 1, loop: true });
+    this.angelCalling = this.sound.add('angelCalling', { volume: 1, loop: true });
+    this.townTheme = this.sound.add('townTheme', { volume: 1, loop: true });
+    this.townAttackTheme = this.sound.add('townAttackTheme', { volume: 1, loop: true });
+    this.graveyardTheme = this.sound.add('graveyardTheme', { volume: 1, loop: true });
+    this.dragonFight = this.sound.add('dragonFight', { volume: 1, loop: true });
+    this.castleTheme = this.sound.add('castleTheme', { volume: 1, loop: true });
+    this.churchTheme = this.sound.add('churchTheme', { volume: 1, loop: true });
+    this.hellBeastFight = this.sound.add('hellBeastFight', { volume: 1, loop: true });
+    this.demonFight1 = this.sound.add('demonFight1', { volume: 1, loop: true });
+    this.demonFight2 = this.sound.add('demonFight2', { volume: 1, loop: true });
+    this.escapeTheme = this.sound.add('escapeTheme', { volume: 1, loop: true });
+    this.revengeTheme = this.sound.add('revengeTheme', { volume: 1, loop: true });
+    this.EndingTheme = this.sound.add('EndingTheme', { volume: 1, loop: true });
+
+
+    this.thunderGateSfx = this.sound.add('thunderGateSfx', { volume: 0.6, loop: true });
+    this.musicGroup.push(
+      this.hauntedForest,
+      this.angelCalling,
+      this.townTheme,
+      this.townAttackTheme,
+      this.graveyardTheme,
+      this.dragonFight,
+      this.castleTheme,
+      this.churchTheme,
+      this.hellBeastFight,
+      this.demonFight1,
+      this.demonFight2,
+      this.escapeTheme,
+    );
 
     // ====================================================================
     // PLAYER SECTION
@@ -316,13 +342,23 @@ export default class playLvl1 extends Scene {
   // ====================================================================
 
   playMusic(music) {
-    return; //disabled music for working on walk sounds
+    //return; //disabled music for working on walk sounds
     for (let i = 0; i < this.musicGroup.length; i += 1) {
-      if (this.musicGroup[i].isPlaying && this.musicGroup[i].key === music) {
-        break;
+      if (this.musicGroup[i].isPlaying && this.musicGroup[i].key === music) { //
+        return;
       }
-      this.musicGroup[i].stop();
-      this[music].play();
+    }
+    this.stopMusic();
+    this[music].play();
+    console.log(this[music].key + ' is playing')
+  }
+
+  stopMusic() {
+    for (let i = 0; i < this.musicGroup.length; i += 1) {
+      if (this.musicGroup[i].isPlaying) { //&& this.musicGroup[i].key === music
+        this.musicGroup[i].stop();
+        console.log(this.musicGroup[i].key + ' is stopped')
+      }
     }
   }
 
@@ -633,10 +669,8 @@ export default class playLvl1 extends Scene {
     d = JSON.parse(d);
     d += 1;
     localStorage.setItem('d', d);
-    // this.bossMusic.stop();
-    this.ambient1.stop();
-    this.ambient2.stop();
-    this.ambient3.stop();
+    this.stopMusic();
+
     this.countTime();
     this.player.state.dead = false;
     this.scene.start('gameOver');
@@ -843,6 +877,7 @@ export default class playLvl1 extends Scene {
     this.addPlayerSfx();
     this.addEnemies();
     this.addMovingPlatform();
+    this.playMusic(this.map.properties.music);
     // launch special functions from the room
     if (this.map.properties.callFunction && this.map.properties.callFunction.length) {
       const arr = this.map.properties.callFunction.split(',');
@@ -929,13 +964,14 @@ export default class playLvl1 extends Scene {
     this.addEnemies();
     this.addColliders();
     this.addPowerUp();
-    this.addPlayerSfx()
+    this.addPlayerSfx();
+    this.playMusic(this.map.properties.music);
     // launch special functions from the room
     if (this.map.properties.callFunction && this.map.properties.callFunction.length) {
       const arr = this.map.properties.callFunction.split(',');
       arr.forEach(elm => this[elm]());
     }
-    this.playMusic(this.map.properties.music);
+    
     
     this.cameras.main.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
     this.physics.world.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
@@ -1460,7 +1496,9 @@ export default class playLvl1 extends Scene {
   bossDragon() {
     if (this.player.inventory.boss1 === true) return;
     this.dragon = new BossDragon(this, 258,170, { key: 'dragon', name: 'dragon' });
-    this.enemyGroup.push(this.dragon)
+    this.enemyGroup.push(this.dragon);
+    this.stopMusic();
+    this.playMusic('dragonFight');
   }
 
   addThunderDoorCallback() {
@@ -1491,6 +1529,9 @@ export default class playLvl1 extends Scene {
     if (!this.player.inventory.thunderDoorReached || this.player.inventory.waterStorm) {
       return;
     }
+    // angelCalling
+    this.stopMusic();
+    this.playMusic('angelCalling');
     this.angel = new Angel(this, 102, 153, {
       key: 'angel-idle',
       name: 'angel',
@@ -1504,6 +1545,8 @@ export default class playLvl1 extends Scene {
       this.enemyGroup.forEach(e => e.destroy());
       return;
     }
+    this.stopMusic();
+    this.playMusic('townAttackTheme');
     this.oldman.destroy();
     this.dragon = new BossDragon(this, 388, 311, { key: 'dragon', name: 'dragon' });
     this.enemyGroup.push(this.dragon);
@@ -1520,7 +1563,9 @@ export default class playLvl1 extends Scene {
     }
     this.lavaStormPowerUp.setAlpha(0);
     this.hellBeast = new HellBeast(this, -100, -100, { key: 'hell-beast-idle', name: 'hellBeast' });
-    this.enemyGroup.push(this.hellBeast)
+    this.enemyGroup.push(this.hellBeast);
+    this.stopMusic();
+    this.playMusic('churchTheme');
   }
 
   callDemon() {
@@ -1625,6 +1670,9 @@ export default class playLvl1 extends Scene {
         this.escapeParticleEmitter.explode(10, pos.x + rdm, pos.y - 150);
       }
     });
+
+    this.stopMusic();
+    this.playMusic('escapeTheme');
   }
 
   // ====================================================================

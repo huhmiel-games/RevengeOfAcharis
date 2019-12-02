@@ -1,12 +1,12 @@
 import { Scene } from 'phaser';
 import U from '../utils/usefull';
 import background from '../assets/menuBackgound5.png';
-import ambient2 from '../assets/music/ambient2.ogg';
+import menuTheme from '../assets/music/Title_theme.ogg';
 // alagard fonts
 import alagard from '../assets/alagard.png';
 import alagardXML from '../assets/alagard.xml';
-import alagard2 from '../assets/alagard2.png';
-import alagard2XML from '../assets/alagard2.xml';
+// import alagard2 from '../assets/alagard2.png';
+// import alagard2XML from '../assets/alagard2.xml';
 
 export default class bootGame extends Scene {
   constructor() {
@@ -15,9 +15,9 @@ export default class bootGame extends Scene {
 
   preload() {
     this.load.bitmapFont('alagard', alagard, alagardXML);
-    this.load.bitmapFont('alagard2', alagard2, alagard2XML);
+    //this.load.bitmapFont('alagard2', alagard2, alagard2XML);
     this.load.image('background', background);
-    this.load.audio('ambient2', ambient2);
+    this.load.audio('menuTheme', menuTheme);
   }
 
   create() {
@@ -25,14 +25,14 @@ export default class bootGame extends Scene {
       .setOrigin(0, 0)
       .setDisplaySize(U.WIDTH, U.HEIGHT);
 
-    this.ambient2 = this.sound.add('ambient2', { volume: 0.5 });
+    this.menuTheme = this.sound.add('menuTheme', { volume: 0.5 });
 
     this.start = this.add.bitmapText(U.WIDTH / 2, U.HEIGHT / 2 + 50, 'alagard', 'press any key to start', 14, 1)
       .setOrigin(0.5, 0.5)
       .setTint(0xDDDDDD);
 
     this.input.keyboard.once('keydown', () => {
-      this.ambient2.stop();
+      this.menuTheme.stop();
       this.scene.start('LoadingScreen');
     });
 
@@ -50,6 +50,6 @@ export default class bootGame extends Scene {
     });
 
     this.cameras.main.fadeIn(2000);
-    this.ambient2.play();
+    this.menuTheme.play();
   }
 }

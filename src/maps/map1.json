@@ -651,7 +651,7 @@
      "ambientColor":"0x888888",
      "callFunction":"showAngel",
      "mapScenePosition":"6,2,0xCC2485",
-     "music":"ambient1",
+     "music":"hauntedForest",
      "paraBack":"map1back",
      "paraMiddle":"map1middle",
      "walkSfx":"forestWalkSfx"

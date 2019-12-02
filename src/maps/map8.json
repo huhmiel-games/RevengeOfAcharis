@@ -868,7 +868,7 @@
      "ambientColor":"0x444444",
      "callFunction":"addCrumbleTiles,escape",
      "mapScenePosition":"19,2,0xCC2485",
-     "music":"ambient3",
+     "music":"castleTheme",
      "paraBack":"map8back",
      "paraMiddle":"",
      "walkSfx":"castleWalkSfx"

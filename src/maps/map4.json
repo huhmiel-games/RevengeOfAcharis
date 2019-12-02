@@ -388,7 +388,7 @@
     {
      "ambientColor":"0x444444",
      "callFunction":"bossDragon,callBackEndMission",
-     "music":"ambient3",
+     "music":"castleTheme",
      "paraBack":"map4back",
      "paraMiddle":"",
      "walkSfx":"graveyardWalkSfx"

@@ -492,7 +492,7 @@
      "ambientColor":"0x333333",
      "callFunction":"escape",
      "mapScenePosition":"16,2,0xCC2485",
-     "music":"ambient3",
+     "music":"castleTheme",
      "paraBack":"map6back",
      "paraMiddle":"",
      "walkSfx":"castleWalkSfx"

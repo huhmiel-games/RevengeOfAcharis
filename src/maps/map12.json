@@ -383,7 +383,7 @@
      "ambientColor":"0x444444",
      "callFunction":"callHellBeast,escape",
      "mapScenePosition":"6,7,0xCC2485",
-     "music":"ambient1",
+     "music":"hellBeastFight",
      "paraBack":"map12back",
      "paraMiddle":"",
      "walkSfx":"churchWalkSfx"

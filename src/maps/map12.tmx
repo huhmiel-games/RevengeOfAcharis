@@ -4,7 +4,7 @@
   <property name="ambientColor" value="0x444444"/>
   <property name="callFunction" value="callHellBeast,escape"/>
   <property name="mapScenePosition" value="6,7,0xCC2485"/>
-  <property name="music" value="ambient1"/>
+  <property name="music" value="hellBeastFight"/>
   <property name="paraBack" value="map12back"/>
   <property name="paraMiddle" value=""/>
   <property name="walkSfx" value="churchWalkSfx"/>

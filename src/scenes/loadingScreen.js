@@ -143,9 +143,26 @@ import bip3 from '../assets/sounds/noname.ogg'; // used mainly on menu
 // MUSIC LOAD
 // musics are launched by the maps and i don't changed them yet
 // so make a new line import with your song if you want, i'll add them to the map asap
-import ambient1 from '../assets/music/ambient1.ogg';
-import ambient2 from '../assets/music/ambient2.ogg';
-import ambient3 from '../assets/music/grotte.ogg';
+import hauntedForest from '../assets/music/Haunted_forest_theme.ogg';
+import angelCalling from '../assets/music/Angel_calling.ogg';
+
+import townTheme from '../assets/music/Town_theme.ogg';
+import townAttackTheme from '../assets/music/Town_attack_theme.ogg';
+
+import graveyardTheme from '../assets/music/Graveyard_theme.ogg';
+
+import dragonFight from '../assets/music/Dragon_Fight.ogg';
+import castleTheme from '../assets/music/Castle_theme.ogg';
+
+import churchTheme from '../assets/music/Church_theme.ogg';
+import hellBeastFight from '../assets/music/HellBeast_fight.ogg';
+import demonFight1 from '../assets/music/Demon_fight_part_1.ogg';
+import demonFight2 from '../assets/music/Demon_fight_part_2.ogg';
+import escapeTheme from '../assets/music/Escape_theme.ogg';
+
+import revengeTheme from '../assets/music/Revenge_theme.ogg';
+import EndingTheme from '../assets/music/Ending_theme.ogg';
+import titleMenu from '../assets/music/Title_theme.ogg';
 
 
 // GRAPHICS LOAD
@@ -543,9 +560,21 @@ export default class LoadingScreen extends Scene {
     this.load.audio('bip3', bip3);
 
     // music
-    this.load.audio('ambient1', ambient1);
-    this.load.audio('ambient2', ambient2);
-    this.load.audio('ambient3', ambient3);
+    this.load.audio('hauntedForest', hauntedForest);
+    this.load.audio('angelCalling', angelCalling);
+    this.load.audio('townTheme', townTheme);
+    this.load.audio('townAttackTheme', townAttackTheme);
+    this.load.audio('graveyardTheme', graveyardTheme);
+    this.load.audio('dragonFight', dragonFight);
+    this.load.audio('castleTheme', castleTheme);
+    this.load.audio('churchTheme', churchTheme);
+    this.load.audio('hellBeastFight', hellBeastFight);
+    this.load.audio('demonFight1', demonFight1);
+    this.load.audio('demonFight2', demonFight2);
+    this.load.audio('escapeTheme', escapeTheme);
+    this.load.audio('revengeTheme', revengeTheme);
+    this.load.audio('EndingTheme', EndingTheme);
+    this.load.audio('titleMenu', titleMenu);
   }
 
   create() {

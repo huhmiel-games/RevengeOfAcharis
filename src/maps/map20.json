@@ -304,7 +304,7 @@
     {
      "ambientColor":"0x333333",
      "mapScenePosition":"18,2,0xCC2485",
-     "music":"ambient3",
+     "music":"castleTheme",
      "paraBack":"map9back",
      "paraMiddle":"",
      "walkSfx":"castleWalkSfx"

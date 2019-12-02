@@ -499,7 +499,7 @@
      "ambientColor":"0x444444",
      "callFunction":"escape,noSaveIfEscape",
      "mapScenePosition":"4,6,0xCC2485",
-     "music":"ambient3",
+     "music":"churchTheme",
      "paraBack":"map11back",
      "paraMiddle":"map11middle2",
      "walkSfx":"churchWalkSfx"

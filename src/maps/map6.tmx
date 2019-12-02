@@ -4,7 +4,7 @@
   <property name="ambientColor" value="0x333333"/>
   <property name="callFunction" value="escape"/>
   <property name="mapScenePosition" value="16,2,0xCC2485"/>
-  <property name="music" value="ambient3"/>
+  <property name="music" value="castleTheme"/>
   <property name="paraBack" value="map6back"/>
   <property name="paraMiddle" value=""/>
   <property name="walkSfx" value="castleWalkSfx"/>

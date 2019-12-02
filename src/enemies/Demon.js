@@ -525,6 +525,8 @@ export default class Demon extends Phaser.GameObjects.Sprite {
           this.scene.player.state.pause = false;
           this.scene.sound.play('demonScreamSfx');
           startTimer = null;
+          this.scene.stopMusic();
+          this.scene.playMusic('demonFight1');
         }
       }
     });

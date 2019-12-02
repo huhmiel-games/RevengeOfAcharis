@@ -3,7 +3,7 @@
  <properties>
   <property name="ambientColor" value="0x444444"/>
   <property name="callFunction" value="escape"/>
-  <property name="music" value="ambient1"/>
+  <property name="music" value="churchTheme"/>
   <property name="paraBack" value="map17back"/>
   <property name="paraMiddle" value=""/>
   <property name="walkSfx" value="churchWalkSfx"/>

@@ -4,7 +4,7 @@
   <property name="ambientColor" value="0x666666"/>
   <property name="callFunction" value=""/>
   <property name="mapScenePosition" value="11,2,0xCC2485"/>
-  <property name="music" value="ambient1"/>
+  <property name="music" value="graveyardTheme"/>
   <property name="paraBack" value="map3back"/>
   <property name="paraMiddle" value=""/>
   <property name="paraMiddle2" value=""/>

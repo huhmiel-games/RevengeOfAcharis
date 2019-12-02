@@ -17,6 +17,7 @@ export default class Options extends Scene {
       this.position.push((i * 16) + 32);
     }
     this.lastPosition = 0;
+    this.sound.play('titleMenu');
 
     
     this.keysOptions = [];

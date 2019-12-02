@@ -57,6 +57,7 @@ export default class Intro extends Scene {
         getEnd: () => 1,
       },
     });
+    this.sound.play('revengeTheme');
     this.cameras.main.setBackgroundColor('#0C1D1C');
     this.cameras.main.fadeIn(2000);
   }

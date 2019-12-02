@@ -4,7 +4,7 @@
   <property name="ambientColor" value="0xCCCCCC"/>
   <property name="callFunction" value="checkThunderDoorReached,checkWaterStorm"/>
   <property name="mapScenePosition" value="9,2,0xCC2485"/>
-  <property name="music" value="ambient1"/>
+  <property name="music" value="townTheme"/>
   <property name="paraBack" value="map2back"/>
   <property name="paraMiddle" value=""/>
   <property name="walkSfx" value="townWalkSfx"/>

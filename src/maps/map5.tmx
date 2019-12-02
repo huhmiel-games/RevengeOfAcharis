@@ -7,7 +7,7 @@
   <property name="ambientColor" value="0x333333"/>
   <property name="callFunction" value="addCrumbleTiles,escape,noSaveIfEscape"/>
   <property name="mapScenePosition" value="13,2,0xCC2485"/>
-  <property name="music" value="ambient1"/>
+  <property name="music" value="castleTheme"/>
   <property name="paraBack" value="map5back"/>
   <property name="paraMiddle" value=""/>
   <property name="walkSfx" value="castleWalkSfx"/>

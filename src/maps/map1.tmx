@@ -4,7 +4,7 @@
   <property name="ambientColor" value="0x888888"/>
   <property name="callFunction" value="showAngel"/>
   <property name="mapScenePosition" value="6,2,0xCC2485"/>
-  <property name="music" value="ambient1"/>
+  <property name="music" value="hauntedForest"/>
   <property name="paraBack" value="map1back"/>
   <property name="paraMiddle" value="map1middle"/>
   <property name="walkSfx" value="forestWalkSfx"/>

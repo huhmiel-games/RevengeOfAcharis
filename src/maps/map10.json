@@ -17,7 +17,7 @@
          "name":"Calque d'image 1",
          "opacity":1,
          "type":"imagelayer",
-         "visible":true,
+         "visible":false,
          "x":0,
          "y":0
         }, 
@@ -620,7 +620,7 @@
      "ambientColor":"0x444444",
      "callFunction":"addThunderDoorCallback,escape,noSaveIfEscape",
      "mapScenePosition":"5,3,0xCC2485",
-     "music":"ambient3",
+     "music":"castleTheme",
      "paraBack":"map10back",
      "paraMiddle":"",
      "walkSfx":"castleWalkSfx"

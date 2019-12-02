@@ -3,7 +3,7 @@
  <properties>
   <property name="ambientColor" value="0x444444"/>
   <property name="callFunction" value="bossDragon,callBackEndMission"/>
-  <property name="music" value="ambient3"/>
+  <property name="music" value="castleTheme"/>
   <property name="paraBack" value="map4back"/>
   <property name="paraMiddle" value=""/>
   <property name="walkSfx" value="graveyardWalkSfx"/>

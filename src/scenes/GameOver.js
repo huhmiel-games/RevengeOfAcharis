@@ -17,7 +17,7 @@ export default class GameOver extends Scene {
       .setOrigin(0, 0)
       .setDisplaySize(U.WIDTH, U.HEIGHT);
 
-    this.title = this.add.bitmapText(U.WIDTH / 2, U.HEIGHT / 2 - 40, 'alagard2', ' No revenge today... ')
+    this.title = this.add.bitmapText(U.WIDTH / 2, U.HEIGHT / 2 - 40, 'alagard', ' No revenge today... ')
       .setFontSize(20)
       .setOrigin(0.5, 0.5)
       .setTintFill(0xA20000);

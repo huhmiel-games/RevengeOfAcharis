@@ -23,7 +23,7 @@ export default class EndGame extends Scene {
     let t = localStorage.getItem('time');
     t = JSON.parse(t);
     const totalTime = new Date(t).toISOString().substr(11, 8);
-
+    this.sound.play('EndingTheme');
 
     this.background = this.add.image(0, 0, 'backgroundWithoutTitles')
       .setOrigin(0, 0)

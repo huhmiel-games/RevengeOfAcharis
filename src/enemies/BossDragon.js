@@ -144,6 +144,8 @@ export default class BossDragon extends Phaser.GameObjects.Sprite {
     this.state.life = this.state.life - e;
     if (this.state.life <= 0) {
       this.unlockDoors();
+      this.scene.stopMusic();
+      this.scene.playMusic('castleTheme');
     }
   }
 

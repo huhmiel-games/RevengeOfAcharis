@@ -4,7 +4,7 @@
   <property name="ambientColor" value="0x444444"/>
   <property name="callFunction" value="callDemon"/>
   <property name="mapScenePosition" value="14,11,0xCC2485"/>
-  <property name="music" value="ambient3"/>
+  <property name="music" value="churchTheme"/>
   <property name="paraBack" value="map18backBroken"/>
   <property name="paraMiddle" value="map18back"/>
   <property name="walkSfx" value="churchWalkSfx"/>

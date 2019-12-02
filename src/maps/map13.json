@@ -17,7 +17,7 @@
          "name":"Calque d'image 1",
          "opacity":1,
          "type":"imagelayer",
-         "visible":true,
+         "visible":false,
          "x":0,
          "y":0
         }, 
@@ -931,7 +931,7 @@
      "ambientColor":"0x444444",
      "callFunction":"escape",
      "mapScenePosition":"8,7,0xCC2485",
-     "music":"ambient1",
+     "music":"churchTheme",
      "paraBack":"map13back",
      "paraMiddle":"",
      "walkSfx":"churchWalkSfx"

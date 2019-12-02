@@ -898,7 +898,7 @@
      "ambientColor":"0x222222",
      "callFunction":"escape",
      "mapScenePosition":"17,5,0xCC2485",
-     "music":"ambient1",
+     "music":"castleTheme",
      "paraBack":"map7back",
      "paraMiddle":"",
      "walkSfx":"castleWalkSfx"

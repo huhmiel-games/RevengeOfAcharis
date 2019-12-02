@@ -1400,7 +1400,7 @@
      "ambientColor":"0xCCCCCC",
      "callFunction":"checkThunderDoorReached,checkWaterStorm",
      "mapScenePosition":"9,2,0xCC2485",
-     "music":"ambient1",
+     "music":"townTheme",
      "paraBack":"map2back",
      "paraMiddle":"",
      "walkSfx":"townWalkSfx"

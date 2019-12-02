@@ -553,7 +553,7 @@
      "ambientColor":"0x444444",
      "callFunction":"callDemon",
      "mapScenePosition":"14,11,0xCC2485",
-     "music":"ambient3",
+     "music":"churchTheme",
      "paraBack":"map18backBroken",
      "paraMiddle":"map18back",
      "walkSfx":"churchWalkSfx"
