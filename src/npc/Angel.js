@@ -18,6 +18,13 @@ export default class Angel extends Phaser.GameObjects.Sprite {
     this.firstEncounter = false;
     this.finalSequence = false;
     this.animate('angel-idle', true);
+    this.on('animationrepeat', () => {
+      console.log('angel')
+      this.scene.sound.play('angelWing');
+      if (this.anims.currentAnim.key === 'angel-idle') {
+        
+      }  
+    });
   }
 
   preUpdate(time, delta) {

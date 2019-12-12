@@ -637,6 +637,7 @@ export default class Demon extends Phaser.GameObjects.Sprite {
         });
         this.scene.paraMiddle.setAlpha(0);
         this.windowParticleEmitter.explode(36, 394, 204);
+        this.scene.sound.play('brokenGlass');
 
         this.showMsg = this.scene.add.bitmapText(this.body.x - 48, this.body.y - 48, 'atomic', 'What !??', 8, 1)
           .setOrigin(0.5, 0.5).setAlpha(1).setDepth(200);

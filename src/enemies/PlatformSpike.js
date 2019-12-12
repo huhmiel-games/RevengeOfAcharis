@@ -15,15 +15,34 @@ export default class PlatformSpike extends Phaser.GameObjects.Sprite {
     this.scene.add.existing(this);
     this.body.setAllowGravity(false).setImmovable();
     this.fallTimer = null;
-    this.riseTimer = null;   
+    this.riseTimer = null;
+    this.spikeIsPlaying = false;
     this.rise();
   }
 
   preUpdate(time, delta) {
     super.preUpdate(time, delta);
     if (this.body.onFloor()) {
-      this.scene.shakeCamera(200);
+      const distance = Phaser.Math.Distance.Between(this.scene.player.x, this.scene.player.y, this.x, this.y);
+      if (distance < 350) {
+        this.scene.shakeCamera(200);
+        this.playSpikeSound();
+      }
     }
+  }
+
+  playSpikeSound() {
+    if (this.spikeIsPlaying) {
+      return;
+    }
+    this.spikeIsPlaying = true;
+    this.scene.sound.play('spikeBlock');
+    this.scene.time.addEvent({
+      delay: 600,
+      callback: () => {
+        this.spikeIsPlaying = false;
+      }
+    });
   }
 
   fall() {

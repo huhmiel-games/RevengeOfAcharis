@@ -130,6 +130,9 @@ import demonSkullHitSfx from '../assets/sfx/Demon_ogg/demon_skull_hit.ogg';
 
 
 // Various sfx
+import brokenGlass from '../assets/sfx/broken_glass.ogg';
+import spikeBlock from '../assets/sfx/spike_block.ogg';
+import angelWing from '../assets/sfx/angel_wing.ogg';
 import thunderGateSfx from '../assets/sfx/thunder_gate.ogg';
 import impactFX from '../assets/sounds/explo.ogg'; // used when camera shake
 import explo2FX from '../assets/sounds/explo2.ogg'; // no use for now
@@ -545,6 +548,9 @@ export default class LoadingScreen extends Scene {
 
     // Various
     this.load.audio('impact', impactFX);
+    this.load.audio('brokenGlass', brokenGlass);
+    this.load.audio('spikeBlock', spikeBlock);
+    this.load.audio('angelWing', angelWing);
 
     // old sfx
     this.load.audio('explo2', explo2FX);
