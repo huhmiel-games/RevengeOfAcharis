@@ -42,6 +42,7 @@ export default class Intro extends Scene {
 
     this.input.keyboard.once('keydown', () => {
       this.sound.play('swell', { volume: 0.8 });
+      this.revengeTheme.stop();
       this.scene.start('loadSavedGame');
     });
 
@@ -57,7 +58,8 @@ export default class Intro extends Scene {
         getEnd: () => 1,
       },
     });
-    this.sound.play('revengeTheme');
+    this.revengeTheme = this.sound.add('revengeTheme');
+    this.revengeTheme.play();
     this.cameras.main.setBackgroundColor('#0C1D1C');
     this.cameras.main.fadeIn(2000);
   }

@@ -21,7 +21,8 @@ export default class LoadSavedGame extends Scene {
       totalTime = new Date(t).toISOString().substr(11, 8);
     }
 
-    this.sound.play('titleMenu');
+    this.titleTheme = this.sound.add('titleMenu');
+    this.titleTheme.play();
 
     this.background = this.add.image(0, 0, 'backgroundWithoutTitles')
       .setOrigin(0, 0)
@@ -89,6 +90,7 @@ export default class LoadSavedGame extends Scene {
 
   launch() {
     if (this.lastPosition === 0 && this.loadGame) {
+      this.titleTheme.stop();
       this.scene.start('playLvl1', { loadSavedGame: true });
       this.scene.start('dashBoard');
     } else if (this.lastPosition === 0) {

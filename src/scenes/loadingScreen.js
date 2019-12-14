@@ -161,6 +161,7 @@ import churchTheme from '../assets/music/Church_theme.ogg';
 import hellBeastFight from '../assets/music/HellBeast_fight.ogg';
 import demonFight1 from '../assets/music/Demon_fight_part_1.ogg';
 import demonFight2 from '../assets/music/Demon_fight_part_2.ogg';
+import demonLighting from '../assets/music/Demon_lighting.ogg';
 import escapeTheme from '../assets/music/Escape_theme.ogg';
 
 import revengeTheme from '../assets/music/Revenge_theme.ogg';
@@ -577,6 +578,7 @@ export default class LoadingScreen extends Scene {
     this.load.audio('hellBeastFight', hellBeastFight);
     this.load.audio('demonFight1', demonFight1);
     this.load.audio('demonFight2', demonFight2);
+    this.load.audio('demonLighting', demonLighting);
     this.load.audio('escapeTheme', escapeTheme);
     this.load.audio('revengeTheme', revengeTheme);
     this.load.audio('EndingTheme', EndingTheme);

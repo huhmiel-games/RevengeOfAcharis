@@ -19,11 +19,10 @@ export default class Angel extends Phaser.GameObjects.Sprite {
     this.finalSequence = false;
     this.animate('angel-idle', true);
     this.on('animationrepeat', () => {
-      console.log('angel')
+      const distance = Phaser.Math.Distance.Between(this.scene.player.x, this.scene.player.y, this.x, this.y);
+      if (distance < 350) {
       this.scene.sound.play('angelWing');
-      if (this.anims.currentAnim.key === 'angel-idle') {
-        
-      }  
+      }
     });
   }
 

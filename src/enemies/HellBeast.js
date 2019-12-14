@@ -117,6 +117,7 @@ export default class HellBeast extends Phaser.GameObjects.Sprite {
       callback: () => {
         this.showMsg.destroy();
         this.handleHellBeast();
+        this.scene.playMusic('hellBeastFight');
       }
     });
     

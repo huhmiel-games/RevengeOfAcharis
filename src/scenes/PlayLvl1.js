@@ -1565,13 +1565,14 @@ export default class playLvl1 extends Scene {
     this.hellBeast = new HellBeast(this, -100, -100, { key: 'hell-beast-idle', name: 'hellBeast' });
     this.enemyGroup.push(this.hellBeast);
     this.stopMusic();
-    this.playMusic('churchTheme');
+    //this.playMusic('hellBeastFight');
   }
 
   callDemon() {
     if (this.player.inventory.bossFinal) {
       return;
     }
+    this.stopMusic();
     this.demon = new Demon(this, 24 *16, 24 *16, { key: 'finalBoss', name: 'demon' });
     this.enemyGroup.push(this.demon)
     this.physics.add.overlap(this.demon, this.player, elm => this.playerIsHit(elm), null, this);
@@ -1776,6 +1777,7 @@ export default class playLvl1 extends Scene {
         this.time.addEvent({
           delay: 3000,
           callback: () => {
+            this.stopMusic();
             this.scene.start('endGame');
           }
         });
