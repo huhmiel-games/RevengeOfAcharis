@@ -97,6 +97,7 @@ export default class playLvl1 extends Scene {
     this.hellBeastFight = this.sound.add('hellBeastFight', { volume: 1, loop: true });
     this.demonFight1 = this.sound.add('demonFight1', { volume: 1, loop: true });
     this.demonFight2 = this.sound.add('demonFight2', { volume: 1, loop: true });
+    this.demonLighting = this.sound.add('demonLighting', { volume: 1, loop: true });
     this.escapeTheme = this.sound.add('escapeTheme', { volume: 1, loop: true });
     this.revengeTheme = this.sound.add('revengeTheme', { volume: 1, loop: true });
     this.EndingTheme = this.sound.add('EndingTheme', { volume: 1, loop: true });
@@ -349,6 +350,7 @@ export default class playLvl1 extends Scene {
       }
     }
     this.stopMusic();
+    console.log(music)
     this[music].play();
     console.log(this[music].key + ' is playing')
   }

@@ -136,7 +136,7 @@ export default class HellBeast extends Phaser.GameObjects.Sprite {
         if (this.isHidden && this.active) {
           this.isAppearing = true;
           this.appears();
-          this.playHellBeastTheme();
+          // this.playHellBeastTheme();
           this.hellBeastTimer = null;
         }
       },
@@ -163,7 +163,7 @@ export default class HellBeast extends Phaser.GameObjects.Sprite {
     const randomX = Phaser.Math.Between(24, 376);
     this.body.reset(randomX, 188);
     this.scene.sound.play('hellBeastAppearLaughSfx');
-    // this.playHellBeastTheme();
+    this.playHellBeastTheme();
     this.fadingTween = this.scene.tweens.add({
       targets: this,
       ease: 'Sine.easeInOut',
@@ -177,6 +177,7 @@ export default class HellBeast extends Phaser.GameObjects.Sprite {
       },
       onComplete: () => {
         this.isFiring = true;
+        //this.playHellBeastTheme();
         this.prepareToFire();
       },
     });

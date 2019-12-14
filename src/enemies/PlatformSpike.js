@@ -36,7 +36,7 @@ export default class PlatformSpike extends Phaser.GameObjects.Sprite {
       return;
     }
     this.spikeIsPlaying = true;
-    this.scene.sound.play('spikeBlock');
+    this.scene.sound.play('spikeBlock', { volume: 0.5 });
     this.scene.time.addEvent({
       delay: 600,
       callback: () => {
