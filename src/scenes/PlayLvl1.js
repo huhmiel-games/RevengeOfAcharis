@@ -860,6 +860,7 @@ export default class playLvl1 extends Scene {
     if(this.thunderGateSfx.isPlaying) {
       this.thunderGateSfx.stop();
     }
+    this.stopMusic();
     // create room
     this.map = this.make.tilemap({ key: room, tileWidth: 16, tileHeight: 16 });
     this.playerPosition = room;

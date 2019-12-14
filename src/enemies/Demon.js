@@ -536,6 +536,8 @@ export default class Demon extends Phaser.GameObjects.Sprite {
     if (this.scene.player.state.dead) {
       return;
     }
+    this.scene.stopMusic();
+    this.scene.playMusic('demonLighting');
     this.phase = 1;
     this.isBreathFire = false;
     this.isBbreathBlue = false;
@@ -663,6 +665,8 @@ export default class Demon extends Phaser.GameObjects.Sprite {
         this.scene.npcGroup.push(this.scene.angel);
         const angle = Phaser.Math.Angle.Between(this.scene.angel.x, this.scene.angel.y, this.scene.player.x, this.scene.player.y);// Math.atan2(dy, dx);
         this.scene.angel.body.setVelocity(Math.cos(angle) * 100, Math.sin(angle) * 100);
+        this.scene.stopMusic();
+        this.scene.playMusic('demonFight1');
       }
     });
   }
