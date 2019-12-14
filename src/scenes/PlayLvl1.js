@@ -116,6 +116,7 @@ export default class playLvl1 extends Scene {
       this.hellBeastFight,
       this.demonFight1,
       this.demonFight2,
+      this.demonLighting,
       this.escapeTheme,
     );
 
@@ -350,7 +351,6 @@ export default class playLvl1 extends Scene {
       }
     }
     this.stopMusic();
-    console.log(music)
     this[music].play();
     console.log(this[music].key + ' is playing')
   }
@@ -675,6 +675,19 @@ export default class playLvl1 extends Scene {
 
     this.countTime();
     this.player.state.dead = false;
+    if (this.demonFight1.isPlaying()) {
+      this.demonFight1.stop();
+    }
+    if (this.demonFight2.isPlaying()) {
+      this.demonFight2.stop();
+    }
+    if (this.demonLighting.isPlaying()) {
+      this.demonLighting.stop();
+    }
+    if(this.thunderGateSfx.isPlaying()) {
+      this.thunderGateSfx.stop();
+    }
+    
     this.scene.start('gameOver');
   }
 

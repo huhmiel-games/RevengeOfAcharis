@@ -526,7 +526,7 @@ export default class Demon extends Phaser.GameObjects.Sprite {
           this.scene.sound.play('demonScreamSfx');
           startTimer = null;
           this.scene.stopMusic();
-          this.scene.playMusic('demonFight1');
+          this.scene.demonFight1.play();
         }
       }
     });
@@ -536,8 +536,8 @@ export default class Demon extends Phaser.GameObjects.Sprite {
     if (this.scene.player.state.dead) {
       return;
     }
-    this.scene.stopMusic();
-    this.scene.playMusic('demonLighting');
+    this.scene.demonFight1.stop();
+    this.scene.demonLighting.play();
     this.phase = 1;
     this.isBreathFire = false;
     this.isBbreathBlue = false;
