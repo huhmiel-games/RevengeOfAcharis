@@ -675,19 +675,10 @@ export default class playLvl1 extends Scene {
 
     this.countTime();
     this.player.state.dead = false;
-    if (this.demonFight1.isPlaying()) {
-      this.demonFight1.stop();
-    }
-    if (this.demonFight2.isPlaying()) {
-      this.demonFight2.stop();
-    }
-    if (this.demonLighting.isPlaying()) {
-      this.demonLighting.stop();
-    }
-    if(this.thunderGateSfx.isPlaying()) {
-      this.thunderGateSfx.stop();
-    }
-    
+    this.demonFight1.stop();
+    this.demonFight2.stop();
+    this.demonLighting.stop();
+    this.thunderGateSfx.stop();
     this.scene.start('gameOver');
   }
 
