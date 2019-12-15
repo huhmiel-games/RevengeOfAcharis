@@ -22,7 +22,7 @@ export default class LoadSavedGame extends Scene {
     }
 
     this.titleTheme = this.sound.add('titleMenu');
-    this.titleTheme.play();
+    this.titleTheme.play({ loop: true });
 
     this.background = this.add.image(0, 0, 'backgroundWithoutTitles')
       .setOrigin(0, 0)

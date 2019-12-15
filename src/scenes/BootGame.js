@@ -25,7 +25,7 @@ export default class bootGame extends Scene {
       .setOrigin(0, 0)
       .setDisplaySize(U.WIDTH, U.HEIGHT);
 
-    this.menuTheme = this.sound.add('menuTheme', { volume: 0.5 });
+    this.menuTheme = this.sound.add('menuTheme', { volume: 1, loop: true });
 
     this.start = this.add.bitmapText(U.WIDTH / 2, U.HEIGHT / 2 + 50, 'alagard', 'press any key to start', 14, 1)
       .setOrigin(0.5, 0.5)

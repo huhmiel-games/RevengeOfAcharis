@@ -59,7 +59,7 @@ export default class Intro extends Scene {
       },
     });
     this.revengeTheme = this.sound.add('revengeTheme');
-    this.revengeTheme.play();
+    this.revengeTheme.play({ loop: true });
     this.cameras.main.setBackgroundColor('#0C1D1C');
     this.cameras.main.fadeIn(2000);
   }
