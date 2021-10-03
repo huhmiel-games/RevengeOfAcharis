@@ -4,7 +4,7 @@ export default class Thunder extends Phaser.GameObjects.Sprite {
 
     this.scene = scene;
     this.name = config.name;
-    this.state = {
+    this.enemyState = {
       life: config.life,
       damage: config.damage,
       directionX: 20,
@@ -25,7 +25,6 @@ export default class Thunder extends Phaser.GameObjects.Sprite {
     this.flipX = true;
     this.followPath = false;
     this.speed = 20;
-    this.setPipeline('GlowFx');
   }
 
   preUpdate(time, delta) {
@@ -45,10 +44,10 @@ export default class Thunder extends Phaser.GameObjects.Sprite {
 
   checkCollision(d) {
     if (d.type === 'Sprite') {
-      if (this.state.directionX > 0) {
-        this.state.directionX = -this.speed;
+      if (this.enemyState.directionX > 0) {
+        this.enemyState.directionX = -this.speed;
       } else {
-        this.state.directionX = this.speed;
+        this.enemyState.directionX = this.speed;
       }
     }
   }

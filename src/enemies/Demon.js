@@ -13,21 +13,20 @@ export default class Demon extends Phaser.GameObjects.Sprite {
 
     this.scene = scene;
     this.name = config.name;
-    this.state = {
+    this.enemyState = {
       life: 10000,
       damage: 20,
       hited: false,
       skullHeadQuantity: 8,
       speed: 120,
     };
-    this.family = 'enemies';
+    
     this.setDepth(104);
     this.scene.physics.world.enable(this);
     this.scene.add.existing(this);
     this.body.allowGravity = false;
     this.body.setSize(64, 92).setOffset(68, 64);
     this.body.setCollideWorldBounds(true);
-    this.setPipeline('Light2D');
     this.getFired = false;
     this.lastAnim = null;
     this.isBreathFire = false;
@@ -127,7 +126,7 @@ export default class Demon extends Phaser.GameObjects.Sprite {
       }
       if (this.demonPath && this.isFollowingPath) {
         // follow path
-        const speed = this.state.speed;
+        const speed = this.enemyState.speed;
         const dx = this.demonPath.x - this.body.x;
         const dy = this.demonPath.y - this.body.y;
         const angle = Phaser.Math.Angle.Between(this.body.x, this.body.y, this.demonPath.x, this.demonPath.y);// Math.atan2(dy, dx);
@@ -167,7 +166,7 @@ export default class Demon extends Phaser.GameObjects.Sprite {
         const arrPositionsX = [this.body.x + 1500, this.body.x + 750, this.body.x, this.body.x - 750, this.body.x - 1500, this.body.x - 750, this.body.x, this.body.x + 750];
         const arrPositionsY = [this.body.y, this.body.y - 750, this.body.y - 1500, this.body.y - 750, this.body.y, this.body.y + 750, this.body.y + 1500, this.body.y + 750]
         const arrAngle = [0, Math.PI / 4, Math.PI / 2, 3/4*Math.PI, Math.PI, 5/4*Math.PI, 3/2*Math.PI, 7/4*Math.PI]
-        for (let i = 0; i < this.state.skullHeadQuantity; i += 1) {
+        for (let i = 0; i < this.enemyState.skullHeadQuantity; i += 1) {
           this[`skull${i}`] = this.scene.skullHeads.getFirstDead(true, this.body.x, this.body.y, 'finalBoss', null, true);
           if (this[`skull${i}`]) {
             this[`skull${i}`].visible = true;
@@ -260,7 +259,7 @@ export default class Demon extends Phaser.GameObjects.Sprite {
         if (lavaFireTimer.repeatCount === 0) {
     
           //this.setAlpha(0);
-          this.state.damage = 0;
+          this.enemyState.damage = 0;
           //this.body.setVelocityX(0)
           //this.body.reset(-100, -100);
           this.hellBeastFadeOut();
@@ -338,7 +337,7 @@ export default class Demon extends Phaser.GameObjects.Sprite {
         ball.destroy();
       });
       ball.setDepth(105);
-      ball.state = { damage: 30 };
+      ball.enemyState = { damage: 30 };
       ball.name = 'fireball';
       ball.body.setSize(102, 46).setOffset(28, 28);
       this.scene.breathGroup.push(ball)
@@ -543,12 +542,11 @@ export default class Demon extends Phaser.GameObjects.Sprite {
     this.isBbreathBlue = false;
     this.skullRotates = false;
     this.isFollowingPath = false;
-    this.state.life = 30000;
+    this.enemyState.life = 30000;
     this.scene.player.animate('stand');
     this.scene.player.state.pause = true;
     
     this.body.setVelocity(0, 0);
-    this.setPipeline('GlowFx');
     this.scene.cameras.main.startFollow(this);
     
     
@@ -622,7 +620,6 @@ export default class Demon extends Phaser.GameObjects.Sprite {
     }
 
     this.phase2started = true;
-    this.setPipeline('GlowFx');
     this.scene.time.addEvent({
       delay: 2000,
       callback: () => {
@@ -720,7 +717,6 @@ export default class Demon extends Phaser.GameObjects.Sprite {
         }
 
         if (demonExplode.repeatCount === 0) {
-          this.unlockDoors();
           this.scene.giveLife = this.scene.physics.add.sprite(this.body.center.x, this.body.center.y, 'heart');
           this.scene.giveLife.setDepth(105);
           this.scene.giveLife.health = 500;
@@ -742,6 +738,7 @@ export default class Demon extends Phaser.GameObjects.Sprite {
               // display counter
               this.scene.events.emit('count');
               this.showMsg.destroy();
+              this.unlockDoors();
               this.scene.escape();
             }
           });
@@ -756,7 +753,7 @@ export default class Demon extends Phaser.GameObjects.Sprite {
 
   looseLife(e) {
     this.scene.sound.play('demonHitSfx');
-    this.state.life = this.state.life - e;
+    this.enemyState.life = this.enemyState.life - e;
   }
 
   explode() {

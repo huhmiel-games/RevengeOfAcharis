@@ -4,7 +4,7 @@ export default class Wizard extends Phaser.GameObjects.Sprite {
 
     this.scene = scene;
     this.name = config.name;
-    this.state = {
+    this.enemyState = {
       life: config.life,
       damage: 0,
       directionX: 20,
@@ -13,7 +13,7 @@ export default class Wizard extends Phaser.GameObjects.Sprite {
       giveLife: config.life / 2,
       delay: config.delay,
     };
-    this.family = 'enemies';
+    
     this.setDepth(101);
     this.scene.physics.world.enable(this);
     this.scene.add.existing(this);
@@ -22,7 +22,6 @@ export default class Wizard extends Phaser.GameObjects.Sprite {
       .setSize(20, 40)
       .setOffset(32, 24);
     this.setAlpha(0);
-    this.setPipeline('Light2D');
     this.lastAnim = null;
     this.getFired = false;
     this.flipX = true;
@@ -57,7 +56,7 @@ export default class Wizard extends Phaser.GameObjects.Sprite {
       return;
     }
     this.wizardTimer = this.scene.time.addEvent({
-      delay: 5000 + this.state.delay, //Phaser.Math.Between(2000, 5000),
+      delay: 5000 + this.enemyState.delay, //Phaser.Math.Between(2000, 5000),
       callback: () => {
         if (this.isHidden && this.active) {
           this.isAppearing = true;
@@ -143,7 +142,7 @@ export default class Wizard extends Phaser.GameObjects.Sprite {
       ball.visible = true;
       ball.anims.play('fireball', true);
       ball.setDepth(102);
-      ball.state = { damage: 15 };
+      ball.enemyState = { damage: 15 };
       ball.name = 'fireball';
       ball.body.setCircle(6)
       this.scene.fireballGroup.push(ball)
@@ -171,7 +170,7 @@ export default class Wizard extends Phaser.GameObjects.Sprite {
 
   looseLife(e) {
     this.scene.sound.play('wizardHit');
-    this.state.life = this.state.life - e;
+    this.enemyState.life = this.enemyState.life - e;
   }
 
   playSfxDeath() {
@@ -180,10 +179,10 @@ export default class Wizard extends Phaser.GameObjects.Sprite {
 
   checkCollision(d) {
     if (d.type === 'Sprite') {
-      if (this.state.directionX > 0) {
-        this.state.directionX = -this.speed;
+      if (this.enemyState.directionX > 0) {
+        this.enemyState.directionX = -this.speed;
       } else {
-        this.state.directionX = this.speed;
+        this.enemyState.directionX = this.speed;
       }
     }
   }

@@ -4,20 +4,19 @@ export default class BossDragon extends Phaser.GameObjects.Sprite {
 
     this.scene = scene;
     this.name = config.name;
-    this.state = {
-      life: 150,
+    this.enemyState = {
+      life: 100,
       damage: 20,
       directionX: -550,
       directionY: 0,
       hited: false,
       lastFired: 0,
-      fireRate: 20,
+      fireRate: 40,
     };
-    this.family = 'enemies';
+    
     this.setDepth(104);
     this.scene.physics.world.enable(this);
     this.scene.add.existing(this);
-    this.setPipeline('Light2D');
     this.body.allowGravity = true;
     this.body.setGravityY(200)
     this.getFired = false;
@@ -141,8 +140,8 @@ export default class BossDragon extends Phaser.GameObjects.Sprite {
 
   looseLife(e) {
     this.scene.sound.play('dragonHitSfx', { volume: 1, rate: 1 });
-    this.state.life = this.state.life - e;
-    if (this.state.life <= 0) {
+    this.enemyState.life = this.enemyState.life - e;
+    if (this.enemyState.life <= 0) {
       this.unlockDoors();
       this.scene.stopMusic();
       this.scene.playMusic('castleTheme');

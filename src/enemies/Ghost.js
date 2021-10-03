@@ -4,7 +4,7 @@ export default class Ghost extends Phaser.GameObjects.Sprite {
 
     this.scene = scene;
     this.name = config.name;
-    this.state = {
+    this.enemyState = {
       life: config.life,
       damage: config.damage,
       directionX: 100,
@@ -12,14 +12,13 @@ export default class Ghost extends Phaser.GameObjects.Sprite {
       hited: false,
       giveLife: config.life / 2,
     };
-    this.family = 'enemies';
+    
     this.setDepth(101);
     this.scene.physics.world.enable(this);
     this.scene.add.existing(this);
     this.body.setCollideWorldBounds(true);
-    this.setPipeline('Light2D');
     this.body.setAllowGravity(false).setSize(20, 28).setOffset(10, 20);
-    this.state.directionY = Math.sin(300 + Math.PI / 4);
+    this.enemyState.directionY = Math.sin(300 + Math.PI / 4);
     this.getFired = false;
     this.waspFX = this.scene.sound.add('ghostFly', { volume: 1 });
     this.ghostLight = this.scene.lights.addLight(this.x, this.y + 48, 48, 0xFCDECA, 0.6);
@@ -28,32 +27,32 @@ export default class Ghost extends Phaser.GameObjects.Sprite {
   preUpdate(time, delta) {
     super.preUpdate(time, delta);
     if (this.active) {
-      this.body.setVelocityX(this.state.directionX);
-      this.body.setVelocityY(this.state.directionY);
+      this.body.setVelocityX(this.enemyState.directionX);
+      this.body.setVelocityY(this.enemyState.directionY);
       this.body.velocity.normalize().scale(150);
       // turn back if blocked
       if (this.body.blocked.left) {
-        this.state.directionX = 100;
+        this.enemyState.directionX = 100;
         this.playSound();
       }
       if (this.body.blocked.right) {
-        this.state.directionX = -100;
+        this.enemyState.directionX = -100;
         this.playSound();
       }
-      if (this.state.directionY > 0) {
-        this.state.directionY += 2;
+      if (this.enemyState.directionY > 0) {
+        this.enemyState.directionY += 2;
       } else {
-        this.state.directionY -= 2;
+        this.enemyState.directionY -= 2;
       }
-      if (this.body.blocked.down || this.state.directionY > 120) {
-        this.state.directionY = -1;
+      if (this.body.blocked.down || this.enemyState.directionY > 120) {
+        this.enemyState.directionY = -1;
         this.playSound();
-      } else if (this.body.blocked.up || this.state.directionY < -120) {
-        this.state.directionY = 2;
+      } else if (this.body.blocked.up || this.enemyState.directionY < -120) {
+        this.enemyState.directionY = 2;
         this.playSound();
       }
       // flip the sprite
-      if (this.state.directionX > 0) {
+      if (this.enemyState.directionX > 0) {
         this.flipX = false;
       } else {
         this.flipX = true;
@@ -85,7 +84,7 @@ export default class Ghost extends Phaser.GameObjects.Sprite {
 
   looseLife(e) {
     this.scene.sound.play('ghostHit');
-    this.state.life = this.state.life - e;
+    this.enemyState.life = this.enemyState.life - e;
   }
 
   explode(bullet) {
@@ -95,10 +94,10 @@ export default class Ghost extends Phaser.GameObjects.Sprite {
   checkCollision(d) {
     if (d.type === 'Sprite') {
       this.playSound();
-      if (this.state.directionX > 0) {
-        this.state.directionX = -100;
+      if (this.enemyState.directionX > 0) {
+        this.enemyState.directionX = -100;
       } else {
-        this.state.directionX = 100;
+        this.enemyState.directionX = 100;
       }
     }
   }

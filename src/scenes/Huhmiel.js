@@ -1,5 +1,5 @@
 import { Scene } from 'phaser';
-import U from '../utils/usefull';
+import { WIDTH, HEIGHT } from '../constant/config';
 import atomicsc from '../assets/atomicsc.png';
 import atomicscXML from '../assets/atomicsc.xml';
 import progressBar from '../assets/progress-bar.png';
@@ -32,7 +32,7 @@ export default class Huhmiel extends Scene {
   }
 
   create() {
-    this.huhmiel = this.add.bitmapText(U.WIDTH / 2, U.HEIGHT / 2, 'atomic', 'huhmiel games', 30, 1)
+    this.huhmiel = this.add.bitmapText(WIDTH / 2, HEIGHT / 2, 'atomic', 'huhmiel games', 30, 1)
       .setOrigin(0.5, 0.5)
       .setAlpha(0);
 

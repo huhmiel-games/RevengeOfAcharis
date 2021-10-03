@@ -1,5 +1,5 @@
 import { Scene } from 'phaser';
-import U from '../utils/usefull';
+import { WIDTH, HEIGHT } from '../constant/config';
 import getConfigKeys from '../utils/getConfigKeys';
 
 export default class Options extends Scene {
@@ -32,36 +32,36 @@ export default class Options extends Scene {
     // select: 7,
     // pause: 8,
 
-    this.title = this.add.bitmapText(U.WIDTH / 2, 15, 'atomic', 'Options', 20, 1)
+    this.title = this.add.bitmapText(WIDTH / 2, 15, 'atomic', 'Options', 20, 1)
       .setOrigin(0.5, 0.5);
-    this.info = this.add.bitmapText(U.WIDTH / 2, 40, 'atomic', 'Available Keys: A to Z, Cursors, Ctrl, Shift', 8, 1)
+    this.info = this.add.bitmapText(WIDTH / 2, 40, 'atomic', 'Available Keys: A to Z, Cursors, Ctrl, Shift', 8, 1)
       .setOrigin(0.5, 0.5);
 
-    this.keyLeft = this.add.bitmapText(U.WIDTH / 4 - 80, this.position[0], 'atomic', ' Left ', 8, 1);
-    this.keyRight = this.add.bitmapText(U.WIDTH / 4 - 80, this.position[1], 'atomic', ' Right ', 8, 1);
-    this.keyUp = this.add.bitmapText(U.WIDTH / 4 - 80, this.position[2], 'atomic', ' Up ', 8, 1);
-    this.keyDown = this.add.bitmapText(U.WIDTH / 4 - 80, this.position[3], 'atomic', ' Down ', 8, 1);
-    this.keyFire = this.add.bitmapText(U.WIDTH / 4 - 80, this.position[4], 'atomic', ' Fire ', 8, 1);
-    this.keyJump = this.add.bitmapText(U.WIDTH / 4 - 80, this.position[5], 'atomic', ' Jump ', 8, 1);
-    this.keyRun = this.add.bitmapText(U.WIDTH / 4 - 80, this.position[6], 'atomic', ' Run ', 8, 1);
-    this.keySelect = this.add.bitmapText(U.WIDTH / 4 - 80, this.position[7], 'atomic', ' Select Weapon ', 8, 1);
-    this.keyPause = this.add.bitmapText(U.WIDTH / 4 - 80, this.position[8], 'atomic', ' Pause/Save ', 8, 1);
+    this.keyLeft = this.add.bitmapText(WIDTH / 4 - 80, this.position[0], 'atomic', ' Left ', 8, 1);
+    this.keyRight = this.add.bitmapText(WIDTH / 4 - 80, this.position[1], 'atomic', ' Right ', 8, 1);
+    this.keyUp = this.add.bitmapText(WIDTH / 4 - 80, this.position[2], 'atomic', ' Up ', 8, 1);
+    this.keyDown = this.add.bitmapText(WIDTH / 4 - 80, this.position[3], 'atomic', ' Down ', 8, 1);
+    this.keyFire = this.add.bitmapText(WIDTH / 4 - 80, this.position[4], 'atomic', ' Fire ', 8, 1);
+    this.keyJump = this.add.bitmapText(WIDTH / 4 - 80, this.position[5], 'atomic', ' Jump ', 8, 1);
+    this.keyRun = this.add.bitmapText(WIDTH / 4 - 80, this.position[6], 'atomic', ' Run ', 8, 1);
+    this.keySelect = this.add.bitmapText(WIDTH / 4 - 80, this.position[7], 'atomic', ' Select Weapon ', 8, 1);
+    this.keyPause = this.add.bitmapText(WIDTH / 4 - 80, this.position[8], 'atomic', ' Pause/Save ', 8, 1);
 
-    this.selectedKey0 = this.add.bitmapText(U.WIDTH / 4 + 90, this.position[0], 'atomic', ' LEFT, press enter to change ', 8, 1);
-    this.selectedKey1 = this.add.bitmapText(U.WIDTH / 4 + 90, this.position[1], 'atomic', ' RIGHT, press enter to change ', 8, 1);
-    this.selectedKey2 = this.add.bitmapText(U.WIDTH / 4 + 90, this.position[2], 'atomic', ' UP, press enter to change ', 8, 1);
-    this.selectedKey3 = this.add.bitmapText(U.WIDTH / 4 + 90, this.position[3], 'atomic', ' DOWN, press enter to change ', 8, 1);
-    this.selectedKey4 = this.add.bitmapText(U.WIDTH / 4 + 90, this.position[4], 'atomic', ' ENTER, press enter to change ', 8, 1);
-    this.selectedKey5 = this.add.bitmapText(U.WIDTH / 4 + 90, this.position[5], 'atomic', ' SPACE, press enter to change ', 8, 1);
-    this.selectedKey6 = this.add.bitmapText(U.WIDTH / 4 + 90, this.position[6], 'atomic', ' SHIFT, press enter to change ', 8, 1);
-    this.selectedKey7 = this.add.bitmapText(U.WIDTH / 4 + 90, this.position[7], 'atomic', ' S, press enter to change ', 8, 1);
-    this.selectedKey8 = this.add.bitmapText(U.WIDTH / 4 + 90, this.position[8], 'atomic', ' P, press enter to change ', 8, 1);
+    this.selectedKey0 = this.add.bitmapText(WIDTH / 4 + 90, this.position[0], 'atomic', ' LEFT, press enter to change ', 8, 1);
+    this.selectedKey1 = this.add.bitmapText(WIDTH / 4 + 90, this.position[1], 'atomic', ' RIGHT, press enter to change ', 8, 1);
+    this.selectedKey2 = this.add.bitmapText(WIDTH / 4 + 90, this.position[2], 'atomic', ' UP, press enter to change ', 8, 1);
+    this.selectedKey3 = this.add.bitmapText(WIDTH / 4 + 90, this.position[3], 'atomic', ' DOWN, press enter to change ', 8, 1);
+    this.selectedKey4 = this.add.bitmapText(WIDTH / 4 + 90, this.position[4], 'atomic', ' ENTER, press enter to change ', 8, 1);
+    this.selectedKey5 = this.add.bitmapText(WIDTH / 4 + 90, this.position[5], 'atomic', ' SPACE, press enter to change ', 8, 1);
+    this.selectedKey6 = this.add.bitmapText(WIDTH / 4 + 90, this.position[6], 'atomic', ' SHIFT, press enter to change ', 8, 1);
+    this.selectedKey7 = this.add.bitmapText(WIDTH / 4 + 90, this.position[7], 'atomic', ' S, press enter to change ', 8, 1);
+    this.selectedKey8 = this.add.bitmapText(WIDTH / 4 + 90, this.position[8], 'atomic', ' P, press enter to change ', 8, 1);
 
-    this.saveOptions = this.add.bitmapText(U.WIDTH / 4 - 80, this.position[9], 'atomic', ' Save Options (press enter)', 10, 1);
-    this.resetOptions = this.add.bitmapText(U.WIDTH / 4 - 80, this.position[10], 'atomic', ' Reset to Default (press enter)', 10, 1);
-    this.quitOptions = this.add.bitmapText(U.WIDTH / 4 - 80, this.position[11], 'atomic', ' Quit Options (press enter)', 10, 1);
+    this.saveOptions = this.add.bitmapText(WIDTH / 4 - 80, this.position[9], 'atomic', ' Save Options (press enter)', 10, 1);
+    this.resetOptions = this.add.bitmapText(WIDTH / 4 - 80, this.position[10], 'atomic', ' Reset to Default (press enter)', 10, 1);
+    this.quitOptions = this.add.bitmapText(WIDTH / 4 - 80, this.position[11], 'atomic', ' Quit Options (press enter)', 10, 1);
 
-    this.head = this.add.image(U.WIDTH / 4 - 100, this.position[0], 'head')
+    this.head = this.add.image(WIDTH / 4 - 100, this.position[0], 'head')
       .setOrigin(0, 0)
       .setDisplaySize(12, 12);
 

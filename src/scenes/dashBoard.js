@@ -1,6 +1,5 @@
 import { Scene } from 'phaser';
-import U from '../utils/usefull';
-import blackPixel from '../assets/blackPixel.png';
+import { WIDTH, HEIGHT } from '../constant/config';import blackPixel from '../assets/blackPixel.png';
 import knifeIcon from '../assets/knifeIcon.png';
 import swordIcon from '../assets/swordIcon.png';
 import axeIcon from '../assets/axeIcon.png';
@@ -88,7 +87,7 @@ export default class DashBoard extends Scene {
 
     // counter for final escape sequence
     this.initialTime = 150;  // 2:30 in seconds
-    this.counterText = this.add.bitmapText(U.WIDTH / 2, 0, 'atomic', '', 20, 1).setTint(0xB00000);
+    this.counterText = this.add.bitmapText(WIDTH / 2, 0, 'atomic', '', 20, 1).setTint(0xB00000);
     this.timedEvent = null;
     this.escapeStarted = false;
 

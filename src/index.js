@@ -1,10 +1,9 @@
 import Phaser from 'phaser';
-import U from './utils/usefull';
-
+import { WIDTH, HEIGHT } from './constant/config';
 import Huhmiel from './scenes/Huhmiel';
 import bootGame from './scenes/BootGame';
 import LoadSavedGame from './scenes/Load';
-import playLvl1 from './scenes/PlayLvl1';
+import playLvl1 from './scenes/GameScene';
 import gameOver from './scenes/GameOver';
 import DashBoard from './scenes/dashBoard';
 import Options from './scenes/Options';
@@ -14,13 +13,13 @@ import LoadingScreen from './scenes/loadingScreen'
 
 const config = {
   type: Phaser.AUTO,
-  width: U.WIDTH,
-  height: U.HEIGHT,
+  width: WIDTH,
+  height: HEIGHT,
   pixelArt: true,
   maxLights: 16,
   scale: {
     parent: 'gamecanvas',
-    mode: Phaser.Scale.HEIGHT_CONTROLS_WIDTH,
+    mode: Phaser.Scale.FIT,
     autoRound: true,
     autoCenter: Phaser.DOM.CENTER_BOTH,
   },
@@ -28,8 +27,8 @@ const config = {
     default: 'arcade',
     arcade: {
       tileBias: 20,
-      gravity: { y: 0 }, // default 100
-      debug: false,
+      gravity: { y: 1 }, // default 100
+      debug: true,
       debugShowBody: true,
       debugShowStaticBody: true,
     },

@@ -1,5 +1,5 @@
 import { Scene } from 'phaser';
-import U from '../utils/usefull';
+import { WIDTH, HEIGHT } from '../constant/config';
 
 
 export default class Intro extends Scene {
@@ -14,11 +14,11 @@ export default class Intro extends Scene {
   create() {
     this.background = this.add.image(0, 0, 'backgroundWithoutTitles')
       .setOrigin(0, 0)
-      .setDisplaySize(U.WIDTH, U.HEIGHT);
+      .setDisplaySize(WIDTH, HEIGHT);
     
     this.text = 'My name is Acharis.-My parents were murdered-by a demon when i was young.-Since then, i have been training-all my life in combat.-Now It\'s time to take revenge!!';
     this.count = 0;
-    this.chief = this.add.bitmapText(U.WIDTH / 2, U.HEIGHT / 2, 'alagard', '', 12, 1)
+    this.chief = this.add.bitmapText(WIDTH / 2, HEIGHT / 2, 'alagard', '', 12, 1)
       .setOrigin(0.5, 0.5).setTintFill(0xA20000);
 
     this.time.addEvent({
@@ -36,7 +36,7 @@ export default class Intro extends Scene {
     });
 
 
-    this.start = this.add.bitmapText(U.WIDTH / 2, U.HEIGHT - 60, 'alagard', 'press any key to skip', 14, 1)
+    this.start = this.add.bitmapText(WIDTH / 2, HEIGHT - 60, 'alagard', 'press any key to skip', 14, 1)
       .setOrigin(0.5, 0.5)
       .setTint(0xDDDDDD);
 

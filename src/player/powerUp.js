@@ -3,7 +3,7 @@ export default class PowerUp extends Phaser.GameObjects.Sprite {
     super(scene, x, y, config.key);
 
     this.scene = scene;
-    this.state = {
+    this.powerUpState = {
       name: config.name,
       ability: config.ability,
       text: config.text,
@@ -13,7 +13,6 @@ export default class PowerUp extends Phaser.GameObjects.Sprite {
     this.scene.physics.world.enable(this);
     this.scene.add.existing(this);
     this.body.allowGravity = false;
-    //this.setPipeline('Light2D');
   }
 
   preUpdate(time, delta) {

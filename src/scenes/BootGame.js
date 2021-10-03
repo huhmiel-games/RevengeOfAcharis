@@ -1,12 +1,10 @@
 import { Scene } from 'phaser';
-import U from '../utils/usefull';
+import { WIDTH, HEIGHT } from '../constant/config';
 import background from '../assets/menuBackgound5.png';
 import menuTheme from '../assets/music/Title_theme.ogg';
 // alagard fonts
 import alagard from '../assets/alagard.png';
 import alagardXML from '../assets/alagard.xml';
-// import alagard2 from '../assets/alagard2.png';
-// import alagard2XML from '../assets/alagard2.xml';
 
 export default class bootGame extends Scene {
   constructor() {
@@ -23,11 +21,11 @@ export default class bootGame extends Scene {
   create() {
     this.bgimage = this.add.image(0, 0, 'background')
       .setOrigin(0, 0)
-      .setDisplaySize(U.WIDTH, U.HEIGHT);
+      .setDisplaySize(WIDTH, HEIGHT);
 
     this.menuTheme = this.sound.add('menuTheme', { volume: 1, loop: true });
 
-    this.start = this.add.bitmapText(U.WIDTH / 2, U.HEIGHT / 2 + 50, 'alagard', 'press any key to start', 14, 1)
+    this.start = this.add.bitmapText(WIDTH / 2, HEIGHT / 2 + 50, 'alagard', 'press any key to start', 14, 1)
       .setOrigin(0.5, 0.5)
       .setTint(0xDDDDDD);
 

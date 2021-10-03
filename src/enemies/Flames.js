@@ -4,11 +4,10 @@ export default class Flames extends Phaser.GameObjects.Sprite {
     this.scene = scene;
     this.name = 'flame';
     this.life = 10000;
-    this.state = {
+    this.enemyState = {
       damage: 60,
     }
     this.setDepth(101);
-    this.setPipeline('Light2D');
     this.scene.physics.world.enable(this);
     this.scene.add.existing(this);
     this.body.setAllowGravity(false).setImmovable(true);
@@ -30,10 +29,10 @@ export default class Flames extends Phaser.GameObjects.Sprite {
 
   checkCollision(d) {
     if (d.type === 'Sprite') {
-      if (this.state.directionX > 0) {
-        this.state.directionX = -30;
+      if (this.enemyState.directionX > 0) {
+        this.enemyState.directionX = -30;
       } else {
-        this.state.directionX = 30;
+        this.enemyState.directionX = 30;
       }
     }
   }

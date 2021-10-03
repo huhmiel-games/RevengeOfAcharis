@@ -1,6 +1,5 @@
 import { Scene } from 'phaser';
-import U from '../utils/usefull';
-
+import { WIDTH, HEIGHT } from '../constant/config';
 export default class EndGame extends Scene {
   constructor() {
     super('endGame');
@@ -27,11 +26,11 @@ export default class EndGame extends Scene {
 
     this.background = this.add.image(0, 0, 'backgroundWithoutTitles')
       .setOrigin(0, 0)
-      .setDisplaySize(U.WIDTH, U.HEIGHT);
+      .setDisplaySize(WIDTH, HEIGHT);
 
     this.trans = "The end";
     this.cnt = 0;
-    this.transDisplay = this.add.bitmapText(U.WIDTH / 2, U.HEIGHT / 2, 'alagard', '', 20, 1)
+    this.transDisplay = this.add.bitmapText(WIDTH / 2, HEIGHT / 2, 'alagard', '', 20, 1)
       .setOrigin(0.5, 0.5).setTintFill(0xDB4D35);
 
     this.time.addEvent({
@@ -66,20 +65,20 @@ export default class EndGame extends Scene {
           },
           onComplete: () => {
             //this.sound.play('melP', { volume: 0.5 });
-            this.congrat = this.add.bitmapText(U.WIDTH / 2, U.HEIGHT / 4, 'alagard', 'Congratulations !!', 20, 1)
+            this.congrat = this.add.bitmapText(WIDTH / 2, HEIGHT / 4, 'alagard', 'Congratulations !!', 20, 1)
               .setOrigin(0.5, 0.5)
               .setAlpha(0).setTintFill(0xDB4D35);
 
-            this.enemiesKilled = this.add.bitmapText(100, U.HEIGHT / 4 + 50, 'alagard', `Enemies killed: ${en}`, 12, 0)
+            this.enemiesKilled = this.add.bitmapText(100, HEIGHT / 4 + 50, 'alagard', `Enemies killed: ${en}`, 12, 0)
               .setAlpha(0).setTintFill(0xDB4D35);
 
-            this.death = this.add.bitmapText(100, U.HEIGHT / 4 + 70, 'alagard', `Death: ${d}`, 12, 0)
+            this.death = this.add.bitmapText(100, HEIGHT / 4 + 70, 'alagard', `Death: ${d}`, 12, 0)
               .setAlpha(0).setTintFill(0xDB4D35);
 
-            this.items = this.add.bitmapText(100, U.HEIGHT / 4 + 90, 'alagard', `Collected items: ${percent}%`, 12, 0)
+            this.items = this.add.bitmapText(100, HEIGHT / 4 + 90, 'alagard', `Collected items: ${percent}%`, 12, 0)
               .setAlpha(0).setTintFill(0xDB4D35);
 
-            this.timeGame = this.add.bitmapText(100, U.HEIGHT / 4 + 110, 'alagard', `Total time: ${totalTime}`, 12, 0)
+            this.timeGame = this.add.bitmapText(100, HEIGHT / 4 + 110, 'alagard', `Total time: ${totalTime}`, 12, 0)
               .setAlpha(0).setTintFill(0xDB4D35);
 
             
@@ -126,7 +125,7 @@ export default class EndGame extends Scene {
   credits() {
     this.trans = 'Credits---Designer:-Philippe Pereira---Graphics:-Luis Zuno-rvros---Music and SFX:-Sound a Head---Programming:-Philippe Pereira--- -- -- -- -- -- -- -- -- -- --Thanks for playing-- -- -- --';
     this.cnt = 0;
-    this.transDisplay = this.add.bitmapText(U.WIDTH / 2, U.HEIGHT / 2 - 70, 'alagard', '', 20, 1)
+    this.transDisplay = this.add.bitmapText(WIDTH / 2, HEIGHT / 2 - 70, 'alagard', '', 20, 1)
       .setOrigin(0.5, 0.8)
       .setAlpha(1).setTintFill(0xDB4D35);
 

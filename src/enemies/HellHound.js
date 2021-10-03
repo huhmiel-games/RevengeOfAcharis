@@ -4,7 +4,7 @@ export default class HellHound extends Phaser.GameObjects.Sprite {
 
     this.scene = scene;
     this.name = config.name;
-    this.state = {
+    this.enemyState = {
       life: config.life,
       damage: config.damage,
       directionX: 100,
@@ -12,11 +12,10 @@ export default class HellHound extends Phaser.GameObjects.Sprite {
       hited: false,
       giveLife: config.life / 3,
     };
-    this.family = 'enemies';
+    
     this.setDepth(101);
     this.scene.physics.world.enable(this);
     this.scene.add.existing(this);
-    this.setPipeline('Light2D');
     this.body
       .setAllowGravity()
       .setGravityY(500)
@@ -54,8 +53,8 @@ export default class HellHound extends Phaser.GameObjects.Sprite {
   preUpdate(time, delta) {
     super.preUpdate(time, delta);
     if (this.active && !this.followPath) {
-      this.body.setVelocityX(this.state.directionX);
-      this.body.setVelocityY(this.state.directionY);
+      this.body.setVelocityX(this.enemyState.directionX);
+      this.body.setVelocityY(this.enemyState.directionY);
       let animationName;
       const distance = Phaser.Math.Distance.Between(this.scene.player.x, this.scene.player.y, this.x, this.y);
       this.distance = distance;
@@ -70,20 +69,20 @@ export default class HellHound extends Phaser.GameObjects.Sprite {
         animationName = 'hellHoundRun';
         // turn back if blocked
         if (this.body.blocked.left) {
-          this.state.directionX = this.speed;
+          this.enemyState.directionX = this.speed;
         }
         if (this.body.blocked.right) {
-          this.state.directionX = -this.speed;
+          this.enemyState.directionX = -this.speed;
         }
         // fall
         if (this.body.blocked.none) {
-          this.state.directionY = 600;
+          this.enemyState.directionY = 600;
         }
         if (this.body.blocked.down) {
-          this.state.directionY = 0;
+          this.enemyState.directionY = 0;
         }
         // flip the sprite
-        if (this.state.directionX > 0) {
+        if (this.enemyState.directionX > 0) {
           this.flipX = true;
         } else {
           this.flipX = false;
@@ -126,15 +125,15 @@ export default class HellHound extends Phaser.GameObjects.Sprite {
 
   looseLife(e) {
     this.scene.sound.play('hellhoundHit', { volume: 1 });
-    this.state.life = this.state.life - e;
+    this.enemyState.life = this.enemyState.life - e;
   }
 
   checkCollision(d) {
     if (d.type === 'Sprite') {
-      if (this.state.directionX > 0) {
-        this.state.directionX = -this.speed;
+      if (this.enemyState.directionX > 0) {
+        this.enemyState.directionX = -this.speed;
       } else {
-        this.state.directionX = this.speed;
+        this.enemyState.directionX = this.speed;
       }
     }
   }

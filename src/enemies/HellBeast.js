@@ -4,7 +4,7 @@ export default class HellBeast extends Phaser.GameObjects.Sprite {
 
     this.scene = scene;
     this.name = config.name;
-    this.state = {
+    this.enemyState = {
       life: 2000,
       damage: 0,
       directionX: -550,
@@ -13,11 +13,10 @@ export default class HellBeast extends Phaser.GameObjects.Sprite {
       lastFired: 0,
       fireRate: 20,
     };
-    this.family = 'enemies';
+    
     this.setDepth(104);
     this.scene.physics.world.enable(this);
     this.scene.add.existing(this);
-    this.setPipeline('Light2D');
     this.body.allowGravity = false;
     this.body.setSize(64, 64);
     this.getFired = false;
@@ -43,7 +42,7 @@ export default class HellBeast extends Phaser.GameObjects.Sprite {
       if (this.isLavaAttack && actualKey === 'hell-beast-burn') {
         this.animate('hell-beast-lava', true);
         this.scene.sound.play('hellBeastLavaAttackSfx');
-        this.state.damage = 75;
+        this.enemyState.damage = 75;
         this.body.setSize(64, 160);
         this.scene.shakeCamera(350)
         this.body.reset(this.body.x + 32, 144);
@@ -131,7 +130,7 @@ export default class HellBeast extends Phaser.GameObjects.Sprite {
       return;
     }
     this.hellBeastTimer = this.scene.time.addEvent({
-      delay: this.state.life,
+      delay: this.enemyState.life,
       callback: () => {
         if (this.isHidden && this.active) {
           this.isAppearing = true;
@@ -157,7 +156,7 @@ export default class HellBeast extends Phaser.GameObjects.Sprite {
     }
     this.isAppearing = false;
     this.hellBeastTimer = null;
-    const selectAnim = this.state.life > 1000 ? 'hell-beast-idle' : 'hell-beast-idle-stroke';
+    const selectAnim = this.enemyState.life > 1000 ? 'hell-beast-idle' : 'hell-beast-idle-stroke';
     this.animate(selectAnim, true);
     this.body.setSize(64, 64);
     const randomX = Phaser.Math.Between(24, 376);
@@ -204,7 +203,7 @@ export default class HellBeast extends Phaser.GameObjects.Sprite {
         if (!this.active) {
           return;
         }
-        const selectAnim = this.state.life > 750 ? 'hell-beast-breath' : 'hell-beast-breath-stroke';
+        const selectAnim = this.enemyState.life > 750 ? 'hell-beast-breath' : 'hell-beast-breath-stroke';
         // if (selectAnim === 'hell-beast-breath-stroke') {
         //   this.playGlowing();
         // }
@@ -274,7 +273,7 @@ export default class HellBeast extends Phaser.GameObjects.Sprite {
         if (lavaFireTimer.repeatCount === 0) {
           this.body.setSize(64, 64);
           this.setAlpha(0);
-          this.state.damage = 0;
+          this.enemyState.damage = 0;
           this.body.setVelocityX(0)
           this.body.reset(-100, -100);
           this.hellBeastFadeOut();
@@ -295,7 +294,7 @@ export default class HellBeast extends Phaser.GameObjects.Sprite {
       ball.visible = true;
       ball.anims.play('fireball', true);
       ball.setDepth(102);
-      ball.state = { damage: 30 };
+      ball.enemyState = { damage: 30 };
       ball.name = 'fireball';
       ball.body.setCircle(6)
       this.scene.fireballGroup.push(ball)
@@ -325,9 +324,9 @@ export default class HellBeast extends Phaser.GameObjects.Sprite {
     if (this.isLavaAttack) {
       return;
     }
-    this.state.life = this.state.life - e;
+    this.enemyState.life = this.enemyState.life - e;
     this.scene.sound.play('hellBeastHitSfx', { volume: 1, rate: 1 });
-    if (this.state.life <= 0) {
+    if (this.enemyState.life <= 0) {
       // this.glowingSfx.stop();
       this.unlockDoors();
       this.scene.player.inventory.boss2 = true;

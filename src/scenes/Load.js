@@ -1,5 +1,5 @@
 import { Scene } from 'phaser';
-import U from '../utils/usefull';
+import { WIDTH, HEIGHT } from '../constant/config';
 import getConfigKeys from '../utils/getConfigKeys';
 
 export default class LoadSavedGame extends Scene {
@@ -26,17 +26,17 @@ export default class LoadSavedGame extends Scene {
 
     this.background = this.add.image(0, 0, 'backgroundWithoutTitles')
       .setOrigin(0, 0)
-      .setDisplaySize(U.WIDTH, U.HEIGHT);
+      .setDisplaySize(WIDTH, HEIGHT);
 
     if (localStorage.getItem('RevengeOfAcharis')) {
       this.position = [74, 114, 154];
-      this.position = [U.HEIGHT / 4, U.HEIGHT / 2, U.HEIGHT / 4 * 3];
-      this.loadGame = this.add.bitmapText(U.WIDTH / 4, this.position[0], 'alagard', ' Load Game ', 18, 1).setTintFill(0xA30000);
-      this.timeGame = this.add.bitmapText(U.WIDTH / 4 * 3 - 24, this.position[0] + 5, 'alagard', ` ${totalTime} `, 10, 2);
-      this.deleteSavedGame = this.add.bitmapText(U.WIDTH / 4, this.position[2], 'alagard', ' Delete Game ', 18, 1).setTintFill(0xA20000);
+      this.position = [HEIGHT / 4, HEIGHT / 2, HEIGHT / 4 * 3];
+      this.loadGame = this.add.bitmapText(WIDTH / 4, this.position[0], 'alagard', ' Load Game ', 18, 1).setTintFill(0xA30000);
+      this.timeGame = this.add.bitmapText(WIDTH / 4 * 3 - 24, this.position[0] + 5, 'alagard', ` ${totalTime} `, 10, 2);
+      this.deleteSavedGame = this.add.bitmapText(WIDTH / 4, this.position[2], 'alagard', ' Delete Game ', 18, 1).setTintFill(0xA20000);
     } else {
       this.position = [74, 114];
-      this.newGame = this.add.bitmapText(U.WIDTH / 4, this.position[0], 'alagard', ' New Game ', 18, 1).setTintFill(0xA30000);
+      this.newGame = this.add.bitmapText(WIDTH / 4, this.position[0], 'alagard', ' New Game ', 18, 1).setTintFill(0xA30000);
     }
     if (!localStorage.getItem('d')) {
       localStorage.setItem('d', '0');
@@ -53,9 +53,9 @@ export default class LoadSavedGame extends Scene {
       fire: Phaser.Input.Keyboard.KeyCodes[keysOptions[4]],
     });
 
-    this.options = this.add.bitmapText(U.WIDTH / 4, this.position[1], 'alagard', ' Options ', 18, 1).setTintFill(0xA30000);
+    this.options = this.add.bitmapText(WIDTH / 4, this.position[1], 'alagard', ' Options ', 18, 1).setTintFill(0xA30000);
 
-    this.head = this.add.image(U.WIDTH / 4 - 16, this.position[0] + 11, 'head')
+    this.head = this.add.image(WIDTH / 4 - 16, this.position[0] + 11, 'head')
       //.setOrigin(0, 0)
       .setDisplaySize(16, 16);
 

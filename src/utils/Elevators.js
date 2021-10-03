@@ -11,7 +11,7 @@ export default class Elevators extends Phaser.GameObjects.Sprite {
     };
     this.setDepth(50)
       .setDisplaySize(48, 16)
-      .setPipeline('Light2D');
+      ;
     this.scene.physics.world.enable(this);
     this.scene.add.existing(this);
     this.body.setAllowGravity(false)

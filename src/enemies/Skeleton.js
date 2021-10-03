@@ -5,7 +5,7 @@ export default class Skeleton extends Phaser.GameObjects.Sprite {
     this.scene = scene;
     this.name = 'skeleton';
     this.damage = config.damage;
-    this.state = {
+    this.enemyState = {
       life: config.life,
       damage: 0,
       directionX: -120,
@@ -13,11 +13,10 @@ export default class Skeleton extends Phaser.GameObjects.Sprite {
       hited: false,
       giveLife: config.life,
     };
-    this.family = 'enemies';
+    
     this.setDepth(101);
     this.scene.physics.world.enable(this);
     this.scene.add.existing(this);
-    this.setPipeline('Light2D');
     this.body
       .setAllowGravity()
       .setGravityY(500)
@@ -27,7 +26,7 @@ export default class Skeleton extends Phaser.GameObjects.Sprite {
     this.getFired = false;
     this.flipX = true;
     this.followPath = false;
-    this.speed = 120;
+    this.speed = 40;
     this.visible = false;
     this.isAttacking = false;
     this.walkplay = false;
@@ -50,7 +49,7 @@ export default class Skeleton extends Phaser.GameObjects.Sprite {
     this.on('animationcomplete', () => {
       if (this.anims.currentAnim.key === 'skeletonRise') {
         this.isAttacking = true;
-        this.state.damage = this.damage;
+        this.enemyState.damage = this.damage;
         this.lastAnim = 'skeletonRise';
       }  
     });
@@ -72,27 +71,27 @@ export default class Skeleton extends Phaser.GameObjects.Sprite {
         }
         animationName = 'skeletonRise';
       } 
-      if (this.isAttacking && distance <= 120) {
+      if (this.isAttacking && distance <= 160) {
         animationName = 'skeleton';
         const dx = this.scene.player.x - this.x;
         const dy = this.scene.player.y - this.y;
-        this.body.setVelocityX(this.state.directionX);
+        this.body.setVelocityX(this.enemyState.directionX);
         if (dx < 0 && dy > -30) {
           this.flipX = false;
-          this.state.directionX = -this.speed;
+          this.enemyState.directionX = -this.speed;
         } else {
-          this.state.directionX = this.speed;
+          this.enemyState.directionX = this.speed;
         }
         
         // turn back if blocked
         if (this.body.blocked.left) {
-          this.state.directionX = this.speed;
+          this.enemyState.directionX = this.speed;
         }
         if (this.body.blocked.right) {
-          this.state.directionX = -this.speed;
+          this.enemyState.directionX = -this.speed;
         }
         // flip the sprite
-        if (this.state.directionX > 0) {
+        if (this.enemyState.directionX > 0) {
           this.flipX = true;
         } else {
           this.flipX = false;
@@ -104,21 +103,21 @@ export default class Skeleton extends Phaser.GameObjects.Sprite {
         //console.log(distance, this.body.velocity.x)
         // turn back if blocked
         if (this.body.blocked.left) {
-          this.state.directionX = this.speed;
+          this.enemyState.directionX = this.speed;
         }
         if (this.body.blocked.right) {
-          this.state.directionX = -this.speed;
+          this.enemyState.directionX = -this.speed;
         }
-        this.body.setVelocityX(this.state.directionX);
+        this.body.setVelocityX(this.enemyState.directionX);
         // flip the sprite
-        if (this.state.directionX > 0) {
+        if (this.enemyState.directionX > 0) {
           this.flipX = true;
         } else {
           this.flipX = false;
         }
       }
       
-      if (this.lastAnim !== animationName) {
+      if (this.lastAnim !== animationName && animationName !== undefined) {
         this.lastAnim = animationName;
         this.animate(animationName, true);
       }
@@ -149,15 +148,15 @@ export default class Skeleton extends Phaser.GameObjects.Sprite {
       return;
     }
     this.scene.sound.play('skeletonHit', { volume: 1, rate: 1 });
-    this.state.life = this.state.life - e;
+    this.enemyState.life = this.enemyState.life - e;
   }
 
   checkCollision(d) {
     if (d.type === 'Sprite') {
-      if (this.state.directionX > 0) {
-        this.state.directionX = -this.speed;
+      if (this.enemyState.directionX > 0) {
+        this.enemyState.directionX = -this.speed;
       } else {
-        this.state.directionX = this.speed;
+        this.enemyState.directionX = this.speed;
       }
     }
   }

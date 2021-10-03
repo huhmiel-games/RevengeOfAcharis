@@ -5,12 +5,11 @@ export default class PlatformSpike extends Phaser.GameObjects.Sprite {
     this.name = 'platformSpike';
     this.duration = config.duration;
     this.directionType = config.directionType;
-    this.state = {
+    this.enemyState = {
       damage: 20,
     }
     this.setDepth(101);
     this.durationTimer = 4000;
-    this.setPipeline('Light2D');
     this.scene.physics.world.enable(this);
     this.scene.add.existing(this);
     this.body.setAllowGravity(false).setImmovable();
@@ -79,10 +78,10 @@ export default class PlatformSpike extends Phaser.GameObjects.Sprite {
 
   checkCollision(d) {
     if (d.type === 'Sprite') {
-      if (this.state.directionX > 0) {
-        this.state.directionX = -30;
+      if (this.enemyState.directionX > 0) {
+        this.enemyState.directionX = -30;
       } else {
-        this.state.directionX = 30;
+        this.enemyState.directionX = 30;
       }
     }
   }

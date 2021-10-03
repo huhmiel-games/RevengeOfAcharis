@@ -7,7 +7,6 @@ export default class Angel extends Phaser.GameObjects.Sprite {
     this.setDepth(101);
     this.scene.physics.world.enable(this);
     this.scene.add.existing(this);
-    this.setPipeline('Light2D');
     this.body
       .setAllowGravity(false)
       .setSize(20, 40).setOffset(50, 40);
@@ -58,7 +57,7 @@ export default class Angel extends Phaser.GameObjects.Sprite {
     this.isTalking = true;
     const msg = [`Hey Acharis!!
     I have a lot to say...
-    So listen..`, `Your parents were not anyone.
+    So listen..`, `Your parents were not common people.
     Your father was a great warrior,
     and your mother a white witch.`, `Their blood flows in your veins,
     you already have good fighting skills,
@@ -155,7 +154,7 @@ export default class Angel extends Phaser.GameObjects.Sprite {
               this.scene.player.state.pause = false;
               this.scene.physics.resume();
               this.body.reset(-100, -100);
-              this.scene.player.setPipeline('GlowFx');
+              this.scene.player;
               this.scene.demon.isFollowingPath = true;
               this.scene.demonLighting.stop();
               this.scene.demonFight2.play();

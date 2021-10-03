@@ -1,5 +1,5 @@
 import { Scene } from 'phaser';
-import U from '../utils/usefull';
+import {WIDTH, HEIGHT} from '../constant/config';
 import getConfigKeys from '../utils/getConfigKeys';
 
 export default class GameOver extends Scene {
@@ -15,22 +15,22 @@ export default class GameOver extends Scene {
 
     this.background = this.add.image(0, 0, 'backgroundWithoutTitles')
       .setOrigin(0, 0)
-      .setDisplaySize(U.WIDTH, U.HEIGHT);
+      .setDisplaySize(WIDTH, HEIGHT);
 
-    this.title = this.add.bitmapText(U.WIDTH / 2, U.HEIGHT / 2 - 40, 'alagard', ' No revenge today... ')
+    this.title = this.add.bitmapText(WIDTH / 2, HEIGHT / 2 - 40, 'alagard', ' No revenge today... ')
       .setFontSize(20)
       .setOrigin(0.5, 0.5)
       .setTintFill(0xA20000);
 
-    this.retry = this.add.bitmapText(U.WIDTH / 4, this.position[0], 'alagard', ' Try again ')
+    this.retry = this.add.bitmapText(WIDTH / 4, this.position[0], 'alagard', ' Try again ')
       .setFontSize(18)
       .setTintFill(0xA20000);
 
-    this.quit = this.add.bitmapText(U.WIDTH / 4, this.position[1], 'alagard', ' Quit ')
+    this.quit = this.add.bitmapText(WIDTH / 4, this.position[1], 'alagard', ' Quit ')
       .setFontSize(18)
       .setTintFill(0xA20000);
 
-    this.head = this.add.image(U.WIDTH / 4 - 16, this.position[0], 'head')
+    this.head = this.add.image(WIDTH / 4 - 16, this.position[0], 'head')
       .setOrigin(0, 0)
       .setDisplaySize(16, 16);
 
