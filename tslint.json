@@ -1,0 +1,69 @@
+{
+    "defaultSeverity": "error",
+    "extends": [
+        "tslint:recommended"
+    ],
+    "jsRules": {},
+    "rules": {
+        "space-before-function-paren": true,
+        "quotemark": [
+            true,
+            "single"
+        ],
+        "trailing-comma": false,
+        "object-literal-sort-keys": false,
+        "one-line": [false, "check-catch", "check-finally", "check-else"],
+        "variable-name": {
+            "options": [
+                "ban-keywords",
+                "check-format",
+                "allow-leading-underscore",
+                "allow-pascal-case"
+            ]
+        },
+        "no-console": false,
+        "max-line-length": false,
+        "no-trailing-whitespace": [
+            true,
+            "ignore-comments",
+            "ignore-blank-lines"
+        ],
+        "newline-before-return": true,
+        "indent": [
+            true,
+            "spaces",
+            4
+        ],
+        "semicolon": [
+            true,
+            "always"
+        ],
+        "no-namespace": false,
+        "no-string-literal": false,
+        "member-access": [
+            true,
+            "check-parameter-property"
+        ],
+        "unnecessary-else": [
+            true,
+            {
+                "allow-else-if": true
+            }
+        ],
+        "return-undefined": true,
+        "whitespace": [
+            true,
+            "check-branch",
+            "check-decl",
+            "check-module",
+            "check-separator",
+            "check-rest-spread",
+            "check-type",
+            "check-typecast",
+            "check-type-operator",
+            "check-preblock",
+            "check-postbrace"
+        ]
+    },
+    "rulesDirectory": []
+}

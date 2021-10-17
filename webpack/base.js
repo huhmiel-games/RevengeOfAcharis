@@ -5,26 +5,48 @@ const CleanWebpackPlugin = require("clean-webpack-plugin");
 
 module.exports = {
   mode: "development",
-  devtool: "eval-source-map",
+    devtool: "eval-source-map",
+    entry: {
+        app: './src/index.ts',
+        vendors: ['phaser']
+    },
   module: {
     rules: [
-      {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        use: {
-          loader: "babel-loader"
-        }
-      },
+        {
+            test: /\.tsx?$/,
+            include: path.join(__dirname, '../src'),
+            loader: 'ts-loader'
+        },
       {
         test: [/\.vert$/, /\.frag$/],
         use: "raw-loader"
       },
       {
-        test: /\.(gif|png|jpe?g|svg|xml|wav|ogg)$/i,
+        test: /\.(gif|png|jpe?g|svg|xml|wav|ogg|world)$/i,
         use: "file-loader"
       }
     ]
-  },
+    },
+    resolve: {
+        extensions: ['.ts', '.tsx', '.js']
+    },
+    output: {
+        path: path.resolve(__dirname, 'dist'),
+        filename: '[name].bundle.js',
+        chunkFilename: '[name].chunk.js'
+    },
+    optimization: {
+        splitChunks: {
+            cacheGroups: {
+                commons: {
+                    test: /[\\/]node_modules[\\/]/,
+                    name: 'vendors',
+                    chunks: 'all',
+                    filename: '[name].bundle.js'
+                }
+            }
+        }
+    },
   plugins: [
     new CleanWebpackPlugin(["dist"], {
       root: path.resolve(__dirname, "../")

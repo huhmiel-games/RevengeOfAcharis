@@ -1,0 +1,1363 @@
+{
+	"textures": [
+		{
+			"image": "bringerOfDeathAtlas.png",
+			"format": "RGBA8888",
+			"size": {
+				"w": 466,
+				"h": 477
+			},
+			"scale": 1,
+			"frames": [
+				{
+					"filename": "Bringer-of-Death_Attack_6",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 140,
+						"h": 93
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 9,
+						"w": 140,
+						"h": 83
+					},
+					"frame": {
+						"x": 1,
+						"y": 1,
+						"w": 140,
+						"h": 83
+					}
+				},
+				{
+					"filename": "Bringer-of-Death_Attack_5",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 140,
+						"h": 93
+					},
+					"spriteSourceSize": {
+						"x": 5,
+						"y": 16,
+						"w": 133,
+						"h": 76
+					},
+					"frame": {
+						"x": 1,
+						"y": 86,
+						"w": 133,
+						"h": 76
+					}
+				},
+				{
+					"filename": "Bringer-of-Death_Attack_7",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 140,
+						"h": 93
+					},
+					"spriteSourceSize": {
+						"x": 3,
+						"y": 7,
+						"w": 127,
+						"h": 85
+					},
+					"frame": {
+						"x": 143,
+						"y": 1,
+						"w": 127,
+						"h": 85
+					}
+				},
+				{
+					"filename": "Bringer-of-Death_Attack_8",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 140,
+						"h": 93
+					},
+					"spriteSourceSize": {
+						"x": 4,
+						"y": 7,
+						"w": 126,
+						"h": 85
+					},
+					"frame": {
+						"x": 1,
+						"y": 164,
+						"w": 126,
+						"h": 85
+					}
+				},
+				{
+					"filename": "Bringer-of-Death_Attack_9",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 140,
+						"h": 93
+					},
+					"spriteSourceSize": {
+						"x": 6,
+						"y": 10,
+						"w": 112,
+						"h": 82
+					},
+					"frame": {
+						"x": 129,
+						"y": 164,
+						"w": 112,
+						"h": 82
+					}
+				},
+				{
+					"filename": "Bringer-of-Death_Cast_7",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 140,
+						"h": 93
+					},
+					"spriteSourceSize": {
+						"x": 74,
+						"y": 0,
+						"w": 51,
+						"h": 92
+					},
+					"frame": {
+						"x": 1,
+						"y": 251,
+						"w": 51,
+						"h": 92
+					}
+				},
+				{
+					"filename": "Bringer-of-Death_Cast_6",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 140,
+						"h": 93
+					},
+					"spriteSourceSize": {
+						"x": 74,
+						"y": 0,
+						"w": 51,
+						"h": 92
+					},
+					"frame": {
+						"x": 54,
+						"y": 251,
+						"w": 51,
+						"h": 92
+					}
+				},
+				{
+					"filename": "Bringer-of-Death_Cast_9",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 140,
+						"h": 93
+					},
+					"spriteSourceSize": {
+						"x": 72,
+						"y": 1,
+						"w": 53,
+						"h": 91
+					},
+					"frame": {
+						"x": 107,
+						"y": 251,
+						"w": 53,
+						"h": 91
+					}
+				},
+				{
+					"filename": "Bringer-of-Death_Cast_8",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 140,
+						"h": 93
+					},
+					"spriteSourceSize": {
+						"x": 73,
+						"y": 1,
+						"w": 52,
+						"h": 91
+					},
+					"frame": {
+						"x": 162,
+						"y": 248,
+						"w": 52,
+						"h": 91
+					}
+				},
+				{
+					"filename": "Bringer-of-Death_Attack_3",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 140,
+						"h": 93
+					},
+					"spriteSourceSize": {
+						"x": 73,
+						"y": 23,
+						"w": 61,
+						"h": 69
+					},
+					"frame": {
+						"x": 136,
+						"y": 88,
+						"w": 61,
+						"h": 69
+					}
+				},
+				{
+					"filename": "Bringer-of-Death_Attack_4",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 140,
+						"h": 93
+					},
+					"spriteSourceSize": {
+						"x": 75,
+						"y": 23,
+						"w": 62,
+						"h": 69
+					},
+					"frame": {
+						"x": 199,
+						"y": 88,
+						"w": 62,
+						"h": 69
+					}
+				},
+				{
+					"filename": "Bringer-of-Death_Attack_2",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 140,
+						"h": 93
+					},
+					"spriteSourceSize": {
+						"x": 78,
+						"y": 38,
+						"w": 60,
+						"h": 54
+					},
+					"frame": {
+						"x": 272,
+						"y": 1,
+						"w": 60,
+						"h": 54
+					}
+				},
+				{
+					"filename": "Bringer-of-Death_Death_6",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 140,
+						"h": 93
+					},
+					"spriteSourceSize": {
+						"x": 85,
+						"y": 32,
+						"w": 50,
+						"h": 60
+					},
+					"frame": {
+						"x": 272,
+						"y": 57,
+						"w": 50,
+						"h": 60
+					}
+				},
+				{
+					"filename": "Bringer-of-Death_Death_7",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 140,
+						"h": 93
+					},
+					"spriteSourceSize": {
+						"x": 86,
+						"y": 28,
+						"w": 48,
+						"h": 59
+					},
+					"frame": {
+						"x": 263,
+						"y": 119,
+						"w": 48,
+						"h": 59
+					}
+				},
+				{
+					"filename": "Bringer-of-Death_Death_5",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 140,
+						"h": 93
+					},
+					"spriteSourceSize": {
+						"x": 82,
+						"y": 34,
+						"w": 51,
+						"h": 58
+					},
+					"frame": {
+						"x": 216,
+						"y": 248,
+						"w": 51,
+						"h": 58
+					}
+				},
+				{
+					"filename": "Bringer-of-Death_Spell_9",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 140,
+						"h": 93
+					},
+					"spriteSourceSize": {
+						"x": 51,
+						"y": 35,
+						"w": 33,
+						"h": 57
+					},
+					"frame": {
+						"x": 243,
+						"y": 180,
+						"w": 33,
+						"h": 57
+					}
+				},
+				{
+					"filename": "Bringer-of-Death_Spell_8",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 140,
+						"h": 93
+					},
+					"spriteSourceSize": {
+						"x": 52,
+						"y": 35,
+						"w": 31,
+						"h": 57
+					},
+					"frame": {
+						"x": 278,
+						"y": 180,
+						"w": 31,
+						"h": 57
+					}
+				},
+				{
+					"filename": "Bringer-of-Death_Spell_13",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 140,
+						"h": 93
+					},
+					"spriteSourceSize": {
+						"x": 49,
+						"y": 35,
+						"w": 34,
+						"h": 57
+					},
+					"frame": {
+						"x": 269,
+						"y": 239,
+						"w": 34,
+						"h": 57
+					}
+				},
+				{
+					"filename": "Bringer-of-Death_Spell_10",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 140,
+						"h": 93
+					},
+					"spriteSourceSize": {
+						"x": 50,
+						"y": 35,
+						"w": 34,
+						"h": 57
+					},
+					"frame": {
+						"x": 334,
+						"y": 1,
+						"w": 34,
+						"h": 57
+					}
+				},
+				{
+					"filename": "Bringer-of-Death_Walk_3",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 140,
+						"h": 93
+					},
+					"spriteSourceSize": {
+						"x": 74,
+						"y": 38,
+						"w": 56,
+						"h": 54
+					},
+					"frame": {
+						"x": 311,
+						"y": 180,
+						"w": 56,
+						"h": 54
+					}
+				},
+				{
+					"filename": "Bringer-of-Death_Walk_2",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 140,
+						"h": 93
+					},
+					"spriteSourceSize": {
+						"x": 75,
+						"y": 40,
+						"w": 56,
+						"h": 52
+					},
+					"frame": {
+						"x": 311,
+						"y": 236,
+						"w": 56,
+						"h": 52
+					}
+				},
+				{
+					"filename": "Bringer-of-Death_Idle_4",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 140,
+						"h": 93
+					},
+					"spriteSourceSize": {
+						"x": 84,
+						"y": 36,
+						"w": 41,
+						"h": 56
+					},
+					"frame": {
+						"x": 313,
+						"y": 119,
+						"w": 41,
+						"h": 56
+					}
+				},
+				{
+					"filename": "Bringer-of-Death_Death_4",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 140,
+						"h": 93
+					},
+					"spriteSourceSize": {
+						"x": 81,
+						"y": 36,
+						"w": 49,
+						"h": 56
+					},
+					"frame": {
+						"x": 1,
+						"y": 345,
+						"w": 49,
+						"h": 56
+					}
+				},
+				{
+					"filename": "Bringer-of-Death_Idle_3",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 140,
+						"h": 93
+					},
+					"spriteSourceSize": {
+						"x": 85,
+						"y": 36,
+						"w": 41,
+						"h": 56
+					},
+					"frame": {
+						"x": 52,
+						"y": 345,
+						"w": 41,
+						"h": 56
+					}
+				},
+				{
+					"filename": "Bringer-of-Death_Spell_11",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 140,
+						"h": 93
+					},
+					"spriteSourceSize": {
+						"x": 51,
+						"y": 37,
+						"w": 35,
+						"h": 55
+					},
+					"frame": {
+						"x": 95,
+						"y": 345,
+						"w": 35,
+						"h": 55
+					}
+				},
+				{
+					"filename": "Bringer-of-Death_Hurt_3",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 140,
+						"h": 93
+					},
+					"spriteSourceSize": {
+						"x": 88,
+						"y": 37,
+						"w": 39,
+						"h": 55
+					},
+					"frame": {
+						"x": 324,
+						"y": 60,
+						"w": 39,
+						"h": 55
+					}
+				},
+				{
+					"filename": "Bringer-of-Death_Spell_12",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 140,
+						"h": 93
+					},
+					"spriteSourceSize": {
+						"x": 50,
+						"y": 37,
+						"w": 36,
+						"h": 55
+					},
+					"frame": {
+						"x": 132,
+						"y": 344,
+						"w": 36,
+						"h": 55
+					}
+				},
+				{
+					"filename": "Bringer-of-Death_Idle_2",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 140,
+						"h": 93
+					},
+					"spriteSourceSize": {
+						"x": 86,
+						"y": 37,
+						"w": 40,
+						"h": 55
+					},
+					"frame": {
+						"x": 170,
+						"y": 341,
+						"w": 40,
+						"h": 55
+					}
+				},
+				{
+					"filename": "Bringer-of-Death_Walk_4",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 140,
+						"h": 93
+					},
+					"spriteSourceSize": {
+						"x": 75,
+						"y": 37,
+						"w": 54,
+						"h": 55
+					},
+					"frame": {
+						"x": 212,
+						"y": 341,
+						"w": 54,
+						"h": 55
+					}
+				},
+				{
+					"filename": "Bringer-of-Death_Walk_8",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 140,
+						"h": 93
+					},
+					"spriteSourceSize": {
+						"x": 76,
+						"y": 37,
+						"w": 50,
+						"h": 55
+					},
+					"frame": {
+						"x": 305,
+						"y": 290,
+						"w": 50,
+						"h": 55
+					}
+				},
+				{
+					"filename": "Bringer-of-Death_Attack_1",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 140,
+						"h": 93
+					},
+					"spriteSourceSize": {
+						"x": 84,
+						"y": 38,
+						"w": 44,
+						"h": 54
+					},
+					"frame": {
+						"x": 268,
+						"y": 347,
+						"w": 44,
+						"h": 54
+					}
+				},
+				{
+					"filename": "Bringer-of-Death_Walk_1",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 140,
+						"h": 93
+					},
+					"spriteSourceSize": {
+						"x": 75,
+						"y": 38,
+						"w": 54,
+						"h": 54
+					},
+					"frame": {
+						"x": 314,
+						"y": 347,
+						"w": 54,
+						"h": 54
+					}
+				},
+				{
+					"filename": "Bringer-of-Death_Walk_7",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 140,
+						"h": 93
+					},
+					"spriteSourceSize": {
+						"x": 80,
+						"y": 38,
+						"w": 45,
+						"h": 54
+					},
+					"frame": {
+						"x": 370,
+						"y": 1,
+						"w": 45,
+						"h": 54
+					}
+				},
+				{
+					"filename": "Bringer-of-Death_Death_2",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 140,
+						"h": 93
+					},
+					"spriteSourceSize": {
+						"x": 82,
+						"y": 38,
+						"w": 45,
+						"h": 54
+					},
+					"frame": {
+						"x": 370,
+						"y": 57,
+						"w": 45,
+						"h": 54
+					}
+				},
+				{
+					"filename": "Bringer-of-Death_Death_3",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 140,
+						"h": 93
+					},
+					"spriteSourceSize": {
+						"x": 81,
+						"y": 38,
+						"w": 48,
+						"h": 54
+					},
+					"frame": {
+						"x": 357,
+						"y": 290,
+						"w": 48,
+						"h": 54
+					}
+				},
+				{
+					"filename": "Bringer-of-Death_Walk_5",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 140,
+						"h": 93
+					},
+					"spriteSourceSize": {
+						"x": 77,
+						"y": 38,
+						"w": 48,
+						"h": 54
+					},
+					"frame": {
+						"x": 365,
+						"y": 113,
+						"w": 48,
+						"h": 54
+					}
+				},
+				{
+					"filename": "Bringer-of-Death_Idle_5",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 140,
+						"h": 93
+					},
+					"spriteSourceSize": {
+						"x": 82,
+						"y": 38,
+						"w": 45,
+						"h": 54
+					},
+					"frame": {
+						"x": 370,
+						"y": 346,
+						"w": 45,
+						"h": 54
+					}
+				},
+				{
+					"filename": "Bringer-of-Death_Idle_8",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 140,
+						"h": 93
+					},
+					"spriteSourceSize": {
+						"x": 84,
+						"y": 38,
+						"w": 43,
+						"h": 54
+					},
+					"frame": {
+						"x": 369,
+						"y": 169,
+						"w": 43,
+						"h": 54
+					}
+				},
+				{
+					"filename": "Bringer-of-Death_Idle_1",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 140,
+						"h": 93
+					},
+					"spriteSourceSize": {
+						"x": 86,
+						"y": 38,
+						"w": 40,
+						"h": 54
+					},
+					"frame": {
+						"x": 369,
+						"y": 225,
+						"w": 40,
+						"h": 54
+					}
+				},
+				{
+					"filename": "Bringer-of-Death_Idle_7",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 140,
+						"h": 93
+					},
+					"spriteSourceSize": {
+						"x": 83,
+						"y": 39,
+						"w": 45,
+						"h": 53
+					},
+					"frame": {
+						"x": 370,
+						"y": 402,
+						"w": 45,
+						"h": 53
+					}
+				},
+				{
+					"filename": "Bringer-of-Death_Death_1",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 140,
+						"h": 93
+					},
+					"spriteSourceSize": {
+						"x": 85,
+						"y": 39,
+						"w": 40,
+						"h": 53
+					},
+					"frame": {
+						"x": 1,
+						"y": 403,
+						"w": 40,
+						"h": 53
+					}
+				},
+				{
+					"filename": "Bringer-of-Death_Attack_10",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 140,
+						"h": 93
+					},
+					"spriteSourceSize": {
+						"x": 86,
+						"y": 39,
+						"w": 37,
+						"h": 53
+					},
+					"frame": {
+						"x": 43,
+						"y": 403,
+						"w": 37,
+						"h": 53
+					}
+				},
+				{
+					"filename": "Bringer-of-Death_Hurt_2",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 140,
+						"h": 93
+					},
+					"spriteSourceSize": {
+						"x": 86,
+						"y": 39,
+						"w": 41,
+						"h": 53
+					},
+					"frame": {
+						"x": 82,
+						"y": 403,
+						"w": 41,
+						"h": 53
+					}
+				},
+				{
+					"filename": "Bringer-of-Death_Spell_7",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 140,
+						"h": 93
+					},
+					"spriteSourceSize": {
+						"x": 52,
+						"y": 35,
+						"w": 31,
+						"h": 53
+					},
+					"frame": {
+						"x": 125,
+						"y": 403,
+						"w": 31,
+						"h": 53
+					}
+				},
+				{
+					"filename": "Bringer-of-Death_Death_8",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 140,
+						"h": 93
+					},
+					"spriteSourceSize": {
+						"x": 85,
+						"y": 27,
+						"w": 48,
+						"h": 52
+					},
+					"frame": {
+						"x": 158,
+						"y": 403,
+						"w": 48,
+						"h": 52
+					}
+				},
+				{
+					"filename": "Bringer-of-Death_Cast_1",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 140,
+						"h": 93
+					},
+					"spriteSourceSize": {
+						"x": 78,
+						"y": 40,
+						"w": 48,
+						"h": 52
+					},
+					"frame": {
+						"x": 208,
+						"y": 403,
+						"w": 48,
+						"h": 52
+					}
+				},
+				{
+					"filename": "Bringer-of-Death_Walk_6",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 140,
+						"h": 93
+					},
+					"spriteSourceSize": {
+						"x": 78,
+						"y": 40,
+						"w": 46,
+						"h": 52
+					},
+					"frame": {
+						"x": 258,
+						"y": 403,
+						"w": 46,
+						"h": 52
+					}
+				},
+				{
+					"filename": "Bringer-of-Death_Idle_6",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 140,
+						"h": 93
+					},
+					"spriteSourceSize": {
+						"x": 81,
+						"y": 40,
+						"w": 47,
+						"h": 52
+					},
+					"frame": {
+						"x": 306,
+						"y": 403,
+						"w": 47,
+						"h": 52
+					}
+				},
+				{
+					"filename": "Bringer-of-Death_Cast_2",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 140,
+						"h": 93
+					},
+					"spriteSourceSize": {
+						"x": 78,
+						"y": 41,
+						"w": 48,
+						"h": 51
+					},
+					"frame": {
+						"x": 417,
+						"y": 1,
+						"w": 48,
+						"h": 51
+					}
+				},
+				{
+					"filename": "Bringer-of-Death_Cast_3",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 140,
+						"h": 93
+					},
+					"spriteSourceSize": {
+						"x": 79,
+						"y": 42,
+						"w": 46,
+						"h": 50
+					},
+					"frame": {
+						"x": 417,
+						"y": 54,
+						"w": 46,
+						"h": 50
+					}
+				},
+				{
+					"filename": "Bringer-of-Death_Cast_4",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 140,
+						"h": 93
+					},
+					"spriteSourceSize": {
+						"x": 77,
+						"y": 42,
+						"w": 48,
+						"h": 50
+					},
+					"frame": {
+						"x": 417,
+						"y": 106,
+						"w": 48,
+						"h": 50
+					}
+				},
+				{
+					"filename": "Bringer-of-Death_Cast_5",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 140,
+						"h": 93
+					},
+					"spriteSourceSize": {
+						"x": 75,
+						"y": 43,
+						"w": 50,
+						"h": 49
+					},
+					"frame": {
+						"x": 415,
+						"y": 158,
+						"w": 50,
+						"h": 49
+					}
+				},
+				{
+					"filename": "Bringer-of-Death_Hurt_1",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 140,
+						"h": 93
+					},
+					"spriteSourceSize": {
+						"x": 80,
+						"y": 42,
+						"w": 47,
+						"h": 50
+					},
+					"frame": {
+						"x": 417,
+						"y": 209,
+						"w": 47,
+						"h": 50
+					}
+				},
+				{
+					"filename": "Bringer-of-Death_Death_9",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 140,
+						"h": 93
+					},
+					"spriteSourceSize": {
+						"x": 88,
+						"y": 25,
+						"w": 40,
+						"h": 49
+					},
+					"frame": {
+						"x": 417,
+						"y": 261,
+						"w": 40,
+						"h": 49
+					}
+				},
+				{
+					"filename": "Bringer-of-Death_Death_10",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 140,
+						"h": 93
+					},
+					"spriteSourceSize": {
+						"x": 96,
+						"y": 25,
+						"w": 33,
+						"h": 40
+					},
+					"frame": {
+						"x": 269,
+						"y": 298,
+						"w": 33,
+						"h": 40
+					}
+				},
+				{
+					"filename": "Bringer-of-Death_Spell_6",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 140,
+						"h": 93
+					},
+					"spriteSourceSize": {
+						"x": 52,
+						"y": 35,
+						"w": 31,
+						"h": 36
+					},
+					"frame": {
+						"x": 417,
+						"y": 312,
+						"w": 31,
+						"h": 36
+					}
+				},
+				{
+					"filename": "Bringer-of-Death_Spell_4",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 140,
+						"h": 93
+					},
+					"spriteSourceSize": {
+						"x": 51,
+						"y": 37,
+						"w": 35,
+						"h": 16
+					},
+					"frame": {
+						"x": 417,
+						"y": 350,
+						"w": 35,
+						"h": 16
+					}
+				},
+				{
+					"filename": "Bringer-of-Death_Spell_3",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 140,
+						"h": 93
+					},
+					"spriteSourceSize": {
+						"x": 51,
+						"y": 37,
+						"w": 35,
+						"h": 16
+					},
+					"frame": {
+						"x": 417,
+						"y": 368,
+						"w": 35,
+						"h": 16
+					}
+				},
+				{
+					"filename": "Bringer-of-Death_Spell_1",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 140,
+						"h": 93
+					},
+					"spriteSourceSize": {
+						"x": 52,
+						"y": 35,
+						"w": 32,
+						"h": 19
+					},
+					"frame": {
+						"x": 216,
+						"y": 308,
+						"w": 32,
+						"h": 19
+					}
+				},
+				{
+					"filename": "Bringer-of-Death_Spell_2",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 140,
+						"h": 93
+					},
+					"spriteSourceSize": {
+						"x": 52,
+						"y": 35,
+						"w": 32,
+						"h": 19
+					},
+					"frame": {
+						"x": 417,
+						"y": 386,
+						"w": 32,
+						"h": 19
+					}
+				},
+				{
+					"filename": "Bringer-of-Death_Spell_16",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 140,
+						"h": 93
+					},
+					"spriteSourceSize": {
+						"x": 52,
+						"y": 35,
+						"w": 31,
+						"h": 19
+					},
+					"frame": {
+						"x": 417,
+						"y": 407,
+						"w": 31,
+						"h": 19
+					}
+				},
+				{
+					"filename": "Bringer-of-Death_Spell_15",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 140,
+						"h": 93
+					},
+					"spriteSourceSize": {
+						"x": 52,
+						"y": 35,
+						"w": 31,
+						"h": 19
+					},
+					"frame": {
+						"x": 417,
+						"y": 428,
+						"w": 31,
+						"h": 19
+					}
+				},
+				{
+					"filename": "Bringer-of-Death_Spell_14",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 140,
+						"h": 93
+					},
+					"spriteSourceSize": {
+						"x": 54,
+						"y": 35,
+						"w": 29,
+						"h": 18
+					},
+					"frame": {
+						"x": 1,
+						"y": 458,
+						"w": 29,
+						"h": 18
+					}
+				},
+				{
+					"filename": "Bringer-of-Death_Spell_5",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 140,
+						"h": 93
+					},
+					"spriteSourceSize": {
+						"x": 54,
+						"y": 35,
+						"w": 29,
+						"h": 23
+					},
+					"frame": {
+						"x": 417,
+						"y": 449,
+						"w": 29,
+						"h": 23
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "http://free-tex-packer.com",
+		"version": "0.6.6"
+	}
+}

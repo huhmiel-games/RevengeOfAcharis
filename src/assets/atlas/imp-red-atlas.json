@@ -1,0 +1,1027 @@
+{
+	"textures": [
+		{
+			"image": "imp-red-atlas.png",
+			"format": "RGBA8888",
+			"size": {
+				"w": 208,
+				"h": 217
+			},
+			"scale": 1,
+			"frames": [
+				{
+					"filename": "imp-red-attack2_4",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 100,
+						"h": 65
+					},
+					"spriteSourceSize": {
+						"x": 18,
+						"y": 29,
+						"w": 61,
+						"h": 30
+					},
+					"frame": {
+						"x": 1,
+						"y": 1,
+						"w": 61,
+						"h": 30
+					}
+				},
+				{
+					"filename": "imp-red-attack1_4",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 100,
+						"h": 65
+					},
+					"spriteSourceSize": {
+						"x": 13,
+						"y": 21,
+						"w": 60,
+						"h": 38
+					},
+					"frame": {
+						"x": 1,
+						"y": 33,
+						"w": 60,
+						"h": 38
+					}
+				},
+				{
+					"filename": "imp-red-stand_up_1",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 50,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 4,
+						"y": 37,
+						"w": 41,
+						"h": 6
+					},
+					"frame": {
+						"x": 64,
+						"y": 1,
+						"w": 41,
+						"h": 6
+					}
+				},
+				{
+					"filename": "imp-red-fall_back_4",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 50,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 4,
+						"y": 33,
+						"w": 41,
+						"h": 10
+					},
+					"frame": {
+						"x": 64,
+						"y": 9,
+						"w": 41,
+						"h": 10
+					}
+				},
+				{
+					"filename": "imp-red-fall_back_5",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 50,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 4,
+						"y": 37,
+						"w": 41,
+						"h": 6
+					},
+					"frame": {
+						"x": 64,
+						"y": 21,
+						"w": 41,
+						"h": 6
+					}
+				},
+				{
+					"filename": "imp-red-attack1_2",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 100,
+						"h": 65
+					},
+					"spriteSourceSize": {
+						"x": 31,
+						"y": 23,
+						"w": 18,
+						"h": 36
+					},
+					"frame": {
+						"x": 63,
+						"y": 33,
+						"w": 18,
+						"h": 36
+					}
+				},
+				{
+					"filename": "imp-red-stand_up_2",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 50,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 8,
+						"y": 30,
+						"w": 35,
+						"h": 13
+					},
+					"frame": {
+						"x": 1,
+						"y": 73,
+						"w": 35,
+						"h": 13
+					}
+				},
+				{
+					"filename": "imp-red-attack1_3",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 100,
+						"h": 65
+					},
+					"spriteSourceSize": {
+						"x": 16,
+						"y": 26,
+						"w": 33,
+						"h": 33
+					},
+					"frame": {
+						"x": 1,
+						"y": 88,
+						"w": 33,
+						"h": 33
+					}
+				},
+				{
+					"filename": "imp-red-walk_4",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 50,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 14,
+						"y": 10,
+						"w": 17,
+						"h": 32
+					},
+					"frame": {
+						"x": 36,
+						"y": 88,
+						"w": 17,
+						"h": 32
+					}
+				},
+				{
+					"filename": "imp-red-walk_1",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 50,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 14,
+						"y": 10,
+						"w": 17,
+						"h": 32
+					},
+					"frame": {
+						"x": 83,
+						"y": 29,
+						"w": 17,
+						"h": 32
+					}
+				},
+				{
+					"filename": "imp-red-jump_2",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 50,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 14,
+						"y": 10,
+						"w": 18,
+						"h": 32
+					},
+					"frame": {
+						"x": 83,
+						"y": 63,
+						"w": 18,
+						"h": 32
+					}
+				},
+				{
+					"filename": "imp-red-jump_4",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 50,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 13,
+						"y": 10,
+						"w": 18,
+						"h": 32
+					},
+					"frame": {
+						"x": 63,
+						"y": 71,
+						"w": 18,
+						"h": 32
+					}
+				},
+				{
+					"filename": "imp-red-run_4",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 50,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 14,
+						"y": 10,
+						"w": 21,
+						"h": 32
+					},
+					"frame": {
+						"x": 102,
+						"y": 29,
+						"w": 21,
+						"h": 32
+					}
+				},
+				{
+					"filename": "imp-red-run_1",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 50,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 19,
+						"y": 10,
+						"w": 12,
+						"h": 32
+					},
+					"frame": {
+						"x": 103,
+						"y": 63,
+						"w": 12,
+						"h": 32
+					}
+				},
+				{
+					"filename": "imp-red-ready_3",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 50,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 16,
+						"y": 11,
+						"w": 18,
+						"h": 31
+					},
+					"frame": {
+						"x": 1,
+						"y": 123,
+						"w": 18,
+						"h": 31
+					}
+				},
+				{
+					"filename": "imp-red-ready_4",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 50,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 16,
+						"y": 11,
+						"w": 18,
+						"h": 31
+					},
+					"frame": {
+						"x": 21,
+						"y": 123,
+						"w": 18,
+						"h": 31
+					}
+				},
+				{
+					"filename": "imp-red-ready_5",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 50,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 16,
+						"y": 11,
+						"w": 18,
+						"h": 31
+					},
+					"frame": {
+						"x": 41,
+						"y": 122,
+						"w": 18,
+						"h": 31
+					}
+				},
+				{
+					"filename": "imp-red-ready_2",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 50,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 16,
+						"y": 11,
+						"w": 18,
+						"h": 31
+					},
+					"frame": {
+						"x": 61,
+						"y": 105,
+						"w": 18,
+						"h": 31
+					}
+				},
+				{
+					"filename": "imp-red-run_3",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 50,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 16,
+						"y": 11,
+						"w": 18,
+						"h": 31
+					},
+					"frame": {
+						"x": 81,
+						"y": 105,
+						"w": 18,
+						"h": 31
+					}
+				},
+				{
+					"filename": "imp-red-walk_3",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 50,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 14,
+						"y": 11,
+						"w": 17,
+						"h": 31
+					},
+					"frame": {
+						"x": 101,
+						"y": 97,
+						"w": 17,
+						"h": 31
+					}
+				},
+				{
+					"filename": "imp-red-run_6",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 50,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 19,
+						"y": 11,
+						"w": 20,
+						"h": 31
+					},
+					"frame": {
+						"x": 117,
+						"y": 63,
+						"w": 20,
+						"h": 31
+					}
+				},
+				{
+					"filename": "imp-red-fall_back_2",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 50,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 13,
+						"y": 11,
+						"w": 22,
+						"h": 31
+					},
+					"frame": {
+						"x": 125,
+						"y": 1,
+						"w": 22,
+						"h": 31
+					}
+				},
+				{
+					"filename": "imp-red-attack2_3",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 100,
+						"h": 65
+					},
+					"spriteSourceSize": {
+						"x": 17,
+						"y": 29,
+						"w": 31,
+						"h": 30
+					},
+					"frame": {
+						"x": 149,
+						"y": 1,
+						"w": 31,
+						"h": 30
+					}
+				},
+				{
+					"filename": "imp-red-walk_6",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 50,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 14,
+						"y": 11,
+						"w": 17,
+						"h": 31
+					},
+					"frame": {
+						"x": 149,
+						"y": 33,
+						"w": 17,
+						"h": 31
+					}
+				},
+				{
+					"filename": "imp-red-fall_back_1",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 50,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 14,
+						"y": 12,
+						"w": 19,
+						"h": 30
+					},
+					"frame": {
+						"x": 139,
+						"y": 66,
+						"w": 19,
+						"h": 30
+					}
+				},
+				{
+					"filename": "imp-red-ready_1",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 50,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 16,
+						"y": 12,
+						"w": 18,
+						"h": 30
+					},
+					"frame": {
+						"x": 160,
+						"y": 66,
+						"w": 18,
+						"h": 30
+					}
+				},
+				{
+					"filename": "imp-red-attack2_1",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 100,
+						"h": 65
+					},
+					"spriteSourceSize": {
+						"x": 31,
+						"y": 29,
+						"w": 18,
+						"h": 30
+					},
+					"frame": {
+						"x": 120,
+						"y": 98,
+						"w": 18,
+						"h": 30
+					}
+				},
+				{
+					"filename": "imp-red-attack2_2",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 100,
+						"h": 65
+					},
+					"spriteSourceSize": {
+						"x": 31,
+						"y": 29,
+						"w": 17,
+						"h": 30
+					},
+					"frame": {
+						"x": 140,
+						"y": 98,
+						"w": 17,
+						"h": 30
+					}
+				},
+				{
+					"filename": "imp-red-attack1_1",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 100,
+						"h": 65
+					},
+					"spriteSourceSize": {
+						"x": 31,
+						"y": 29,
+						"w": 18,
+						"h": 30
+					},
+					"frame": {
+						"x": 159,
+						"y": 98,
+						"w": 18,
+						"h": 30
+					}
+				},
+				{
+					"filename": "imp-red-walk_5",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 50,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 14,
+						"y": 12,
+						"w": 18,
+						"h": 30
+					},
+					"frame": {
+						"x": 1,
+						"y": 156,
+						"w": 18,
+						"h": 30
+					}
+				},
+				{
+					"filename": "imp-red-ready_6",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 50,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 16,
+						"y": 12,
+						"w": 18,
+						"h": 30
+					},
+					"frame": {
+						"x": 21,
+						"y": 156,
+						"w": 18,
+						"h": 30
+					}
+				},
+				{
+					"filename": "imp-red-hit_1",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 50,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 14,
+						"y": 12,
+						"w": 19,
+						"h": 30
+					},
+					"frame": {
+						"x": 41,
+						"y": 155,
+						"w": 19,
+						"h": 30
+					}
+				},
+				{
+					"filename": "imp-red-run_2",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 50,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 13,
+						"y": 12,
+						"w": 21,
+						"h": 30
+					},
+					"frame": {
+						"x": 62,
+						"y": 138,
+						"w": 21,
+						"h": 30
+					}
+				},
+				{
+					"filename": "imp-red-walk_2",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 50,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 14,
+						"y": 12,
+						"w": 17,
+						"h": 30
+					},
+					"frame": {
+						"x": 85,
+						"y": 138,
+						"w": 17,
+						"h": 30
+					}
+				},
+				{
+					"filename": "imp-red-hit_3",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 50,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 13,
+						"y": 12,
+						"w": 20,
+						"h": 30
+					},
+					"frame": {
+						"x": 104,
+						"y": 130,
+						"w": 20,
+						"h": 30
+					}
+				},
+				{
+					"filename": "imp-red-run_5",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 50,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 16,
+						"y": 12,
+						"w": 21,
+						"h": 30
+					},
+					"frame": {
+						"x": 126,
+						"y": 130,
+						"w": 21,
+						"h": 30
+					}
+				},
+				{
+					"filename": "imp-red-jump_1",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 50,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 14,
+						"y": 12,
+						"w": 19,
+						"h": 30
+					},
+					"frame": {
+						"x": 149,
+						"y": 130,
+						"w": 19,
+						"h": 30
+					}
+				},
+				{
+					"filename": "imp-red-attack1_6",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 100,
+						"h": 65
+					},
+					"spriteSourceSize": {
+						"x": 33,
+						"y": 29,
+						"w": 27,
+						"h": 30
+					},
+					"frame": {
+						"x": 168,
+						"y": 33,
+						"w": 27,
+						"h": 30
+					}
+				},
+				{
+					"filename": "imp-red-jump_3",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 50,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 13,
+						"y": 10,
+						"w": 21,
+						"h": 30
+					},
+					"frame": {
+						"x": 182,
+						"y": 1,
+						"w": 21,
+						"h": 30
+					}
+				},
+				{
+					"filename": "imp-red-attack2_6",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 100,
+						"h": 65
+					},
+					"spriteSourceSize": {
+						"x": 33,
+						"y": 29,
+						"w": 27,
+						"h": 30
+					},
+					"frame": {
+						"x": 180,
+						"y": 65,
+						"w": 27,
+						"h": 30
+					}
+				},
+				{
+					"filename": "imp-red-stand_up_5",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 50,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 14,
+						"y": 12,
+						"w": 19,
+						"h": 30
+					},
+					"frame": {
+						"x": 180,
+						"y": 97,
+						"w": 19,
+						"h": 30
+					}
+				},
+				{
+					"filename": "imp-red-fall_back_3",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 50,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 8,
+						"y": 19,
+						"w": 29,
+						"h": 23
+					},
+					"frame": {
+						"x": 104,
+						"y": 162,
+						"w": 29,
+						"h": 23
+					}
+				},
+				{
+					"filename": "imp-red-attack2_5",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 100,
+						"h": 65
+					},
+					"spriteSourceSize": {
+						"x": 33,
+						"y": 30,
+						"w": 18,
+						"h": 29
+					},
+					"frame": {
+						"x": 179,
+						"y": 129,
+						"w": 18,
+						"h": 29
+					}
+				},
+				{
+					"filename": "imp-red-hit_2",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 50,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 12,
+						"y": 14,
+						"w": 21,
+						"h": 28
+					},
+					"frame": {
+						"x": 1,
+						"y": 188,
+						"w": 21,
+						"h": 28
+					}
+				},
+				{
+					"filename": "imp-red-attack1_5",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 100,
+						"h": 65
+					},
+					"spriteSourceSize": {
+						"x": 33,
+						"y": 32,
+						"w": 20,
+						"h": 27
+					},
+					"frame": {
+						"x": 125,
+						"y": 34,
+						"w": 20,
+						"h": 27
+					}
+				},
+				{
+					"filename": "imp-red-stand_up_4",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 50,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 14,
+						"y": 16,
+						"w": 18,
+						"h": 26
+					},
+					"frame": {
+						"x": 24,
+						"y": 188,
+						"w": 18,
+						"h": 26
+					}
+				},
+				{
+					"filename": "imp-red-jump_5",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 50,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 14,
+						"y": 16,
+						"w": 18,
+						"h": 26
+					},
+					"frame": {
+						"x": 44,
+						"y": 187,
+						"w": 18,
+						"h": 26
+					}
+				},
+				{
+					"filename": "imp-red-stand_up_3",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 50,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 14,
+						"y": 22,
+						"w": 23,
+						"h": 21
+					},
+					"frame": {
+						"x": 64,
+						"y": 187,
+						"w": 23,
+						"h": 21
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "http://free-tex-packer.com",
+		"version": "0.6.6"
+	}
+}

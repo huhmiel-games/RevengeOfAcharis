@@ -1,0 +1,153 @@
+{
+    "maps": [
+        {
+            "fileName": "map0.json",
+            "height": 384,
+            "width": 384,
+            "x": -2688,
+            "y": -5376
+        },
+        {
+            "fileName": "map1.json",
+            "height": 256,
+            "width": 2400,
+            "x": 1376,
+            "y": 336
+        },
+        {
+            "fileName": "map2.json",
+            "height": 512,
+            "width": 800,
+            "x": 576,
+            "y": 80
+        },
+        {
+            "fileName": "map3.json",
+            "height": 288,
+            "width": 1600,
+            "x": 3776,
+            "y": 304
+        },
+        {
+            "fileName": "map4.json",
+            "height": 288,
+            "width": 512,
+            "x": 5376,
+            "y": 288
+        },
+        {
+            "fileName": "map5.json",
+            "height": 256,
+            "width": 1200,
+            "x": 5888,
+            "y": 288
+        },
+        {
+            "fileName": "map6.json",
+            "height": 1024,
+            "width": 400,
+            "x": 7088,
+            "y": -496
+        },
+        {
+            "fileName": "map8.json",
+            "height": 1024,
+            "width": 512,
+            "x": 6576,
+            "y": -1328
+        },
+        {
+            "fileName": "map9.json",
+            "height": 256,
+            "width": 400,
+            "x": 8000,
+            "y": -16
+        },
+        {
+            "fileName": "map10.json",
+            "height": 1280,
+            "width": 512,
+            "x": 6064,
+            "y": -2384
+        },
+        {
+            "fileName": "map11.json",
+            "height": 256,
+            "width": 800,
+            "x": 6576,
+            "y": -2304
+        },
+        {
+            "fileName": "map12.json",
+            "height": 256,
+            "width": 400,
+            "x": 7376,
+            "y": -2304
+        },
+        {
+            "fileName": "map13.json",
+            "height": 512,
+            "width": 1200,
+            "x": 7776,
+            "y": -2160
+        },
+        {
+            "fileName": "map14.json",
+            "height": 768,
+            "width": 400,
+            "x": 8976,
+            "y": -2816
+        },
+        {
+            "fileName": "map15.json",
+            "height": 512,
+            "width": 1200,
+            "x": 7776,
+            "y": -3216
+        },
+        {
+            "fileName": "map16.json",
+            "height": 512,
+            "width": 400,
+            "x": 7376,
+            "y": -3584
+        },
+        {
+            "fileName": "map17.json",
+            "height": 256,
+            "width": 400,
+            "x": 7776,
+            "y": -3712
+        },
+        {
+            "fileName": "map18.json",
+            "height": 512,
+            "width": 800,
+            "x": 8176,
+            "y": -3984
+        },
+        {
+            "fileName": "map19.json",
+            "height": 256,
+            "width": 400,
+            "x": 8976,
+            "y": -3712
+        },
+        {
+            "fileName": "map20.json",
+            "height": 256,
+            "width": 400,
+            "x": 7600,
+            "y": -16
+        },
+        {
+            "fileName": "map7.json",
+            "height": 288,
+            "width": 800,
+            "x": 7600,
+            "y": 400
+        }
+    ],
+    "onlyShowAdjacentMaps": false,
+    "type": "world"
+}

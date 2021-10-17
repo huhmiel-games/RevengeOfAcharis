@@ -1,0 +1,985 @@
+{
+	"textures": [
+		{
+			"image": "evil-wizard2-atlas.png",
+			"format": "RGBA8888",
+			"size": {
+				"w": 799,
+				"h": 508
+			},
+			"scale": 1,
+			"frames": [
+				{
+					"filename": "evil-wizard2-attack2_4",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 250,
+						"h": 250
+					},
+					"spriteSourceSize": {
+						"x": 83,
+						"y": 39,
+						"w": 160,
+						"h": 129
+					},
+					"frame": {
+						"x": 1,
+						"y": 1,
+						"w": 160,
+						"h": 129
+					}
+				},
+				{
+					"filename": "evil-wizard2-attack2_6",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 250,
+						"h": 250
+					},
+					"spriteSourceSize": {
+						"x": 92,
+						"y": 31,
+						"w": 141,
+						"h": 149
+					},
+					"frame": {
+						"x": 1,
+						"y": 132,
+						"w": 141,
+						"h": 149
+					}
+				},
+				{
+					"filename": "evil-wizard2-attack2_5",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 250,
+						"h": 250
+					},
+					"spriteSourceSize": {
+						"x": 88,
+						"y": 35,
+						"w": 148,
+						"h": 139
+					},
+					"frame": {
+						"x": 163,
+						"y": 1,
+						"w": 148,
+						"h": 139
+					}
+				},
+				{
+					"filename": "evil-wizard2-attack1_6",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 250,
+						"h": 250
+					},
+					"spriteSourceSize": {
+						"x": 109,
+						"y": 26,
+						"w": 127,
+						"h": 141
+					},
+					"frame": {
+						"x": 1,
+						"y": 283,
+						"w": 127,
+						"h": 141
+					}
+				},
+				{
+					"filename": "evil-wizard2-attack1_4",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 250,
+						"h": 250
+					},
+					"spriteSourceSize": {
+						"x": 109,
+						"y": 52,
+						"w": 127,
+						"h": 115
+					},
+					"frame": {
+						"x": 130,
+						"y": 283,
+						"w": 127,
+						"h": 115
+					}
+				},
+				{
+					"filename": "evil-wizard2-attack1_5",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 250,
+						"h": 250
+					},
+					"spriteSourceSize": {
+						"x": 109,
+						"y": 47,
+						"w": 127,
+						"h": 120
+					},
+					"frame": {
+						"x": 144,
+						"y": 142,
+						"w": 127,
+						"h": 120
+					}
+				},
+				{
+					"filename": "evil-wizard2-attack2_3",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 250,
+						"h": 250
+					},
+					"spriteSourceSize": {
+						"x": 82,
+						"y": 45,
+						"w": 75,
+						"h": 122
+					},
+					"frame": {
+						"x": 313,
+						"y": 1,
+						"w": 75,
+						"h": 122
+					}
+				},
+				{
+					"filename": "evil-wizard2-death_5",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 250,
+						"h": 250
+					},
+					"spriteSourceSize": {
+						"x": 108,
+						"y": 45,
+						"w": 96,
+						"h": 122
+					},
+					"frame": {
+						"x": 273,
+						"y": 142,
+						"w": 96,
+						"h": 122
+					}
+				},
+				{
+					"filename": "evil-wizard2-attack1_3",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 250,
+						"h": 250
+					},
+					"spriteSourceSize": {
+						"x": 109,
+						"y": 88,
+						"w": 120,
+						"h": 79
+					},
+					"frame": {
+						"x": 259,
+						"y": 266,
+						"w": 120,
+						"h": 79
+					}
+				},
+				{
+					"filename": "evil-wizard2-attack1_7",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 250,
+						"h": 250
+					},
+					"spriteSourceSize": {
+						"x": 109,
+						"y": 47,
+						"w": 79,
+						"h": 120
+					},
+					"frame": {
+						"x": 390,
+						"y": 1,
+						"w": 79,
+						"h": 120
+					}
+				},
+				{
+					"filename": "evil-wizard2-attack2_2",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 250,
+						"h": 250
+					},
+					"spriteSourceSize": {
+						"x": 81,
+						"y": 53,
+						"w": 75,
+						"h": 114
+					},
+					"frame": {
+						"x": 390,
+						"y": 123,
+						"w": 75,
+						"h": 114
+					}
+				},
+				{
+					"filename": "evil-wizard2-death_4",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 250,
+						"h": 250
+					},
+					"spriteSourceSize": {
+						"x": 108,
+						"y": 57,
+						"w": 105,
+						"h": 110
+					},
+					"frame": {
+						"x": 471,
+						"y": 1,
+						"w": 105,
+						"h": 110
+					}
+				},
+				{
+					"filename": "evil-wizard2-attack2_0",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 250,
+						"h": 250
+					},
+					"spriteSourceSize": {
+						"x": 109,
+						"y": 58,
+						"w": 72,
+						"h": 109
+					},
+					"frame": {
+						"x": 471,
+						"y": 113,
+						"w": 72,
+						"h": 109
+					}
+				},
+				{
+					"filename": "evil-wizard2-attack2_1",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 250,
+						"h": 250
+					},
+					"spriteSourceSize": {
+						"x": 84,
+						"y": 60,
+						"w": 72,
+						"h": 107
+					},
+					"frame": {
+						"x": 467,
+						"y": 224,
+						"w": 72,
+						"h": 107
+					}
+				},
+				{
+					"filename": "evil-wizard2-death_6",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 250,
+						"h": 250
+					},
+					"spriteSourceSize": {
+						"x": 108,
+						"y": 154,
+						"w": 105,
+						"h": 13
+					},
+					"frame": {
+						"x": 144,
+						"y": 264,
+						"w": 105,
+						"h": 13
+					}
+				},
+				{
+					"filename": "evil-wizard2-idle_5",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 250,
+						"h": 250
+					},
+					"spriteSourceSize": {
+						"x": 108,
+						"y": 63,
+						"w": 55,
+						"h": 104
+					},
+					"frame": {
+						"x": 381,
+						"y": 239,
+						"w": 55,
+						"h": 104
+					}
+				},
+				{
+					"filename": "evil-wizard2-idle_2",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 250,
+						"h": 250
+					},
+					"spriteSourceSize": {
+						"x": 108,
+						"y": 64,
+						"w": 56,
+						"h": 103
+					},
+					"frame": {
+						"x": 578,
+						"y": 1,
+						"w": 56,
+						"h": 103
+					}
+				},
+				{
+					"filename": "evil-wizard2-idle_3",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 250,
+						"h": 250
+					},
+					"spriteSourceSize": {
+						"x": 108,
+						"y": 64,
+						"w": 56,
+						"h": 103
+					},
+					"frame": {
+						"x": 578,
+						"y": 106,
+						"w": 56,
+						"h": 103
+					}
+				},
+				{
+					"filename": "evil-wizard2-death_3",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 250,
+						"h": 250
+					},
+					"spriteSourceSize": {
+						"x": 108,
+						"y": 64,
+						"w": 96,
+						"h": 103
+					},
+					"frame": {
+						"x": 636,
+						"y": 1,
+						"w": 96,
+						"h": 103
+					}
+				},
+				{
+					"filename": "evil-wizard2-idle_1",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 250,
+						"h": 250
+					},
+					"spriteSourceSize": {
+						"x": 108,
+						"y": 67,
+						"w": 56,
+						"h": 100
+					},
+					"frame": {
+						"x": 636,
+						"y": 106,
+						"w": 56,
+						"h": 100
+					}
+				},
+				{
+					"filename": "evil-wizard2-idle_4",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 250,
+						"h": 250
+					},
+					"spriteSourceSize": {
+						"x": 108,
+						"y": 67,
+						"w": 57,
+						"h": 100
+					},
+					"frame": {
+						"x": 636,
+						"y": 208,
+						"w": 57,
+						"h": 100
+					}
+				},
+				{
+					"filename": "evil-wizard2-idle_6",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 250,
+						"h": 250
+					},
+					"spriteSourceSize": {
+						"x": 108,
+						"y": 70,
+						"w": 54,
+						"h": 97
+					},
+					"frame": {
+						"x": 541,
+						"y": 310,
+						"w": 54,
+						"h": 97
+					}
+				},
+				{
+					"filename": "evil-wizard2-idle_7",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 250,
+						"h": 250
+					},
+					"spriteSourceSize": {
+						"x": 108,
+						"y": 70,
+						"w": 56,
+						"h": 97
+					},
+					"frame": {
+						"x": 545,
+						"y": 211,
+						"w": 56,
+						"h": 97
+					}
+				},
+				{
+					"filename": "evil-wizard2-idle_0",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 250,
+						"h": 250
+					},
+					"spriteSourceSize": {
+						"x": 108,
+						"y": 72,
+						"w": 57,
+						"h": 95
+					},
+					"frame": {
+						"x": 597,
+						"y": 310,
+						"w": 57,
+						"h": 95
+					}
+				},
+				{
+					"filename": "evil-wizard2-death_2",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 250,
+						"h": 250
+					},
+					"spriteSourceSize": {
+						"x": 108,
+						"y": 72,
+						"w": 66,
+						"h": 95
+					},
+					"frame": {
+						"x": 656,
+						"y": 310,
+						"w": 66,
+						"h": 95
+					}
+				},
+				{
+					"filename": "evil-wizard2-fall_1",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 250,
+						"h": 250
+					},
+					"spriteSourceSize": {
+						"x": 107,
+						"y": 74,
+						"w": 64,
+						"h": 93
+					},
+					"frame": {
+						"x": 734,
+						"y": 1,
+						"w": 64,
+						"h": 93
+					}
+				},
+				{
+					"filename": "evil-wizard2-death_1",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 250,
+						"h": 250
+					},
+					"spriteSourceSize": {
+						"x": 108,
+						"y": 74,
+						"w": 52,
+						"h": 93
+					},
+					"frame": {
+						"x": 694,
+						"y": 106,
+						"w": 52,
+						"h": 93
+					}
+				},
+				{
+					"filename": "evil-wizard2-hurt_0",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 250,
+						"h": 250
+					},
+					"spriteSourceSize": {
+						"x": 106,
+						"y": 80,
+						"w": 45,
+						"h": 87
+					},
+					"frame": {
+						"x": 438,
+						"y": 333,
+						"w": 45,
+						"h": 87
+					}
+				},
+				{
+					"filename": "evil-wizard2-attack2_7",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 250,
+						"h": 250
+					},
+					"spriteSourceSize": {
+						"x": 109,
+						"y": 81,
+						"w": 66,
+						"h": 87
+					},
+					"frame": {
+						"x": 724,
+						"y": 201,
+						"w": 66,
+						"h": 87
+					}
+				},
+				{
+					"filename": "evil-wizard2-fall_0",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 250,
+						"h": 250
+					},
+					"spriteSourceSize": {
+						"x": 107,
+						"y": 81,
+						"w": 65,
+						"h": 86
+					},
+					"frame": {
+						"x": 724,
+						"y": 290,
+						"w": 65,
+						"h": 86
+					}
+				},
+				{
+					"filename": "evil-wizard2-hurt_1",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 250,
+						"h": 250
+					},
+					"spriteSourceSize": {
+						"x": 108,
+						"y": 81,
+						"w": 34,
+						"h": 86
+					},
+					"frame": {
+						"x": 485,
+						"y": 333,
+						"w": 34,
+						"h": 86
+					}
+				},
+				{
+					"filename": "evil-wizard2-death_0",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 250,
+						"h": 250
+					},
+					"spriteSourceSize": {
+						"x": 108,
+						"y": 84,
+						"w": 45,
+						"h": 83
+					},
+					"frame": {
+						"x": 748,
+						"y": 96,
+						"w": 45,
+						"h": 83
+					}
+				},
+				{
+					"filename": "evil-wizard2-jump_0",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 250,
+						"h": 250
+					},
+					"spriteSourceSize": {
+						"x": 91,
+						"y": 86,
+						"w": 69,
+						"h": 81
+					},
+					"frame": {
+						"x": 1,
+						"y": 426,
+						"w": 69,
+						"h": 81
+					}
+				},
+				{
+					"filename": "evil-wizard2-hurt_2",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 250,
+						"h": 250
+					},
+					"spriteSourceSize": {
+						"x": 108,
+						"y": 87,
+						"w": 35,
+						"h": 80
+					},
+					"frame": {
+						"x": 72,
+						"y": 426,
+						"w": 35,
+						"h": 80
+					}
+				},
+				{
+					"filename": "evil-wizard2-jump_1",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 250,
+						"h": 250
+					},
+					"spriteSourceSize": {
+						"x": 82,
+						"y": 87,
+						"w": 78,
+						"h": 80
+					},
+					"frame": {
+						"x": 109,
+						"y": 426,
+						"w": 78,
+						"h": 80
+					}
+				},
+				{
+					"filename": "evil-wizard2-attack1_2",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 250,
+						"h": 250
+					},
+					"spriteSourceSize": {
+						"x": 84,
+						"y": 91,
+						"w": 52,
+						"h": 76
+					},
+					"frame": {
+						"x": 381,
+						"y": 345,
+						"w": 52,
+						"h": 76
+					}
+				},
+				{
+					"filename": "evil-wizard2-run_3",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 250,
+						"h": 250
+					},
+					"spriteSourceSize": {
+						"x": 89,
+						"y": 99,
+						"w": 70,
+						"h": 68
+					},
+					"frame": {
+						"x": 724,
+						"y": 378,
+						"w": 70,
+						"h": 68
+					}
+				},
+				{
+					"filename": "evil-wizard2-attack1_1",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 250,
+						"h": 250
+					},
+					"spriteSourceSize": {
+						"x": 78,
+						"y": 98,
+						"w": 55,
+						"h": 69
+					},
+					"frame": {
+						"x": 189,
+						"y": 423,
+						"w": 55,
+						"h": 69
+					}
+				},
+				{
+					"filename": "evil-wizard2-run_1",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 250,
+						"h": 250
+					},
+					"spriteSourceSize": {
+						"x": 92,
+						"y": 105,
+						"w": 67,
+						"h": 62
+					},
+					"frame": {
+						"x": 246,
+						"y": 423,
+						"w": 67,
+						"h": 62
+					}
+				},
+				{
+					"filename": "evil-wizard2-run_2",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 250,
+						"h": 250
+					},
+					"spriteSourceSize": {
+						"x": 92,
+						"y": 102,
+						"w": 67,
+						"h": 65
+					},
+					"frame": {
+						"x": 259,
+						"y": 347,
+						"w": 67,
+						"h": 65
+					}
+				},
+				{
+					"filename": "evil-wizard2-run_4",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 250,
+						"h": 250
+					},
+					"spriteSourceSize": {
+						"x": 92,
+						"y": 106,
+						"w": 67,
+						"h": 61
+					},
+					"frame": {
+						"x": 315,
+						"y": 423,
+						"w": 67,
+						"h": 61
+					}
+				},
+				{
+					"filename": "evil-wizard2-run_5",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 250,
+						"h": 250
+					},
+					"spriteSourceSize": {
+						"x": 93,
+						"y": 100,
+						"w": 66,
+						"h": 67
+					},
+					"frame": {
+						"x": 384,
+						"y": 423,
+						"w": 66,
+						"h": 67
+					}
+				},
+				{
+					"filename": "evil-wizard2-run_0",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 250,
+						"h": 250
+					},
+					"spriteSourceSize": {
+						"x": 94,
+						"y": 106,
+						"w": 65,
+						"h": 61
+					},
+					"frame": {
+						"x": 452,
+						"y": 422,
+						"w": 65,
+						"h": 61
+					}
+				},
+				{
+					"filename": "evil-wizard2-run_6",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 250,
+						"h": 250
+					},
+					"spriteSourceSize": {
+						"x": 94,
+						"y": 102,
+						"w": 65,
+						"h": 65
+					},
+					"frame": {
+						"x": 519,
+						"y": 421,
+						"w": 65,
+						"h": 65
+					}
+				},
+				{
+					"filename": "evil-wizard2-run_7",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 250,
+						"h": 250
+					},
+					"spriteSourceSize": {
+						"x": 96,
+						"y": 100,
+						"w": 63,
+						"h": 64
+					},
+					"frame": {
+						"x": 586,
+						"y": 409,
+						"w": 63,
+						"h": 64
+					}
+				},
+				{
+					"filename": "evil-wizard2-attack1_0",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 250,
+						"h": 250
+					},
+					"spriteSourceSize": {
+						"x": 74,
+						"y": 107,
+						"w": 58,
+						"h": 60
+					},
+					"frame": {
+						"x": 651,
+						"y": 407,
+						"w": 58,
+						"h": 60
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "http://free-tex-packer.com",
+		"version": "0.6.6"
+	}
+}
