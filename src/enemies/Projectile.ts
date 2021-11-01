@@ -1,11 +1,22 @@
+import { GameObjects } from 'phaser';
 import GameScene from '../scenes/GameScene';
 import Enemy from './Enemy';
 
-export default class Projectile extends Enemy
+export default class Projectile extends GameObjects.Sprite
 {
+    public scene: GameScene;
+    public body: Phaser.Physics.Arcade.Body;
+    public enemyState = {
+        damage: 0 as number
+    };
+    
     constructor (scene: GameScene, x: number, y: number, config: any)
     {
         super(scene, x, y, config);
+
+        this.scene = scene;
+
+        this.scene.physics.world.enable(this);
     }
 
     public preUpdate (time: number, delta: number)
@@ -23,6 +34,11 @@ export default class Projectile extends Enemy
                 this.flipX = true;
             }
         }
+    }
+
+    public looseLife (damage: number): void
+    {
+        return;
     }
 
     public explode ()

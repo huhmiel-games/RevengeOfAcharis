@@ -1,5 +1,6 @@
 import GameScene from '../scenes/GameScene';
 import Enemy from './Enemy';
+import Projectile from './Projectile';
 
 export default class Wizard extends Enemy
 {
@@ -107,11 +108,16 @@ export default class Wizard extends Enemy
         this.isAppearing = false;
 
         this.wizardTimer.destroy();
+
         this.anims.play('wizard-idle', true);
+
         const randomX = Phaser.Math.Between(this.scene.player.x - 180, this.scene.player.x + 180);
         const randomY = Phaser.Math.Between(this.scene.player.y - 50, this.scene.player.y + 50);
+
         this.setPosition(randomX, randomY);
+
         this.scene.sound.play('wizardAppear', { volume: 1, rate: 1 });
+
         this.fadingTween = this.scene.tweens.add({
             targets: this,
             ease: 'Sine.easeInOut',
@@ -128,7 +134,9 @@ export default class Wizard extends Enemy
                 if (this.active)
                 {
                     this.isFiring = true;
+
                     this.anims.play('wizard-fire', true);
+
                     this.fireThePlayer();
                 }
             },
@@ -191,15 +199,14 @@ export default class Wizard extends Enemy
 
         this.isFiring = true;
 
-        const ball = this.scene.fireballs.getFirstDead(true, this.body.x, this.body.y, 'fireBall', undefined, true);
+        const ball: Projectile = this.scene.fireballs.getFirstDead(true, this.body.x, this.body.y, 'fireBall', undefined, true);
 
         if (ball)
         {
-            ball.visible = true;
+            ball.setVisible(true).setDepth(102).setName('fireball').setAlpha(1);
             ball.anims.play('fireball', true);
-            ball.setDepth(102);
+
             ball.enemyState = { damage: 5 };
-            ball.name = 'fireball';
             ball.body.setCircle(6);
 
             this.scene.projectileGroup.push(ball);

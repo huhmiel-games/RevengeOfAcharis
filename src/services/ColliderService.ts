@@ -1,6 +1,8 @@
 import Enemy from '../enemies/Enemy';
 import Projectile from '../enemies/Projectile';
+import Arrow from '../player/Arrow';
 import Player from '../player/Player';
+import PowerUp from '../player/powerUp';
 import GameScene from '../scenes/GameScene';
 import CrumbleService from './CrumbleService';
 import DoorService from './DoorService';
@@ -35,9 +37,9 @@ export default class ColliderService
                 }
 
                 // if player is on spikes
-                if (tile.properties.spikeBlock)
+                if (tile.properties.spikeBlock && !player.isOnSpike)
                 {
-                    scene.playerOnSpikes(20);
+                    player.onSpikes(10);
                 }
 
                 // if player is on crumble tile
@@ -55,8 +57,6 @@ export default class ColliderService
                 // if player overlap with saveBlock tile
                 if (tile.properties.saveBlock)
                 {
-                    // scene.colliderLayer.removeTileAt(tile.x, tile.y);
-
                     scene.askForGameSave(player, tile);
                 }
 
@@ -99,10 +99,11 @@ export default class ColliderService
 
         scene.physics.add.overlap(scene.giveLifeGroup, scene.player, elm => scene.player.getLife(elm), undefined, scene.player);
 
-        scene.physics.add.overlap(scene.powerups, scene.player, elm => scene.getPowerUp(elm as any), undefined, scene);
+        scene.physics.add.overlap(scene.powerups, scene.player, elm => scene.getPowerUp(elm as PowerUp), undefined, scene);
 
         scene.physics.add.overlap(scene.player, scene.enemyGroup, (player, enemy) => scene.playerIsHit(enemy as Enemy), undefined, scene);
         scene.physics.add.overlap(scene.player, scene.projectileGroup, (player, projectile) => scene.playerIsHit(projectile as Projectile), undefined, scene);
-        scene.physics.add.overlap(scene.player.sword, scene.enemyGroup, (weapon, enemy) => scene.enemyIsHit(weapon, enemy), undefined, scene.player);
+        scene.physics.add.overlap([scene.player.swords, scene.player.arrows], scene.enemyGroup, (weapon, enemy) => scene.enemyIsHit(weapon, enemy), undefined, scene);
+        scene.physics.add.collider([scene.player.swords, scene.player.arrows], scene.colliderLayer, undefined, undefined, scene);
     }
 }

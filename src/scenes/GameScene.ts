@@ -1,6 +1,6 @@
 import { Scene } from 'phaser';
 import animatedTilesPlugin from '../plugins/AnimatedTiles.js';
-import { WIDTH, HEIGHT, FONTS, SCENES_NAMES, FONTS_SIZES } from '../constant/config';
+import { WIDTH, HEIGHT, FONTS, SCENES_NAMES, FONTS_SIZES, SWORDS, TILE_SIZE, SHIELDS, BOWS } from '../constant/config';
 import PowerUp from '../player/powerUp';
 import HellHound from '../enemies/HellHound';
 import Thing from '../enemies/Thing';
@@ -21,17 +21,19 @@ import ColliderService from '../services/ColliderService';
 import LayerService from '../services/LayerService';
 import GenerateWorldRoom from '../utils/GenerateWorldRoom';
 import Player from '../player/Player';
-import { TNpc } from '../types/types';
+import { TBowConfig, TNpc, TShieldConfig, TSwordConfig } from '../types/types';
 import Npc from '../npc/Npc';
 import Enemy from '../enemies/Enemy';
 import SaveLoadService from '../services/SaveLoadService';
 import Cloud from '../props/Cloud';
 import { COLORS } from '../constant/colors';
 import Projectile from '../enemies/Projectile';
-
-
-
-
+import Viking from '../enemies/Viking';
+import Minotaur from '../enemies/Minotaur';
+import DEPTH from '../constant/depth.js';
+import SkeletonFlail from '../enemies/SkeletonFlail';
+import SkeletonSword from '../enemies/SkeletonSword';
+import Arrow from '../player/Arrow.js';
 
 
 export default class GameScene extends Scene
@@ -66,8 +68,6 @@ export default class GameScene extends Scene
     public revengeTheme: Phaser.Sound.BaseSound;
     public EndingTheme: Phaser.Sound.BaseSound;
     public thunderGateSfx: Phaser.Sound.BaseSound;
-    public playerHurt: boolean;
-    public thunderOnPlayer: boolean;
     public thunderPower: any;
     public fireballs: any;
     public breathBlue: any;
@@ -113,8 +113,12 @@ export default class GameScene extends Scene
     public player: Player;
     public backUi: Phaser.GameObjects.Image;
     private isCheckSaving: boolean = false;
-    private isSaving: boolean;
+    public isSaving: boolean;
     public projectiles: Phaser.Physics.Arcade.Group;
+    public isPause: boolean = false;
+    private pauseText: Phaser.GameObjects.BitmapText;
+    public torchs: Phaser.GameObjects.Group;
+    public candles: Phaser.GameObjects.Group;
 
     constructor ()
     {
@@ -224,13 +228,15 @@ export default class GameScene extends Scene
         // PLAYER SECTION
         this.player = new Player(this, 80, 170, { key: 'playerAtlas' }); // 458, 122 4 * 16, 6 * 16
 
-        if (!SaveLoadService.loadGameData())
-        {
-            SaveLoadService.saveNewGameData(this.player.inventory);
-        }
+        this.torchs = this.add.group({
+            classType: Phaser.GameObjects.PointLight,
+            maxSize: 20,
+        });
 
-        this.playerHurt = false;
-        this.thunderOnPlayer = false;
+        this.candles = this.add.group({
+            classType: Phaser.GameObjects.PointLight,
+            maxSize: 20,
+        });
 
         this.thunderPower = this.physics.add.group({
             defaultKey: 'thunder-storm',
@@ -268,6 +274,10 @@ export default class GameScene extends Scene
             maxSize: 8,
             allowGravity: false
         });
+
+
+        this.watchWindowInactive();
+
         // this.playerFlashTween = null;
 
         // ====================================================================
@@ -336,7 +346,7 @@ export default class GameScene extends Scene
         // this.physics.world.setFPS(120);
 
         // toggler for pause button
-        this.isPausing = false;
+        // this.isPausing = false;
 
         // DEBUG / HELPERS
 
@@ -358,8 +368,60 @@ export default class GameScene extends Scene
         }
     }
 
+    /**
+     * Check if window is blurred
+     */
+    private watchWindowInactive (): void
+    {
+        this.game.events.once('blur', () =>
+        {
+            this.isPause = true;
+
+            this.events.emit('isPause', this.isPause);
+
+            if (!this.cameras.main)
+            {
+                return;
+            }
+
+            this.pauseText = this.add.bitmapText(WIDTH / 2, HEIGHT / 2, FONTS.GALAXY, 'pause', FONTS_SIZES.GALAXY, 1)
+                .setDepth(2000)
+                .setOrigin(0.5, 0.5)
+                .setScrollFactor(0, 0)
+                .setTintFill(COLORS.RED);
+
+            this.setPause();
+
+            this.watchWindowActive();
+        });
+    }
+
+    /**
+     * Check if window is focused
+     */
+    private watchWindowActive ()
+    {
+        this.game.events.once('focus', () =>
+        {
+            this.isPause = false;
+
+            this.events.emit('isPause', this.isPause);
+
+            if (this.pauseText)
+            {
+                this.pauseText.destroy();
+            }
+
+            this.unPause();
+
+            this.watchWindowInactive();
+        });
+    }
+
     public setPause ()
     {
+        this.isPause = true;
+
         if (this.physics.world)
         {
             this.physics.pause();
@@ -377,6 +439,8 @@ export default class GameScene extends Scene
 
     public unPause ()
     {
+        this.isPause = false;
+
         if (this.physics.world)
         {
             this.physics.resume();
@@ -437,49 +501,115 @@ export default class GameScene extends Scene
     }
 
     // ====================================================================
-    public getPowerUp (elm: { powerUpState: { ability: string; id: string | number; text: string | string[] | undefined; }; destroy: () => void; })
+    public getPowerUp (elm: PowerUp)
     {
         this.state.displayPowerUpMsg = true;
 
-        if (elm.powerUpState.ability === 'bow')
-        {
-            this.player.addBow();
-        }
-        else if (elm.powerUpState.ability === 'jumpBoots')
-        {
-            this.player.addJumpBoots();
-        }
-        else
-        {
-            this.player.inventory[elm.powerUpState.ability] = true;
-        }
-        this.sound.play('powerUp');
-        this.player.inventory.powerUp[elm.powerUpState.id] = 1;
+        const inventory = this.player.inventoryManager.getInventory();
 
-        this.pauseGamePowerUp();
+        if (elm.category === 'sword')
+        {
+            const props: TSwordConfig = elm.properties as TSwordConfig;
+
+            this.player.swordManager.addSword(props);
+
+            inventory.swords.push(elm.id);
+        }
+
+        if (elm.category === 'shield')
+        {
+            const props: TShieldConfig = elm.properties as TShieldConfig;
+
+            this.player.shieldManager.addShield(props);
+
+            inventory.shields.push(elm.id);
+
+            if (inventory.selectedShield === null) inventory.selectedShield = elm.id;
+        }
+
+        if (elm.category === 'bow')
+        {
+            const props: TBowConfig = elm.properties as TBowConfig;
+
+            this.player.bowManager.addBow(props);
+
+            inventory.bows.push(elm.id);
+
+            if (inventory.selectedBow === null) inventory.selectedBow = elm.id;
+        }
+
+        if (elm.category === 'equipment')
+        {
+            if (elm.id === 23) this.player.addJumpBoots();
+        }
+        
+        this.sound.play('powerUp');
+
+        
+        inventory.powerUp.push(elm.id);
+
+
+        this.setPause();
+
         const pos = this.getCamCenter();
-        this.msgtext = this.add.bitmapText(pos.x, pos.y, FONTS.MINIMAL, elm.powerUpState.text, 12, 1)
+
+        // @ts-ignore
+        const ui = this.add.rexNinePatch(WIDTH / 2, HEIGHT / 2, WIDTH / 2, HEIGHT / 2, 'framing', [7, undefined, 7], [7, undefined, 7], 0)
+            .setOrigin(0.5, 0.5)
+            .setDepth(1999)
+            .setScrollFactor(0, 0)
+            .setVisible(true);
+
+        let txt = '';
+
+        if (elm.category === 'sword')
+        {
+            const props: TSwordConfig = elm.properties as TSwordConfig;
+
+            txt = `${props.name.toUpperCase()}
+${props.desc}
+ATK: ${props.damage}  RATE: ${props.rate}`;
+        }
+
+        if (elm.category === 'shield')
+        {
+            const props: TShieldConfig = elm.properties as TShieldConfig;
+
+            txt = `${props.name.toUpperCase()}
+${props.desc}
+DEF: ${props.defense}`;
+        }
+
+        if (elm.category === 'bow')
+        {
+            const props: TBowConfig = elm.properties as TBowConfig;
+
+            txt = `${props.name.toUpperCase()}
+${props.desc}
+ATK: ${props.damage}  RATE: ${props.rate}  SPEED: ${props.speed}`;
+        }
+
+        if (elm.category === 'equipment')
+        {
+            txt = `${elm.properties.name.toUpperCase()}
+${elm.properties.desc}`;
+        }
+
+
+        const powerUpDesc = this.add.bitmapText(WIDTH / 2, HEIGHT / 2, FONTS.ULTIMA_BOLD, txt, FONTS_SIZES.ULTIMA_BOLD, 1)
             .setOrigin(0.5, 0.5)
             .setAlpha(1)
-            .setDepth(210);
+            .setDepth(2000)
+            .setScrollFactor(0, 0);
+
         elm.destroy();
 
-        this.fadingTween = this.tweens.add({
-            targets: [this.msgtext],
-            ease: 'Sine.easeInOut',
-            duration: 3000,
-            delay: 200,
-            repeat: 0,
-            yoyo: false,
-            alpha: {
-                getStart: () => 1,
-                getEnd: () => 0,
-            },
-            onComplete: () =>
-            {
-                this.msgtext.destroy();
-                // this.state.displayPowerUpMsg = false;
-            },
+        const dialog = this.input.keyboard.once(Phaser.Input.Keyboard.Events.ANY_KEY_DOWN, (event) =>
+        {
+            powerUpDesc.destroy();
+            ui.destroy();
+            dialog.removeAllListeners();
+            this.unPause();
         });
     }
 
@@ -491,19 +621,19 @@ export default class GameScene extends Scene
         {
             return;
         }
-        if (!this.isPausing && !this.player.playerState.pause)
+        if (!this.isPausing && !this.player.isPause)
         {
             this.isPausing = true;
-            this.player.playerState.pause = true;
+            this.player.isPause = true;
             this.physics.pause();
             this.player.anims.play('adventurer-idle');
-            // this.player.setFrame('adventurer-cast-01');
+
             this.time.addEvent({
                 delay: 3000,
                 callback: () =>
                 {
                     this.isPausing = false;
-                    this.player.playerState.pause = false;
+                    this.player.isPause = false;
                     this.scene.scene.physics.resume();
                     this.player.anims.resume(this.player.anims.currentFrame);
                 }
@@ -520,13 +650,13 @@ export default class GameScene extends Scene
             return;
         }
 
-        if (!this.isPausing && !this.player.playerState.pause)
+        if (!this.isPausing && !this.player.isPause)
         {
             this.isPausing = true;
 
             SaveLoadService.setSavedGameTime(this);
             this.player.anims.play('stand');
-            this.player.playerState.pause = true;
+            this.player.isPause = true;
             this.physics.pause();
             const pos = this.getCamCenter();
 
@@ -548,7 +678,7 @@ export default class GameScene extends Scene
         this.isPausing = true;
         this.events.emit('unpause');
         this.lifeText.destroy();
-        this.player.playerState.pause = false;
+        this.player.isPause = false;
         this.scene.scene.physics.resume();
         this.player.anims.resume(this.player.anims.currentFrame);
         this.time.addEvent({
@@ -563,7 +693,7 @@ export default class GameScene extends Scene
     public choose ()
     {
         this.player.chooseDone = true;
-        if (this.player.playerState.pause)
+        if (this.player.isPause)
         {
             if (this.lastPosition === 1)
             {
@@ -589,12 +719,12 @@ export default class GameScene extends Scene
     public launch ()
     {
         this.player.chooseDone = true;
-        if (this.player.playerState.pause)
+        if (this.player.isPause)
         {
             if (this.lastPosition === 0)
             {
                 this.events.emit('unpause');
-                this.player.playerState.pause = false;
+                this.player.isPause = false;
                 this.scene.scene.physics.resume();
                 this.player.anims.resume(this.player.anims.currentFrame);
                 this.continueBtn.destroy();
@@ -634,84 +764,45 @@ export default class GameScene extends Scene
 
     public playerOnSpikes (int: number)
     {
-        if (!this.playerHurt)
-        {
-            this.playerHurt = true; // flag
-            this.player.playerState.runSpeed = 285;
-            this.player.hitSfx.play();
-            this.player.inventory.life -= int;
-            if (this.player.inventory.life <= 30)
-            {
-                this.sound.play('lowLifeSfx');
-            }
-            this.playerFlashTween = this.tweens.add({
-                targets: this.player,
-                ease: 'Sine.easeInOut',
-                duration: 200,
-                delay: 0,
-                repeat: 5,
-                yoyo: true,
-                alpha: {
-                    getStart: () => 0,
-                    getEnd: () => 1,
-                },
-                onComplete: () =>
-                {
-                    this.player.alpha = 1;
-                    this.playerHurt = false;
-                },
-            });
-            // if player is dead, launch deadth sequence
-            if (this.player.inventory.life <= 0)
-            {
-                this.playerDeathSequence();
-            }
-            this.events.emit('setHealth', { life: this.player.inventory.life }); // set health dashboard scene
-        }
+        this.player.onSpikes(int);
+        // if (!this.player.isHit)
+        // {
+        //     this.player.isHit = true; // flag
+        //     this.player.playerState.runSpeed = 285;
+        //     this.player.hitSfx.play();
+        //     this.player.inventory.life -= int;
+        //     if (this.player.inventory.life <= 30)
+        //     {
+        //         this.sound.play('lowLifeSfx');
+        //     }
+        //     this.playerFlashTween = this.tweens.add({
+        //         targets: this.player,
+        //         ease: 'Sine.easeInOut',
+        //         duration: 200,
+        //         delay: 0,
+        //         repeat: 5,
+        //         yoyo: true,
+        //         alpha: {
+        //             getStart: () => 0,
+        //             getEnd: () => 1,
+        //         },
+        //         onComplete: () =>
+        //         {
+        //             this.player.alpha = 1;
+        //             this.playerHurt = false;
+        //         },
+        //     });
+        //     // if player is dead, launch deadth sequence
+        //     if (this.player.inventory.life <= 0)
+        //     {
+        //         this.player.playerDeathSequence();
+        //     }
+        //     this.events.emit('setHealth', { life: this.player.inventory.life }); // set health dashboard scene
+        // }
     }
 
     // ====================================================================
-    public playerDeathSequence ()
-    {
-        this.player.playerState.dead = true;
-        this.playerDead = true;
-        this.physics.pause();
-        if (this.thunderGateSfx.isPlaying)
-        {
-            this.thunderGateSfx.stop();
-        }
-        this.input.enabled = false;
-        this.player.anims.play('die');
-        if (this.playerFlashTween) this.playerFlashTween.stop();
-        this.player.inventory.life = 0;
-        this.player.setDepth(2000);
 
-        this.round = this.add.sprite(this.cameras.main.scrollX, this.cameras.main.scrollY, 'blackpixel');
-        this.round
-            .setOrigin(0, 0)
-            .setDepth(1000)
-            .setAlpha(0)
-            .setTintFill(0x272638) // 0C1D1C
-            .setDisplaySize(WIDTH, HEIGHT);
-
-        this.sound.play('playerDead', { volume: 1 });
-
-        this.tween = this.tweens.add({
-            targets: this.round,
-            ease: 'Sine.easeInOut',
-            alpha: {
-                getStart: () => 0,
-                getEnd: () => 1
-            },
-            duration: 2500,
-            delay: 800,
-            onComplete: () =>
-            {
-                this.input.enabled = true;
-                this.playerIsDead();
-            },
-        });
-    }
 
     public playerIsDead ()
     {
@@ -719,9 +810,8 @@ export default class GameScene extends Scene
 
         SaveLoadService.setSavedGameTime(this);
 
-        this.stopMusic();
+        this.player.playerState.isDead = false;
 
-        this.player.playerState.dead = false;
         this.demonFight1.stop();
         this.demonFight2.stop();
         this.demonLighting.stop();
@@ -731,98 +821,42 @@ export default class GameScene extends Scene
 
 
     // ====================================================================
-    public enemyIsHit (_weapon, _enemy)
+    public enemyIsHit (_enemy, _weapon)
     {
         const enemy = _enemy as Enemy;
 
-        // console.log(this.player.swordManager.getCurrentSword().damage * this.player.inventory.level / 1.3)
-        // const str = Math.ceil(Math.sqrt(Math.pow(this.player.inventory.level, 4)));
-        const str = Math.ceil(Math.sqrt(Math.pow(this.player.inventory.level, 3)) / 10);
-        enemy.looseLife(Math.floor(this.player.swordManager.getCurrentSword().damage * str));
+        if (_weapon.name === 'sword')
+        {
+            const str = Math.ceil(Math.sqrt(Math.pow(this.player.inventoryManager.getInventory().level, 3)) / 10);
 
-        // if (!el.isHit)
-        // {
-        //     el.isHit = true;
+            enemy.looseLife(Math.floor(this.player.swordManager.getCurrentSword().damage * str), 'sword');
 
-        //     // if skeleton not rised don't do anything
-        //     if (enemy instanceof Skeleton)
-        //     {
-        //         if (!el.isAttacking)
-        //         {
-        //             el.isHit = false;
+        }
 
-        //             return;
-        //         }
-        //     }
-        //     // destroy flames
-        //     if (enemy instanceof Flames)
-        //     {
-        //         return;
-        //     }
+        if (_weapon.name === 'arrow')
+        {
+            const str = Math.ceil(Math.sqrt(Math.pow(this.player.inventoryManager.getInventory().level, 3)) / 10);
 
-        //     // destroy the weapon
-        //     if (this.player.playerState.selectedWeapon === 'bow')
-        //     {
-        //         this.player.bowKill(playerWeapon, false);
-        //     }
+            enemy.looseLife(Math.floor(this.player.bowManager.getCurrentBow().damage * str), 'arrow');
 
-        //     // enemy loose life
-        //     el.looseLife(this.player.swordManager.getCurrentSword().damage * (this.player.inventory.level + 1));
-        //     el.setTintFill(0xDDDDDD);
+            const weapon = _weapon as Arrow;
+            weapon.kill();
+           // weapon.body.velocity.x = enemy.body.velocity.x;
 
-        //     this.time.addEvent({
-        //         delay: 50,
-        //         callback: () =>
-        //         {
-        //             if (!el.active) return;
-        //             el.clearTint();
-        //         },
-        //     });
+            // this.time.addEvent({
+            //     delay: 30,
+            //     callback: () =>
+            //     {
+            //         if (weapon.body && enemy.body) weapon.body.setVelocityX(enemy.body.velocity.x);
+            //     }
+            // });
 
-        //     this.hitTimer = this.time.addEvent({
-        //         delay: 220,
-        //         callback: () =>
-        //         {
-        //             el.isHit = false;
-        //         },
-        //     });
-        // }
-        // enemy is dead
-        // if (el.enemyState.life <= 0)
-        // {
-        //     if (el.name === 'demon' && el.phase === 0)
-        //     {
-        //         el.clearTint();
-        //         el.startPhase1();
-        //         this.battleWithBoss = true;
+            // this.time.addEvent({
+            //     delay: 250,
+            //     callback: () => weapon.kill()
+            // });
+        }
 
-        //         return;
-        //     }
-
-        //     if (el.name === 'demon' && el.phase === 2)
-        //     {
-        //         el.clearTint();
-        //         el.startPhase3();
-
-        //         return;
-        //     }
-
-        //     el.clearTint();
-        //     el.playSfxDeath();
-        //     el.explode();
-        //     // kill the enemy
-
-        //     this.player.addXp();
-        //     this.giveLife = this.physics.add.sprite(el.x, el.y, 'heart').setDataEnabled();
-        //     this.giveLife.setDepth(105);
-        //     this.giveLife.data.set('health', el.enemyState.giveLife);
-        //     this.giveLife.body = this.giveLife.body as Phaser.Physics.Arcade.Body;
-        //     this.giveLife.body.setSize(23, 21);
-        //     this.giveLife.anims.play('heart');
-        //     this.giveLifeGroup.push(this.giveLife);
-        //     this.enemyExplode(el.x, el.y);
-        //     this.enemyDestroy(el);
-        // }
     }
 
     public enemyDestroy (e)
@@ -867,18 +901,18 @@ export default class GameScene extends Scene
     // LOAD ROOM
     public loadGame ()
     {
-        const gameData = SaveLoadService.loadGameData();
+        // const gameData = SaveLoadService.loadGameData();
 
-        if (gameData)
-        {
-            this.player.inventory = JSON.parse(gameData);
-            this.player.HealthUiText.setText(`${this.player.inventory.life}%${this.player.inventory.maxLife}`);
-        }
+        // if (gameData === 'undefined')
+        // {
+        //     this.player.inventoryManager.initInventory(JSON.parse(gameData));
+        //     this.player.HealthUiText.setText(`${this.player.inventoryManager.getInventory().life}%${this.player.inventoryManager.getInventory().maxLife}`);
+        // }
 
-        this.player.x = this.player.inventory.savedPositionX;
-        this.player.y = this.player.inventory.savedPositionY;
+        this.player.x = this.player.inventoryManager.getInventory().savedPositionX;
+        this.player.y = this.player.inventoryManager.getInventory().savedPositionY;
 
-        this.startRoom(this.player.inventory.map);
+        this.startRoom(this.player.inventoryManager.getInventory().map);
     }
 
     public askForGameSave (player: Player, tile: Phaser.Tilemaps.Tile)
@@ -908,7 +942,7 @@ export default class GameScene extends Scene
         });
 
         this.time.addEvent({
-            delay: 1000,
+            delay: 500,
             callback: () =>
             {
                 label?.destroy();
@@ -990,6 +1024,23 @@ export default class GameScene extends Scene
                     },
                 });
             }
+
+            if (event.key === this.player.keys.fire.originalEvent.key && index === 1)
+            {
+                yes.destroy();
+
+                no.destroy();
+
+                this.unPause();
+
+                label.destroy();
+
+                ui.destroy();
+
+                this.isSaving = false;
+
+                dialog.removeAllListeners();
+            }
         });
 
     }
@@ -1010,24 +1061,22 @@ export default class GameScene extends Scene
         this.stopMusic();
         // create room
         this.map = this.make.tilemap({ key: room, tileWidth: 16, tileHeight: 16 });
+        // @ts-ignore
+        this.sys.animatedTilesPlugin.init(this.map);
         this.map.tilesets.forEach((tileset, i) =>
         {
             this.map.addTilesetImage(this.map.tilesets[i].name, this.map.tilesets[i].name, 16, 16);
         });
+
         this.playerPosition = room;
-        // this.tileset = this.map.addTilesetImage('tileground', 'tiles', 16, 16);
         const properties = this.convertTiledObjectProperties(this.map.properties);
-        // this.addParaBack(properties.paraBack);
-        // this.addParaMiddle(properties.paraMiddle);
-        // this.addParaMiddle2(properties.paraMiddle2);
+        
         LayerService.addLayers(this);
-        // this.addLayers();
-        // this.addDoors();
-        this.player.x = this.player.inventory.savedPositionX + 24;
-        this.player.y = this.player.inventory.savedPositionY;
+        
+        this.player.x = this.player.inventoryManager.getInventory().savedPositionX + 24;
+        this.player.y = this.player.inventoryManager.getInventory().savedPositionY;
         ColliderService.addColliders(this);
-        // this.addColliders();
-        // this.addPowerUp();
+        
         this.addPlayerSfx();
         this.addEnemies();
         // this.addMovingPlatform();
@@ -1088,6 +1137,8 @@ export default class GameScene extends Scene
 
         // create new room
         this.map = this.make.tilemap({ key: doorP.name, tileWidth: 16, tileHeight: 16 });
+        // @ts-ignore
+        this.sys.animatedTilesPlugin.init(this.map);
         this.map.tilesets.forEach((tileset, i) =>
         {
             this.map.addTilesetImage(this.map.tilesets[i].name, this.map.tilesets[i].name, 16, 16);
@@ -1101,16 +1152,16 @@ export default class GameScene extends Scene
         switch (doorP.side)
         {
             case 'left':
-                player.body.reset(doorP.door.x - 20, doorP.door.y + 4);
+                player.body.reset(doorP.door.x - 20, doorP.door.y + 15);
                 break;
             case 'right':
-                player.body.reset(doorP.door.x + 20, doorP.door.y + 4);
+                player.body.reset(doorP.door.x + 20, doorP.door.y + 15);
                 break;
             case 'top':
-                player.body.reset(doorP.door.x + player.body.halfWidth, doorP.door.y - 20);
+                player.body.reset(doorP.door.x + player.body.halfWidth, doorP.door.y - 48);
                 break;
             case 'bottom':
-                player.body.reset(doorP.door.x + player.body.halfWidth, doorP.door.y + 24);
+                player.body.reset(doorP.door.x + player.body.halfWidth, doorP.door.y + 32);
                 break;
         }
         this.addMovingPlatform();
@@ -1121,11 +1172,19 @@ export default class GameScene extends Scene
         this.addPlayerSfx();
         this.playMusic(properties?.music);
         // launch special functions from the room
-        if (properties?.callFunction && properties.callFunction.length)
+        try
         {
-            const arr = properties.callFunction.split(',');
-            arr.forEach(elm => this[elm]());
+            if (properties?.callFunction && properties.callFunction.length)
+            {
+                const arr = properties.callFunction.split(',');
+                arr.forEach(elm => this[elm]());
+            }
         }
+        catch (error)
+        {
+            console.log(error);
+        }
+
 
 
         this.cameras.main.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
@@ -1177,7 +1236,7 @@ export default class GameScene extends Scene
             }
         }
         const walkSound = properties?.walkSfx as string;
-        this.player.walkk = this.sound.add(walkSound, { volume: 0.6, rate: 1 });
+        this.player.walkStepSfx = this.sound.add(walkSound, { volume: 0.6, rate: 1 });
     }
 
     public addMovingPlatform ()
@@ -1216,21 +1275,74 @@ export default class GameScene extends Scene
         layerArray.objects.forEach((element) =>
         {
             element.properties = this.convertTiledObjectProperties(element.properties);
-            if (this.player.inventory.powerUp[element.properties.id] === 0)
+
+            if (!this.player.inventoryManager.getInventory().powerUp.includes(element.properties.id))
             {
                 if (!element.y) return;
 
-                const power = new PowerUp(this, element.x as unknown as number, element.y as unknown as number - 16, {
-                    key: element.properties.key,
-                    name: element.properties.name,
-                    ability: element.properties.ability,
-                    text: element.properties.text,
-                    id: element.properties.id,
-                });
-                if (element.properties.key === 'heart') power.setDisplaySize(20, 20);
-                power.setDisplayOrigin(0, 0).animate(element.properties.powerup);
-                power.body.setSize(16, 16).setAllowGravity(false);
-                this.powerups.push(power);
+                if (element.properties.id < 10)
+                {
+                    const props = SWORDS.filter(e => e.id === element.properties.id)[0];
+
+                    const sword = new PowerUp(this, element.x as unknown as number + TILE_SIZE / 2, element.y as unknown as number - TILE_SIZE, {
+                        key: 'stuff',
+                        id: element.properties.id,
+                        properties: props,
+                        category: 'sword'
+                    });
+
+                    this.powerups.push(sword);
+
+                    return;
+                }
+
+                if (element.properties.id < 15)
+                {
+                    const props = BOWS.filter(e => e.id === element.properties.id)[0];
+
+                    const bow = new PowerUp(this, element.x as unknown as number + TILE_SIZE / 2, element.y as unknown as number - TILE_SIZE, {
+                        key: 'stuff',
+                        id: element.properties.id,
+                        properties: props,
+                        category: 'bow'
+                    });
+
+                    this.powerups.push(bow);
+
+                    return;
+                }
+
+                if (element.properties.id < 20)
+                {
+                    const props = SHIELDS.filter(e => e.id === element.properties.id)[0];
+
+                    const shield = new PowerUp(this, element.x as unknown as number + TILE_SIZE / 2, element.y as unknown as number - TILE_SIZE, {
+                        key: 'stuff',
+                        id: element.properties.id,
+                        properties: props,
+                        category: 'shield'
+                    });
+
+                    this.powerups.push(shield);
+                }
+
+                if (element.properties.id === 23)
+                {
+                    const jumpBoots = new PowerUp(this, element.x as unknown as number + TILE_SIZE / 2, element.y as unknown as number - TILE_SIZE, {
+                        key: 'stuff',
+                        id: element.properties.id,
+                        properties: {
+                            id: element.properties.id,
+                            name: 'jump boots',
+                            desc: 'jump higher with this boots',
+                            defense: 0,
+                            key: 23
+                        },
+                        category: 'equipment'
+                    });
+
+                    this.powerups.push(jumpBoots);
+                }
             }
         });
     }
@@ -1291,6 +1403,58 @@ export default class GameScene extends Scene
                         key: element.properties.key,
                         speed: element.properties.speed
                     });
+                    break;
+
+                case 'minotaur':
+                    if (!element.y) return;
+
+                    const minotaur = new Minotaur(this, element.x as unknown as number, element.y as unknown as number - 16, {
+                        key: element.properties.key,
+                        name: element.name,
+                        life: element.properties.life,
+                        damage: element.properties.damage,
+                    });
+
+                    this.enemyGroup.push(minotaur);
+                    break;
+
+                case 'viking':
+                    if (!element.y) return;
+
+                    const viking = new Viking(this, element.x as unknown as number, element.y as unknown as number - 16, {
+                        key: element.properties.key,
+                        name: element.name,
+                        life: element.properties.life,
+                        damage: element.properties.damage,
+                    });
+
+                    this.enemyGroup.push(viking);
+                    break;
+
+                case 'skeleton-flail':
+                    if (!element.y) return;
+
+                    const skeletonFlail = new SkeletonFlail(this, element.x as unknown as number, element.y as unknown as number - 16, {
+                        key: element.properties.key,
+                        name: element.name,
+                        life: element.properties.life,
+                        damage: element.properties.damage,
+                    });
+
+                    this.enemyGroup.push(skeletonFlail);
+                    break;
+
+                case 'skeleton-sword':
+                    if (!element.y) return;
+
+                    const skeletonSword = new SkeletonSword(this, element.x as unknown as number, element.y as unknown as number - 16, {
+                        key: element.properties.key,
+                        name: element.name,
+                        life: element.properties.life,
+                        damage: element.properties.damage,
+                    });
+
+                    this.enemyGroup.push(skeletonSword);
                     break;
 
                 case 'hellhound':
@@ -1458,59 +1622,12 @@ export default class GameScene extends Scene
         door.openDoor();
     }
 
-    public bossDragon ()
-    {
-        if (this.player.inventory.boss1 === true) return;
-        this.dragon = new Dragon(this, 258, 170, { key: 'dragon', name: 'dragon' });
-        this.enemyGroup.push(this.dragon);
-        this.stopMusic();
-        this.playMusic('dragonFight');
-    }
-
-    public addThunderDoorCallback ()
-    {
-        if (this.player.inventory.thunderDoorReached)
-        {
-            return;
-        }
-        this.colliderLayer.setTileLocationCallback(1, 50, 7, 4, (e, t) =>
-        {
-            if (e instanceof Player)
-            {
-                this.player.inventory.thunderDoorReached = true;
-            }
-        }, this);
-    }
-
-    public showAngel ()
-    {
-        // angelCalling
-        this.stopMusic();
-        this.playMusic('angelCalling');
-        this.angel = new Angel(this, 102, 153, {
-            key: 'angel-idle',
-            name: 'angel',
-        });
-
-        this.npcGroup.push(this.angel);
-    }
-
-    public checkWaterStorm ()
-    {
-        // if(!this.player.inventory.waterStorm || this.player.inventory.townInFire) {
-        this.enemyGroup.forEach(e => e.destroy());
-
-        return;
-        // }
-
-    }
-
     public callHellBeast ()
     {
-        if (this.player.inventory.boss2)
-        {
-            return;
-        }
+        // if (this.player.inventory.boss2)
+        // {
+        //     return;
+        // }
 
         this.hellBeast = new HellBeast(this, -100, -100, { key: 'hell-beast-idle', name: 'hellBeast' });
         this.enemyGroup.push(this.hellBeast);
@@ -1520,10 +1637,10 @@ export default class GameScene extends Scene
 
     public callDemon ()
     {
-        if (this.player.inventory.bossFinal)
-        {
-            return;
-        }
+        // if (this.player.inventory.bossFinal)
+        // {
+        //     return;
+        // }
         this.stopMusic();
         this.demon = new Demon(this, 24 * 16, 24 * 16, { key: 'finalBoss', name: 'demon' });
         // this.enemyGroup.push(this.demon);
@@ -1540,26 +1657,26 @@ export default class GameScene extends Scene
 
         this.physics.add.overlap(this.thunderPower, this.player, (player, thunder) =>
         {
-            if (this.thunderOnPlayer)
-            {
-                return;
-            }
+            // if (this.thunderOnPlayer)
+            // {
+            //     return;
+            // }
 
-            this.thunderOnPlayer = true;
+            // this.thunderOnPlayer = true;
 
             thunder.body = thunder.body as Phaser.Physics.Arcade.Body;
             thunder.body.setVelocity(0, 0);
 
             this.time.addEvent({
                 delay: 100,
-                repeat: this.player.inventory.life - 1,
+                repeat: this.player.inventoryManager.getInventory().life - 1,
                 callback: () =>
                 {
-                    if (this.player.inventory.life > 1)
+                    if (this.player.inventoryManager.getInventory().life > 1)
                     {
-                        this.player.inventory.life -= 1;
+                        this.player.inventoryManager.getInventory().life -= 1;
                         this.player.hitSfx.play();
-                        this.events.emit('setHealth', { life: Math.round(this.player.inventory.life) });
+                        this.events.emit('setHealth', { life: Math.round(this.player.inventoryManager.getInventory().life) });
                     }
                     else
                     {
@@ -1574,88 +1691,88 @@ export default class GameScene extends Scene
 
     public noSaveIfEscape ()
     {
-        if (!this.player.inventory.escape)
-        {
-            return;
-        }
+        // if (!this.player.inventory.escape)
+        // {
+        //     return;
+        // }
         // disable checkpoints during escape
         // this.saveStationGroup.forEach(checkpoint => checkpoint.destroy());
     }
 
     public escape ()
     {
-        if (!this.player.inventory.escape)
-        {
-            return;
-        }
-        const arr: number[] = [];
-        for (let i = 0; i < 16; i += 1)
-        {
-            arr.push(i);
-        }
+        // if (!this.player.inventory.escape)
+        // {
+        //     return;
+        // }
+        // const arr: number[] = [];
+        // for (let i = 0; i < 16; i += 1)
+        // {
+        //     arr.push(i);
+        // }
 
-        if (this.convertTiledObjectProperties(this.map.properties)?.walkSfx === 'churchWalkSfx')
-        {
-            this.escapeParticles = this.add.particles('churchParticles').setDepth(200);
-        }
-        else
-        {
-            this.escapeParticles = this.add.particles('castleParticles').setDepth(200);
-        }
-        this.escapeParticleEmitter = this.escapeParticles.createEmitter({
-            angle: { min: -30, max: -150 },
-            speed: { min: 100, max: 200 },
-            frame: arr,
-            quantity: 16,
-            lifespan: 3000,
-            alpha: 1,
-            scale: { min: 0.2, max: 3 },
-            rotate: {
-                onEmit: (e) =>
-                {
-                    return Phaser.Math.Between(0, 90);
-                }
-            },
-            gravityY: 500,
-            on: false,
-        });
+        // if (this.convertTiledObjectProperties(this.map.properties)?.walkSfx === 'churchWalkSfx')
+        // {
+        //     this.escapeParticles = this.add.particles('churchParticles').setDepth(200);
+        // }
+        // else
+        // {
+        //     this.escapeParticles = this.add.particles('castleParticles').setDepth(200);
+        // }
+        // this.escapeParticleEmitter = this.escapeParticles.createEmitter({
+        //     angle: { min: -30, max: -150 },
+        //     speed: { min: 100, max: 200 },
+        //     frame: arr,
+        //     quantity: 16,
+        //     lifespan: 3000,
+        //     alpha: 1,
+        //     scale: { min: 0.2, max: 3 },
+        //     rotate: {
+        //         onEmit: (e) =>
+        //         {
+        //             return Phaser.Math.Between(0, 90);
+        //         }
+        //     },
+        //     gravityY: 500,
+        //     on: false,
+        // });
 
         // shake camera
-        this.events.emit('count');
-        const rdm = Phaser.Math.Between(2000, 5000);
-        this.escapeTimer = this.time.addEvent({
-            delay: rdm,
-            repeat: -1,
-            callback: () =>
-            {
-                if (!this.player.inventory.escape)
-                {
-                    this.escapeTimer = null;
+        // this.events.emit('count');
+        // const rdm = Phaser.Math.Between(2000, 5000);
+        // this.escapeTimer = this.time.addEvent({
+        //     delay: rdm,
+        //     repeat: -1,
+        //     callback: () =>
+        //     {
+        //         if (!this.player.inventory.escape)
+        //         {
+        //             this.escapeTimer = null;
 
-                    return;
-                }
-                this.shakeCameraEscape(1000);
-                const pos = this.getCamCenter();
-                const random = Phaser.Math.Between(-400, 600);
-                this.escapeParticleEmitter.explode(10, pos.x + random, pos.y - 150);
-            }
-        });
+        //             return;
+        //         }
+        //         this.shakeCameraEscape(1000);
+        //         const pos = this.getCamCenter();
+        //         const random = Phaser.Math.Between(-400, 600);
+        //         this.escapeParticleEmitter.explode(10, pos.x + random, pos.y - 150);
+        //     }
+        // });
 
-        this.stopMusic();
-        this.playMusic('escapeTheme');
+        // this.stopMusic();
+        // this.playMusic('escapeTheme');
     }
 
     // ====================================================================
     // CAMERA EFFECTS
-    public shakeCamera (e)
+    public shakeCamera (duration: number | undefined, intensity: number = 0.025)
     {
         if (!this.cameraIsShaking)
         {
             this.cameraIsShaking = true;
-            this.cameras.main.shake(e, 0.025);
+            this.cameras.main.shake(duration, intensity);
             this.sound.play('impact', { rate: 0.5 });
             this.time.addEvent({
-                delay: e,
+                delay: duration,
                 callback: () =>
                 {
                     this.cameraIsShaking = false;
@@ -1701,17 +1818,17 @@ export default class GameScene extends Scene
 
     public callBackEndMission ()
     {
-        if (!this.player.inventory.escape)
-        {
-            return;
-        }
-        this.colliderLayer.setTileLocationCallback(0, 10, 20, 4, (e, t) =>
-        {
-            if (e instanceof Player)
-            {
-                this.endMission();
-            }
-        }, this);
+        // if (!this.player.inventory.escape)
+        // {
+        //     return;
+        // }
+        // this.colliderLayer.setTileLocationCallback(0, 10, 20, 4, (e, t) =>
+        // {
+        //     if (e instanceof Player)
+        //     {
+        //         this.endMission();
+        //     }
+        // }, this);
 
 
     }
@@ -1725,7 +1842,7 @@ export default class GameScene extends Scene
         this.events.emit('countStop');
         this.isTheEnd = true;
         this.battleWithBoss = true;
-        this.player.inventory.escape = false;
+        // this.player.inventory.escape = false;
         this.showMsg = this.add.bitmapText(WIDTH / 2, HEIGHT / 2, 'alagard', `
     Congratulations Acharis!!
     You got your revenge!!!`, 14, 1)
@@ -1754,5 +1871,13 @@ export default class GameScene extends Scene
                 });
             },
         });
+    }
+
+    private resetAnimatedTiles ()
+    {
+        const str = JSON.stringify(this.map.tilesets[5].tileData);
+
+        const blob = new Blob([str], { type: 'text/html' });
+        window.open(URL.createObjectURL(blob));
     }
 }

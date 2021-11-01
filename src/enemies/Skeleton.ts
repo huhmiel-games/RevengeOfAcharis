@@ -51,7 +51,11 @@ export default class Skeleton extends Enemy
 
     private playSoundRiseUp ()
     {
-        this.scene.sound.play('skeletonRising', { volume: 1, rate: 1 });
+        const { x, y } = this.body.center;
+
+        const volume = 60 / Phaser.Math.Distance.Between(this.scene.player.body.center.x, this.scene.player.body.center.y, this.body.center.x, this.body.center.y);
+
+        this.scene.sound.play('skeletonRising', { volume: Phaser.Math.Clamp(volume, 0, 1) });
     }
 
     private handleRise ()
@@ -77,16 +81,17 @@ export default class Skeleton extends Enemy
 
     private playSound ()
     {
-        if (!this.scene.cameras.main.worldView.contains(this.x, this.y))
-        {
-            return;
-        }
+        const { x, y } = this.body.center;
+
+        if (!this.scene.cameras.main.worldView.contains(x, y)) return;
+
+        const volume = 1 / Phaser.Math.Distance.Between(this.scene.player.body.center.x, this.scene.player.body.center.y, this.body.center.x, this.body.center.y) * 25;
 
         const frame = this.anims.getFrameName();
 
-        if (+frame.charAt(frame.length - 1) % 2 && this.anims.getName() === 'skeleton')
+        if (frame === 'skeleton-4' || frame === 'skeleton-8')
         {
-            this.walkk.play({ rate: Phaser.Math.RND.realInRange(0.75, 1.25) });
+            this.walkk.play({ volume: Phaser.Math.Clamp(volume, 0, 1) });
         }
     }
 
@@ -99,7 +104,7 @@ export default class Skeleton extends Enemy
             this.distance = distance;
 
             // rise
-            if (distance <= 120 && !this.isAttacking)
+            if (distance <= 120 && !this.isAttacking && this.scene.player.body.bottom === this.body.bottom)
             {
                 this.setVisible(true);
 

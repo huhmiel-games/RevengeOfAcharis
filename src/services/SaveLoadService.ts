@@ -51,11 +51,11 @@ export default class SaveLoadService
      */
     public static saveGameData (scene: GameScene): void
     {
-        scene.player.inventory.savedPositionX = scene.player.x;
-        scene.player.inventory.savedPositionY = scene.player.y;
-        scene.player.inventory.map = scene.playerPosition;
+        scene.player.inventoryManager.getInventory().savedPositionX = scene.player.x;
+        scene.player.inventoryManager.getInventory().savedPositionY = scene.player.y;
+        scene.player.inventoryManager.getInventory().map = scene.playerPosition;
 
-        const s = JSON.stringify(scene.player.inventory);
+        const s = JSON.stringify(scene.player.inventoryManager.getInventory());
 
         localStorage.setItem(`${GAMENAME}_data`, s);
 
@@ -208,6 +208,28 @@ export default class SaveLoadService
         if (playerDeathCount !== null)
         {
             return JSON.parse(playerDeathCount);
+        }
+
+        return 0;
+    }
+
+    public static async setEnemiesDeathCount ()
+    {
+        let enemiesDeathCount = await this.getEnemiesDeathCount();
+
+        enemiesDeathCount += 1;
+
+        localStorage.setItem(`${GAMENAME}_enemiesDeathCount`, JSON.stringify(enemiesDeathCount));
+    }
+
+    public static async getEnemiesDeathCount (): Promise<number>
+    {
+
+        const enemiesDeathCount: string | null = localStorage.getItem(`${GAMENAME}_enemiesDeathCount`);
+
+        if (enemiesDeathCount !== null)
+        {
+            return JSON.parse(enemiesDeathCount);
         }
 
         return 0;

@@ -1,0 +1,50 @@
+{
+    "viking-attack_2": {
+        "hitboxes": [
+            {
+                "frame": "viking-attack_2",
+                "type": "rectangle",
+                "x": 22,
+                "y": 22,
+                "width": 8,
+                "height": 10
+            }
+        ]
+    },
+    "viking-attack_3": {
+        "hitboxes": [
+            {
+                "frame": "viking-attack_3",
+                "type": "rectangle",
+                "x": 23,
+                "y": 22,
+                "width": 5,
+                "height": 8
+            }
+        ]
+    },
+    "viking-attack_4": {
+        "hitboxes": [
+            {
+                "frame": "viking-attack_4",
+                "type": "rectangle",
+                "x": 22,
+                "y": 25,
+                "width": 7,
+                "height": 7
+            }
+        ]
+    },
+    "viking-attack_7": {
+        "hitboxes": [
+            {
+                "frame": "viking-attack_7",
+                "type": "rectangle",
+                "x": 17,
+                "y": 17,
+                "width": 14,
+                "height": 1
+            }
+        ]
+    }
+}

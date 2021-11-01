@@ -462,7 +462,7 @@ export default class HellBeast extends Phaser.GameObjects.Sprite
             // this.glowingSfx.stop();
             this.unlockDoors();
 
-            this.scene.player.inventory.boss2 = true;
+            // this.scene.player.inventory.boss2 = true;
             this.scene.stopMusic();
             this.scene.playMusic('hellBeastFight');
         }
@@ -490,7 +490,7 @@ export default class HellBeast extends Phaser.GameObjects.Sprite
     public unlockDoors ()
     {
         this.scene.battleWithBoss = false;
-        this.scene.player.inventory.boss1 = true;
+        // this.scene.player.inventory.boss1 = true;
     }
 
     public checkCollision (d)

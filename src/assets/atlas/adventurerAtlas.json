@@ -230,13 +230,13 @@
 					"spriteSourceSize": {
 						"x": 0,
 						"y": 0,
-						"w": 50,
+						"w": 60,
 						"h": 37
 					},
 					"frame": {
 						"x": 53,
 						"y": 118,
-						"w": 50,
+						"w": 60,
 						"h": 37
 					}
 				},
@@ -245,19 +245,19 @@
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
-						"w": 50,
+						"w": 60,
 						"h": 37
 					},
 					"spriteSourceSize": {
 						"x": 0,
 						"y": 0,
-						"w": 50,
+						"w": 65,
 						"h": 37
 					},
 					"frame": {
 						"x": 105,
 						"y": 118,
-						"w": 50,
+						"w": 60,
 						"h": 37
 					}
 				},

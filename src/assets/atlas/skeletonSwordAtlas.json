@@ -1,7 +1,7 @@
 {
 	"textures": [
 		{
-			"image": "skeletonSwordAtlas.png",
+			"image": "skeletonSword2Atlas.png",
 			"format": "RGBA8888",
 			"size": {
 				"w": 212,
@@ -10,7 +10,7 @@
 			"scale": 1,
 			"frames": [
 				{
-					"filename": "attack2_4",
+					"filename": "skeleton-sword-attack2_4",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
@@ -18,8 +18,8 @@
 						"h": 65
 					},
 					"spriteSourceSize": {
-						"x": 14,
-						"y": 29,
+						"x": 23,
+						"y": 21,
 						"w": 64,
 						"h": 30
 					},
@@ -31,16 +31,16 @@
 					}
 				},
 				{
-					"filename": "dead_far_6",
+					"filename": "skeleton-sword-dead_far_6",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
-						"w": 50,
-						"h": 48
+						"w": 100,
+						"h": 65
 					},
 					"spriteSourceSize": {
-						"x": 1,
-						"y": 35,
+						"x": 26,
+						"y": 44,
 						"w": 49,
 						"h": 7
 					},
@@ -52,16 +52,16 @@
 					}
 				},
 				{
-					"filename": "dead_near_6",
+					"filename": "skeleton-sword-dead_near_6",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
-						"w": 50,
-						"h": 48
+						"w": 100,
+						"h": 65
 					},
 					"spriteSourceSize": {
-						"x": 0,
-						"y": 35,
+						"x": 25,
+						"y": 44,
 						"w": 47,
 						"h": 7
 					},
@@ -73,7 +73,7 @@
 					}
 				},
 				{
-					"filename": "attack1_4",
+					"filename": "skeleton-sword-attack1_4",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
@@ -81,8 +81,8 @@
 						"h": 65
 					},
 					"spriteSourceSize": {
-						"x": 33,
-						"y": 31,
+						"x": 42,
+						"y": 23,
 						"w": 47,
 						"h": 28
 					},
@@ -94,16 +94,16 @@
 					}
 				},
 				{
-					"filename": "dead_near_5",
+					"filename": "skeleton-sword-dead_near_5",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
-						"w": 50,
-						"h": 48
+						"w": 100,
+						"h": 65
 					},
 					"spriteSourceSize": {
-						"x": 0,
-						"y": 30,
+						"x": 25,
+						"y": 39,
 						"w": 43,
 						"h": 12
 					},
@@ -115,7 +115,7 @@
 					}
 				},
 				{
-					"filename": "attack1_5",
+					"filename": "skeleton-sword-attack1_5",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
@@ -123,8 +123,8 @@
 						"h": 65
 					},
 					"spriteSourceSize": {
-						"x": 33,
-						"y": 31,
+						"x": 42,
+						"y": 23,
 						"w": 42,
 						"h": 28
 					},
@@ -136,16 +136,16 @@
 					}
 				},
 				{
-					"filename": "dead_near_4",
+					"filename": "skeleton-sword-dead_near_4",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
-						"w": 50,
-						"h": 48
+						"w": 100,
+						"h": 65
 					},
 					"spriteSourceSize": {
-						"x": 1,
-						"y": 21,
+						"x": 26,
+						"y": 30,
 						"w": 41,
 						"h": 19
 					},
@@ -157,16 +157,16 @@
 					}
 				},
 				{
-					"filename": "dead_far_5",
+					"filename": "skeleton-sword-dead_far_5",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
-						"w": 50,
-						"h": 48
+						"w": 100,
+						"h": 65
 					},
 					"spriteSourceSize": {
-						"x": 0,
-						"y": 26,
+						"x": 25,
+						"y": 35,
 						"w": 41,
 						"h": 15
 					},
@@ -178,16 +178,16 @@
 					}
 				},
 				{
-					"filename": "dead_far_4",
+					"filename": "skeleton-sword-dead_far_4",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
-						"w": 50,
-						"h": 48
+						"w": 100,
+						"h": 65
 					},
 					"spriteSourceSize": {
-						"x": 0,
-						"y": 16,
+						"x": 25,
+						"y": 25,
 						"w": 36,
 						"h": 22
 					},
@@ -199,7 +199,7 @@
 					}
 				},
 				{
-					"filename": "attack2_3",
+					"filename": "skeleton-sword-attack2_3",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
@@ -207,8 +207,8 @@
 						"h": 65
 					},
 					"spriteSourceSize": {
-						"x": 12,
-						"y": 30,
+						"x": 22,
+						"y": 22,
 						"w": 36,
 						"h": 29
 					},
@@ -220,7 +220,7 @@
 					}
 				},
 				{
-					"filename": "attack2_2",
+					"filename": "skeleton-sword-attack2_2",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
@@ -228,8 +228,8 @@
 						"h": 65
 					},
 					"spriteSourceSize": {
-						"x": 29,
-						"y": 24,
+						"x": 39,
+						"y": 16,
 						"w": 20,
 						"h": 35
 					},
@@ -241,16 +241,16 @@
 					}
 				},
 				{
-					"filename": "run_1",
+					"filename": "skeleton-sword-run_1",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
-						"w": 50,
-						"h": 48
+						"w": 100,
+						"h": 65
 					},
 					"spriteSourceSize": {
-						"x": 19,
-						"y": 7,
+						"x": 44,
+						"y": 16,
 						"w": 12,
 						"h": 35
 					},
@@ -262,16 +262,16 @@
 					}
 				},
 				{
-					"filename": "dead_near_3",
+					"filename": "skeleton-sword-dead_near_3",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
-						"w": 50,
-						"h": 48
+						"w": 100,
+						"h": 65
 					},
 					"spriteSourceSize": {
-						"x": 11,
-						"y": 16,
+						"x": 36,
+						"y": 25,
 						"w": 32,
 						"h": 26
 					},
@@ -283,16 +283,16 @@
 					}
 				},
 				{
-					"filename": "jump_3",
+					"filename": "skeleton-sword-jump_3",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
-						"w": 50,
-						"h": 48
+						"w": 100,
+						"h": 65
 					},
 					"spriteSourceSize": {
-						"x": 14,
-						"y": 11,
+						"x": 39,
+						"y": 20,
 						"w": 20,
 						"h": 32
 					},
@@ -304,16 +304,16 @@
 					}
 				},
 				{
-					"filename": "run_4",
+					"filename": "skeleton-sword-run_4",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
-						"w": 50,
-						"h": 48
+						"w": 100,
+						"h": 65
 					},
 					"spriteSourceSize": {
-						"x": 16,
-						"y": 11,
+						"x": 41,
+						"y": 20,
 						"w": 19,
 						"h": 31
 					},
@@ -325,16 +325,16 @@
 					}
 				},
 				{
-					"filename": "dead_far_2",
+					"filename": "skeleton-sword-dead_far_2",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
-						"w": 50,
-						"h": 48
+						"w": 100,
+						"h": 65
 					},
 					"spriteSourceSize": {
-						"x": 15,
-						"y": 9,
+						"x": 40,
+						"y": 18,
 						"w": 21,
 						"h": 31
 					},
@@ -346,16 +346,16 @@
 					}
 				},
 				{
-					"filename": "dead_near_2",
+					"filename": "skeleton-sword-dead_near_2",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
-						"w": 50,
-						"h": 48
+						"w": 100,
+						"h": 65
 					},
 					"spriteSourceSize": {
-						"x": 17,
-						"y": 10,
+						"x": 42,
+						"y": 19,
 						"w": 22,
 						"h": 31
 					},
@@ -367,16 +367,16 @@
 					}
 				},
 				{
-					"filename": "jump_2",
+					"filename": "skeleton-sword-jump_2",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
-						"w": 50,
-						"h": 48
+						"w": 100,
+						"h": 65
 					},
 					"spriteSourceSize": {
-						"x": 16,
-						"y": 11,
+						"x": 41,
+						"y": 20,
 						"w": 16,
 						"h": 31
 					},
@@ -388,16 +388,16 @@
 					}
 				},
 				{
-					"filename": "walk_4",
+					"filename": "skeleton-sword-walk_4",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
-						"w": 50,
-						"h": 48
+						"w": 100,
+						"h": 65
 					},
 					"spriteSourceSize": {
-						"x": 16,
-						"y": 11,
+						"x": 41,
+						"y": 20,
 						"w": 15,
 						"h": 31
 					},
@@ -409,16 +409,16 @@
 					}
 				},
 				{
-					"filename": "jump_4",
+					"filename": "skeleton-sword-jump_4",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
-						"w": 50,
-						"h": 48
+						"w": 100,
+						"h": 65
 					},
 					"spriteSourceSize": {
-						"x": 15,
-						"y": 11,
+						"x": 40,
+						"y": 20,
 						"w": 16,
 						"h": 31
 					},
@@ -430,16 +430,16 @@
 					}
 				},
 				{
-					"filename": "walk_1",
+					"filename": "skeleton-sword-walk_1",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
-						"w": 50,
-						"h": 48
+						"w": 100,
+						"h": 65
 					},
 					"spriteSourceSize": {
-						"x": 16,
-						"y": 11,
+						"x": 41,
+						"y": 20,
 						"w": 15,
 						"h": 31
 					},
@@ -451,16 +451,16 @@
 					}
 				},
 				{
-					"filename": "ready_2",
+					"filename": "skeleton-sword-ready_2",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
-						"w": 50,
-						"h": 48
+						"w": 100,
+						"h": 65
 					},
 					"spriteSourceSize": {
-						"x": 16,
-						"y": 12,
+						"x": 41,
+						"y": 21,
 						"w": 18,
 						"h": 30
 					},
@@ -472,16 +472,16 @@
 					}
 				},
 				{
-					"filename": "ready_3",
+					"filename": "skeleton-sword-ready_3",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
-						"w": 50,
-						"h": 48
+						"w": 100,
+						"h": 65
 					},
 					"spriteSourceSize": {
-						"x": 16,
-						"y": 12,
+						"x": 41,
+						"y": 21,
 						"w": 18,
 						"h": 30
 					},
@@ -493,16 +493,16 @@
 					}
 				},
 				{
-					"filename": "run_6",
+					"filename": "skeleton-sword-run_6",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
-						"w": 50,
-						"h": 48
+						"w": 100,
+						"h": 65
 					},
 					"spriteSourceSize": {
-						"x": 19,
-						"y": 12,
+						"x": 44,
+						"y": 21,
 						"w": 22,
 						"h": 30
 					},
@@ -514,16 +514,16 @@
 					}
 				},
 				{
-					"filename": "walk_3",
+					"filename": "skeleton-sword-walk_3",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
-						"w": 50,
-						"h": 48
+						"w": 100,
+						"h": 65
 					},
 					"spriteSourceSize": {
-						"x": 16,
-						"y": 12,
+						"x": 41,
+						"y": 21,
 						"w": 15,
 						"h": 30
 					},
@@ -535,16 +535,16 @@
 					}
 				},
 				{
-					"filename": "run_3",
+					"filename": "skeleton-sword-run_3",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
-						"w": 50,
-						"h": 48
+						"w": 100,
+						"h": 65
 					},
 					"spriteSourceSize": {
-						"x": 17,
-						"y": 12,
+						"x": 42,
+						"y": 21,
 						"w": 20,
 						"h": 30
 					},
@@ -556,16 +556,16 @@
 					}
 				},
 				{
-					"filename": "walk_6",
+					"filename": "skeleton-sword-walk_6",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
-						"w": 50,
-						"h": 48
+						"w": 100,
+						"h": 65
 					},
 					"spriteSourceSize": {
-						"x": 16,
-						"y": 12,
+						"x": 41,
+						"y": 21,
 						"w": 15,
 						"h": 30
 					},
@@ -577,16 +577,16 @@
 					}
 				},
 				{
-					"filename": "walk_2",
+					"filename": "skeleton-sword-walk_2",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
-						"w": 50,
-						"h": 48
+						"w": 100,
+						"h": 65
 					},
 					"spriteSourceSize": {
-						"x": 16,
-						"y": 13,
+						"x": 41,
+						"y": 22,
 						"w": 15,
 						"h": 29
 					},
@@ -598,16 +598,16 @@
 					}
 				},
 				{
-					"filename": "hit_3",
+					"filename": "skeleton-sword-hit_3",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
-						"w": 50,
-						"h": 48
+						"w": 100,
+						"h": 65
 					},
 					"spriteSourceSize": {
-						"x": 15,
-						"y": 13,
+						"x": 40,
+						"y": 22,
 						"w": 18,
 						"h": 29
 					},
@@ -619,16 +619,16 @@
 					}
 				},
 				{
-					"filename": "jump_1",
+					"filename": "skeleton-sword-jump_1",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
-						"w": 50,
-						"h": 48
+						"w": 100,
+						"h": 65
 					},
 					"spriteSourceSize": {
-						"x": 16,
-						"y": 13,
+						"x": 41,
+						"y": 22,
 						"w": 17,
 						"h": 29
 					},
@@ -640,7 +640,7 @@
 					}
 				},
 				{
-					"filename": "attack1_6",
+					"filename": "skeleton-sword-attack1_6",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
@@ -648,8 +648,8 @@
 						"h": 65
 					},
 					"spriteSourceSize": {
-						"x": 33,
-						"y": 30,
+						"x": 38,
+						"y": 22,
 						"w": 27,
 						"h": 29
 					},
@@ -661,16 +661,16 @@
 					}
 				},
 				{
-					"filename": "walk_5",
+					"filename": "skeleton-sword-walk_5",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
-						"w": 50,
-						"h": 48
+						"w": 100,
+						"h": 65
 					},
 					"spriteSourceSize": {
-						"x": 16,
-						"y": 13,
+						"x": 41,
+						"y": 22,
 						"w": 16,
 						"h": 29
 					},
@@ -682,7 +682,7 @@
 					}
 				},
 				{
-					"filename": "attack2_6",
+					"filename": "skeleton-sword-attack2_6",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
@@ -690,8 +690,8 @@
 						"h": 65
 					},
 					"spriteSourceSize": {
-						"x": 33,
-						"y": 30,
+						"x": 38,
+						"y": 22,
 						"w": 27,
 						"h": 29
 					},
@@ -703,16 +703,16 @@
 					}
 				},
 				{
-					"filename": "dead_near_1",
+					"filename": "skeleton-sword-dead_near_1",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
-						"w": 50,
-						"h": 48
+						"w": 100,
+						"h": 65
 					},
 					"spriteSourceSize": {
-						"x": 16,
-						"y": 13,
+						"x": 41,
+						"y": 22,
 						"w": 17,
 						"h": 29
 					},
@@ -724,16 +724,16 @@
 					}
 				},
 				{
-					"filename": "ready_1",
+					"filename": "skeleton-sword-ready_1",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
-						"w": 50,
-						"h": 48
+						"w": 100,
+						"h": 65
 					},
 					"spriteSourceSize": {
-						"x": 16,
-						"y": 13,
+						"x": 41,
+						"y": 22,
 						"w": 18,
 						"h": 29
 					},
@@ -745,7 +745,7 @@
 					}
 				},
 				{
-					"filename": "attack2_1",
+					"filename": "skeleton-sword-attack2_1",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
@@ -753,8 +753,8 @@
 						"h": 65
 					},
 					"spriteSourceSize": {
-						"x": 31,
-						"y": 30,
+						"x": 41,
+						"y": 22,
 						"w": 17,
 						"h": 29
 					},
@@ -766,7 +766,7 @@
 					}
 				},
 				{
-					"filename": "attack1_1",
+					"filename": "skeleton-sword-attack1_1",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
@@ -774,8 +774,8 @@
 						"h": 65
 					},
 					"spriteSourceSize": {
-						"x": 31,
-						"y": 30,
+						"x": 41,
+						"y": 22,
 						"w": 17,
 						"h": 29
 					},
@@ -787,16 +787,16 @@
 					}
 				},
 				{
-					"filename": "dead_far_1",
+					"filename": "skeleton-sword-dead_far_1",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
-						"w": 50,
-						"h": 48
+						"w": 100,
+						"h": 65
 					},
 					"spriteSourceSize": {
-						"x": 16,
-						"y": 13,
+						"x": 41,
+						"y": 22,
 						"w": 17,
 						"h": 29
 					},
@@ -808,16 +808,16 @@
 					}
 				},
 				{
-					"filename": "run_5",
+					"filename": "skeleton-sword-run_5",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
-						"w": 50,
-						"h": 48
+						"w": 100,
+						"h": 65
 					},
 					"spriteSourceSize": {
-						"x": 16,
-						"y": 13,
+						"x": 41,
+						"y": 22,
 						"w": 24,
 						"h": 29
 					},
@@ -829,16 +829,16 @@
 					}
 				},
 				{
-					"filename": "reborn_3",
+					"filename": "skeleton-sword-reborn_3",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
-						"w": 50,
-						"h": 48
+						"w": 100,
+						"h": 65
 					},
 					"spriteSourceSize": {
-						"x": 16,
-						"y": 13,
+						"x": 41,
+						"y": 22,
 						"w": 17,
 						"h": 29
 					},
@@ -850,7 +850,7 @@
 					}
 				},
 				{
-					"filename": "attack1_3",
+					"filename": "skeleton-sword-attack1_3",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
@@ -858,8 +858,8 @@
 						"h": 65
 					},
 					"spriteSourceSize": {
-						"x": 30,
-						"y": 30,
+						"x": 40,
+						"y": 22,
 						"w": 23,
 						"h": 29
 					},
@@ -871,16 +871,16 @@
 					}
 				},
 				{
-					"filename": "run_2",
+					"filename": "skeleton-sword-run_2",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
-						"w": 50,
-						"h": 48
+						"w": 100,
+						"h": 65
 					},
 					"spriteSourceSize": {
-						"x": 13,
-						"y": 13,
+						"x": 38,
+						"y": 22,
 						"w": 21,
 						"h": 29
 					},
@@ -892,16 +892,16 @@
 					}
 				},
 				{
-					"filename": "dead_far_3",
+					"filename": "skeleton-sword-dead_far_3",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
-						"w": 50,
-						"h": 48
+						"w": 100,
+						"h": 65
 					},
 					"spriteSourceSize": {
-						"x": 8,
-						"y": 12,
+						"x": 33,
+						"y": 21,
 						"w": 29,
 						"h": 28
 					},
@@ -913,7 +913,7 @@
 					}
 				},
 				{
-					"filename": "attack1_2",
+					"filename": "skeleton-sword-attack1_2",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
@@ -921,8 +921,8 @@
 						"h": 65
 					},
 					"spriteSourceSize": {
-						"x": 30,
-						"y": 30,
+						"x": 40,
+						"y": 22,
 						"w": 19,
 						"h": 29
 					},
@@ -934,16 +934,16 @@
 					}
 				},
 				{
-					"filename": "hit_1",
+					"filename": "skeleton-sword-hit_1",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
-						"w": 50,
-						"h": 48
+						"w": 100,
+						"h": 65
 					},
 					"spriteSourceSize": {
-						"x": 16,
-						"y": 13,
+						"x": 41,
+						"y": 22,
 						"w": 17,
 						"h": 29
 					},
@@ -955,16 +955,16 @@
 					}
 				},
 				{
-					"filename": "hit_2",
+					"filename": "skeleton-sword-hit_2",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
-						"w": 50,
-						"h": 48
+						"w": 100,
+						"h": 65
 					},
 					"spriteSourceSize": {
-						"x": 13,
-						"y": 14,
+						"x": 38,
+						"y": 23,
 						"w": 20,
 						"h": 28
 					},
@@ -976,7 +976,7 @@
 					}
 				},
 				{
-					"filename": "attack2_5",
+					"filename": "skeleton-sword-attack2_5",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
@@ -984,8 +984,8 @@
 						"h": 65
 					},
 					"spriteSourceSize": {
-						"x": 33,
-						"y": 31,
+						"x": 42,
+						"y": 23,
 						"w": 19,
 						"h": 28
 					},
@@ -997,16 +997,16 @@
 					}
 				},
 				{
-					"filename": "corpse_2",
+					"filename": "skeleton-sword-corpse_2",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
-						"w": 50,
-						"h": 48
+						"w": 100,
+						"h": 65
 					},
 					"spriteSourceSize": {
-						"x": 11,
-						"y": 35,
+						"x": 36,
+						"y": 44,
 						"w": 27,
 						"h": 7
 					},
@@ -1018,16 +1018,16 @@
 					}
 				},
 				{
-					"filename": "reborn_2",
+					"filename": "skeleton-sword-reborn_2",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
-						"w": 50,
-						"h": 48
+						"w": 100,
+						"h": 65
 					},
 					"spriteSourceSize": {
-						"x": 16,
-						"y": 17,
+						"x": 41,
+						"y": 26,
 						"w": 18,
 						"h": 25
 					},
@@ -1039,16 +1039,16 @@
 					}
 				},
 				{
-					"filename": "jump_5",
+					"filename": "skeleton-sword-jump_5",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
-						"w": 50,
-						"h": 48
+						"w": 100,
+						"h": 65
 					},
 					"spriteSourceSize": {
-						"x": 17,
-						"y": 17,
+						"x": 42,
+						"y": 26,
 						"w": 19,
 						"h": 25
 					},
@@ -1060,16 +1060,16 @@
 					}
 				},
 				{
-					"filename": "corpse_1",
+					"filename": "skeleton-sword-corpse_1",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
-						"w": 50,
-						"h": 48
+						"w": 100,
+						"h": 65
 					},
 					"spriteSourceSize": {
-						"x": 13,
-						"y": 33,
+						"x": 38,
+						"y": 42,
 						"w": 24,
 						"h": 9
 					},
@@ -1081,16 +1081,16 @@
 					}
 				},
 				{
-					"filename": "reborn_1",
+					"filename": "skeleton-sword-reborn_1",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
-						"w": 50,
-						"h": 48
+						"w": 100,
+						"h": 65
 					},
 					"spriteSourceSize": {
-						"x": 15,
-						"y": 23,
+						"x": 40,
+						"y": 32,
 						"w": 20,
 						"h": 19
 					},

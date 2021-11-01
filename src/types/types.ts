@@ -1,21 +1,9 @@
 import Angel from '../enemies/Angel';
-import BurningGhoul from '../enemies/BurningGhoul';
-import Demon from '../enemies/Demon';
-import Dragon from '../enemies/Dragon';
-import Flames from '../enemies/Flames';
-import Ghost from '../enemies/Ghost';
-import HellBeast from '../enemies/HellBeast';
-import HellHound from '../enemies/HellHound';
-import Skeleton from '../enemies/Skeleton';
-import Thing from '../enemies/Thing';
-import Wizard from '../enemies/Wizard';
 import Bearded from '../npc/Bearded';
 import Hatman from '../npc/Hatman';
 import Npc from '../npc/Npc';
 import Oldman from '../npc/Oldman';
 import Woman from '../npc/Woman';
-
-// export type Enemy = Thing | Wizard | Skeleton | Ghost | BurningGhoul | HellHound | Flames | Dragon | HellBeast | Demon;
 
 export type TNpc = Angel | Bearded | Hatman | Oldman | Woman | Npc;
 
@@ -26,6 +14,7 @@ export type TKeys =
         up: Phaser.Input.Keyboard.Key;
         down: Phaser.Input.Keyboard.Key;
         fire: Phaser.Input.Keyboard.Key;
+        bow: Phaser.Input.Keyboard.Key;
         jump: Phaser.Input.Keyboard.Key;
         select: Phaser.Input.Keyboard.Key;
         pause: Phaser.Input.Keyboard.Key;
@@ -40,24 +29,18 @@ export type TInventory = {
     savedPositionX: number
     savedPositionY: number
     map: string,
-    jumpBoots: boolean,
+    jumpBoots: boolean
     jumpBootsValue: number
-    selectableWeapon: string[],
-    swords: number[],
-    sword: boolean,
-    bow: boolean,
-    bowDamage: number
-    shield: boolean
+    selectableWeapon: string[]
+    swords: number[]
+    selectedSword: number
+    bows: number[]
+    selectedBow: number | null
+    shields: number[]
+    selectedShield: number | null
     shieldDef: number
     fireRate: number
-    boss1: boolean,
-    thunderDoorReached: boolean,
-    thunderDoorOpen: boolean,
-    townInFire: boolean,
-    boss2: boolean,
-    bossFinal: boolean,
-    escape: boolean,
-    powerUp: number[],
+    powerUp: number[]
 };
 
 export type TSwordConfig = {
@@ -67,4 +50,45 @@ export type TSwordConfig = {
     damage: number;
     rate: number;
     key: number;
+};
+
+export type TBowConfig = {
+    id: number;
+    name: string;
+    desc: string;
+    damage: number;
+    rate: number;
+    speed: number;
+    key: number;
+};
+
+export type TShieldConfig = {
+    id: number;
+    name: string;
+    desc: string;
+    defense: number;
+    key: number;
+};
+
+export type TEquipmentConfig = {
+    id: number;
+    name: string;
+    desc: string;
+    defense?: number;
+    key: number;
+};
+
+export type THitboxData = {
+    [key: string]: {
+        hitboxes: [
+            {
+                frame: string,
+                type: 'rectangle' | 'circle',
+                x: number,
+                y: number,
+                width: number,
+                height: number
+            }
+        ]
+    };
 };

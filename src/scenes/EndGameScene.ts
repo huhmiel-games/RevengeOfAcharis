@@ -30,7 +30,7 @@ export default class EndGame extends Scene
         let d = localStorage.getItem('d') as string;
         d = JSON.parse(d);
 
-        const arr = this.mainScene.player.inventory.powerUp.filter(e => e === 1);
+        const arr = this.mainScene.player.inventoryManager.getInventory().powerUp.filter(e => e === 1);
         const percent = Math.floor(arr.length * 100 / 9);
 
         let t = localStorage.getItem('time') as string;

@@ -7,7 +7,7 @@ export default class DialogueService
     {
         scene.setPause();
 
-        scene.player.playerState.pause = true;
+        scene.player.isPause = true;
 
         // @ts-ignore
         const ui = scene.add.rexNinePatch(WIDTH / 2, HEIGHT - HEIGHT / 8, WIDTH, HEIGHT / 4, 'framing', [7, undefined, 7], [7, undefined, 7], 0)
@@ -47,7 +47,7 @@ export default class DialogueService
                     delay: 150,
                     callback: () =>
                     {
-                        scene.player.playerState.pause = false;
+                        scene.player.isPause = false;
                         dialog.removeAllListeners();
                     }
                 });

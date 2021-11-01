@@ -3,6 +3,8 @@ import GameScene from '../scenes/GameScene';
 import { GameObjects } from 'phaser';
 import { COLORS } from '../constant/colors';
 import { FONTS, FONTS_SIZES } from '../constant/config';
+import SaveLoadService from '../services/SaveLoadService';
+import Projectile from './Projectile';
 
 /**
  * @description The Enemy base class
@@ -47,7 +49,7 @@ export default class Enemy extends GameObjects.Sprite
         this.isDead = false;
     }
 
-    public looseLife (damage: number): void
+    public looseLife (damage: number, weaponType: string): void
     {
         if (this.isHit)
         {
@@ -58,7 +60,15 @@ export default class Enemy extends GameObjects.Sprite
         
         this.setTintFill(0xDDDDDD);
 
-        this.scene.sound.play(`${this.name}Hit`);
+        try
+        {
+            this.scene.sound.play(`${this.name}Hit`);
+        }
+        catch (error)
+        {
+            console.log(error);
+        }
+        
 
         this.enemyState.life -= damage;
 
@@ -124,6 +134,8 @@ export default class Enemy extends GameObjects.Sprite
         this.scene.giveLife.anims.play('heart');
         this.scene.giveLifeGroup.push(this.scene.giveLife);
 
+        SaveLoadService.setEnemiesDeathCount();
+
         this.destroy();
     }
 
@@ -144,6 +156,13 @@ export default class Enemy extends GameObjects.Sprite
 
     public playSfxDeath ()
     {
-        this.scene.sound.play(`${this.name}Death`, { volume: 1, rate: 1 });
+        try
+        {
+            this.scene.sound.play(`${this.name}Death`, { volume: 1, rate: 1 });
+        }
+        catch (error)
+        {
+            console.log(error);
+        }
     }
 }

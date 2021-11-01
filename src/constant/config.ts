@@ -1,4 +1,4 @@
-import { TSwordConfig } from '../types/types';
+import { TBowConfig, TShieldConfig, TSwordConfig } from '../types/types';
 
 export const GAMENAME = 'Revenge of Acharis';
 export const WIDTH = 512;
@@ -61,7 +61,7 @@ export const SWORDS: TSwordConfig[] = [
     {
         id: 2,
         name: 'steel-sword',
-        desc: 'a simple wood sword',
+        desc: 'a solid steel sword',
         damage: 6,
         rate: 280,
         key: 2
@@ -122,4 +122,54 @@ export const SWORDS: TSwordConfig[] = [
         rate: 270,
         key: 9
     }
+];
+
+export const BOWS: TBowConfig[] = [
+    {
+        id: 10,
+        name: 'wood-bow',
+        desc: 'a simple old wood sword',
+        damage: 2,
+        rate: 270,
+        speed: 500,
+        key: 10
+    }
+];
+
+export const SHIELDS: TShieldConfig[] = [
+    {
+        id: 15,
+        name: 'wood shield',
+        desc: 'a simple shield made with wood',
+        defense: 4,
+        key: 15
+    },
+    {
+        id: 16,
+        name: 'iron shield',
+        desc: 'a full iron shield ',
+        defense: 6,
+        key: 16
+    },
+    {
+        id: 17,
+        name: 'knight shield',
+        desc: 'a good knight shield',
+        defense: 8,
+        key: 17
+    },
+    {
+        id: 18,
+        name: 'royal guard shield',
+        desc: 'perhaps the best ever made shield',
+        defense: 10,
+        key: 18
+    },
+    {
+        id: 19,
+        name: 'dark shield',
+        desc: 'a strange dark shield in a unknown matter',
+        defense: 15,
+        key: 19
+    },
 ];

@@ -204,6 +204,13 @@ import tilesetSwamp from '../assets/environment/layers/tileset-swamp.png';
 import colliderTiles from '../assets/environment/layers/colliderTileset.png';
 import tilesetTown from '../assets/environment/layers/tileset-town.png';
 import tilesetChurch from '../assets/environment/layers/tileset-church.png';
+import castleA from '../assets/environment/layers/castle-a.png';
+import castleBack from '../assets/environment/layers/castle-back.png';
+import castleBack2 from '../assets/environment/layers/castle-back2.png';
+import cave from '../assets/environment/layers/cave.png';
+import cave2 from '../assets/environment/layers/cave2.png';
+import caveBack from '../assets/environment/layers/cave-back.png';
+import woodTileset from '../assets/environment/layers/wood-tileset.png';
 
 import map0 from '../maps/map0.json';
 import map1 from '../maps/map1.json';
@@ -226,6 +233,7 @@ import map17 from '../maps/map17.json';
 import map18 from '../maps/map18.json';
 import map19 from '../maps/map19.json';
 import map20 from '../maps/map20.json';
+import map21 from '../maps/map21.json';
 
 // Various
 import knife from '../assets/knife.png';
@@ -242,54 +250,6 @@ import jumpBoots from '../assets/jumpBoots.png';
 import churchParticles from '../assets/churchParticles.png';
 import castleParticles from '../assets/castleParticles.png';
 
-// map backgrounds
-// import map1back from '../maps/map1back.png';
-// import map1backN from '../maps/map1back_n.png';
-// import map1middle from '../maps/map1middle.png';
-// import map1middleN from '../maps/map1middle_n.png';
-// import map2back from '../maps/map2back2.png';
-// import map2backN from '../maps/map2back2_n.png';
-// import map3backTest from '../maps/map3backTest.png';
-// import map3backTestN from '../maps/map3backTest_n.png';
-// import map3middle from '../maps/map3middle.png';
-// import map3middle2 from '../maps/map3middle2.png';
-// import map4back from '../maps/map4back.png';
-// import map4backN from '../maps/map4back_n.png';
-// import map5back from '../maps/map5back.png';
-// import map5backN from '../maps/map5back_n.png';
-import map6back from '../maps/map6back.png';
-// import map6backN from '../maps/map6back_n.png';
-// import map7back from '../maps/map7back.png';
-// import map7backN from '../maps/map7back_n.png';
-// import map8back from '../maps/map8back.png';
-// import map8backN from '../maps/map8back_n.png';
-// import map9back from '../maps/map9back.png';
-// import map9backN from '../maps/map9back_n.png';
-// import map10back from '../maps/map10back.png';
-// import map10backN from '../maps/map10back_n.png';
-// import map11back from '../maps/map11back.png';
-// import map11backN from '../maps/map11back_n.png';
-// import map11middle2 from '../maps/map11middle2.png';
-// import map12back from '../maps/map12back.png';
-// import map12backN from '../maps/map12back_n.png';
-// import map13back from '../maps/map13back.png';
-// import map13backN from '../maps/map13back_n.png';
-// import map14back from '../maps/map14back.png';
-// import map14backN from '../maps/map14back_n.png';
-// import map15back from '../maps/map15back.png';
-// import map15backN from '../maps/map15back_n.png';
-// import map16back from '../maps/map16back.png';
-// import map16backN from '../maps/map16back_n.png';
-// import map17back from '../maps/map17back.png';
-// import map17backN from '../maps/map17back_n.png';
-// import map18back from '../maps/map18back.png';
-// import map18backN from '../maps/map18back_n.png';
-// import map18backBroken from '../maps/map18backBroken.png';
-// import map18backBrokenN from '../maps/map18backBroken_n.png';
-// import map19back from '../maps/map19back.png';
-// import map19backN from '../maps/map19back_n.png';
-
-
 // dashboard
 // import blackPixel from '../assets/blackPixel.png';
 import knifeIcon from '../assets/knifeIcon.png';
@@ -302,9 +262,10 @@ import iconFullscreen from '../assets/iconFullscreen.png';
 import framing from '../assets/props/framing.png';
 import framing32 from '../assets/props/framing32x32.png';
 import stuff from '../assets/props/stuff.png';
-// import heart from '../assets/heart.png';
 import energyBar from '../assets/energyBar.png';
 import inventoryGrid from '../assets/props/inventoryGrid.png';
+import parchment from '../assets/parchment.png';
+import arrow from '../assets/props/arrow.png';
 
 
 // import backgrounds
@@ -319,6 +280,7 @@ import graveyard from '../assets/environment/backgrounds/graveyard.png';
 import oldDarkCastleBack from '../assets/environment/backgrounds/old-dark-castle-interior-background.png';
 import back from '../assets/environment/backgrounds/back.png';
 import town from '../assets/environment/backgrounds/town.png';
+import mountain from '../assets/environment/backgrounds/mountains.png';
 
 // objects images
 import houseA from '../assets/environment/objects/house-a.png';
@@ -335,12 +297,19 @@ import olddarkCastleTileset from '../assets/environment/layers/old-dark-castle-i
 import gothicCastleBackTiles from '../assets/environment/layers/gothic-castle-background-tileset.png';
 import gothicCastleTileset from '../assets/environment/layers/gothic-castle-tileset.png';
 import castleAssets from '../assets/environment/layers/Castle-Assets.png';
+import decorative from '../assets/environment/layers/decorative.png';
+import animated from '../assets/environment/layers/animated.png';
+
 
 import mapWorld from '../maps/world.world';
 import world from '../maps/world.json';
 import { COLORS } from '../constant/colors';
 
+import vikingJSON from '../enemies/hitbox_data/viking.json';
+
 // IMPORT SECTION //
+import skeletonSwordAtlasJSON from '../assets/atlas/skeletonSwordAtlas.json';
+import skeletonSwordAtlas from '../assets/atlas/skeletonSwordAtlas.png';
 import impRedAtlasJSON from '../assets/atlas/imp-red-atlas.json';
 import impRedAtlas from '../assets/atlas/imp-red-atlas.png';
 import impAxeRedAtlasJSON from '../assets/atlas/imp-axe-red-atlas.json';
@@ -349,8 +318,8 @@ import evilWizard2AtlasJSON from '../assets/atlas/evil-wizard2-atlas.json';
 import evilWizard2Atlas from '../assets/atlas/evil-wizard2-atlas.png';
 import bringerOfDeathAtlasJSON from '../assets/atlas/bringerOfDeathAtlas.json';
 import bringerOfDeathAtlas from '../assets/atlas/bringerOfDeathAtlas.png';
-import enemies2AtlasJSON from '../assets/atlas/enemies2Atlas.json';
-import enemies2Atlas from '../assets/atlas/enemies2Atlas.png';
+import enemies2AtlasJSON from '../assets/atlas/enemies3Atlas.json';
+import enemies2Atlas from '../assets/atlas/enemies3Atlas.png';
 
 
 
@@ -380,6 +349,8 @@ export default class LoadingScreen extends Scene
         this.showCover();
         this.showProgressBar();
 
+        this.load.json('vikingJSON', vikingJSON);
+
         // Load all assets here
         this.load.image('backgroundWithoutTitles', backgroundWithoutTitles);
         this.load.image('tileground', tiles);
@@ -392,6 +363,15 @@ export default class LoadingScreen extends Scene
         this.load.image('gothic-castle-background-tileset', gothicCastleBackTiles);
         this.load.image('gothic-castle-tileset', gothicCastleTileset);
         this.load.image('Castle-Assets', castleAssets);
+        this.load.image('castle-a', castleA);
+        this.load.image('decorative', decorative);
+        this.load.image('castle-back', castleBack);
+        this.load.image('castle-back2', castleBack2);
+        this.load.image('animated', animated);
+        this.load.image('cave', cave);
+        this.load.image('cave2', cave2);
+        this.load.image('cave-back', caveBack);
+        this.load.image('wood-tileset', woodTileset);
 
         this.load.image('background-swamp', backgroundSwamp);
         this.load.image('mid-layer-swamp-01', midlayerswamp01);
@@ -402,9 +382,9 @@ export default class LoadingScreen extends Scene
         this.load.image('mountains-backyard', mountainsBackyard);
         this.load.image('graveyard', graveyard);
         this.load.image('old-dark-castle-interior-background', oldDarkCastleBack);
-        this.load.image('map6back', map6back);
         this.load.image('back', back);
         this.load.image('town', town);
+        this.load.image('mountain', mountain);
 
         this.load.image('house-a', houseA);
         this.load.image('house-b', houseB);
@@ -438,6 +418,7 @@ export default class LoadingScreen extends Scene
         this.load.tilemapTiledJSON('map18', map18);
         this.load.tilemapTiledJSON('map19', map19);
         this.load.tilemapTiledJSON('map20', map20);
+        this.load.tilemapTiledJSON('map21', map21);
 
         // player animation
         this.load.atlas('playerAtlas', adventurerAtlas, adventurerAtlasJSON);
@@ -470,9 +451,10 @@ export default class LoadingScreen extends Scene
         this.load.image('darkClouds', darkClouds);
         this.load.image('framing32', framing32);
         this.load.image('inventory-grid', inventoryGrid);
+        this.load.image('parchment', parchment);
+        this.load.image('arrow', arrow);
 
         // dashboard
-        // this.load.image('blackpixel', blackPixel);
         this.load.image('knifeIcon', knifeIcon);
         this.load.image('swordIcon', swordIcon);
         this.load.image('axeIcon', axeIcon);
@@ -482,36 +464,6 @@ export default class LoadingScreen extends Scene
         this.load.image('iconFullscreen', iconFullscreen);
         this.load.image('energyBar', energyBar);
         this.load.image('framing', framing);
-
-        // this.load.spritesheet('heart', heart, { frameWidth: 12, frameHeight: 12 });
-
-
-        // parralax
-        // this.load.image('map1back', [map1back, map1backN]);
-        // this.load.image('map1middle', [map1middle, map1middleN]);
-        // this.load.image('map2back', [map2back, map2backN]);
-        // this.load.image('map3back', [map3backTest, map3backTestN]);
-        // this.load.image('map3middle', map3middle);
-        // this.load.image('map3middle2', map3middle2);
-        // this.load.image('map4back', [map4back, map4backN]);
-        // this.load.image('map5back', [map5back, map5backN]);
-        // this.load.image('map6back', [map6back, map6backN]);
-        // this.load.image('map7back', [map7back, map7backN]);
-        // this.load.image('map8back', [map8back, map8backN]);
-        // this.load.image('map9back', [map9back, map9backN]);
-        // this.load.image('map10back', [map10back, map10backN]);
-        // this.load.image('map11back', [map11back, map11backN]);
-        // this.load.image('map11middle2', map11middle2);
-        // this.load.image('map12back', [map12back, map12backN]);
-        // this.load.image('map13back', [map13back, map13backN]);
-        // this.load.image('map14back', [map14back, map14backN]);
-        // this.load.image('map15back', [map15back, map15backN]);
-        // this.load.image('map16back', [map16back, map16backN]);
-        // this.load.image('map17back', [map17back, map17backN]);
-        // this.load.image('map18back', [map18back, map18backN]);
-        // this.load.image('map18backBroken', [map18backBroken, map18backBrokenN]);
-        // this.load.image('map19back', [map19back, map19backN]);
-
 
         // sounds
         // player sfx
@@ -667,6 +619,7 @@ export default class LoadingScreen extends Scene
         this.load.audio('titleMenu', titleMenu);
 
         // PRELOAD SECTION //
+        this.load.atlas('skeletonSwordAtlas', skeletonSwordAtlas, skeletonSwordAtlasJSON);
         this.load.atlas('imp-red-atlas', impRedAtlas, impRedAtlasJSON);
         this.load.atlas('imp-axe-red-atlas', impAxeRedAtlas, impAxeRedAtlasJSON);
         this.load.atlas('evil-wizard2-atlas', evilWizard2Atlas, evilWizard2AtlasJSON);
@@ -737,7 +690,7 @@ export default class LoadingScreen extends Scene
                 { key: 'playerAtlas', frame: 'adventurer-run-04' },
                 { key: 'playerAtlas', frame: 'adventurer-run-05' },
             ],
-            frameRate: 12,
+            frameRate: 9,
             repeat: 0,
         });
 
@@ -884,25 +837,80 @@ export default class LoadingScreen extends Scene
         });
 
         this.anims.create({
-            key: 'adventurer-air-attack3',
+            key: 'adventurer-bow',
             frames: [
-                { key: 'playerAtlas', frame: 'adventurer-air-attack2-00' },
-                { key: 'playerAtlas', frame: 'adventurer-air-attack2-01' },
-                { key: 'playerAtlas', frame: 'adventurer-air-attack2-02' },
+                { key: 'playerAtlas', frame: 'adventurer-bow-00' },
+                { key: 'playerAtlas', frame: 'adventurer-bow-01' },
+                { key: 'playerAtlas', frame: 'adventurer-bow-02' },
+                { key: 'playerAtlas', frame: 'adventurer-bow-03' },
+                { key: 'playerAtlas', frame: 'adventurer-bow-04' },
+                { key: 'playerAtlas', frame: 'adventurer-bow-05' }
             ],
             frameRate: 15,
             repeat: 0,
         });
 
+        this.anims.create({
+            key: 'adventurer-bow-end',
+            frames: [
+                { key: 'playerAtlas', frame: 'adventurer-bow-06' },
+                { key: 'playerAtlas', frame: 'adventurer-bow-07' },
+                { key: 'playerAtlas', frame: 'adventurer-bow-08', duration: 200 },
+            ],
+            frameRate: 24,
+            repeat: 0,
+        });
 
         this.anims.create({
-            key: 'adventurer-air-attack3-loop',
+            key: 'adventurer-bow-jump',
+            frames: [
+                { key: 'playerAtlas', frame: 'adventurer-bow-jump-00' },
+                { key: 'playerAtlas', frame: 'adventurer-bow-jump-01' },
+                { key: 'playerAtlas', frame: 'adventurer-bow-jump-02' },
+                { key: 'playerAtlas', frame: 'adventurer-bow-jump-03' },
+                { key: 'playerAtlas', frame: 'adventurer-bow-jump-04' },
+                { key: 'playerAtlas', frame: 'adventurer-bow-jump-05' },
+                { key: 'playerAtlas', frame: 'adventurer-bow-jump-06' }
+            ],
+            frameRate: 7,
+            repeat: 0,
+        });
+
+        // this.anims.create({
+        //     key: 'adventurer-air-attack3',
+        //     frames: [
+        //         { key: 'playerAtlas', frame: 'adventurer-air-attack2-00' },
+        //         { key: 'playerAtlas', frame: 'adventurer-air-attack2-01' },
+        //         { key: 'playerAtlas', frame: 'adventurer-air-attack2-02' },
+        //     ],
+        //     frameRate: 15,
+        //     repeat: 0,
+        // });
+
+
+        this.anims.create({
+            key: 'adventurer-special-air-attack',
             frames: [
                 { key: 'playerAtlas', frame: 'adventurer-air-attack3-loop-00' },
                 { key: 'playerAtlas', frame: 'adventurer-air-attack3-loop-01' },
+                // { key: 'playerAtlas', frame: 'adventurer-air-attack3-rdy-00' },
+                // { key: 'playerAtlas', frame: 'adventurer-air-attack3-end-00' },
+                // { key: 'playerAtlas', frame: 'adventurer-air-attack3-end-01' },
+                // { key: 'playerAtlas', frame: 'adventurer-air-attack3-end-02' },
             ],
-            frameRate: 4,
+            frameRate: 15,
             repeat: -1,
+        });
+
+        this.anims.create({
+            key: 'adventurer-special-air-attack-end',
+            frames: [
+                { key: 'playerAtlas', frame: 'adventurer-air-attack3-end-00' },
+                { key: 'playerAtlas', frame: 'adventurer-air-attack3-end-01' },
+                { key: 'playerAtlas', frame: 'adventurer-air-attack3-end-02' },
+            ],
+            frameRate: 9,
+            repeat: 0,
         });
 
         // this.anims.create({
@@ -926,7 +934,7 @@ export default class LoadingScreen extends Scene
                 { key: 'playerAtlas', frame: 'adventurer-die-06' },
             ],
             frameRate: 14,
-            repeat: -1,
+            repeat: 0,
         });
 
         this.anims.create({
@@ -938,6 +946,21 @@ export default class LoadingScreen extends Scene
             ],
             frameRate: 6,
             repeat: -1,
+        });
+
+        this.anims.create({
+            key: 'adventurer-knock-down',
+            frames: [
+                { key: 'playerAtlas', frame: 'adventurer-knock-dwn-00' },
+                { key: 'playerAtlas', frame: 'adventurer-knock-dwn-01' },
+                { key: 'playerAtlas', frame: 'adventurer-knock-dwn-02' },
+                { key: 'playerAtlas', frame: 'adventurer-knock-dwn-03' },
+                { key: 'playerAtlas', frame: 'adventurer-knock-dwn-04' },
+                { key: 'playerAtlas', frame: 'adventurer-knock-dwn-05' },
+                { key: 'playerAtlas', frame: 'adventurer-knock-dwn-06' },
+            ],
+            frameRate: 4,
+            repeat: 0,
         });
 
 
@@ -1558,14 +1581,155 @@ export default class LoadingScreen extends Scene
         // ANIMS SECTION //
 
         this.anims.create({
+            key: 'skeleton-sword-attack2',
+            frames: [
+                { key: 'skeletonSwordAtlas', frame: 'skeleton-sword-attack2_1', duration: 100 },
+                { key: 'skeletonSwordAtlas', frame: 'skeleton-sword-attack2_2', duration: 100 },
+                { key: 'skeletonSwordAtlas', frame: 'skeleton-sword-attack2_3', duration: 100 },
+                { key: 'skeletonSwordAtlas', frame: 'skeleton-sword-attack2_4' },
+                { key: 'skeletonSwordAtlas', frame: 'skeleton-sword-attack2_5' },
+                { key: 'skeletonSwordAtlas', frame: 'skeleton-sword-attack2_6' },
+            ],
+            frameRate: 12,
+            repeat: 0,
+        });
+                
+        this.anims.create({
+            key: 'skeleton-sword-dead_far',
+            frames: [
+                { key: 'skeletonSwordAtlas', frame: 'skeleton-sword-dead_far_1' },
+                { key: 'skeletonSwordAtlas', frame: 'skeleton-sword-dead_far_2' },
+                { key: 'skeletonSwordAtlas', frame: 'skeleton-sword-dead_far_3' },
+                { key: 'skeletonSwordAtlas', frame: 'skeleton-sword-dead_far_4' },
+                { key: 'skeletonSwordAtlas', frame: 'skeleton-sword-dead_far_5' },
+                { key: 'skeletonSwordAtlas', frame: 'skeleton-sword-dead_far_6' },
+            ],
+            frameRate: 12,
+            repeat: 0,
+        });
+                
+        this.anims.create({
+            key: 'skeleton-sword-dead_near',
+            frames: [
+                { key: 'skeletonSwordAtlas', frame: 'skeleton-sword-dead_near_1' },
+                { key: 'skeletonSwordAtlas', frame: 'skeleton-sword-dead_near_2' },
+                { key: 'skeletonSwordAtlas', frame: 'skeleton-sword-dead_near_3' },
+                { key: 'skeletonSwordAtlas', frame: 'skeleton-sword-dead_near_4' },
+                { key: 'skeletonSwordAtlas', frame: 'skeleton-sword-dead_near_5' },
+                { key: 'skeletonSwordAtlas', frame: 'skeleton-sword-dead_near_6', duration: 3000 },
+            ],
+            frameRate: 12,
+            repeat: 0,
+        });
+                
+        this.anims.create({
+            key: 'skeleton-sword-attack1',
+            frames: [
+                { key: 'skeletonSwordAtlas', frame: 'skeleton-sword-attack1_1', duration: 100 },
+                { key: 'skeletonSwordAtlas', frame: 'skeleton-sword-attack1_2', duration: 100 },
+                { key: 'skeletonSwordAtlas', frame: 'skeleton-sword-attack1_3', duration: 100 },
+                { key: 'skeletonSwordAtlas', frame: 'skeleton-sword-attack1_4' },
+                { key: 'skeletonSwordAtlas', frame: 'skeleton-sword-attack1_5' },
+                { key: 'skeletonSwordAtlas', frame: 'skeleton-sword-attack1_6' },
+            ],
+            frameRate: 12,
+            repeat: 0,
+        });
+                
+        this.anims.create({
+            key: 'skeleton-sword-run',
+            frames: [
+                { key: 'skeletonSwordAtlas', frame: 'skeleton-sword-run_1' },
+                { key: 'skeletonSwordAtlas', frame: 'skeleton-sword-run_2' },
+                { key: 'skeletonSwordAtlas', frame: 'skeleton-sword-run_3' },
+                { key: 'skeletonSwordAtlas', frame: 'skeleton-sword-run_4' },
+                { key: 'skeletonSwordAtlas', frame: 'skeleton-sword-run_5' },
+                { key: 'skeletonSwordAtlas', frame: 'skeleton-sword-run_6' },
+            ],
+            frameRate: 12,
+            repeat: -1,
+        });
+                
+        this.anims.create({
+            key: 'skeleton-sword-jump',
+            frames: [
+                { key: 'skeletonSwordAtlas', frame: 'skeleton-sword-jump_1' },
+                { key: 'skeletonSwordAtlas', frame: 'skeleton-sword-jump_2' },
+                { key: 'skeletonSwordAtlas', frame: 'skeleton-sword-jump_3' },
+                { key: 'skeletonSwordAtlas', frame: 'skeleton-sword-jump_4' },
+                { key: 'skeletonSwordAtlas', frame: 'skeleton-sword-jump_5' },
+            ],
+            frameRate: 10,
+            repeat: 0,
+        });
+                
+        this.anims.create({
+            key: 'skeleton-sword-walk',
+            frames: [
+                { key: 'skeletonSwordAtlas', frame: 'skeleton-sword-walk_1' },
+                { key: 'skeletonSwordAtlas', frame: 'skeleton-sword-walk_2' },
+                { key: 'skeletonSwordAtlas', frame: 'skeleton-sword-walk_3' },
+                { key: 'skeletonSwordAtlas', frame: 'skeleton-sword-walk_4' },
+                { key: 'skeletonSwordAtlas', frame: 'skeleton-sword-walk_5' },
+                { key: 'skeletonSwordAtlas', frame: 'skeleton-sword-walk_6' },
+            ],
+            frameRate: 6,
+            repeat: 0,
+        });
+                
+        this.anims.create({
+            key: 'skeleton-sword-ready',
+            frames: [
+                { key: 'skeletonSwordAtlas', frame: 'skeleton-sword-ready_1' },
+                { key: 'skeletonSwordAtlas', frame: 'skeleton-sword-ready_2' },
+                { key: 'skeletonSwordAtlas', frame: 'skeleton-sword-ready_3' },
+            ],
+            frameRate: 6,
+            repeat: 1,
+        });
+                
+        this.anims.create({
+            key: 'skeleton-sword-hurt',
+            frames: [
+                { key: 'skeletonSwordAtlas', frame: 'skeleton-sword-hit_1' },
+                { key: 'skeletonSwordAtlas', frame: 'skeleton-sword-hit_2' },
+                { key: 'skeletonSwordAtlas', frame: 'skeleton-sword-hit_3' },
+            ],
+            frameRate: 6,
+            repeat: 0,
+        });
+                
+        this.anims.create({
+            key: 'skeleton-sword-reborn',
+            frames: [
+                { key: 'skeletonSwordAtlas', frame: 'skeleton-sword-reborn_1' },
+                { key: 'skeletonSwordAtlas', frame: 'skeleton-sword-reborn_2' },
+                { key: 'skeletonSwordAtlas', frame: 'skeleton-sword-reborn_3' },
+            ],
+            frameRate: 3,
+            repeat: 0,
+        });
+                
+        this.anims.create({
+            key: 'skeleton-sword-corpse',
+            frames: [
+                { key: 'skeletonSwordAtlas', frame: 'skeleton-sword-corpse_1' },
+                { key: 'skeletonSwordAtlas', frame: 'skeleton-sword-corpse_2' },
+            ],
+            frameRate: 4,
+            repeat: -1,
+        });
+                
+
+        this.anims.create({
             key: 'imp-red-attack2',
             frames: [
-                { key: 'imp-red-atlas', frame: 'imp-red-attack2_4' },
-                { key: 'imp-red-atlas', frame: 'imp-red-attack2_3' },
                 { key: 'imp-red-atlas', frame: 'imp-red-attack2_1' },
                 { key: 'imp-red-atlas', frame: 'imp-red-attack2_2' },
-                { key: 'imp-red-atlas', frame: 'imp-red-attack2_6' },
+                { key: 'imp-red-atlas', frame: 'imp-red-attack2_3' },
+                { key: 'imp-red-atlas', frame: 'imp-red-attack2_4' },
                 { key: 'imp-red-atlas', frame: 'imp-red-attack2_5' },
+                { key: 'imp-red-atlas', frame: 'imp-red-attack2_6' },
             ],
             frameRate: 12,
             repeat: -1,
@@ -1574,12 +1738,12 @@ export default class LoadingScreen extends Scene
         this.anims.create({
             key: 'imp-red-attack1',
             frames: [
-                { key: 'imp-red-atlas', frame: 'imp-red-attack1_4' },
+                { key: 'imp-red-atlas', frame: 'imp-red-attack1_1' },
                 { key: 'imp-red-atlas', frame: 'imp-red-attack1_2' },
                 { key: 'imp-red-atlas', frame: 'imp-red-attack1_3' },
-                { key: 'imp-red-atlas', frame: 'imp-red-attack1_1' },
-                { key: 'imp-red-atlas', frame: 'imp-red-attack1_6' },
+                { key: 'imp-red-atlas', frame: 'imp-red-attack1_4' },
                 { key: 'imp-red-atlas', frame: 'imp-red-attack1_5' },
+                { key: 'imp-red-atlas', frame: 'imp-red-attack1_6' },
             ],
             frameRate: 12,
             repeat: -1,
@@ -1590,9 +1754,9 @@ export default class LoadingScreen extends Scene
             frames: [
                 { key: 'imp-red-atlas', frame: 'imp-red-stand_up_1' },
                 { key: 'imp-red-atlas', frame: 'imp-red-stand_up_2' },
-                { key: 'imp-red-atlas', frame: 'imp-red-stand_up_5' },
-                { key: 'imp-red-atlas', frame: 'imp-red-stand_up_4' },
                 { key: 'imp-red-atlas', frame: 'imp-red-stand_up_3' },
+                { key: 'imp-red-atlas', frame: 'imp-red-stand_up_4' },
+                { key: 'imp-red-atlas', frame: 'imp-red-stand_up_5' },
             ],
             frameRate: 10,
             repeat: -1,
@@ -1601,11 +1765,11 @@ export default class LoadingScreen extends Scene
         this.anims.create({
             key: 'imp-red-fall_back',
             frames: [
+                { key: 'imp-red-atlas', frame: 'imp-red-fall_back_1' },
+                { key: 'imp-red-atlas', frame: 'imp-red-fall_back_2' },
+                { key: 'imp-red-atlas', frame: 'imp-red-fall_back_3' },
                 { key: 'imp-red-atlas', frame: 'imp-red-fall_back_4' },
                 { key: 'imp-red-atlas', frame: 'imp-red-fall_back_5' },
-                { key: 'imp-red-atlas', frame: 'imp-red-fall_back_2' },
-                { key: 'imp-red-atlas', frame: 'imp-red-fall_back_1' },
-                { key: 'imp-red-atlas', frame: 'imp-red-fall_back_3' },
             ],
             frameRate: 10,
             repeat: -1,
@@ -1614,12 +1778,12 @@ export default class LoadingScreen extends Scene
         this.anims.create({
             key: 'imp-red-walk',
             frames: [
-                { key: 'imp-red-atlas', frame: 'imp-red-walk_4' },
                 { key: 'imp-red-atlas', frame: 'imp-red-walk_1' },
-                { key: 'imp-red-atlas', frame: 'imp-red-walk_3' },
-                { key: 'imp-red-atlas', frame: 'imp-red-walk_6' },
-                { key: 'imp-red-atlas', frame: 'imp-red-walk_5' },
                 { key: 'imp-red-atlas', frame: 'imp-red-walk_2' },
+                { key: 'imp-red-atlas', frame: 'imp-red-walk_3' },
+                { key: 'imp-red-atlas', frame: 'imp-red-walk_4' },
+                { key: 'imp-red-atlas', frame: 'imp-red-walk_5' },
+                { key: 'imp-red-atlas', frame: 'imp-red-walk_6' },
             ],
             frameRate: 12,
             repeat: -1,
@@ -1628,10 +1792,10 @@ export default class LoadingScreen extends Scene
         this.anims.create({
             key: 'imp-red-jump',
             frames: [
-                { key: 'imp-red-atlas', frame: 'imp-red-jump_2' },
-                { key: 'imp-red-atlas', frame: 'imp-red-jump_4' },
                 { key: 'imp-red-atlas', frame: 'imp-red-jump_1' },
+                { key: 'imp-red-atlas', frame: 'imp-red-jump_2' },
                 { key: 'imp-red-atlas', frame: 'imp-red-jump_3' },
+                { key: 'imp-red-atlas', frame: 'imp-red-jump_4' },
                 { key: 'imp-red-atlas', frame: 'imp-red-jump_5' },
             ],
             frameRate: 10,
@@ -1641,12 +1805,12 @@ export default class LoadingScreen extends Scene
         this.anims.create({
             key: 'imp-red-run',
             frames: [
-                { key: 'imp-red-atlas', frame: 'imp-red-run_4' },
                 { key: 'imp-red-atlas', frame: 'imp-red-run_1' },
-                { key: 'imp-red-atlas', frame: 'imp-red-run_3' },
-                { key: 'imp-red-atlas', frame: 'imp-red-run_6' },
                 { key: 'imp-red-atlas', frame: 'imp-red-run_2' },
+                { key: 'imp-red-atlas', frame: 'imp-red-run_3' },
+                { key: 'imp-red-atlas', frame: 'imp-red-run_4' },
                 { key: 'imp-red-atlas', frame: 'imp-red-run_5' },
+                { key: 'imp-red-atlas', frame: 'imp-red-run_6' },
             ],
             frameRate: 12,
             repeat: -1,
@@ -1655,11 +1819,11 @@ export default class LoadingScreen extends Scene
         this.anims.create({
             key: 'imp-red-ready',
             frames: [
+                { key: 'imp-red-atlas', frame: 'imp-red-ready_1' },
+                { key: 'imp-red-atlas', frame: 'imp-red-ready_2' },
                 { key: 'imp-red-atlas', frame: 'imp-red-ready_3' },
                 { key: 'imp-red-atlas', frame: 'imp-red-ready_4' },
                 { key: 'imp-red-atlas', frame: 'imp-red-ready_5' },
-                { key: 'imp-red-atlas', frame: 'imp-red-ready_2' },
-                { key: 'imp-red-atlas', frame: 'imp-red-ready_1' },
                 { key: 'imp-red-atlas', frame: 'imp-red-ready_6' },
             ],
             frameRate: 12,
@@ -1670,8 +1834,8 @@ export default class LoadingScreen extends Scene
             key: 'imp-red-hit',
             frames: [
                 { key: 'imp-red-atlas', frame: 'imp-red-hit_1' },
-                { key: 'imp-red-atlas', frame: 'imp-red-hit_3' },
                 { key: 'imp-red-atlas', frame: 'imp-red-hit_2' },
+                { key: 'imp-red-atlas', frame: 'imp-red-hit_3' },
             ],
             frameRate: 6,
             repeat: -1,
@@ -1681,12 +1845,12 @@ export default class LoadingScreen extends Scene
         this.anims.create({
             key: 'demon-axe-red-attack1',
             frames: [
-                { key: 'imp-axe-red-atlas', frame: 'demon-axe-red-attack1_4' },
-                { key: 'imp-axe-red-atlas', frame: 'demon-axe-red-attack1_3' },
-                { key: 'imp-axe-red-atlas', frame: 'demon-axe-red-attack1_2' },
-                { key: 'imp-axe-red-atlas', frame: 'demon-axe-red-attack1_6' },
                 { key: 'imp-axe-red-atlas', frame: 'demon-axe-red-attack1_1' },
+                { key: 'imp-axe-red-atlas', frame: 'demon-axe-red-attack1_2' },
+                { key: 'imp-axe-red-atlas', frame: 'demon-axe-red-attack1_3' },
+                { key: 'imp-axe-red-atlas', frame: 'demon-axe-red-attack1_4' },
                 { key: 'imp-axe-red-atlas', frame: 'demon-axe-red-attack1_5' },
+                { key: 'imp-axe-red-atlas', frame: 'demon-axe-red-attack1_6' },
             ],
             frameRate: 12,
             repeat: -1,
@@ -1695,12 +1859,12 @@ export default class LoadingScreen extends Scene
         this.anims.create({
             key: 'demon-axe-red-attack2',
             frames: [
-                { key: 'imp-axe-red-atlas', frame: 'demon-axe-red-attack2_4' },
-                { key: 'imp-axe-red-atlas', frame: 'demon-axe-red-attack2_3' },
-                { key: 'imp-axe-red-atlas', frame: 'demon-axe-red-attack2_6' },
-                { key: 'imp-axe-red-atlas', frame: 'demon-axe-red-attack2_5' },
                 { key: 'imp-axe-red-atlas', frame: 'demon-axe-red-attack2_1' },
                 { key: 'imp-axe-red-atlas', frame: 'demon-axe-red-attack2_2' },
+                { key: 'imp-axe-red-atlas', frame: 'demon-axe-red-attack2_3' },
+                { key: 'imp-axe-red-atlas', frame: 'demon-axe-red-attack2_4' },
+                { key: 'imp-axe-red-atlas', frame: 'demon-axe-red-attack2_5' },
+                { key: 'imp-axe-red-atlas', frame: 'demon-axe-red-attack2_6' },
             ],
             frameRate: 12,
             repeat: -1,
@@ -1711,9 +1875,9 @@ export default class LoadingScreen extends Scene
             frames: [
                 { key: 'imp-axe-red-atlas', frame: 'demon-axe-red-stand_up_1' },
                 { key: 'imp-axe-red-atlas', frame: 'demon-axe-red-stand_up_2' },
-                { key: 'imp-axe-red-atlas', frame: 'demon-axe-red-stand_up_5' },
-                { key: 'imp-axe-red-atlas', frame: 'demon-axe-red-stand_up_4' },
                 { key: 'imp-axe-red-atlas', frame: 'demon-axe-red-stand_up_3' },
+                { key: 'imp-axe-red-atlas', frame: 'demon-axe-red-stand_up_4' },
+                { key: 'imp-axe-red-atlas', frame: 'demon-axe-red-stand_up_5' },
             ],
             frameRate: 10,
             repeat: -1,
@@ -1722,10 +1886,10 @@ export default class LoadingScreen extends Scene
         this.anims.create({
             key: 'demon-axe-red-fall_back',
             frames: [
-                { key: 'imp-axe-red-atlas', frame: 'demon-axe-red-fall_back_4' },
-                { key: 'imp-axe-red-atlas', frame: 'demon-axe-red-fall_back_3' },
                 { key: 'imp-axe-red-atlas', frame: 'demon-axe-red-fall_back_1' },
                 { key: 'imp-axe-red-atlas', frame: 'demon-axe-red-fall_back_2' },
+                { key: 'imp-axe-red-atlas', frame: 'demon-axe-red-fall_back_3' },
+                { key: 'imp-axe-red-atlas', frame: 'demon-axe-red-fall_back_4' },
             ],
             frameRate: 8,
             repeat: -1,
@@ -1734,10 +1898,10 @@ export default class LoadingScreen extends Scene
         this.anims.create({
             key: 'demon-axe-red-dead',
             frames: [
-                { key: 'imp-axe-red-atlas', frame: 'demon-axe-red-dead_4' },
                 { key: 'imp-axe-red-atlas', frame: 'demon-axe-red-dead_1' },
-                { key: 'imp-axe-red-atlas', frame: 'demon-axe-red-dead_3' },
                 { key: 'imp-axe-red-atlas', frame: 'demon-axe-red-dead_2' },
+                { key: 'imp-axe-red-atlas', frame: 'demon-axe-red-dead_3' },
+                { key: 'imp-axe-red-atlas', frame: 'demon-axe-red-dead_4' },
             ],
             frameRate: 8,
             repeat: -1,
@@ -1746,11 +1910,11 @@ export default class LoadingScreen extends Scene
         this.anims.create({
             key: 'demon-axe-red-walk',
             frames: [
-                { key: 'imp-axe-red-atlas', frame: 'demon-axe-red-walk_5' },
                 { key: 'imp-axe-red-atlas', frame: 'demon-axe-red-walk_1' },
-                { key: 'imp-axe-red-atlas', frame: 'demon-axe-red-walk_4' },
                 { key: 'imp-axe-red-atlas', frame: 'demon-axe-red-walk_2' },
                 { key: 'imp-axe-red-atlas', frame: 'demon-axe-red-walk_3' },
+                { key: 'imp-axe-red-atlas', frame: 'demon-axe-red-walk_4' },
+                { key: 'imp-axe-red-atlas', frame: 'demon-axe-red-walk_5' },
                 { key: 'imp-axe-red-atlas', frame: 'demon-axe-red-walk_6' },
             ],
             frameRate: 12,
@@ -1760,10 +1924,10 @@ export default class LoadingScreen extends Scene
         this.anims.create({
             key: 'demon-axe-red-jump',
             frames: [
-                { key: 'imp-axe-red-atlas', frame: 'demon-axe-red-jump_3' },
-                { key: 'imp-axe-red-atlas', frame: 'demon-axe-red-jump_2' },
-                { key: 'imp-axe-red-atlas', frame: 'demon-axe-red-jump_4' },
                 { key: 'imp-axe-red-atlas', frame: 'demon-axe-red-jump_1' },
+                { key: 'imp-axe-red-atlas', frame: 'demon-axe-red-jump_2' },
+                { key: 'imp-axe-red-atlas', frame: 'demon-axe-red-jump_3' },
+                { key: 'imp-axe-red-atlas', frame: 'demon-axe-red-jump_4' },
                 { key: 'imp-axe-red-atlas', frame: 'demon-axe-red-jump_5' },
             ],
             frameRate: 10,
@@ -1775,9 +1939,9 @@ export default class LoadingScreen extends Scene
             frames: [
                 { key: 'imp-axe-red-atlas', frame: 'demon-axe-red-run_1' },
                 { key: 'imp-axe-red-atlas', frame: 'demon-axe-red-run_2' },
+                { key: 'imp-axe-red-atlas', frame: 'demon-axe-red-run_3' },
                 { key: 'imp-axe-red-atlas', frame: 'demon-axe-red-run_4' },
                 { key: 'imp-axe-red-atlas', frame: 'demon-axe-red-run_5' },
-                { key: 'imp-axe-red-atlas', frame: 'demon-axe-red-run_3' },
                 { key: 'imp-axe-red-atlas', frame: 'demon-axe-red-run_6' },
             ],
             frameRate: 12,
@@ -1802,8 +1966,8 @@ export default class LoadingScreen extends Scene
             key: 'demon-axe-red-hit',
             frames: [
                 { key: 'imp-axe-red-atlas', frame: 'demon-axe-red-hit_1' },
-                { key: 'imp-axe-red-atlas', frame: 'demon-axe-red-hit_3' },
                 { key: 'imp-axe-red-atlas', frame: 'demon-axe-red-hit_2' },
+                { key: 'imp-axe-red-atlas', frame: 'demon-axe-red-hit_3' },
             ],
             frameRate: 6,
             repeat: -1,
@@ -1813,13 +1977,13 @@ export default class LoadingScreen extends Scene
         this.anims.create({
             key: 'evil-wizard2-attack2',
             frames: [
-                { key: 'evil-wizard2-atlas', frame: 'evil-wizard2-attack2_4' },
-                { key: 'evil-wizard2-atlas', frame: 'evil-wizard2-attack2_6' },
-                { key: 'evil-wizard2-atlas', frame: 'evil-wizard2-attack2_5' },
-                { key: 'evil-wizard2-atlas', frame: 'evil-wizard2-attack2_3' },
-                { key: 'evil-wizard2-atlas', frame: 'evil-wizard2-attack2_2' },
                 { key: 'evil-wizard2-atlas', frame: 'evil-wizard2-attack2_0' },
                 { key: 'evil-wizard2-atlas', frame: 'evil-wizard2-attack2_1' },
+                { key: 'evil-wizard2-atlas', frame: 'evil-wizard2-attack2_2' },
+                { key: 'evil-wizard2-atlas', frame: 'evil-wizard2-attack2_3' },
+                { key: 'evil-wizard2-atlas', frame: 'evil-wizard2-attack2_4' },
+                { key: 'evil-wizard2-atlas', frame: 'evil-wizard2-attack2_5' },
+                { key: 'evil-wizard2-atlas', frame: 'evil-wizard2-attack2_6' },
                 { key: 'evil-wizard2-atlas', frame: 'evil-wizard2-attack2_7' },
             ],
             frameRate: 16,
@@ -1829,14 +1993,14 @@ export default class LoadingScreen extends Scene
         this.anims.create({
             key: 'evil-wizard2-attack1',
             frames: [
-                { key: 'evil-wizard2-atlas', frame: 'evil-wizard2-attack1_6' },
+                { key: 'evil-wizard2-atlas', frame: 'evil-wizard2-attack1_0' },
+                { key: 'evil-wizard2-atlas', frame: 'evil-wizard2-attack1_1' },
+                { key: 'evil-wizard2-atlas', frame: 'evil-wizard2-attack1_2' },
+                { key: 'evil-wizard2-atlas', frame: 'evil-wizard2-attack1_3' },
                 { key: 'evil-wizard2-atlas', frame: 'evil-wizard2-attack1_4' },
                 { key: 'evil-wizard2-atlas', frame: 'evil-wizard2-attack1_5' },
-                { key: 'evil-wizard2-atlas', frame: 'evil-wizard2-attack1_3' },
+                { key: 'evil-wizard2-atlas', frame: 'evil-wizard2-attack1_6' },
                 { key: 'evil-wizard2-atlas', frame: 'evil-wizard2-attack1_7' },
-                { key: 'evil-wizard2-atlas', frame: 'evil-wizard2-attack1_2' },
-                { key: 'evil-wizard2-atlas', frame: 'evil-wizard2-attack1_1' },
-                { key: 'evil-wizard2-atlas', frame: 'evil-wizard2-attack1_0' },
             ],
             frameRate: 16,
             repeat: -1,
@@ -1845,13 +2009,13 @@ export default class LoadingScreen extends Scene
         this.anims.create({
             key: 'evil-wizard2-death',
             frames: [
-                { key: 'evil-wizard2-atlas', frame: 'evil-wizard2-death_5' },
-                { key: 'evil-wizard2-atlas', frame: 'evil-wizard2-death_4' },
-                { key: 'evil-wizard2-atlas', frame: 'evil-wizard2-death_6' },
-                { key: 'evil-wizard2-atlas', frame: 'evil-wizard2-death_3' },
-                { key: 'evil-wizard2-atlas', frame: 'evil-wizard2-death_2' },
-                { key: 'evil-wizard2-atlas', frame: 'evil-wizard2-death_1' },
                 { key: 'evil-wizard2-atlas', frame: 'evil-wizard2-death_0' },
+                { key: 'evil-wizard2-atlas', frame: 'evil-wizard2-death_1' },
+                { key: 'evil-wizard2-atlas', frame: 'evil-wizard2-death_2' },
+                { key: 'evil-wizard2-atlas', frame: 'evil-wizard2-death_3' },
+                { key: 'evil-wizard2-atlas', frame: 'evil-wizard2-death_4' },
+                { key: 'evil-wizard2-atlas', frame: 'evil-wizard2-death_5' },
+                { key: 'evil-wizard2-atlas', frame: 'evil-wizard2-death_6' },
             ],
             frameRate: 14,
             repeat: -1,
@@ -1860,14 +2024,14 @@ export default class LoadingScreen extends Scene
         this.anims.create({
             key: 'evil-wizard2-idle',
             frames: [
-                { key: 'evil-wizard2-atlas', frame: 'evil-wizard2-idle_5' },
+                { key: 'evil-wizard2-atlas', frame: 'evil-wizard2-idle_0' },
+                { key: 'evil-wizard2-atlas', frame: 'evil-wizard2-idle_1' },
                 { key: 'evil-wizard2-atlas', frame: 'evil-wizard2-idle_2' },
                 { key: 'evil-wizard2-atlas', frame: 'evil-wizard2-idle_3' },
-                { key: 'evil-wizard2-atlas', frame: 'evil-wizard2-idle_1' },
                 { key: 'evil-wizard2-atlas', frame: 'evil-wizard2-idle_4' },
+                { key: 'evil-wizard2-atlas', frame: 'evil-wizard2-idle_5' },
                 { key: 'evil-wizard2-atlas', frame: 'evil-wizard2-idle_6' },
                 { key: 'evil-wizard2-atlas', frame: 'evil-wizard2-idle_7' },
-                { key: 'evil-wizard2-atlas', frame: 'evil-wizard2-idle_0' },
             ],
             frameRate: 16,
             repeat: -1,
@@ -1876,8 +2040,8 @@ export default class LoadingScreen extends Scene
         this.anims.create({
             key: 'evil-wizard2-fall',
             frames: [
-                { key: 'evil-wizard2-atlas', frame: 'evil-wizard2-fall_1' },
                 { key: 'evil-wizard2-atlas', frame: 'evil-wizard2-fall_0' },
+                { key: 'evil-wizard2-atlas', frame: 'evil-wizard2-fall_1' },
             ],
             frameRate: 4,
             repeat: -1,
@@ -1907,12 +2071,12 @@ export default class LoadingScreen extends Scene
         this.anims.create({
             key: 'evil-wizard2-run',
             frames: [
-                { key: 'evil-wizard2-atlas', frame: 'evil-wizard2-run_3' },
+                { key: 'evil-wizard2-atlas', frame: 'evil-wizard2-run_0' },
                 { key: 'evil-wizard2-atlas', frame: 'evil-wizard2-run_1' },
                 { key: 'evil-wizard2-atlas', frame: 'evil-wizard2-run_2' },
+                { key: 'evil-wizard2-atlas', frame: 'evil-wizard2-run_3' },
                 { key: 'evil-wizard2-atlas', frame: 'evil-wizard2-run_4' },
                 { key: 'evil-wizard2-atlas', frame: 'evil-wizard2-run_5' },
-                { key: 'evil-wizard2-atlas', frame: 'evil-wizard2-run_0' },
                 { key: 'evil-wizard2-atlas', frame: 'evil-wizard2-run_6' },
                 { key: 'evil-wizard2-atlas', frame: 'evil-wizard2-run_7' },
             ],
@@ -1924,15 +2088,15 @@ export default class LoadingScreen extends Scene
         this.anims.create({
             key: 'Bringer-of-Death_Attack',
             frames: [
-                { key: 'bringerOfDeathAtlas', frame: 'Bringer-of-Death_Attack_6' },
+                { key: 'bringerOfDeathAtlas', frame: 'Bringer-of-Death_Attack_1' },
+                { key: 'bringerOfDeathAtlas', frame: 'Bringer-of-Death_Attack_2' },
+                { key: 'bringerOfDeathAtlas', frame: 'Bringer-of-Death_Attack_3' },
+                { key: 'bringerOfDeathAtlas', frame: 'Bringer-of-Death_Attack_4' },
                 { key: 'bringerOfDeathAtlas', frame: 'Bringer-of-Death_Attack_5' },
+                { key: 'bringerOfDeathAtlas', frame: 'Bringer-of-Death_Attack_6' },
                 { key: 'bringerOfDeathAtlas', frame: 'Bringer-of-Death_Attack_7' },
                 { key: 'bringerOfDeathAtlas', frame: 'Bringer-of-Death_Attack_8' },
                 { key: 'bringerOfDeathAtlas', frame: 'Bringer-of-Death_Attack_9' },
-                { key: 'bringerOfDeathAtlas', frame: 'Bringer-of-Death_Attack_3' },
-                { key: 'bringerOfDeathAtlas', frame: 'Bringer-of-Death_Attack_4' },
-                { key: 'bringerOfDeathAtlas', frame: 'Bringer-of-Death_Attack_2' },
-                { key: 'bringerOfDeathAtlas', frame: 'Bringer-of-Death_Attack_1' },
                 { key: 'bringerOfDeathAtlas', frame: 'Bringer-of-Death_Attack_10' },
             ],
             frameRate: 20,
@@ -1942,15 +2106,15 @@ export default class LoadingScreen extends Scene
         this.anims.create({
             key: 'Bringer-of-Death_Cast',
             frames: [
-                { key: 'bringerOfDeathAtlas', frame: 'Bringer-of-Death_Cast_7' },
-                { key: 'bringerOfDeathAtlas', frame: 'Bringer-of-Death_Cast_6' },
-                { key: 'bringerOfDeathAtlas', frame: 'Bringer-of-Death_Cast_9' },
-                { key: 'bringerOfDeathAtlas', frame: 'Bringer-of-Death_Cast_8' },
                 { key: 'bringerOfDeathAtlas', frame: 'Bringer-of-Death_Cast_1' },
                 { key: 'bringerOfDeathAtlas', frame: 'Bringer-of-Death_Cast_2' },
                 { key: 'bringerOfDeathAtlas', frame: 'Bringer-of-Death_Cast_3' },
                 { key: 'bringerOfDeathAtlas', frame: 'Bringer-of-Death_Cast_4' },
                 { key: 'bringerOfDeathAtlas', frame: 'Bringer-of-Death_Cast_5' },
+                { key: 'bringerOfDeathAtlas', frame: 'Bringer-of-Death_Cast_6' },
+                { key: 'bringerOfDeathAtlas', frame: 'Bringer-of-Death_Cast_7' },
+                { key: 'bringerOfDeathAtlas', frame: 'Bringer-of-Death_Cast_8' },
+                { key: 'bringerOfDeathAtlas', frame: 'Bringer-of-Death_Cast_9' },
             ],
             frameRate: 18,
             repeat: -1,
@@ -1959,13 +2123,13 @@ export default class LoadingScreen extends Scene
         this.anims.create({
             key: 'Bringer-of-Death_Death',
             frames: [
-                { key: 'bringerOfDeathAtlas', frame: 'Bringer-of-Death_Death_6' },
-                { key: 'bringerOfDeathAtlas', frame: 'Bringer-of-Death_Death_7' },
-                { key: 'bringerOfDeathAtlas', frame: 'Bringer-of-Death_Death_5' },
-                { key: 'bringerOfDeathAtlas', frame: 'Bringer-of-Death_Death_4' },
+                { key: 'bringerOfDeathAtlas', frame: 'Bringer-of-Death_Death_1' },
                 { key: 'bringerOfDeathAtlas', frame: 'Bringer-of-Death_Death_2' },
                 { key: 'bringerOfDeathAtlas', frame: 'Bringer-of-Death_Death_3' },
-                { key: 'bringerOfDeathAtlas', frame: 'Bringer-of-Death_Death_1' },
+                { key: 'bringerOfDeathAtlas', frame: 'Bringer-of-Death_Death_4' },
+                { key: 'bringerOfDeathAtlas', frame: 'Bringer-of-Death_Death_5' },
+                { key: 'bringerOfDeathAtlas', frame: 'Bringer-of-Death_Death_6' },
+                { key: 'bringerOfDeathAtlas', frame: 'Bringer-of-Death_Death_7' },
                 { key: 'bringerOfDeathAtlas', frame: 'Bringer-of-Death_Death_8' },
                 { key: 'bringerOfDeathAtlas', frame: 'Bringer-of-Death_Death_9' },
                 { key: 'bringerOfDeathAtlas', frame: 'Bringer-of-Death_Death_10' },
@@ -1977,22 +2141,22 @@ export default class LoadingScreen extends Scene
         this.anims.create({
             key: 'Bringer-of-Death_Spell',
             frames: [
-                { key: 'bringerOfDeathAtlas', frame: 'Bringer-of-Death_Spell_9' },
+                { key: 'bringerOfDeathAtlas', frame: 'Bringer-of-Death_Spell_1' },
+                { key: 'bringerOfDeathAtlas', frame: 'Bringer-of-Death_Spell_2' },
+                { key: 'bringerOfDeathAtlas', frame: 'Bringer-of-Death_Spell_3' },
+                { key: 'bringerOfDeathAtlas', frame: 'Bringer-of-Death_Spell_4' },
+                { key: 'bringerOfDeathAtlas', frame: 'Bringer-of-Death_Spell_5' },
+                { key: 'bringerOfDeathAtlas', frame: 'Bringer-of-Death_Spell_6' },
+                { key: 'bringerOfDeathAtlas', frame: 'Bringer-of-Death_Spell_7' },
                 { key: 'bringerOfDeathAtlas', frame: 'Bringer-of-Death_Spell_8' },
-                { key: 'bringerOfDeathAtlas', frame: 'Bringer-of-Death_Spell_13' },
+                { key: 'bringerOfDeathAtlas', frame: 'Bringer-of-Death_Spell_9' },
                 { key: 'bringerOfDeathAtlas', frame: 'Bringer-of-Death_Spell_10' },
                 { key: 'bringerOfDeathAtlas', frame: 'Bringer-of-Death_Spell_11' },
                 { key: 'bringerOfDeathAtlas', frame: 'Bringer-of-Death_Spell_12' },
-                { key: 'bringerOfDeathAtlas', frame: 'Bringer-of-Death_Spell_7' },
-                { key: 'bringerOfDeathAtlas', frame: 'Bringer-of-Death_Spell_6' },
-                { key: 'bringerOfDeathAtlas', frame: 'Bringer-of-Death_Spell_4' },
-                { key: 'bringerOfDeathAtlas', frame: 'Bringer-of-Death_Spell_3' },
-                { key: 'bringerOfDeathAtlas', frame: 'Bringer-of-Death_Spell_1' },
-                { key: 'bringerOfDeathAtlas', frame: 'Bringer-of-Death_Spell_2' },
-                { key: 'bringerOfDeathAtlas', frame: 'Bringer-of-Death_Spell_16' },
-                { key: 'bringerOfDeathAtlas', frame: 'Bringer-of-Death_Spell_15' },
+                { key: 'bringerOfDeathAtlas', frame: 'Bringer-of-Death_Spell_13' },
                 { key: 'bringerOfDeathAtlas', frame: 'Bringer-of-Death_Spell_14' },
-                { key: 'bringerOfDeathAtlas', frame: 'Bringer-of-Death_Spell_5' },
+                { key: 'bringerOfDeathAtlas', frame: 'Bringer-of-Death_Spell_15' },
+                { key: 'bringerOfDeathAtlas', frame: 'Bringer-of-Death_Spell_16' },
             ],
             frameRate: 32,
             repeat: -1,
@@ -2001,14 +2165,14 @@ export default class LoadingScreen extends Scene
         this.anims.create({
             key: 'Bringer-of-Death_Walk',
             frames: [
-                { key: 'bringerOfDeathAtlas', frame: 'Bringer-of-Death_Walk_3' },
-                { key: 'bringerOfDeathAtlas', frame: 'Bringer-of-Death_Walk_2' },
-                { key: 'bringerOfDeathAtlas', frame: 'Bringer-of-Death_Walk_4' },
-                { key: 'bringerOfDeathAtlas', frame: 'Bringer-of-Death_Walk_8' },
                 { key: 'bringerOfDeathAtlas', frame: 'Bringer-of-Death_Walk_1' },
-                { key: 'bringerOfDeathAtlas', frame: 'Bringer-of-Death_Walk_7' },
+                { key: 'bringerOfDeathAtlas', frame: 'Bringer-of-Death_Walk_2' },
+                { key: 'bringerOfDeathAtlas', frame: 'Bringer-of-Death_Walk_3' },
+                { key: 'bringerOfDeathAtlas', frame: 'Bringer-of-Death_Walk_4' },
                 { key: 'bringerOfDeathAtlas', frame: 'Bringer-of-Death_Walk_5' },
                 { key: 'bringerOfDeathAtlas', frame: 'Bringer-of-Death_Walk_6' },
+                { key: 'bringerOfDeathAtlas', frame: 'Bringer-of-Death_Walk_7' },
+                { key: 'bringerOfDeathAtlas', frame: 'Bringer-of-Death_Walk_8' },
             ],
             frameRate: 16,
             repeat: -1,
@@ -2017,14 +2181,14 @@ export default class LoadingScreen extends Scene
         this.anims.create({
             key: 'Bringer-of-Death_Idle',
             frames: [
-                { key: 'bringerOfDeathAtlas', frame: 'Bringer-of-Death_Idle_4' },
-                { key: 'bringerOfDeathAtlas', frame: 'Bringer-of-Death_Idle_3' },
-                { key: 'bringerOfDeathAtlas', frame: 'Bringer-of-Death_Idle_2' },
-                { key: 'bringerOfDeathAtlas', frame: 'Bringer-of-Death_Idle_5' },
-                { key: 'bringerOfDeathAtlas', frame: 'Bringer-of-Death_Idle_8' },
                 { key: 'bringerOfDeathAtlas', frame: 'Bringer-of-Death_Idle_1' },
-                { key: 'bringerOfDeathAtlas', frame: 'Bringer-of-Death_Idle_7' },
+                { key: 'bringerOfDeathAtlas', frame: 'Bringer-of-Death_Idle_2' },
+                { key: 'bringerOfDeathAtlas', frame: 'Bringer-of-Death_Idle_3' },
+                { key: 'bringerOfDeathAtlas', frame: 'Bringer-of-Death_Idle_4' },
+                { key: 'bringerOfDeathAtlas', frame: 'Bringer-of-Death_Idle_5' },
                 { key: 'bringerOfDeathAtlas', frame: 'Bringer-of-Death_Idle_6' },
+                { key: 'bringerOfDeathAtlas', frame: 'Bringer-of-Death_Idle_7' },
+                { key: 'bringerOfDeathAtlas', frame: 'Bringer-of-Death_Idle_8' },
             ],
             frameRate: 16,
             repeat: -1,
@@ -2033,9 +2197,9 @@ export default class LoadingScreen extends Scene
         this.anims.create({
             key: 'Bringer-of-Death_Hurt',
             frames: [
-                { key: 'bringerOfDeathAtlas', frame: 'Bringer-of-Death_Hurt_3' },
-                { key: 'bringerOfDeathAtlas', frame: 'Bringer-of-Death_Hurt_2' },
                 { key: 'bringerOfDeathAtlas', frame: 'Bringer-of-Death_Hurt_1' },
+                { key: 'bringerOfDeathAtlas', frame: 'Bringer-of-Death_Hurt_2' },
+                { key: 'bringerOfDeathAtlas', frame: 'Bringer-of-Death_Hurt_3' },
             ],
             frameRate: 6,
             repeat: -1,
@@ -2045,8 +2209,8 @@ export default class LoadingScreen extends Scene
         this.anims.create({
             key: 'horse-galloping',
             frames: [
-                { key: 'enemies2Atlas', frame: 'horse-galloping_1' },
                 { key: 'enemies2Atlas', frame: 'horse-galloping_0' },
+                { key: 'enemies2Atlas', frame: 'horse-galloping_1' },
                 { key: 'enemies2Atlas', frame: 'horse-galloping_2' },
                 { key: 'enemies2Atlas', frame: 'horse-galloping_3' },
             ],
@@ -2068,12 +2232,12 @@ export default class LoadingScreen extends Scene
         this.anims.create({
             key: 'samurai-attack2',
             frames: [
-                { key: 'enemies2Atlas', frame: 'samurai-attack2_4' },
-                { key: 'enemies2Atlas', frame: 'samurai-attack2_5' },
-                { key: 'enemies2Atlas', frame: 'samurai-attack2_1' },
                 { key: 'enemies2Atlas', frame: 'samurai-attack2_0' },
+                { key: 'enemies2Atlas', frame: 'samurai-attack2_1' },
                 { key: 'enemies2Atlas', frame: 'samurai-attack2_2' },
                 { key: 'enemies2Atlas', frame: 'samurai-attack2_3' },
+                { key: 'enemies2Atlas', frame: 'samurai-attack2_4' },
+                { key: 'enemies2Atlas', frame: 'samurai-attack2_5' },
             ],
             frameRate: 12,
             repeat: -1,
@@ -2082,12 +2246,12 @@ export default class LoadingScreen extends Scene
         this.anims.create({
             key: 'samurai-attack1',
             frames: [
-                { key: 'enemies2Atlas', frame: 'samurai-attack1_5' },
-                { key: 'enemies2Atlas', frame: 'samurai-attack1_4' },
                 { key: 'enemies2Atlas', frame: 'samurai-attack1_0' },
                 { key: 'enemies2Atlas', frame: 'samurai-attack1_1' },
                 { key: 'enemies2Atlas', frame: 'samurai-attack1_2' },
                 { key: 'enemies2Atlas', frame: 'samurai-attack1_3' },
+                { key: 'enemies2Atlas', frame: 'samurai-attack1_4' },
+                { key: 'enemies2Atlas', frame: 'samurai-attack1_5' },
             ],
             frameRate: 12,
             repeat: -1,
@@ -2096,10 +2260,10 @@ export default class LoadingScreen extends Scene
         this.anims.create({
             key: 'horse-idle',
             frames: [
-                { key: 'enemies2Atlas', frame: 'horse-idle_1' },
-                { key: 'enemies2Atlas', frame: 'horse-idle_3' },
-                { key: 'enemies2Atlas', frame: 'horse-idle_2' },
                 { key: 'enemies2Atlas', frame: 'horse-idle_0' },
+                { key: 'enemies2Atlas', frame: 'horse-idle_1' },
+                { key: 'enemies2Atlas', frame: 'horse-idle_2' },
+                { key: 'enemies2Atlas', frame: 'horse-idle_3' },
             ],
             frameRate: 8,
             repeat: -1,
@@ -2108,14 +2272,14 @@ export default class LoadingScreen extends Scene
         this.anims.create({
             key: 'fire-skull',
             frames: [
-                { key: 'enemies2Atlas', frame: 'fire-skull_2' },
+                { key: 'enemies2Atlas', frame: 'fire-skull_0' },
                 { key: 'enemies2Atlas', frame: 'fire-skull_1' },
-                { key: 'enemies2Atlas', frame: 'fire-skull_4' },
+                { key: 'enemies2Atlas', frame: 'fire-skull_2' },
                 { key: 'enemies2Atlas', frame: 'fire-skull_3' },
+                { key: 'enemies2Atlas', frame: 'fire-skull_4' },
+                { key: 'enemies2Atlas', frame: 'fire-skull_5' },
                 { key: 'enemies2Atlas', frame: 'fire-skull_6' },
                 { key: 'enemies2Atlas', frame: 'fire-skull_7' },
-                { key: 'enemies2Atlas', frame: 'fire-skull_0' },
-                { key: 'enemies2Atlas', frame: 'fire-skull_5' },
             ],
             frameRate: 16,
             repeat: -1,
@@ -2124,10 +2288,10 @@ export default class LoadingScreen extends Scene
         this.anims.create({
             key: 'ninja-attack2',
             frames: [
+                { key: 'enemies2Atlas', frame: 'ninja-attack2_0' },
+                { key: 'enemies2Atlas', frame: 'ninja-attack2_1' },
                 { key: 'enemies2Atlas', frame: 'ninja-attack2_2' },
                 { key: 'enemies2Atlas', frame: 'ninja-attack2_3' },
-                { key: 'enemies2Atlas', frame: 'ninja-attack2_1' },
-                { key: 'enemies2Atlas', frame: 'ninja-attack2_0' },
             ],
             frameRate: 8,
             repeat: -1,
@@ -2136,9 +2300,9 @@ export default class LoadingScreen extends Scene
         this.anims.create({
             key: 'ninja-attack1',
             frames: [
-                { key: 'enemies2Atlas', frame: 'ninja-attack1_2' },
-                { key: 'enemies2Atlas', frame: 'ninja-attack1_1' },
                 { key: 'enemies2Atlas', frame: 'ninja-attack1_0' },
+                { key: 'enemies2Atlas', frame: 'ninja-attack1_1' },
+                { key: 'enemies2Atlas', frame: 'ninja-attack1_2' },
                 { key: 'enemies2Atlas', frame: 'ninja-attack1_3' },
             ],
             frameRate: 8,
@@ -2148,12 +2312,12 @@ export default class LoadingScreen extends Scene
         this.anims.create({
             key: 'knight2-attack',
             frames: [
-                { key: 'enemies2Atlas', frame: 'knight2-attack_4' },
                 { key: 'enemies2Atlas', frame: 'knight2-attack_0' },
                 { key: 'enemies2Atlas', frame: 'knight2-attack_1' },
-                { key: 'enemies2Atlas', frame: 'knight2-attack_5' },
                 { key: 'enemies2Atlas', frame: 'knight2-attack_2' },
                 { key: 'enemies2Atlas', frame: 'knight2-attack_3' },
+                { key: 'enemies2Atlas', frame: 'knight2-attack_4' },
+                { key: 'enemies2Atlas', frame: 'knight2-attack_5' },
             ],
             frameRate: 12,
             repeat: -1,
@@ -2162,26 +2326,26 @@ export default class LoadingScreen extends Scene
         this.anims.create({
             key: 'knight-attack',
             frames: [
-                { key: 'enemies2Atlas', frame: 'knight-attack_19' },
-                { key: 'enemies2Atlas', frame: 'knight-attack_18' },
-                { key: 'enemies2Atlas', frame: 'knight-attack_17' },
-                { key: 'enemies2Atlas', frame: 'knight-attack_16' },
+                { key: 'enemies2Atlas', frame: 'knight-attack_0' },
+                { key: 'enemies2Atlas', frame: 'knight-attack_1' },
+                { key: 'enemies2Atlas', frame: 'knight-attack_2' },
+                { key: 'enemies2Atlas', frame: 'knight-attack_3' },
+                { key: 'enemies2Atlas', frame: 'knight-attack_4' },
+                { key: 'enemies2Atlas', frame: 'knight-attack_5' },
+                { key: 'enemies2Atlas', frame: 'knight-attack_6' },
+                { key: 'enemies2Atlas', frame: 'knight-attack_7' },
+                { key: 'enemies2Atlas', frame: 'knight-attack_8' },
+                { key: 'enemies2Atlas', frame: 'knight-attack_9' },
                 { key: 'enemies2Atlas', frame: 'knight-attack_10' },
                 { key: 'enemies2Atlas', frame: 'knight-attack_11' },
                 { key: 'enemies2Atlas', frame: 'knight-attack_12' },
                 { key: 'enemies2Atlas', frame: 'knight-attack_13' },
-                { key: 'enemies2Atlas', frame: 'knight-attack_8' },
-                { key: 'enemies2Atlas', frame: 'knight-attack_7' },
-                { key: 'enemies2Atlas', frame: 'knight-attack_6' },
-                { key: 'enemies2Atlas', frame: 'knight-attack_5' },
-                { key: 'enemies2Atlas', frame: 'knight-attack_4' },
-                { key: 'enemies2Atlas', frame: 'knight-attack_0' },
-                { key: 'enemies2Atlas', frame: 'knight-attack_2' },
-                { key: 'enemies2Atlas', frame: 'knight-attack_1' },
                 { key: 'enemies2Atlas', frame: 'knight-attack_14' },
-                { key: 'enemies2Atlas', frame: 'knight-attack_3' },
                 { key: 'enemies2Atlas', frame: 'knight-attack_15' },
-                { key: 'enemies2Atlas', frame: 'knight-attack_9' },
+                { key: 'enemies2Atlas', frame: 'knight-attack_16' },
+                { key: 'enemies2Atlas', frame: 'knight-attack_17' },
+                { key: 'enemies2Atlas', frame: 'knight-attack_18' },
+                { key: 'enemies2Atlas', frame: 'knight-attack_19' },
             ],
             frameRate: 40,
             repeat: -1,
@@ -2202,47 +2366,47 @@ export default class LoadingScreen extends Scene
         this.anims.create({
             key: 'shadow-rise',
             frames: [
-                { key: 'enemies2Atlas', frame: 'shadow-rise_12' },
-                { key: 'enemies2Atlas', frame: 'shadow-rise_13' },
-                { key: 'enemies2Atlas', frame: 'shadow-rise_11' },
-                { key: 'enemies2Atlas', frame: 'shadow-rise_10' },
-                { key: 'enemies2Atlas', frame: 'shadow-rise_6' },
+                { key: 'enemies2Atlas', frame: 'shadow-rise_0' },
+                { key: 'enemies2Atlas', frame: 'shadow-rise_1' },
+                { key: 'enemies2Atlas', frame: 'shadow-rise_2' },
+                { key: 'enemies2Atlas', frame: 'shadow-rise_3' },
+                { key: 'enemies2Atlas', frame: 'shadow-rise_4' },
                 { key: 'enemies2Atlas', frame: 'shadow-rise_5' },
-                { key: 'enemies2Atlas', frame: 'shadow-rise_9' },
+                { key: 'enemies2Atlas', frame: 'shadow-rise_6' },
                 { key: 'enemies2Atlas', frame: 'shadow-rise_7' },
                 { key: 'enemies2Atlas', frame: 'shadow-rise_8' },
-                { key: 'enemies2Atlas', frame: 'shadow-rise_4' },
-                { key: 'enemies2Atlas', frame: 'shadow-rise_3' },
-                { key: 'enemies2Atlas', frame: 'shadow-rise_2' },
-                { key: 'enemies2Atlas', frame: 'shadow-rise_1' },
-                { key: 'enemies2Atlas', frame: 'shadow-rise_0' },
+                { key: 'enemies2Atlas', frame: 'shadow-rise_9' },
+                { key: 'enemies2Atlas', frame: 'shadow-rise_10' },
+                { key: 'enemies2Atlas', frame: 'shadow-rise_11' },
+                { key: 'enemies2Atlas', frame: 'shadow-rise_12' },
+                { key: 'enemies2Atlas', frame: 'shadow-rise_13' },
             ],
             frameRate: 28,
             repeat: -1,
         });
                 
-        this.anims.create({
-            key: 'tile',
-            frames: [
-                { key: 'enemies2Atlas', frame: 'tile015' },
-                { key: 'enemies2Atlas', frame: 'tile014' },
-                { key: 'enemies2Atlas', frame: 'tile031' },
-                { key: 'enemies2Atlas', frame: 'tile023' },
-            ],
-            frameRate: 8,
-            repeat: -1,
-        });
+        // this.anims.create({
+        //     key: 'tile',
+        //     frames: [
+        //         { key: 'enemies2Atlas', frame: 'tile015' },
+        //         { key: 'enemies2Atlas', frame: 'tile014' },
+        //         { key: 'enemies2Atlas', frame: 'tile031' },
+        //         { key: 'enemies2Atlas', frame: 'tile023' },
+        //     ],
+        //     frameRate: 8,
+        //     repeat: -1,
+        // });
                 
         this.anims.create({
             key: 'ninja-death',
             frames: [
-                { key: 'enemies2Atlas', frame: 'ninja-death_6' },
-                { key: 'enemies2Atlas', frame: 'ninja-death_5' },
                 { key: 'enemies2Atlas', frame: 'ninja-death_0' },
-                { key: 'enemies2Atlas', frame: 'ninja-death_4' },
                 { key: 'enemies2Atlas', frame: 'ninja-death_1' },
-                { key: 'enemies2Atlas', frame: 'ninja-death_3' },
                 { key: 'enemies2Atlas', frame: 'ninja-death_2' },
+                { key: 'enemies2Atlas', frame: 'ninja-death_3' },
+                { key: 'enemies2Atlas', frame: 'ninja-death_4' },
+                { key: 'enemies2Atlas', frame: 'ninja-death_5' },
+                { key: 'enemies2Atlas', frame: 'ninja-death_6' },
             ],
             frameRate: 14,
             repeat: -1,
@@ -2251,28 +2415,28 @@ export default class LoadingScreen extends Scene
         this.anims.create({
             key: 'night-borne-death',
             frames: [
-                { key: 'enemies2Atlas', frame: 'night-borne-death_14' },
-                { key: 'enemies2Atlas', frame: 'night-borne-death_13' },
-                { key: 'enemies2Atlas', frame: 'night-borne-death_12' },
-                { key: 'enemies2Atlas', frame: 'night-borne-death_15' },
-                { key: 'enemies2Atlas', frame: 'night-borne-death_16' },
-                { key: 'enemies2Atlas', frame: 'night-borne-death_17' },
-                { key: 'enemies2Atlas', frame: 'night-borne-death_9' },
-                { key: 'enemies2Atlas', frame: 'night-borne-death_11' },
-                { key: 'enemies2Atlas', frame: 'night-borne-death_10' },
+                { key: 'enemies2Atlas', frame: 'night-borne-death_0' },
+                { key: 'enemies2Atlas', frame: 'night-borne-death_1' },
+                { key: 'enemies2Atlas', frame: 'night-borne-death_2' },
                 { key: 'enemies2Atlas', frame: 'night-borne-death_3' },
                 { key: 'enemies2Atlas', frame: 'night-borne-death_4' },
                 { key: 'enemies2Atlas', frame: 'night-borne-death_5' },
                 { key: 'enemies2Atlas', frame: 'night-borne-death_6' },
                 { key: 'enemies2Atlas', frame: 'night-borne-death_7' },
                 { key: 'enemies2Atlas', frame: 'night-borne-death_8' },
-                { key: 'enemies2Atlas', frame: 'night-borne-death_0' },
-                { key: 'enemies2Atlas', frame: 'night-borne-death_1' },
-                { key: 'enemies2Atlas', frame: 'night-borne-death_2' },
+                { key: 'enemies2Atlas', frame: 'night-borne-death_9' },
+                { key: 'enemies2Atlas', frame: 'night-borne-death_10' },
+                { key: 'enemies2Atlas', frame: 'night-borne-death_11' },
+                { key: 'enemies2Atlas', frame: 'night-borne-death_12' },
+                { key: 'enemies2Atlas', frame: 'night-borne-death_13' },
+                { key: 'enemies2Atlas', frame: 'night-borne-death_14' },
+                { key: 'enemies2Atlas', frame: 'night-borne-death_15' },
+                { key: 'enemies2Atlas', frame: 'night-borne-death_16' },
+                { key: 'enemies2Atlas', frame: 'night-borne-death_17' },
                 { key: 'enemies2Atlas', frame: 'night-borne-death_18' },
                 { key: 'enemies2Atlas', frame: 'night-borne-death_19' },
-                { key: 'enemies2Atlas', frame: 'night-borne-death_21' },
                 { key: 'enemies2Atlas', frame: 'night-borne-death_20' },
+                { key: 'enemies2Atlas', frame: 'night-borne-death_21' },
                 { key: 'enemies2Atlas', frame: 'night-borne-death_22' },
             ],
             frameRate: 46,
@@ -2282,13 +2446,13 @@ export default class LoadingScreen extends Scene
         this.anims.create({
             key: 'dark-knight-attack',
             frames: [
-                { key: 'enemies2Atlas', frame: 'dark-knight-attack_5' },
+                { key: 'enemies2Atlas', frame: 'dark-knight-attack_0' },
+                { key: 'enemies2Atlas', frame: 'dark-knight-attack_1' },
+                { key: 'enemies2Atlas', frame: 'dark-knight-attack_2' },
                 { key: 'enemies2Atlas', frame: 'dark-knight-attack_3' },
                 { key: 'enemies2Atlas', frame: 'dark-knight-attack_4' },
-                { key: 'enemies2Atlas', frame: 'dark-knight-attack_2' },
-                { key: 'enemies2Atlas', frame: 'dark-knight-attack_1' },
+                { key: 'enemies2Atlas', frame: 'dark-knight-attack_5' },
                 { key: 'enemies2Atlas', frame: 'dark-knight-attack_6' },
-                { key: 'enemies2Atlas', frame: 'dark-knight-attack_0' },
             ],
             frameRate: 14,
             repeat: -1,
@@ -2297,22 +2461,22 @@ export default class LoadingScreen extends Scene
         this.anims.create({
             key: 'worm-attack',
             frames: [
-                { key: 'enemies2Atlas', frame: 'worm-attack_14' },
-                { key: 'enemies2Atlas', frame: 'worm-attack_12' },
-                { key: 'enemies2Atlas', frame: 'worm-attack_11' },
-                { key: 'enemies2Atlas', frame: 'worm-attack_13' },
-                { key: 'enemies2Atlas', frame: 'worm-attack_15' },
-                { key: 'enemies2Atlas', frame: 'worm-attack_6' },
                 { key: 'enemies2Atlas', frame: 'worm-attack_0' },
-                { key: 'enemies2Atlas', frame: 'worm-attack_4' },
-                { key: 'enemies2Atlas', frame: 'worm-attack_10' },
                 { key: 'enemies2Atlas', frame: 'worm-attack_1' },
-                { key: 'enemies2Atlas', frame: 'worm-attack_3' },
                 { key: 'enemies2Atlas', frame: 'worm-attack_2' },
+                { key: 'enemies2Atlas', frame: 'worm-attack_3' },
+                { key: 'enemies2Atlas', frame: 'worm-attack_4' },
                 { key: 'enemies2Atlas', frame: 'worm-attack_5' },
+                { key: 'enemies2Atlas', frame: 'worm-attack_6' },
                 { key: 'enemies2Atlas', frame: 'worm-attack_7' },
-                { key: 'enemies2Atlas', frame: 'worm-attack_9' },
                 { key: 'enemies2Atlas', frame: 'worm-attack_8' },
+                { key: 'enemies2Atlas', frame: 'worm-attack_9' },
+                { key: 'enemies2Atlas', frame: 'worm-attack_10' },
+                { key: 'enemies2Atlas', frame: 'worm-attack_11' },
+                { key: 'enemies2Atlas', frame: 'worm-attack_12' },
+                { key: 'enemies2Atlas', frame: 'worm-attack_13' },
+                { key: 'enemies2Atlas', frame: 'worm-attack_14' },
+                { key: 'enemies2Atlas', frame: 'worm-attack_15' },
             ],
             frameRate: 32,
             repeat: -1,
@@ -2321,39 +2485,39 @@ export default class LoadingScreen extends Scene
         this.anims.create({
             key: 'skeleton-flail-attack',
             frames: [
-                { key: 'enemies2Atlas', frame: 'skeleton-flail-attack_8' },
-                { key: 'enemies2Atlas', frame: 'skeleton-flail-attack_4' },
-                { key: 'enemies2Atlas', frame: 'skeleton-flail-attack_2' },
-                { key: 'enemies2Atlas', frame: 'skeleton-flail-attack_11' },
-                { key: 'enemies2Atlas', frame: 'skeleton-flail-attack_5' },
-                { key: 'enemies2Atlas', frame: 'skeleton-flail-attack_9' },
+                { key: 'enemies2Atlas', frame: 'skeleton-flail-attack_0', duration: 100 },
+                { key: 'enemies2Atlas', frame: 'skeleton-flail-attack_1', duration: 100 },
+                { key: 'enemies2Atlas', frame: 'skeleton-flail-attack_2', duration: 100 },
                 { key: 'enemies2Atlas', frame: 'skeleton-flail-attack_3' },
-                { key: 'enemies2Atlas', frame: 'skeleton-flail-attack_1' },
-                { key: 'enemies2Atlas', frame: 'skeleton-flail-attack_10' },
-                { key: 'enemies2Atlas', frame: 'skeleton-flail-attack_0' },
-                { key: 'enemies2Atlas', frame: 'skeleton-flail-attack_12' },
-                { key: 'enemies2Atlas', frame: 'skeleton-flail-attack_7' },
-                { key: 'enemies2Atlas', frame: 'skeleton-flail-attack_6' },
+                { key: 'enemies2Atlas', frame: 'skeleton-flail-attack_4' },
+                { key: 'enemies2Atlas', frame: 'skeleton-flail-attack_5' },
+                { key: 'enemies2Atlas', frame: 'skeleton-flail-attack_6', duration: 100 },
+                { key: 'enemies2Atlas', frame: 'skeleton-flail-attack_7', duration: 150 },
+                { key: 'enemies2Atlas', frame: 'skeleton-flail-attack_8' },
+                { key: 'enemies2Atlas', frame: 'skeleton-flail-attack_9' },
+                { key: 'enemies2Atlas', frame: 'skeleton-flail-attack_10', duration: 100 },
+                { key: 'enemies2Atlas', frame: 'skeleton-flail-attack_11', duration: 150 },
+                { key: 'enemies2Atlas', frame: 'skeleton-flail-attack_12', duration: 200 },
             ],
-            frameRate: 26,
-            repeat: -1,
+            frameRate: 16,
+            repeat: 0,
         });
                 
         this.anims.create({
             key: 'night-borne-attack',
             frames: [
-                { key: 'enemies2Atlas', frame: 'night-borne-attack_9' },
-                { key: 'enemies2Atlas', frame: 'night-borne-attack_5' },
+                { key: 'enemies2Atlas', frame: 'night-borne-attack_0' },
+                { key: 'enemies2Atlas', frame: 'night-borne-attack_1' },
                 { key: 'enemies2Atlas', frame: 'night-borne-attack_2' },
+                { key: 'enemies2Atlas', frame: 'night-borne-attack_3' },
                 { key: 'enemies2Atlas', frame: 'night-borne-attack_4' },
+                { key: 'enemies2Atlas', frame: 'night-borne-attack_5' },
                 { key: 'enemies2Atlas', frame: 'night-borne-attack_6' },
                 { key: 'enemies2Atlas', frame: 'night-borne-attack_7' },
-                { key: 'enemies2Atlas', frame: 'night-borne-attack_3' },
                 { key: 'enemies2Atlas', frame: 'night-borne-attack_8' },
+                { key: 'enemies2Atlas', frame: 'night-borne-attack_9' },
                 { key: 'enemies2Atlas', frame: 'night-borne-attack_10' },
-                { key: 'enemies2Atlas', frame: 'night-borne-attack_0' },
                 { key: 'enemies2Atlas', frame: 'night-borne-attack_11' },
-                { key: 'enemies2Atlas', frame: 'night-borne-attack_1' },
             ],
             frameRate: 24,
             repeat: -1,
@@ -2362,14 +2526,14 @@ export default class LoadingScreen extends Scene
         this.anims.create({
             key: 'worm-death',
             frames: [
+                { key: 'enemies2Atlas', frame: 'worm-death_0' },
+                { key: 'enemies2Atlas', frame: 'worm-death_1' },
+                { key: 'enemies2Atlas', frame: 'worm-death_2' },
+                { key: 'enemies2Atlas', frame: 'worm-death_3' },
+                { key: 'enemies2Atlas', frame: 'worm-death_4' },
+                { key: 'enemies2Atlas', frame: 'worm-death_5' },
                 { key: 'enemies2Atlas', frame: 'worm-death_6' },
                 { key: 'enemies2Atlas', frame: 'worm-death_7' },
-                { key: 'enemies2Atlas', frame: 'worm-death_5' },
-                { key: 'enemies2Atlas', frame: 'worm-death_4' },
-                { key: 'enemies2Atlas', frame: 'worm-death_2' },
-                { key: 'enemies2Atlas', frame: 'worm-death_1' },
-                { key: 'enemies2Atlas', frame: 'worm-death_3' },
-                { key: 'enemies2Atlas', frame: 'worm-death_0' },
             ],
             frameRate: 16,
             repeat: -1,
@@ -2378,10 +2542,10 @@ export default class LoadingScreen extends Scene
         this.anims.create({
             key: 'knight-death',
             frames: [
-                { key: 'enemies2Atlas', frame: 'knight-death_3' },
-                { key: 'enemies2Atlas', frame: 'knight-death_2' },
-                { key: 'enemies2Atlas', frame: 'knight-death_1' },
                 { key: 'enemies2Atlas', frame: 'knight-death_0' },
+                { key: 'enemies2Atlas', frame: 'knight-death_1' },
+                { key: 'enemies2Atlas', frame: 'knight-death_2' },
+                { key: 'enemies2Atlas', frame: 'knight-death_3' },
             ],
             frameRate: 8,
             repeat: -1,
@@ -2390,13 +2554,13 @@ export default class LoadingScreen extends Scene
         this.anims.create({
             key: 'tiny-wizard-death',
             frames: [
-                { key: 'enemies2Atlas', frame: 'tiny-wizard-death_6' },
-                { key: 'enemies2Atlas', frame: 'tiny-wizard-death_5' },
-                { key: 'enemies2Atlas', frame: 'tiny-wizard-death_4' },
-                { key: 'enemies2Atlas', frame: 'tiny-wizard-death_2' },
-                { key: 'enemies2Atlas', frame: 'tiny-wizard-death_3' },
                 { key: 'enemies2Atlas', frame: 'tiny-wizard-death_0' },
                 { key: 'enemies2Atlas', frame: 'tiny-wizard-death_1' },
+                { key: 'enemies2Atlas', frame: 'tiny-wizard-death_2' },
+                { key: 'enemies2Atlas', frame: 'tiny-wizard-death_3' },
+                { key: 'enemies2Atlas', frame: 'tiny-wizard-death_4' },
+                { key: 'enemies2Atlas', frame: 'tiny-wizard-death_5' },
+                { key: 'enemies2Atlas', frame: 'tiny-wizard-death_6' },
                 { key: 'enemies2Atlas', frame: 'tiny-wizard-death_7' },
             ],
             frameRate: 16,
@@ -2406,9 +2570,9 @@ export default class LoadingScreen extends Scene
         this.anims.create({
             key: 'ninja-hurt',
             frames: [
-                { key: 'enemies2Atlas', frame: 'ninja-hurt_2' },
-                { key: 'enemies2Atlas', frame: 'ninja-hurt_1' },
                 { key: 'enemies2Atlas', frame: 'ninja-hurt_0' },
+                { key: 'enemies2Atlas', frame: 'ninja-hurt_1' },
+                { key: 'enemies2Atlas', frame: 'ninja-hurt_2' },
             ],
             frameRate: 6,
             repeat: -1,
@@ -2439,8 +2603,8 @@ export default class LoadingScreen extends Scene
         this.anims.create({
             key: 'samurai-fall',
             frames: [
-                { key: 'enemies2Atlas', frame: 'samurai-fall_1' },
                 { key: 'enemies2Atlas', frame: 'samurai-fall_0' },
+                { key: 'enemies2Atlas', frame: 'samurai-fall_1' },
             ],
             frameRate: 4,
             repeat: -1,
@@ -2449,8 +2613,8 @@ export default class LoadingScreen extends Scene
         this.anims.create({
             key: 'ninja-fall',
             frames: [
-                { key: 'enemies2Atlas', frame: 'ninja-fall_1' },
                 { key: 'enemies2Atlas', frame: 'ninja-fall_0' },
+                { key: 'enemies2Atlas', frame: 'ninja-fall_1' },
             ],
             frameRate: 4,
             repeat: -1,
@@ -2460,9 +2624,9 @@ export default class LoadingScreen extends Scene
             key: 'skull',
             frames: [
                 { key: 'enemies2Atlas', frame: 'skull_0' },
+                { key: 'enemies2Atlas', frame: 'skull_1' },
                 { key: 'enemies2Atlas', frame: 'skull_2' },
                 { key: 'enemies2Atlas', frame: 'skull_3' },
-                { key: 'enemies2Atlas', frame: 'skull_1' },
             ],
             frameRate: 8,
             repeat: -1,
@@ -2471,10 +2635,10 @@ export default class LoadingScreen extends Scene
         this.anims.create({
             key: 'samurai-hurt2',
             frames: [
-                { key: 'enemies2Atlas', frame: 'samurai-hurt2_1' },
-                { key: 'enemies2Atlas', frame: 'samurai-hurt2_3' },
-                { key: 'enemies2Atlas', frame: 'samurai-hurt2_2' },
                 { key: 'enemies2Atlas', frame: 'samurai-hurt2_0' },
+                { key: 'enemies2Atlas', frame: 'samurai-hurt2_1' },
+                { key: 'enemies2Atlas', frame: 'samurai-hurt2_2' },
+                { key: 'enemies2Atlas', frame: 'samurai-hurt2_3' },
             ],
             frameRate: 8,
             repeat: -1,
@@ -2483,10 +2647,10 @@ export default class LoadingScreen extends Scene
         this.anims.create({
             key: 'samurai-hurt',
             frames: [
-                { key: 'enemies2Atlas', frame: 'samurai-hurt_1' },
-                { key: 'enemies2Atlas', frame: 'samurai-hurt_3' },
-                { key: 'enemies2Atlas', frame: 'samurai-hurt_2' },
                 { key: 'enemies2Atlas', frame: 'samurai-hurt_0' },
+                { key: 'enemies2Atlas', frame: 'samurai-hurt_1' },
+                { key: 'enemies2Atlas', frame: 'samurai-hurt_2' },
+                { key: 'enemies2Atlas', frame: 'samurai-hurt_3' },
             ],
             frameRate: 8,
             repeat: -1,
@@ -2506,11 +2670,11 @@ export default class LoadingScreen extends Scene
             key: 'samurai-death',
             frames: [
                 { key: 'enemies2Atlas', frame: 'samurai-death_0' },
-                { key: 'enemies2Atlas', frame: 'samurai-death_4' },
                 { key: 'enemies2Atlas', frame: 'samurai-death_1' },
                 { key: 'enemies2Atlas', frame: 'samurai-death_2' },
-                { key: 'enemies2Atlas', frame: 'samurai-death_5' },
                 { key: 'enemies2Atlas', frame: 'samurai-death_3' },
+                { key: 'enemies2Atlas', frame: 'samurai-death_4' },
+                { key: 'enemies2Atlas', frame: 'samurai-death_5' },
             ],
             frameRate: 12,
             repeat: -1,
@@ -2531,15 +2695,15 @@ export default class LoadingScreen extends Scene
         this.anims.create({
             key: 'worm-walk',
             frames: [
-                { key: 'enemies2Atlas', frame: 'worm-walk_3' },
-                { key: 'enemies2Atlas', frame: 'worm-walk_2' },
-                { key: 'enemies2Atlas', frame: 'worm-walk_4' },
-                { key: 'enemies2Atlas', frame: 'worm-walk_1' },
                 { key: 'enemies2Atlas', frame: 'worm-walk_0' },
-                { key: 'enemies2Atlas', frame: 'worm-walk_8' },
-                { key: 'enemies2Atlas', frame: 'worm-walk_7' },
+                { key: 'enemies2Atlas', frame: 'worm-walk_1' },
+                { key: 'enemies2Atlas', frame: 'worm-walk_2' },
+                { key: 'enemies2Atlas', frame: 'worm-walk_3' },
+                { key: 'enemies2Atlas', frame: 'worm-walk_4' },
                 { key: 'enemies2Atlas', frame: 'worm-walk_5' },
                 { key: 'enemies2Atlas', frame: 'worm-walk_6' },
+                { key: 'enemies2Atlas', frame: 'worm-walk_7' },
+                { key: 'enemies2Atlas', frame: 'worm-walk_8' },
             ],
             frameRate: 18,
             repeat: -1,
@@ -2549,13 +2713,13 @@ export default class LoadingScreen extends Scene
             key: 'samurai-idle',
             frames: [
                 { key: 'enemies2Atlas', frame: 'samurai-idle_0' },
-                { key: 'enemies2Atlas', frame: 'samurai-idle_7' },
                 { key: 'enemies2Atlas', frame: 'samurai-idle_1' },
-                { key: 'enemies2Atlas', frame: 'samurai-idle_6' },
-                { key: 'enemies2Atlas', frame: 'samurai-idle_5' },
-                { key: 'enemies2Atlas', frame: 'samurai-idle_3' },
                 { key: 'enemies2Atlas', frame: 'samurai-idle_2' },
+                { key: 'enemies2Atlas', frame: 'samurai-idle_3' },
                 { key: 'enemies2Atlas', frame: 'samurai-idle_4' },
+                { key: 'enemies2Atlas', frame: 'samurai-idle_5' },
+                { key: 'enemies2Atlas', frame: 'samurai-idle_6' },
+                { key: 'enemies2Atlas', frame: 'samurai-idle_7' },
             ],
             frameRate: 16,
             repeat: -1,
@@ -2564,15 +2728,15 @@ export default class LoadingScreen extends Scene
         this.anims.create({
             key: 'worm-idle',
             frames: [
-                { key: 'enemies2Atlas', frame: 'worm-idle_1' },
-                { key: 'enemies2Atlas', frame: 'worm-idle_3' },
                 { key: 'enemies2Atlas', frame: 'worm-idle_0' },
+                { key: 'enemies2Atlas', frame: 'worm-idle_1' },
                 { key: 'enemies2Atlas', frame: 'worm-idle_2' },
+                { key: 'enemies2Atlas', frame: 'worm-idle_3' },
                 { key: 'enemies2Atlas', frame: 'worm-idle_4' },
-                { key: 'enemies2Atlas', frame: 'worm-idle_7' },
-                { key: 'enemies2Atlas', frame: 'worm-idle_6' },
-                { key: 'enemies2Atlas', frame: 'worm-idle_8' },
                 { key: 'enemies2Atlas', frame: 'worm-idle_5' },
+                { key: 'enemies2Atlas', frame: 'worm-idle_6' },
+                { key: 'enemies2Atlas', frame: 'worm-idle_7' },
+                { key: 'enemies2Atlas', frame: 'worm-idle_8' },
             ],
             frameRate: 18,
             repeat: -1,
@@ -2581,10 +2745,10 @@ export default class LoadingScreen extends Scene
         this.anims.create({
             key: 'archer-doublejump',
             frames: [
-                { key: 'enemies2Atlas', frame: 'archer-doublejump_3' },
-                { key: 'enemies2Atlas', frame: 'archer-doublejump_2' },
-                { key: 'enemies2Atlas', frame: 'archer-doublejump_1' },
                 { key: 'enemies2Atlas', frame: 'archer-doublejump_0' },
+                { key: 'enemies2Atlas', frame: 'archer-doublejump_1' },
+                { key: 'enemies2Atlas', frame: 'archer-doublejump_2' },
+                { key: 'enemies2Atlas', frame: 'archer-doublejump_3' },
             ],
             frameRate: 8,
             repeat: -1,
@@ -2593,13 +2757,13 @@ export default class LoadingScreen extends Scene
         this.anims.create({
             key: 'ninja-run',
             frames: [
+                { key: 'enemies2Atlas', frame: 'ninja-run_0' },
+                { key: 'enemies2Atlas', frame: 'ninja-run_1' },
                 { key: 'enemies2Atlas', frame: 'ninja-run_2' },
+                { key: 'enemies2Atlas', frame: 'ninja-run_3' },
                 { key: 'enemies2Atlas', frame: 'ninja-run_4' },
                 { key: 'enemies2Atlas', frame: 'ninja-run_5' },
                 { key: 'enemies2Atlas', frame: 'ninja-run_6' },
-                { key: 'enemies2Atlas', frame: 'ninja-run_0' },
-                { key: 'enemies2Atlas', frame: 'ninja-run_1' },
-                { key: 'enemies2Atlas', frame: 'ninja-run_3' },
                 { key: 'enemies2Atlas', frame: 'ninja-run_7' },
             ],
             frameRate: 16,
@@ -2609,12 +2773,12 @@ export default class LoadingScreen extends Scene
         this.anims.create({
             key: 'knight2-run',
             frames: [
-                { key: 'enemies2Atlas', frame: 'knight2-run_1' },
-                { key: 'enemies2Atlas', frame: 'knight2-run_5' },
-                { key: 'enemies2Atlas', frame: 'knight2-run_2' },
-                { key: 'enemies2Atlas', frame: 'knight2-run_4' },
                 { key: 'enemies2Atlas', frame: 'knight2-run_0' },
+                { key: 'enemies2Atlas', frame: 'knight2-run_1' },
+                { key: 'enemies2Atlas', frame: 'knight2-run_2' },
                 { key: 'enemies2Atlas', frame: 'knight2-run_3' },
+                { key: 'enemies2Atlas', frame: 'knight2-run_4' },
+                { key: 'enemies2Atlas', frame: 'knight2-run_5' },
                 { key: 'enemies2Atlas', frame: 'knight2-run_6' },
                 { key: 'enemies2Atlas', frame: 'knight2-run_7' },
             ],
@@ -2625,14 +2789,14 @@ export default class LoadingScreen extends Scene
         this.anims.create({
             key: 'samurai-run',
             frames: [
-                { key: 'enemies2Atlas', frame: 'samurai-run_3' },
-                { key: 'enemies2Atlas', frame: 'samurai-run_7' },
-                { key: 'enemies2Atlas', frame: 'samurai-run_6' },
-                { key: 'enemies2Atlas', frame: 'samurai-run_4' },
-                { key: 'enemies2Atlas', frame: 'samurai-run_2' },
-                { key: 'enemies2Atlas', frame: 'samurai-run_1' },
                 { key: 'enemies2Atlas', frame: 'samurai-run_0' },
+                { key: 'enemies2Atlas', frame: 'samurai-run_1' },
+                { key: 'enemies2Atlas', frame: 'samurai-run_2' },
+                { key: 'enemies2Atlas', frame: 'samurai-run_3' },
+                { key: 'enemies2Atlas', frame: 'samurai-run_4' },
                 { key: 'enemies2Atlas', frame: 'samurai-run_5' },
+                { key: 'enemies2Atlas', frame: 'samurai-run_6' },
+                { key: 'enemies2Atlas', frame: 'samurai-run_7' },
             ],
             frameRate: 16,
             repeat: -1,
@@ -2641,14 +2805,14 @@ export default class LoadingScreen extends Scene
         this.anims.create({
             key: 'dark-knight-walk',
             frames: [
-                { key: 'enemies2Atlas', frame: 'dark-knight-walk_2' },
                 { key: 'enemies2Atlas', frame: 'dark-knight-walk_0' },
+                { key: 'enemies2Atlas', frame: 'dark-knight-walk_1' },
+                { key: 'enemies2Atlas', frame: 'dark-knight-walk_2' },
                 { key: 'enemies2Atlas', frame: 'dark-knight-walk_3' },
                 { key: 'enemies2Atlas', frame: 'dark-knight-walk_4' },
-                { key: 'enemies2Atlas', frame: 'dark-knight-walk_7' },
-                { key: 'enemies2Atlas', frame: 'dark-knight-walk_6' },
-                { key: 'enemies2Atlas', frame: 'dark-knight-walk_1' },
                 { key: 'enemies2Atlas', frame: 'dark-knight-walk_5' },
+                { key: 'enemies2Atlas', frame: 'dark-knight-walk_6' },
+                { key: 'enemies2Atlas', frame: 'dark-knight-walk_7' },
             ],
             frameRate: 16,
             repeat: -1,
@@ -2657,12 +2821,12 @@ export default class LoadingScreen extends Scene
         this.anims.create({
             key: 'knight-idle',
             frames: [
-                { key: 'enemies2Atlas', frame: 'knight-idle_5' },
-                { key: 'enemies2Atlas', frame: 'knight-idle_4' },
-                { key: 'enemies2Atlas', frame: 'knight-idle_3' },
-                { key: 'enemies2Atlas', frame: 'knight-idle_2' },
-                { key: 'enemies2Atlas', frame: 'knight-idle_1' },
                 { key: 'enemies2Atlas', frame: 'knight-idle_0' },
+                { key: 'enemies2Atlas', frame: 'knight-idle_1' },
+                { key: 'enemies2Atlas', frame: 'knight-idle_2' },
+                { key: 'enemies2Atlas', frame: 'knight-idle_3' },
+                { key: 'enemies2Atlas', frame: 'knight-idle_4' },
+                { key: 'enemies2Atlas', frame: 'knight-idle_5' },
                 { key: 'enemies2Atlas', frame: 'knight-idle_6' },
                 { key: 'enemies2Atlas', frame: 'knight-idle_7' },
             ],
@@ -2673,12 +2837,12 @@ export default class LoadingScreen extends Scene
         this.anims.create({
             key: 'knight-health',
             frames: [
-                { key: 'enemies2Atlas', frame: 'knight-health_5' },
-                { key: 'enemies2Atlas', frame: 'knight-health_4' },
-                { key: 'enemies2Atlas', frame: 'knight-health_3' },
-                { key: 'enemies2Atlas', frame: 'knight-health_2' },
-                { key: 'enemies2Atlas', frame: 'knight-health_1' },
                 { key: 'enemies2Atlas', frame: 'knight-health_0' },
+                { key: 'enemies2Atlas', frame: 'knight-health_1' },
+                { key: 'enemies2Atlas', frame: 'knight-health_2' },
+                { key: 'enemies2Atlas', frame: 'knight-health_3' },
+                { key: 'enemies2Atlas', frame: 'knight-health_4' },
+                { key: 'enemies2Atlas', frame: 'knight-health_5' },
                 { key: 'enemies2Atlas', frame: 'knight-health_6' },
                 { key: 'enemies2Atlas', frame: 'knight-health_7' },
             ],
@@ -2689,12 +2853,12 @@ export default class LoadingScreen extends Scene
         this.anims.create({
             key: 'archer-wall-slide',
             frames: [
-                { key: 'enemies2Atlas', frame: 'archer-wall-slide_2' },
-                { key: 'enemies2Atlas', frame: 'archer-wall-slide_1' },
                 { key: 'enemies2Atlas', frame: 'archer-wall-slide_0' },
-                { key: 'enemies2Atlas', frame: 'archer-wall-slide_5' },
-                { key: 'enemies2Atlas', frame: 'archer-wall-slide_4' },
+                { key: 'enemies2Atlas', frame: 'archer-wall-slide_1' },
+                { key: 'enemies2Atlas', frame: 'archer-wall-slide_2' },
                 { key: 'enemies2Atlas', frame: 'archer-wall-slide_3' },
+                { key: 'enemies2Atlas', frame: 'archer-wall-slide_4' },
+                { key: 'enemies2Atlas', frame: 'archer-wall-slide_5' },
             ],
             frameRate: 12,
             repeat: -1,
@@ -2703,14 +2867,14 @@ export default class LoadingScreen extends Scene
         this.anims.create({
             key: 'knight-run',
             frames: [
-                { key: 'enemies2Atlas', frame: 'knight-run_5' },
-                { key: 'enemies2Atlas', frame: 'knight-run_6' },
+                { key: 'enemies2Atlas', frame: 'knight-run_0' },
                 { key: 'enemies2Atlas', frame: 'knight-run_1' },
                 { key: 'enemies2Atlas', frame: 'knight-run_2' },
                 { key: 'enemies2Atlas', frame: 'knight-run_3' },
-                { key: 'enemies2Atlas', frame: 'knight-run_7' },
                 { key: 'enemies2Atlas', frame: 'knight-run_4' },
-                { key: 'enemies2Atlas', frame: 'knight-run_0' },
+                { key: 'enemies2Atlas', frame: 'knight-run_5' },
+                { key: 'enemies2Atlas', frame: 'knight-run_6' },
+                { key: 'enemies2Atlas', frame: 'knight-run_7' },
             ],
             frameRate: 16,
             repeat: -1,
@@ -2720,10 +2884,10 @@ export default class LoadingScreen extends Scene
             key: 'hell-hound-run',
             frames: [
                 { key: 'enemies2Atlas', frame: 'hell-hound-run_0' },
-                { key: 'enemies2Atlas', frame: 'hell-hound-run_4' },
                 { key: 'enemies2Atlas', frame: 'hell-hound-run_1' },
                 { key: 'enemies2Atlas', frame: 'hell-hound-run_2' },
                 { key: 'enemies2Atlas', frame: 'hell-hound-run_3' },
+                { key: 'enemies2Atlas', frame: 'hell-hound-run_4' },
             ],
             frameRate: 10,
             repeat: -1,
@@ -2732,9 +2896,9 @@ export default class LoadingScreen extends Scene
         this.anims.create({
             key: 'knight-hurt',
             frames: [
-                { key: 'enemies2Atlas', frame: 'knight-hurt_2' },
                 { key: 'enemies2Atlas', frame: 'knight-hurt_0' },
                 { key: 'enemies2Atlas', frame: 'knight-hurt_1' },
+                { key: 'enemies2Atlas', frame: 'knight-hurt_2' },
             ],
             frameRate: 6,
             repeat: -1,
@@ -2743,17 +2907,17 @@ export default class LoadingScreen extends Scene
         this.anims.create({
             key: 'hell-hound-walk',
             frames: [
-                { key: 'enemies2Atlas', frame: 'hell-hound-walk_10' },
-                { key: 'enemies2Atlas', frame: 'hell-hound-walk_4' },
-                { key: 'enemies2Atlas', frame: 'hell-hound-walk_3' },
+                { key: 'enemies2Atlas', frame: 'hell-hound-walk_0' },
                 { key: 'enemies2Atlas', frame: 'hell-hound-walk_1' },
                 { key: 'enemies2Atlas', frame: 'hell-hound-walk_2' },
-                { key: 'enemies2Atlas', frame: 'hell-hound-walk_9' },
-                { key: 'enemies2Atlas', frame: 'hell-hound-walk_8' },
-                { key: 'enemies2Atlas', frame: 'hell-hound-walk_7' },
-                { key: 'enemies2Atlas', frame: 'hell-hound-walk_0' },
+                { key: 'enemies2Atlas', frame: 'hell-hound-walk_3' },
+                { key: 'enemies2Atlas', frame: 'hell-hound-walk_4' },
                 { key: 'enemies2Atlas', frame: 'hell-hound-walk_5' },
                 { key: 'enemies2Atlas', frame: 'hell-hound-walk_6' },
+                { key: 'enemies2Atlas', frame: 'hell-hound-walk_7' },
+                { key: 'enemies2Atlas', frame: 'hell-hound-walk_8' },
+                { key: 'enemies2Atlas', frame: 'hell-hound-walk_9' },
+                { key: 'enemies2Atlas', frame: 'hell-hound-walk_10' },
                 { key: 'enemies2Atlas', frame: 'hell-hound-walk_11' },
             ],
             frameRate: 24,
@@ -2763,9 +2927,9 @@ export default class LoadingScreen extends Scene
         this.anims.create({
             key: 'worm-hurt',
             frames: [
-                { key: 'enemies2Atlas', frame: 'worm-hurt_2' },
-                { key: 'enemies2Atlas', frame: 'worm-hurt_1' },
                 { key: 'enemies2Atlas', frame: 'worm-hurt_0' },
+                { key: 'enemies2Atlas', frame: 'worm-hurt_1' },
+                { key: 'enemies2Atlas', frame: 'worm-hurt_2' },
             ],
             frameRate: 6,
             repeat: -1,
@@ -2774,10 +2938,10 @@ export default class LoadingScreen extends Scene
         this.anims.create({
             key: 'archer-idle',
             frames: [
-                { key: 'enemies2Atlas', frame: 'archer-idle_2' },
-                { key: 'enemies2Atlas', frame: 'archer-idle_3' },
                 { key: 'enemies2Atlas', frame: 'archer-idle_0' },
                 { key: 'enemies2Atlas', frame: 'archer-idle_1' },
+                { key: 'enemies2Atlas', frame: 'archer-idle_2' },
+                { key: 'enemies2Atlas', frame: 'archer-idle_3' },
             ],
             frameRate: 8,
             repeat: -1,
@@ -2787,12 +2951,12 @@ export default class LoadingScreen extends Scene
             key: 'archer-attack',
             frames: [
                 { key: 'enemies2Atlas', frame: 'archer-attack_0' },
+                { key: 'enemies2Atlas', frame: 'archer-attack_1' },
+                { key: 'enemies2Atlas', frame: 'archer-attack_2' },
+                { key: 'enemies2Atlas', frame: 'archer-attack_3' },
                 { key: 'enemies2Atlas', frame: 'archer-attack_4' },
                 { key: 'enemies2Atlas', frame: 'archer-attack_5' },
                 { key: 'enemies2Atlas', frame: 'archer-attack_6' },
-                { key: 'enemies2Atlas', frame: 'archer-attack_3' },
-                { key: 'enemies2Atlas', frame: 'archer-attack_1' },
-                { key: 'enemies2Atlas', frame: 'archer-attack_2' },
             ],
             frameRate: 14,
             repeat: -1,
@@ -2801,30 +2965,30 @@ export default class LoadingScreen extends Scene
         this.anims.create({
             key: 'skeleton-flail-death',
             frames: [
-                { key: 'enemies2Atlas', frame: 'skeleton-flail-death_9' },
-                { key: 'enemies2Atlas', frame: 'skeleton-flail-death_8' },
-                { key: 'enemies2Atlas', frame: 'skeleton-flail-death_7' },
-                { key: 'enemies2Atlas', frame: 'skeleton-flail-death_6' },
-                { key: 'enemies2Atlas', frame: 'skeleton-flail-death_12' },
-                { key: 'enemies2Atlas', frame: 'skeleton-flail-death_11' },
-                { key: 'enemies2Atlas', frame: 'skeleton-flail-death_10' },
-                { key: 'enemies2Atlas', frame: 'skeleton-flail-death_5' },
-                { key: 'enemies2Atlas', frame: 'skeleton-flail-death_4' },
-                { key: 'enemies2Atlas', frame: 'skeleton-flail-death_3' },
                 { key: 'enemies2Atlas', frame: 'skeleton-flail-death_0' },
                 { key: 'enemies2Atlas', frame: 'skeleton-flail-death_1' },
                 { key: 'enemies2Atlas', frame: 'skeleton-flail-death_2' },
+                { key: 'enemies2Atlas', frame: 'skeleton-flail-death_3', duration: 200 },
+                { key: 'enemies2Atlas', frame: 'skeleton-flail-death_4' },
+                { key: 'enemies2Atlas', frame: 'skeleton-flail-death_5' },
+                { key: 'enemies2Atlas', frame: 'skeleton-flail-death_6' },
+                { key: 'enemies2Atlas', frame: 'skeleton-flail-death_7' },
+                { key: 'enemies2Atlas', frame: 'skeleton-flail-death_8' },
+                { key: 'enemies2Atlas', frame: 'skeleton-flail-death_9' },
+                { key: 'enemies2Atlas', frame: 'skeleton-flail-death_10' },
+                { key: 'enemies2Atlas', frame: 'skeleton-flail-death_11' },
+                { key: 'enemies2Atlas', frame: 'skeleton-flail-death_12' },
             ],
-            frameRate: 26,
-            repeat: -1,
+            frameRate: 12,
+            repeat: 0,
         });
                 
         this.anims.create({
             key: 'tiny-wizard-attack2',
             frames: [
-                { key: 'enemies2Atlas', frame: 'tiny-wizard-attack2_2' },
-                { key: 'enemies2Atlas', frame: 'tiny-wizard-attack2_1' },
                 { key: 'enemies2Atlas', frame: 'tiny-wizard-attack2_0' },
+                { key: 'enemies2Atlas', frame: 'tiny-wizard-attack2_1' },
+                { key: 'enemies2Atlas', frame: 'tiny-wizard-attack2_2' },
                 { key: 'enemies2Atlas', frame: 'tiny-wizard-attack2_3' },
             ],
             frameRate: 8,
@@ -2843,14 +3007,14 @@ export default class LoadingScreen extends Scene
         this.anims.create({
             key: 'archer-run',
             frames: [
-                { key: 'enemies2Atlas', frame: 'archer-run_1' },
-                { key: 'enemies2Atlas', frame: 'archer-run_5' },
-                { key: 'enemies2Atlas', frame: 'archer-run_3' },
                 { key: 'enemies2Atlas', frame: 'archer-run_0' },
-                { key: 'enemies2Atlas', frame: 'archer-run_7' },
-                { key: 'enemies2Atlas', frame: 'archer-run_6' },
-                { key: 'enemies2Atlas', frame: 'archer-run_4' },
+                { key: 'enemies2Atlas', frame: 'archer-run_1' },
                 { key: 'enemies2Atlas', frame: 'archer-run_2' },
+                { key: 'enemies2Atlas', frame: 'archer-run_3' },
+                { key: 'enemies2Atlas', frame: 'archer-run_4' },
+                { key: 'enemies2Atlas', frame: 'archer-run_5' },
+                { key: 'enemies2Atlas', frame: 'archer-run_6' },
+                { key: 'enemies2Atlas', frame: 'archer-run_7' },
             ],
             frameRate: 16,
             repeat: -1,
@@ -2859,12 +3023,12 @@ export default class LoadingScreen extends Scene
         this.anims.create({
             key: 'tiny-wizard-attack3',
             frames: [
-                { key: 'enemies2Atlas', frame: 'tiny-wizard-attack3_5' },
+                { key: 'enemies2Atlas', frame: 'tiny-wizard-attack3_0' },
+                { key: 'enemies2Atlas', frame: 'tiny-wizard-attack3_1' },
+                { key: 'enemies2Atlas', frame: 'tiny-wizard-attack3_2' },
                 { key: 'enemies2Atlas', frame: 'tiny-wizard-attack3_3' },
                 { key: 'enemies2Atlas', frame: 'tiny-wizard-attack3_4' },
-                { key: 'enemies2Atlas', frame: 'tiny-wizard-attack3_2' },
-                { key: 'enemies2Atlas', frame: 'tiny-wizard-attack3_1' },
-                { key: 'enemies2Atlas', frame: 'tiny-wizard-attack3_0' },
+                { key: 'enemies2Atlas', frame: 'tiny-wizard-attack3_5' },
                 { key: 'enemies2Atlas', frame: 'tiny-wizard-attack3_6' },
             ],
             frameRate: 14,
@@ -2874,32 +3038,32 @@ export default class LoadingScreen extends Scene
         this.anims.create({
             key: 'minotaur-attack',
             frames: [
-                { key: 'enemies2Atlas', frame: 'minotaur-attack_9' },
-                { key: 'enemies2Atlas', frame: 'minotaur-attack_8' },
+                { key: 'enemies2Atlas', frame: 'minotaur-attack_0', duration: 25 },
+                { key: 'enemies2Atlas', frame: 'minotaur-attack_1', duration: 50 },
+                { key: 'enemies2Atlas', frame: 'minotaur-attack_2', duration: 75 },
+                { key: 'enemies2Atlas', frame: 'minotaur-attack_3', duration: 100 },
+                { key: 'enemies2Atlas', frame: 'minotaur-attack_4', duration: 150 },
+                { key: 'enemies2Atlas', frame: 'minotaur-attack_5' },
                 { key: 'enemies2Atlas', frame: 'minotaur-attack_6' },
                 { key: 'enemies2Atlas', frame: 'minotaur-attack_7' },
-                { key: 'enemies2Atlas', frame: 'minotaur-attack_5' },
-                { key: 'enemies2Atlas', frame: 'minotaur-attack_0' },
-                { key: 'enemies2Atlas', frame: 'minotaur-attack_1' },
-                { key: 'enemies2Atlas', frame: 'minotaur-attack_2' },
-                { key: 'enemies2Atlas', frame: 'minotaur-attack_3' },
-                { key: 'enemies2Atlas', frame: 'minotaur-attack_4' },
+                { key: 'enemies2Atlas', frame: 'minotaur-attack_8' },
+                { key: 'enemies2Atlas', frame: 'minotaur-attack_9' },
             ],
             frameRate: 20,
-            repeat: -1,
+            repeat: 2,
         });
                 
         this.anims.create({
             key: 'tiny-wizard-attack1',
             frames: [
-                { key: 'enemies2Atlas', frame: 'tiny-wizard-attack1_6' },
+                { key: 'enemies2Atlas', frame: 'tiny-wizard-attack1_0' },
+                { key: 'enemies2Atlas', frame: 'tiny-wizard-attack1_1' },
+                { key: 'enemies2Atlas', frame: 'tiny-wizard-attack1_2' },
+                { key: 'enemies2Atlas', frame: 'tiny-wizard-attack1_3' },
                 { key: 'enemies2Atlas', frame: 'tiny-wizard-attack1_4' },
                 { key: 'enemies2Atlas', frame: 'tiny-wizard-attack1_5' },
-                { key: 'enemies2Atlas', frame: 'tiny-wizard-attack1_3' },
-                { key: 'enemies2Atlas', frame: 'tiny-wizard-attack1_2' },
-                { key: 'enemies2Atlas', frame: 'tiny-wizard-attack1_1' },
+                { key: 'enemies2Atlas', frame: 'tiny-wizard-attack1_6' },
                 { key: 'enemies2Atlas', frame: 'tiny-wizard-attack1_7' },
-                { key: 'enemies2Atlas', frame: 'tiny-wizard-attack1_0' },
             ],
             frameRate: 16,
             repeat: -1,
@@ -2908,12 +3072,12 @@ export default class LoadingScreen extends Scene
         this.anims.create({
             key: 'hell-hound-idle',
             frames: [
-                { key: 'enemies2Atlas', frame: 'hell-hound-idle_5' },
-                { key: 'enemies2Atlas', frame: 'hell-hound-idle_4' },
-                { key: 'enemies2Atlas', frame: 'hell-hound-idle_2' },
-                { key: 'enemies2Atlas', frame: 'hell-hound-idle_1' },
-                { key: 'enemies2Atlas', frame: 'hell-hound-idle_3' },
                 { key: 'enemies2Atlas', frame: 'hell-hound-idle_0' },
+                { key: 'enemies2Atlas', frame: 'hell-hound-idle_1' },
+                { key: 'enemies2Atlas', frame: 'hell-hound-idle_2' },
+                { key: 'enemies2Atlas', frame: 'hell-hound-idle_3' },
+                { key: 'enemies2Atlas', frame: 'hell-hound-idle_4' },
+                { key: 'enemies2Atlas', frame: 'hell-hound-idle_5' },
             ],
             frameRate: 12,
             repeat: -1,
@@ -2922,17 +3086,17 @@ export default class LoadingScreen extends Scene
         this.anims.create({
             key: 'knight2-idle',
             frames: [
-                { key: 'enemies2Atlas', frame: 'knight2-idle_10' },
-                { key: 'enemies2Atlas', frame: 'knight2-idle_9' },
                 { key: 'enemies2Atlas', frame: 'knight2-idle_0' },
                 { key: 'enemies2Atlas', frame: 'knight2-idle_1' },
-                { key: 'enemies2Atlas', frame: 'knight2-idle_3' },
-                { key: 'enemies2Atlas', frame: 'knight2-idle_7' },
-                { key: 'enemies2Atlas', frame: 'knight2-idle_8' },
                 { key: 'enemies2Atlas', frame: 'knight2-idle_2' },
+                { key: 'enemies2Atlas', frame: 'knight2-idle_3' },
                 { key: 'enemies2Atlas', frame: 'knight2-idle_4' },
                 { key: 'enemies2Atlas', frame: 'knight2-idle_5' },
                 { key: 'enemies2Atlas', frame: 'knight2-idle_6' },
+                { key: 'enemies2Atlas', frame: 'knight2-idle_7' },
+                { key: 'enemies2Atlas', frame: 'knight2-idle_8' },
+                { key: 'enemies2Atlas', frame: 'knight2-idle_9' },
+                { key: 'enemies2Atlas', frame: 'knight2-idle_10' },
             ],
             frameRate: 22,
             repeat: -1,
@@ -2953,30 +3117,30 @@ export default class LoadingScreen extends Scene
         this.anims.create({
             key: 'skeleton-flail-walk',
             frames: [
-                { key: 'enemies2Atlas', frame: 'skeleton-flail-walk_9' },
-                { key: 'enemies2Atlas', frame: 'skeleton-flail-walk_8' },
-                { key: 'enemies2Atlas', frame: 'skeleton-flail-walk_7' },
-                { key: 'enemies2Atlas', frame: 'skeleton-flail-walk_10' },
-                { key: 'enemies2Atlas', frame: 'skeleton-flail-walk_11' },
+                { key: 'enemies2Atlas', frame: 'skeleton-flail-walk_0' },
+                { key: 'enemies2Atlas', frame: 'skeleton-flail-walk_1' },
+                { key: 'enemies2Atlas', frame: 'skeleton-flail-walk_2' },
+                { key: 'enemies2Atlas', frame: 'skeleton-flail-walk_3' },
                 { key: 'enemies2Atlas', frame: 'skeleton-flail-walk_4' },
                 { key: 'enemies2Atlas', frame: 'skeleton-flail-walk_5' },
                 { key: 'enemies2Atlas', frame: 'skeleton-flail-walk_6' },
-                { key: 'enemies2Atlas', frame: 'skeleton-flail-walk_0' },
-                { key: 'enemies2Atlas', frame: 'skeleton-flail-walk_1' },
-                { key: 'enemies2Atlas', frame: 'skeleton-flail-walk_3' },
-                { key: 'enemies2Atlas', frame: 'skeleton-flail-walk_2' },
+                { key: 'enemies2Atlas', frame: 'skeleton-flail-walk_7' },
+                { key: 'enemies2Atlas', frame: 'skeleton-flail-walk_8' },
+                { key: 'enemies2Atlas', frame: 'skeleton-flail-walk_9' },
+                { key: 'enemies2Atlas', frame: 'skeleton-flail-walk_10' },
+                { key: 'enemies2Atlas', frame: 'skeleton-flail-walk_11' },
             ],
-            frameRate: 24,
-            repeat: -1,
+            frameRate: 12,
+            repeat: 0,
         });
                 
         this.anims.create({
             key: 'knight2-fall',
             frames: [
-                { key: 'enemies2Atlas', frame: 'knight2-fall_1' },
-                { key: 'enemies2Atlas', frame: 'knight2-fall_3' },
-                { key: 'enemies2Atlas', frame: 'knight2-fall_2' },
                 { key: 'enemies2Atlas', frame: 'knight2-fall_0' },
+                { key: 'enemies2Atlas', frame: 'knight2-fall_1' },
+                { key: 'enemies2Atlas', frame: 'knight2-fall_2' },
+                { key: 'enemies2Atlas', frame: 'knight2-fall_3' },
             ],
             frameRate: 8,
             repeat: -1,
@@ -2994,13 +3158,13 @@ export default class LoadingScreen extends Scene
         this.anims.create({
             key: 'archer-roll',
             frames: [
-                { key: 'enemies2Atlas', frame: 'archer-roll_6' },
                 { key: 'enemies2Atlas', frame: 'archer-roll_0' },
                 { key: 'enemies2Atlas', frame: 'archer-roll_1' },
-                { key: 'enemies2Atlas', frame: 'archer-roll_5' },
-                { key: 'enemies2Atlas', frame: 'archer-roll_4' },
-                { key: 'enemies2Atlas', frame: 'archer-roll_3' },
                 { key: 'enemies2Atlas', frame: 'archer-roll_2' },
+                { key: 'enemies2Atlas', frame: 'archer-roll_3' },
+                { key: 'enemies2Atlas', frame: 'archer-roll_4' },
+                { key: 'enemies2Atlas', frame: 'archer-roll_5' },
+                { key: 'enemies2Atlas', frame: 'archer-roll_6' },
             ],
             frameRate: 14,
             repeat: -1,
@@ -3021,12 +3185,12 @@ export default class LoadingScreen extends Scene
         this.anims.create({
             key: 'night-borne-run',
             frames: [
+                { key: 'enemies2Atlas', frame: 'night-borne-run_0' },
                 { key: 'enemies2Atlas', frame: 'night-borne-run_1' },
+                { key: 'enemies2Atlas', frame: 'night-borne-run_2' },
                 { key: 'enemies2Atlas', frame: 'night-borne-run_3' },
                 { key: 'enemies2Atlas', frame: 'night-borne-run_4' },
                 { key: 'enemies2Atlas', frame: 'night-borne-run_5' },
-                { key: 'enemies2Atlas', frame: 'night-borne-run_0' },
-                { key: 'enemies2Atlas', frame: 'night-borne-run_2' },
             ],
             frameRate: 12,
             repeat: -1,
@@ -3035,15 +3199,15 @@ export default class LoadingScreen extends Scene
         this.anims.create({
             key: 'night-borne-idle',
             frames: [
-                { key: 'enemies2Atlas', frame: 'night-borne-idle_4' },
                 { key: 'enemies2Atlas', frame: 'night-borne-idle_0' },
-                { key: 'enemies2Atlas', frame: 'night-borne-idle_8' },
-                { key: 'enemies2Atlas', frame: 'night-borne-idle_7' },
-                { key: 'enemies2Atlas', frame: 'night-borne-idle_6' },
-                { key: 'enemies2Atlas', frame: 'night-borne-idle_5' },
-                { key: 'enemies2Atlas', frame: 'night-borne-idle_3' },
-                { key: 'enemies2Atlas', frame: 'night-borne-idle_2' },
                 { key: 'enemies2Atlas', frame: 'night-borne-idle_1' },
+                { key: 'enemies2Atlas', frame: 'night-borne-idle_2' },
+                { key: 'enemies2Atlas', frame: 'night-borne-idle_3' },
+                { key: 'enemies2Atlas', frame: 'night-borne-idle_4' },
+                { key: 'enemies2Atlas', frame: 'night-borne-idle_5' },
+                { key: 'enemies2Atlas', frame: 'night-borne-idle_6' },
+                { key: 'enemies2Atlas', frame: 'night-borne-idle_7' },
+                { key: 'enemies2Atlas', frame: 'night-borne-idle_8' },
             ],
             frameRate: 18,
             repeat: -1,
@@ -3054,13 +3218,13 @@ export default class LoadingScreen extends Scene
             frames: [
                 { key: 'enemies2Atlas', frame: 'knight2-death_0' },
                 { key: 'enemies2Atlas', frame: 'knight2-death_1' },
-                { key: 'enemies2Atlas', frame: 'knight2-death_8' },
-                { key: 'enemies2Atlas', frame: 'knight2-death_7' },
-                { key: 'enemies2Atlas', frame: 'knight2-death_6' },
-                { key: 'enemies2Atlas', frame: 'knight2-death_5' },
-                { key: 'enemies2Atlas', frame: 'knight2-death_4' },
-                { key: 'enemies2Atlas', frame: 'knight2-death_3' },
                 { key: 'enemies2Atlas', frame: 'knight2-death_2' },
+                { key: 'enemies2Atlas', frame: 'knight2-death_3' },
+                { key: 'enemies2Atlas', frame: 'knight2-death_4' },
+                { key: 'enemies2Atlas', frame: 'knight2-death_5' },
+                { key: 'enemies2Atlas', frame: 'knight2-death_6' },
+                { key: 'enemies2Atlas', frame: 'knight2-death_7' },
+                { key: 'enemies2Atlas', frame: 'knight2-death_8' },
             ],
             frameRate: 18,
             repeat: -1,
@@ -3069,41 +3233,29 @@ export default class LoadingScreen extends Scene
         this.anims.create({
             key: 'minotaur-walk',
             frames: [
+                { key: 'enemies2Atlas', frame: 'minotaur-walk_0' },
+                { key: 'enemies2Atlas', frame: 'minotaur-walk_1' },
                 { key: 'enemies2Atlas', frame: 'minotaur-walk_2' },
                 { key: 'enemies2Atlas', frame: 'minotaur-walk_3' },
-                { key: 'enemies2Atlas', frame: 'minotaur-walk_1' },
                 { key: 'enemies2Atlas', frame: 'minotaur-walk_4' },
                 { key: 'enemies2Atlas', frame: 'minotaur-walk_5' },
+                { key: 'enemies2Atlas', frame: 'minotaur-walk_6' },
                 { key: 'enemies2Atlas', frame: 'minotaur-walk_7' },
                 { key: 'enemies2Atlas', frame: 'minotaur-walk_8' },
-                { key: 'enemies2Atlas', frame: 'minotaur-walk_0' },
-                { key: 'enemies2Atlas', frame: 'minotaur-walk_6' },
                 { key: 'enemies2Atlas', frame: 'minotaur-walk_9' },
             ],
-            frameRate: 20,
-            repeat: -1,
-        });
-                
-        this.anims.create({
-            key: 'crow-fly-off',
-            frames: [
-                { key: 'enemies2Atlas', frame: 'crow-fly-off2' },
-                { key: 'enemies2Atlas', frame: 'crow-fly-off0' },
-                { key: 'enemies2Atlas', frame: 'crow-fly-off1' },
-                { key: 'enemies2Atlas', frame: 'crow-fly-off3' },
-            ],
-            frameRate: 8,
+            frameRate: 10,
             repeat: -1,
         });
                 
         this.anims.create({
             key: 'tiny-wizard-jump',
             frames: [
-                { key: 'enemies2Atlas', frame: 'tiny-wizard-jump_4' },
-                { key: 'enemies2Atlas', frame: 'tiny-wizard-jump_3' },
-                { key: 'enemies2Atlas', frame: 'tiny-wizard-jump_2' },
-                { key: 'enemies2Atlas', frame: 'tiny-wizard-jump_1' },
                 { key: 'enemies2Atlas', frame: 'tiny-wizard-jump_0' },
+                { key: 'enemies2Atlas', frame: 'tiny-wizard-jump_1' },
+                { key: 'enemies2Atlas', frame: 'tiny-wizard-jump_2' },
+                { key: 'enemies2Atlas', frame: 'tiny-wizard-jump_3' },
+                { key: 'enemies2Atlas', frame: 'tiny-wizard-jump_4' },
             ],
             frameRate: 10,
             repeat: -1,
@@ -3112,26 +3264,26 @@ export default class LoadingScreen extends Scene
         this.anims.create({
             key: 'skeleton-flail-idle',
             frames: [
+                { key: 'enemies2Atlas', frame: 'skeleton-flail-idle_0' },
+                { key: 'enemies2Atlas', frame: 'skeleton-flail-idle_1' },
                 { key: 'enemies2Atlas', frame: 'skeleton-flail-idle_2' },
                 { key: 'enemies2Atlas', frame: 'skeleton-flail-idle_3' },
-                { key: 'enemies2Atlas', frame: 'skeleton-flail-idle_1' },
-                { key: 'enemies2Atlas', frame: 'skeleton-flail-idle_0' },
             ],
             frameRate: 8,
-            repeat: -1,
+            repeat: 3,
         });
                 
         this.anims.create({
             key: 'archer-death',
             frames: [
-                { key: 'enemies2Atlas', frame: 'archer-death_7' },
-                { key: 'enemies2Atlas', frame: 'archer-death_6' },
-                { key: 'enemies2Atlas', frame: 'archer-death_5' },
-                { key: 'enemies2Atlas', frame: 'archer-death_4' },
-                { key: 'enemies2Atlas', frame: 'archer-death_1' },
                 { key: 'enemies2Atlas', frame: 'archer-death_0' },
+                { key: 'enemies2Atlas', frame: 'archer-death_1' },
                 { key: 'enemies2Atlas', frame: 'archer-death_2' },
                 { key: 'enemies2Atlas', frame: 'archer-death_3' },
+                { key: 'enemies2Atlas', frame: 'archer-death_4' },
+                { key: 'enemies2Atlas', frame: 'archer-death_5' },
+                { key: 'enemies2Atlas', frame: 'archer-death_6' },
+                { key: 'enemies2Atlas', frame: 'archer-death_7' },
             ],
             frameRate: 16,
             repeat: -1,
@@ -3140,87 +3292,76 @@ export default class LoadingScreen extends Scene
         this.anims.create({
             key: 'minotaur-death',
             frames: [
-                { key: 'enemies2Atlas', frame: 'minotaur-death_4' },
-                { key: 'enemies2Atlas', frame: 'minotaur-death_3' },
-                { key: 'enemies2Atlas', frame: 'minotaur-death_9' },
                 { key: 'enemies2Atlas', frame: 'minotaur-death_0' },
-                { key: 'enemies2Atlas', frame: 'minotaur-death_2' },
                 { key: 'enemies2Atlas', frame: 'minotaur-death_1' },
-                { key: 'enemies2Atlas', frame: 'minotaur-death_8' },
-                { key: 'enemies2Atlas', frame: 'minotaur-death_6' },
+                { key: 'enemies2Atlas', frame: 'minotaur-death_2' },
+                { key: 'enemies2Atlas', frame: 'minotaur-death_3' },
+                { key: 'enemies2Atlas', frame: 'minotaur-death_4' },
                 { key: 'enemies2Atlas', frame: 'minotaur-death_5' },
+                { key: 'enemies2Atlas', frame: 'minotaur-death_6' },
                 { key: 'enemies2Atlas', frame: 'minotaur-death_7' },
+                { key: 'enemies2Atlas', frame: 'minotaur-death_8' },
+                { key: 'enemies2Atlas', frame: 'minotaur-death_9' },
             ],
             frameRate: 20,
-            repeat: -1,
+            repeat: 0,
         });
                 
         this.anims.create({
             key: 'skeleton-flail-hurt',
             frames: [
                 { key: 'enemies2Atlas', frame: 'skeleton-flail-hurt_0' },
-                { key: 'enemies2Atlas', frame: 'skeleton-flail-hurt_2' },
                 { key: 'enemies2Atlas', frame: 'skeleton-flail-hurt_1' },
+                { key: 'enemies2Atlas', frame: 'skeleton-flail-hurt_2' },
             ],
             frameRate: 6,
-            repeat: -1,
+            repeat: 0,
         });
                 
         this.anims.create({
             key: 'minotaur-gesture',
             frames: [
-                { key: 'enemies2Atlas', frame: 'minotaur-gesture_4' },
-                { key: 'enemies2Atlas', frame: 'minotaur-gesture_5' },
-                { key: 'enemies2Atlas', frame: 'minotaur-gesture_2' },
-                { key: 'enemies2Atlas', frame: 'minotaur-gesture_3' },
-                { key: 'enemies2Atlas', frame: 'minotaur-gesture_8' },
-                { key: 'enemies2Atlas', frame: 'minotaur-gesture_7' },
-                { key: 'enemies2Atlas', frame: 'minotaur-gesture_6' },
                 { key: 'enemies2Atlas', frame: 'minotaur-gesture_0' },
                 { key: 'enemies2Atlas', frame: 'minotaur-gesture_1' },
+                { key: 'enemies2Atlas', frame: 'minotaur-gesture_2' },
+                { key: 'enemies2Atlas', frame: 'minotaur-gesture_3' },
+                { key: 'enemies2Atlas', frame: 'minotaur-gesture_4' },
+                { key: 'enemies2Atlas', frame: 'minotaur-gesture_5' },
+                { key: 'enemies2Atlas', frame: 'minotaur-gesture_6' },
+                { key: 'enemies2Atlas', frame: 'minotaur-gesture_7' },
+                { key: 'enemies2Atlas', frame: 'minotaur-gesture_8' },
                 { key: 'enemies2Atlas', frame: 'minotaur-gesture_9' },
             ],
             frameRate: 20,
-            repeat: -1,
-        });
-                
-        this.anims.create({
-            key: 'crow-fly',
-            frames: [
-                { key: 'enemies2Atlas', frame: 'crow-fly0' },
-                { key: 'enemies2Atlas', frame: 'crow-fly2' },
-                { key: 'enemies2Atlas', frame: 'crow-fly1' },
-            ],
-            frameRate: 6,
-            repeat: -1,
+            repeat: 3,
         });
                 
         this.anims.create({
             key: 'minotaur-idle',
             frames: [
+                { key: 'enemies2Atlas', frame: 'minotaur-idle_0' },
+                { key: 'enemies2Atlas', frame: 'minotaur-idle_1' },
                 { key: 'enemies2Atlas', frame: 'minotaur-idle_2' },
                 { key: 'enemies2Atlas', frame: 'minotaur-idle_3' },
                 { key: 'enemies2Atlas', frame: 'minotaur-idle_4' },
-                { key: 'enemies2Atlas', frame: 'minotaur-idle_9' },
-                { key: 'enemies2Atlas', frame: 'minotaur-idle_8' },
-                { key: 'enemies2Atlas', frame: 'minotaur-idle_7' },
-                { key: 'enemies2Atlas', frame: 'minotaur-idle_6' },
                 { key: 'enemies2Atlas', frame: 'minotaur-idle_5' },
-                { key: 'enemies2Atlas', frame: 'minotaur-idle_1' },
-                { key: 'enemies2Atlas', frame: 'minotaur-idle_0' },
+                { key: 'enemies2Atlas', frame: 'minotaur-idle_6' },
+                { key: 'enemies2Atlas', frame: 'minotaur-idle_7' },
+                { key: 'enemies2Atlas', frame: 'minotaur-idle_8' },
+                { key: 'enemies2Atlas', frame: 'minotaur-idle_9' },
             ],
-            frameRate: 20,
+            frameRate: 12,
             repeat: -1,
         });
                 
         this.anims.create({
             key: 'night-borne-hurt',
             frames: [
+                { key: 'enemies2Atlas', frame: 'night-borne-hurt_0' },
                 { key: 'enemies2Atlas', frame: 'night-borne-hurt_1' },
                 { key: 'enemies2Atlas', frame: 'night-borne-hurt_2' },
                 { key: 'enemies2Atlas', frame: 'night-borne-hurt_3' },
                 { key: 'enemies2Atlas', frame: 'night-borne-hurt_4' },
-                { key: 'enemies2Atlas', frame: 'night-borne-hurt_0' },
             ],
             frameRate: 10,
             repeat: -1,
@@ -3229,10 +3370,10 @@ export default class LoadingScreen extends Scene
         this.anims.create({
             key: 'knight2-dash',
             frames: [
+                { key: 'enemies2Atlas', frame: 'knight2-dash_0' },
                 { key: 'enemies2Atlas', frame: 'knight2-dash_1' },
                 { key: 'enemies2Atlas', frame: 'knight2-dash_2' },
                 { key: 'enemies2Atlas', frame: 'knight2-dash_3' },
-                { key: 'enemies2Atlas', frame: 'knight2-dash_0' },
             ],
             frameRate: 8,
             repeat: -1,
@@ -3241,45 +3382,63 @@ export default class LoadingScreen extends Scene
         this.anims.create({
             key: 'viking-death',
             frames: [
-                { key: 'enemies2Atlas', frame: 'viking-death_5' },
-                { key: 'enemies2Atlas', frame: 'viking-death_4' },
-                { key: 'enemies2Atlas', frame: 'viking-death_3' },
-                { key: 'enemies2Atlas', frame: 'viking-death_6' },
-                { key: 'enemies2Atlas', frame: 'viking-death_2' },
-                { key: 'enemies2Atlas', frame: 'viking-death_7' },
-                { key: 'enemies2Atlas', frame: 'viking-death_1' },
-                { key: 'enemies2Atlas', frame: 'viking-death_8' },
                 { key: 'enemies2Atlas', frame: 'viking-death_0' },
+                { key: 'enemies2Atlas', frame: 'viking-death_1' },
+                { key: 'enemies2Atlas', frame: 'viking-death_2' },
+                { key: 'enemies2Atlas', frame: 'viking-death_3' },
+                { key: 'enemies2Atlas', frame: 'viking-death_4' },
+                { key: 'enemies2Atlas', frame: 'viking-death_5' },
+                { key: 'enemies2Atlas', frame: 'viking-death_6' },
+                { key: 'enemies2Atlas', frame: 'viking-death_7' },
+                { key: 'enemies2Atlas', frame: 'viking-death_8' },
             ],
-            frameRate: 18,
-            repeat: -1,
+            frameRate: 9,
+            repeat: 0,
+            hideOnComplete: true
         });
                 
         this.anims.create({
             key: 'viking-attack',
             frames: [
-                { key: 'enemies2Atlas', frame: 'viking-attack_8' },
-                { key: 'enemies2Atlas', frame: 'viking-attack_7' },
+                { key: 'enemies2Atlas', frame: 'viking-attack_0', duration: 250 },
+                { key: 'enemies2Atlas', frame: 'viking-attack_1', duration: 500 },
                 { key: 'enemies2Atlas', frame: 'viking-attack_2' },
-                { key: 'enemies2Atlas', frame: 'viking-attack_6' },
-                { key: 'enemies2Atlas', frame: 'viking-attack_0' },
-                { key: 'enemies2Atlas', frame: 'viking-attack_1' },
-                { key: 'enemies2Atlas', frame: 'viking-attack_5' },
-                { key: 'enemies2Atlas', frame: 'viking-attack_4' },
                 { key: 'enemies2Atlas', frame: 'viking-attack_3' },
+                { key: 'enemies2Atlas', frame: 'viking-attack_4' },
+                { key: 'enemies2Atlas', frame: 'viking-attack_5', duration: 125 },
+                { key: 'enemies2Atlas', frame: 'viking-attack_6', duration: 250 },
+                { key: 'enemies2Atlas', frame: 'viking-attack_7' },
+                { key: 'enemies2Atlas', frame: 'viking-attack_8' },
             ],
-            frameRate: 18,
-            repeat: -1,
+            frameRate: 16,
+            repeat: 0,
+        });
+
+        this.anims.create({
+            key: 'viking-shield',
+            frames: [
+                // { key: 'enemies2Atlas', frame: 'viking-shield_0' },
+                // { key: 'enemies2Atlas', frame: 'viking-shield_1' },
+                // { key: 'enemies2Atlas', frame: 'viking-shield_2' },
+                // { key: 'enemies2Atlas', frame: 'viking-shield_3' },
+                // { key: 'enemies2Atlas', frame: 'viking-shield_4' },
+                { key: 'enemies2Atlas', frame: 'viking-shield_5' },
+                { key: 'enemies2Atlas', frame: 'viking-shield_6' },
+                { key: 'enemies2Atlas', frame: 'viking-shield_7' },
+                { key: 'enemies2Atlas', frame: 'viking-shield_8' },
+            ],
+            frameRate: 32,
+            repeat: 0,
         });
                 
         this.anims.create({
             key: 'dragon-head',
             frames: [
-                { key: 'enemies2Atlas', frame: 'dragon-head_4' },
-                { key: 'enemies2Atlas', frame: 'dragon-head_1' },
-                { key: 'enemies2Atlas', frame: 'dragon-head_3' },
-                { key: 'enemies2Atlas', frame: 'dragon-head_2' },
                 { key: 'enemies2Atlas', frame: 'dragon-head_0' },
+                { key: 'enemies2Atlas', frame: 'dragon-head_1' },
+                { key: 'enemies2Atlas', frame: 'dragon-head_2' },
+                { key: 'enemies2Atlas', frame: 'dragon-head_3' },
+                { key: 'enemies2Atlas', frame: 'dragon-head_4' },
             ],
             frameRate: 10,
             repeat: -1,
@@ -3288,10 +3447,10 @@ export default class LoadingScreen extends Scene
         this.anims.create({
             key: 'tiny-wizard-cast',
             frames: [
+                { key: 'enemies2Atlas', frame: 'tiny-wizard-cast_0' },
+                { key: 'enemies2Atlas', frame: 'tiny-wizard-cast_1' },
                 { key: 'enemies2Atlas', frame: 'tiny-wizard-cast_2' },
                 { key: 'enemies2Atlas', frame: 'tiny-wizard-cast_3' },
-                { key: 'enemies2Atlas', frame: 'tiny-wizard-cast_1' },
-                { key: 'enemies2Atlas', frame: 'tiny-wizard-cast_0' },
             ],
             frameRate: 8,
             repeat: -1,
@@ -3302,41 +3461,24 @@ export default class LoadingScreen extends Scene
             frames: [
                 { key: 'enemies2Atlas', frame: 'knight-roll_0' },
                 { key: 'enemies2Atlas', frame: 'knight-roll_1' },
-                { key: 'enemies2Atlas', frame: 'knight-roll_3' },
                 { key: 'enemies2Atlas', frame: 'knight-roll_2' },
+                { key: 'enemies2Atlas', frame: 'knight-roll_3' },
             ],
             frameRate: 8,
             repeat: -1,
         });
                 
         this.anims.create({
-            key: 'viking-shield',
-            frames: [
-                { key: 'enemies2Atlas', frame: 'viking-shield_6' },
-                { key: 'enemies2Atlas', frame: 'viking-shield_7' },
-                { key: 'enemies2Atlas', frame: 'viking-shield_1' },
-                { key: 'enemies2Atlas', frame: 'viking-shield_8' },
-                { key: 'enemies2Atlas', frame: 'viking-shield_3' },
-                { key: 'enemies2Atlas', frame: 'viking-shield_2' },
-                { key: 'enemies2Atlas', frame: 'viking-shield_4' },
-                { key: 'enemies2Atlas', frame: 'viking-shield_5' },
-                { key: 'enemies2Atlas', frame: 'viking-shield_0' },
-            ],
-            frameRate: 18,
-            repeat: -1,
-        });
-                
-        this.anims.create({
             key: 'tiny-wizard-emote',
             frames: [
-                { key: 'enemies2Atlas', frame: 'tiny-wizard-emote_7' },
-                { key: 'enemies2Atlas', frame: 'tiny-wizard-emote_5' },
-                { key: 'enemies2Atlas', frame: 'tiny-wizard-emote_3' },
-                { key: 'enemies2Atlas', frame: 'tiny-wizard-emote_4' },
-                { key: 'enemies2Atlas', frame: 'tiny-wizard-emote_2' },
-                { key: 'enemies2Atlas', frame: 'tiny-wizard-emote_6' },
                 { key: 'enemies2Atlas', frame: 'tiny-wizard-emote_0' },
                 { key: 'enemies2Atlas', frame: 'tiny-wizard-emote_1' },
+                { key: 'enemies2Atlas', frame: 'tiny-wizard-emote_2' },
+                { key: 'enemies2Atlas', frame: 'tiny-wizard-emote_3' },
+                { key: 'enemies2Atlas', frame: 'tiny-wizard-emote_4' },
+                { key: 'enemies2Atlas', frame: 'tiny-wizard-emote_5' },
+                { key: 'enemies2Atlas', frame: 'tiny-wizard-emote_6' },
+                { key: 'enemies2Atlas', frame: 'tiny-wizard-emote_7' },
             ],
             frameRate: 16,
             repeat: -1,
@@ -3345,9 +3487,9 @@ export default class LoadingScreen extends Scene
         this.anims.create({
             key: 'crow-eat',
             frames: [
-                { key: 'enemies2Atlas', frame: 'crow-eat2' },
-                { key: 'enemies2Atlas', frame: 'crow-eat1' },
                 { key: 'enemies2Atlas', frame: 'crow-eat0' },
+                { key: 'enemies2Atlas', frame: 'crow-eat1' },
+                { key: 'enemies2Atlas', frame: 'crow-eat2' },
             ],
             frameRate: 6,
             repeat: -1,
@@ -3356,88 +3498,38 @@ export default class LoadingScreen extends Scene
         this.anims.create({
             key: 'crow-idle',
             frames: [
-                { key: 'enemies2Atlas', frame: 'crow-idle3' },
                 { key: 'enemies2Atlas', frame: 'crow-idle0' },
-                { key: 'enemies2Atlas', frame: 'crow-idle2' },
                 { key: 'enemies2Atlas', frame: 'crow-idle1' },
+                { key: 'enemies2Atlas', frame: 'crow-idle2' },
+                { key: 'enemies2Atlas', frame: 'crow-idle3' },
             ],
             frameRate: 8,
             repeat: -1,
         });
-                
+
         this.anims.create({
-            key: 'tiny-wizard-idle',
+            key: 'crow-fly',
             frames: [
-                { key: 'enemies2Atlas', frame: 'tiny-wizard-idle_7' },
-                { key: 'enemies2Atlas', frame: 'tiny-wizard-idle_0' },
-                { key: 'enemies2Atlas', frame: 'tiny-wizard-idle_1' },
-                { key: 'enemies2Atlas', frame: 'tiny-wizard-idle_6' },
-                { key: 'enemies2Atlas', frame: 'tiny-wizard-idle_5' },
-                { key: 'enemies2Atlas', frame: 'tiny-wizard-idle_2' },
-                { key: 'enemies2Atlas', frame: 'tiny-wizard-idle_4' },
-                { key: 'enemies2Atlas', frame: 'tiny-wizard-idle_3' },
+                { key: 'enemies2Atlas', frame: 'crow-fly0' },
+                { key: 'enemies2Atlas', frame: 'crow-fly1' },
+                { key: 'enemies2Atlas', frame: 'crow-fly2' },
             ],
-            frameRate: 16,
+            frameRate: 6,
             repeat: -1,
         });
-                
+
         this.anims.create({
-            key: 'tiny-wizard-walk',
+            key: 'crow-fly-off',
             frames: [
-                { key: 'enemies2Atlas', frame: 'tiny-wizard-walk_1' },
-                { key: 'enemies2Atlas', frame: 'tiny-wizard-walk_0' },
-                { key: 'enemies2Atlas', frame: 'tiny-wizard-walk_3' },
-                { key: 'enemies2Atlas', frame: 'tiny-wizard-walk_4' },
-                { key: 'enemies2Atlas', frame: 'tiny-wizard-walk_2' },
-                { key: 'enemies2Atlas', frame: 'tiny-wizard-walk_6' },
-                { key: 'enemies2Atlas', frame: 'tiny-wizard-walk_5' },
+                { key: 'enemies2Atlas', frame: 'crow-fly-off0' },
+                { key: 'enemies2Atlas', frame: 'crow-fly-off1' },
+                { key: 'enemies2Atlas', frame: 'crow-fly-off2' },
+                { key: 'enemies2Atlas', frame: 'crow-fly-off3' },
             ],
-            frameRate: 14,
+            frameRate: 8,
             repeat: -1,
         });
-                
-        this.anims.create({
-            key: 'viking-run',
-            frames: [
-                { key: 'enemies2Atlas', frame: 'viking-run_2' },
-                { key: 'enemies2Atlas', frame: 'viking-run_4' },
-                { key: 'enemies2Atlas', frame: 'viking-run_5' },
-                { key: 'enemies2Atlas', frame: 'viking-run_0' },
-                { key: 'enemies2Atlas', frame: 'viking-run_1' },
-                { key: 'enemies2Atlas', frame: 'viking-run_3' },
-            ],
-            frameRate: 12,
-            repeat: -1,
-        });
-                
-        this.anims.create({
-            key: 'viking-jump',
-            frames: [
-                { key: 'enemies2Atlas', frame: 'viking-jump_3' },
-                { key: 'enemies2Atlas', frame: 'viking-jump_4' },
-                { key: 'enemies2Atlas', frame: 'viking-jump_1' },
-                { key: 'enemies2Atlas', frame: 'viking-jump_2' },
-                { key: 'enemies2Atlas', frame: 'viking-jump_0' },
-            ],
-            frameRate: 10,
-            repeat: -1,
-        });
-                
-        this.anims.create({
-            key: 'viking-idle',
-            frames: [
-                { key: 'enemies2Atlas', frame: 'viking-idle_3' },
-                { key: 'enemies2Atlas', frame: 'viking-idle_1' },
-                { key: 'enemies2Atlas', frame: 'viking-idle_0' },
-                { key: 'enemies2Atlas', frame: 'viking-idle_2' },
-                { key: 'enemies2Atlas', frame: 'viking-idle_4' },
-                { key: 'enemies2Atlas', frame: 'viking-idle_5' },
-                { key: 'enemies2Atlas', frame: 'viking-idle_6' },
-            ],
-            frameRate: 14,
-            repeat: -1,
-        });
-                
+
         this.anims.create({
             key: 'crow-look-behind',
             frames: [
@@ -3447,7 +3539,78 @@ export default class LoadingScreen extends Scene
             repeat: -1,
         });
                 
-        
+        this.anims.create({
+            key: 'tiny-wizard-idle',
+            frames: [
+                { key: 'enemies2Atlas', frame: 'tiny-wizard-idle_0' },
+                { key: 'enemies2Atlas', frame: 'tiny-wizard-idle_1' },
+                { key: 'enemies2Atlas', frame: 'tiny-wizard-idle_2' },
+                { key: 'enemies2Atlas', frame: 'tiny-wizard-idle_3' },
+                { key: 'enemies2Atlas', frame: 'tiny-wizard-idle_4' },
+                { key: 'enemies2Atlas', frame: 'tiny-wizard-idle_5' },
+                { key: 'enemies2Atlas', frame: 'tiny-wizard-idle_6' },
+                { key: 'enemies2Atlas', frame: 'tiny-wizard-idle_7' },
+            ],
+            frameRate: 16,
+            repeat: -1,
+        });
+                
+        this.anims.create({
+            key: 'tiny-wizard-walk',
+            frames: [
+                { key: 'enemies2Atlas', frame: 'tiny-wizard-walk_0' },
+                { key: 'enemies2Atlas', frame: 'tiny-wizard-walk_1' },
+                { key: 'enemies2Atlas', frame: 'tiny-wizard-walk_2' },
+                { key: 'enemies2Atlas', frame: 'tiny-wizard-walk_3' },
+                { key: 'enemies2Atlas', frame: 'tiny-wizard-walk_4' },
+                { key: 'enemies2Atlas', frame: 'tiny-wizard-walk_5' },
+                { key: 'enemies2Atlas', frame: 'tiny-wizard-walk_6' },
+            ],
+            frameRate: 14,
+            repeat: -1,
+        });
+                
+        this.anims.create({
+            key: 'viking-run',
+            frames: [
+                { key: 'enemies2Atlas', frame: 'viking-run_0' },
+                { key: 'enemies2Atlas', frame: 'viking-run_1' },
+                { key: 'enemies2Atlas', frame: 'viking-run_2' },
+                { key: 'enemies2Atlas', frame: 'viking-run_3' },
+                { key: 'enemies2Atlas', frame: 'viking-run_4' },
+                { key: 'enemies2Atlas', frame: 'viking-run_5' },
+            ],
+            frameRate: 6,
+            repeat: 0,
+        });
+                
+        this.anims.create({
+            key: 'viking-jump',
+            frames: [
+                { key: 'enemies2Atlas', frame: 'viking-jump_0' },
+                { key: 'enemies2Atlas', frame: 'viking-jump_1' },
+                { key: 'enemies2Atlas', frame: 'viking-jump_2' },
+                { key: 'enemies2Atlas', frame: 'viking-jump_3' },
+                { key: 'enemies2Atlas', frame: 'viking-jump_4' },
+            ],
+            frameRate: 10,
+            repeat: -1,
+        });
+                
+        this.anims.create({
+            key: 'viking-idle',
+            frames: [
+                { key: 'enemies2Atlas', frame: 'viking-idle_0' },
+                { key: 'enemies2Atlas', frame: 'viking-idle_1' },
+                { key: 'enemies2Atlas', frame: 'viking-idle_2' },
+                { key: 'enemies2Atlas', frame: 'viking-idle_3' },
+                { key: 'enemies2Atlas', frame: 'viking-idle_4' },
+                { key: 'enemies2Atlas', frame: 'viking-idle_5' },
+                { key: 'enemies2Atlas', frame: 'viking-idle_6' },
+            ],
+            frameRate: 14,
+            repeat: -1,
+        });
     }
 
     private showCover ()

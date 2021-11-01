@@ -236,6 +236,6 @@ export default class Dragon extends Phaser.GameObjects.Sprite
         //   return;
         // }
         this.scene.battleWithBoss = false;
-        this.scene.player.inventory.boss1 = true;
+        // this.scene.player.inventory.boss1 = true;
     }
 }

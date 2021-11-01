@@ -1,10 +1,11 @@
 import { SWORDS } from '../constant/config';
+import { TSwordConfig } from '../types/types';
 import Sword from './Sword';
 
 export default class SwordManager
 {
     private swords: Sword[] = [];
-    private currentSword: number = 0;
+    private currentSwordId: number = 0;
 
     public initSwords (swordsIds: number[])
     {
@@ -18,15 +19,15 @@ export default class SwordManager
         });
     }
 
-    public addSword (id: number, name: string, desc: string, damage: number, rate: number, key: number)
+    public addSword (properties: TSwordConfig)
     {
         const config = {
-            id,
-            name,
-            desc,
-            damage,
-            rate,
-            key
+            id: properties.id,
+            name: properties.name,
+            desc: properties.desc,
+            damage: properties.damage,
+            rate: properties.rate,
+            key: properties.key
         };
 
         const sword = new Sword(config);
@@ -41,11 +42,11 @@ export default class SwordManager
 
     public getCurrentSword (): Sword
     {
-        return this.swords.filter(sword => sword.id === this.currentSword)[0];
+        return this.swords.filter(sword => sword.id === this.currentSwordId)[0];
     }
 
     public selectSword (id: number)
     {
-        this.currentSword = id;
+        this.currentSwordId = id;
     }
 }

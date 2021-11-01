@@ -9,7 +9,16 @@ const tilesetsNames = [
     'old-dark-castle-interior-tileset',
     'gothic-castle-background-tileset',
     'gothic-castle-tileset',
-    'Castle-Assets'
+    'Castle-Assets',
+    'castle-a',
+    'decorative',
+    'castle-back',
+    'castle-back2',
+    'animated',
+    'cave',
+    'cave2',
+    'cave-back',
+    'wood-tileset'
 ];
 
 
@@ -55,7 +64,75 @@ export default class LayerService
     {
         // layer that only handle collisions
         scene.colliderLayer = scene.map.createLayer('collider', 'colliderTileset', 0, 0)
-            .setAlpha(0.1);
+            .setAlpha(0.2);
+        
+        scene.torchs.children.getArray().forEach(e =>
+        {
+            const torch = e as Phaser.GameObjects.PointLight;
+            torch.setActive(false).setVisible(false);
+        });
+
+        scene.candles.children.getArray().forEach(e =>
+        {
+            const candle = e as Phaser.GameObjects.PointLight;
+            candle.setActive(false).setVisible(false);
+        });
+        
+        // add point lights
+        const torchArray = scene.checkObjectsLayerIndex('torch');
+
+        torchArray?.objects.forEach((element) =>
+        {
+            // element.properties = scene.convertTiledObjectProperties(element.properties);
+            const torch = scene.torchs.get(element.x as number, element.y as number) as Phaser.GameObjects.PointLight;
+            torch.attenuation = 0.125;
+            torch.radius = 64;
+            torch.intensity = 0.05;
+
+            const color = Phaser.Display.Color.ColorToRGBA(0xd9a066);
+
+            torch.color.setTo(color.r, color.g, color.b, color.a);
+            torch.setActive(true).setVisible(true).setDepth(DEPTH.GROUND_LAYER - 1).setName('torch');
+
+            
+            // scene.add.pointlight(element.x as number, element.y as number, 0xd9a066, 48, 0.1, 0.125).setDepth(DEPTH.GROUND_LAYER).setName('torch');
+        });
+
+        scene.add.tween({
+            targets: scene.children.list.filter(e => e.name === 'torch'),
+            duration: 250,
+            //intensity: { from: 0.03999, to: 0.051111 },
+            //radius: { from: 47.5, to: 48.5 },
+            attenuation: { from: 0.120, to: 0.125},
+            repeat: -1
+        });
+
+        const candleArray = scene.checkObjectsLayerIndex('candle');
+
+        candleArray?.objects.forEach((element) =>
+        {
+            // element.properties = scene.convertTiledObjectProperties(element.properties);
+            const candle = scene.candles.get(element.x as number, element.y as number) as Phaser.GameObjects.PointLight;
+            candle.attenuation = 0.125;
+            candle.radius = 24;
+            candle.intensity = 0.05;
+
+            const color = Phaser.Display.Color.ColorToRGBA(0xd9a066);
+
+            candle.color.setTo(color.r, color.g, color.b, color.a);
+            candle.setActive(true).setVisible(true).setDepth(DEPTH.GROUND_LAYER + 1).setName('candle'); // 
+            
+            // scene.add.pointlight(element.x as number, element.y as number, 0xd9a066, 48, 0.1, 0.125).setDepth(DEPTH.GROUND_LAYER).setName('torch');
+        });
+
+        scene.add.tween({
+            targets: scene.children.list.filter(e => e.name === 'candle'),
+            duration: 150,
+            // intensity: { from: 0.0799, to: 0.081111 },
+            // radius: { from: 23.5, to: 24.5 },
+            attenuation: { from: 0.120, to: 0.125},
+            repeat: -1
+        });
 
         // Background layers
         const backgroundLayers = scene.map.layers.filter(layer => layer.name.startsWith('background/'));

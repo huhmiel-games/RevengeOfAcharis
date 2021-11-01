@@ -841,7 +841,7 @@ export default class Demon extends Phaser.GameObjects.Sprite
             return;
         }
         this.isDead = true;
-        this.scene.player.inventory.bossFinal = true;
+        //this.scene.player.inventory.bossFinal = true;
         this.isFollowingPath = false;
         this.body.setVelocity(0, 0);
         this.deathMsg = this.scene.add.bitmapText(this.body.x - 140, this.body.y - 48, 'atomic', '', 10, 1).setDepth(300);
@@ -902,7 +902,7 @@ export default class Demon extends Phaser.GameObjects.Sprite
                     this.scene.giveLife.anims.play('heart');
                     this.scene.giveLifeGroup.push(this.scene.giveLife);
                     this.body.reset(-1000, -1000);
-                    this.scene.player.inventory.escape = true;
+                    // this.scene.player.inventory.escape = true;
                     this.deathMsg.destroy();
 
                     const pos = this.scene.getCamCenter();
