@@ -3,56 +3,60 @@ import Enemy from './Enemy';
 
 export default class HellHound extends Enemy
 {
-    public enemyState: { life: any; damage: any; directionX: number; directionY: number; hited: boolean; giveLife: number; };
-    private lastAnim: string = '';
-    private followPath: boolean;
+    public enemyState: { life: number; damage: number; giveLife: number; };
     private walkplay: boolean;
     private attackSfx: Phaser.Sound.BaseSound;
     private walkk: Phaser.Sound.BaseSound;
     private distance: number;
+    private cadaver: { x: number; y: number; };
     constructor (scene: GameScene, x: number, y: number, config: any)
     {
         super(scene, x, y, config);
 
         this.enemyState = {
-            life: config.life,
-            damage: config.damage,
-            directionX: 100,
-            directionY: 0,
-            hited: false,
-            giveLife: config.life / 3,
+            life: 5,
+            damage: 5,
+            giveLife: 1,
         };
 
-        this.body
-            .setAllowGravity()
-            .setGravityY(500)
-            .setSize(32, 16)
-            .setOffset(16, 12);
-
-        this.flipX = true;
-
-        this.followPath = false;
+        this.cadaver = { x, y };
 
         this.speed = 100;
+
+        this.anims.play('hellHoundIdle', true);
+
+        this.body
+            .setAllowGravity(true)
+            .setGravityY(1000)
+            .setSize(32, 19)
+            .setOffset(16, 29)
+            .setVelocityX(0);
+
+        this.flipX = true;
 
         this.walkplay = false;
 
         this.attackSfx = this.scene.sound.add('hellhoundAttack').on('complete', () =>
         {
-            this.isAttacking = false;
+            //this.isAttacking = false;
         });
 
         this.walkk = this.scene.sound.add('hellhoundStep', { volume: 0.5 });
 
-        this.on('animationupdate', () =>
+        this.on(Phaser.Animations.Events.ANIMATION_UPDATE, () =>
         {
             const runSpeedNow = Math.abs(this.body.velocity.x);
+
             const walkRate = Phaser.Math.RND.realInRange(0.75, 1.25);
+
             const runTimer = runSpeedNow > 0 ? (1000 / runSpeedNow) * 50 : 330;
+
             if (this.anims.currentAnim.key === 'hellHoundRun' && !this.walkplay && this.body.blocked.down && this.distance < 350)
             {
                 this.walkplay = true;
+
                 this.walkk.play(); // { rate: walkRate }
+
                 this.scene.time.addEvent({
                     delay: runTimer,
                     callback: () =>
@@ -63,70 +67,117 @@ export default class HellHound extends Enemy
                 });
             }
         });
+
+        this.on(Phaser.Animations.Events.ANIMATION_COMPLETE, () =>
+        {
+            const { velocity, blocked, center } = this.body;
+
+            const anim = this.anims.getName();
+
+            const playerX = this.scene.player.body.center.x;
+            const playerY = this.scene.player.body.center.y;
+
+            const distanceDogPlayer = Phaser.Math.Distance.Between(playerX, playerY, center.x, center.y);
+            const distanceCadaverPlayer = Phaser.Math.Distance.Between(playerX, playerY, this.cadaver.x, this.cadaver.y);
+            const distanceDogCadaver = Phaser.Math.Distance.Between(center.x, center.y, this.cadaver.x, this.cadaver.y);
+
+            if (distanceDogPlayer < 40)
+            {
+                if (!this.attackSfx.isPlaying) this.attackSfx.play();
+            }
+
+            if (anim === 'hellHoundWalk' && distanceCadaverPlayer < 250)
+            {
+                this.body.setVelocityX(playerX - center.x > 0 ? this.speed : -this.speed);
+                this.anims.play('hellHoundRun', true);
+
+                return;
+            }
+
+            if (distanceCadaverPlayer <= 250 && anim !== 'hellHoundRun')
+            {
+                this.body.setVelocityX(playerX - center.x > 0 ? this.speed / 3 : -this.speed / 3);
+                this.anims.play('hellHoundWalk', true);
+
+                return;
+            }
+
+            if (distanceDogCadaver < 50 && distanceCadaverPlayer > 250)
+            {
+                this.body.setVelocityX(0);
+                this.anims.play('hellHoundIdle', true);
+
+                return;
+            }
+
+            if (distanceDogCadaver > 50 && distanceCadaverPlayer > 250)
+            {
+                this.body.setVelocityX(this.cadaver.x - center.x > 0 ? this.speed / 3 : -this.speed / 3);
+
+                this.anims.play('hellHoundWalk', true);
+
+                return;
+            }
+
+            
+
+            if (anim === 'hellHoundRun')
+            {
+                if (distanceCadaverPlayer <= 250)
+                {
+                    // this.body.setVelocityX(playerX - center.x > 0 ? this.speed : -this.speed);
+                    // this.playAttackSfx();
+                    this.anims.play('hellHoundRun', true);
+
+                    return;
+                }
+
+                if (distanceCadaverPlayer > 250)
+                {
+                    // this.body.setVelocityX(0);
+                    this.body.setVelocityX(this.cadaver.x - center.x > 0 ? this.speed / 3 : -this.speed / 3);
+                    this.anims.play('hellHoundWalk', true);
+
+                    return;
+                }
+            }
+        });
     }
 
     public preUpdate (time: number, delta: number)
     {
         super.preUpdate(time, delta);
-        if (this.active && !this.followPath)
+        if (this.active)
         {
-            this.body.setVelocityX(this.enemyState.directionX);
-            this.body.setVelocityY(this.enemyState.directionY);
-            let animationName: string | null;
-            const distance = Phaser.Math.Distance.Between(this.scene.player.x, this.scene.player.y, this.x, this.y);
-            this.distance = distance;
-            if (distance <= 40)
+            const { x, y } = this.scene.player.body.center;
+
+            const { velocity, blocked } = this.body;
+
+            //     // turn back if blocked
+            if (blocked.left)
             {
-                this.playAttackSfx();
-                const dx = this.scene.player.x - this.x;
-                const dy = this.scene.player.y - this.y;
-                const angle = Math.atan2(dy, dx);
-                this.body.setVelocityY(Math.sin(angle) * (this.speed / 2));
-                animationName = 'hellHoundJump';
+                this.body.setVelocityX(this.speed);
+                this.anims.play('hellHoundRun', true);
+            }
+
+            if (blocked.right)
+            {
+                this.body.setVelocityX(-this.speed);
+                this.anims.play('hellHoundRun', true);
+            }
+
+            // flip the sprite
+            if (velocity.x > 0)
+            {
+                this.flipX = true;
             }
             else
             {
-                animationName = 'hellHoundRun';
-                // turn back if blocked
-                if (this.body.blocked.left)
-                {
-                    this.enemyState.directionX = this.speed;
-                }
-                if (this.body.blocked.right)
-                {
-                    this.enemyState.directionX = -this.speed;
-                }
-                // fall
-                if (this.body.blocked.none)
-                {
-                    this.enemyState.directionY = 600;
-                }
-                if (this.body.blocked.down)
-                {
-                    this.enemyState.directionY = 0;
-                }
-                // flip the sprite
-                if (this.enemyState.directionX > 0)
-                {
-                    this.flipX = true;
-                } else
-                {
-                    this.flipX = false;
-                }
-            }
-
-            if (this.lastAnim !== animationName)
-            {
-                this.lastAnim = animationName;
-                this.animate(animationName);
+                this.flipX = false;
             }
         }
-        if (this.active && this.scene[`path${this.name}`])
-        {
-            this.scene[`path${this.name}`].active ? this.startOnPath() : this.followPath = false;
-        }
-
     }
+
 
     public playAttackSfx ()
     {
@@ -141,32 +192,5 @@ export default class HellHound extends Enemy
     public playSfxDeath ()
     {
         this.scene.sound.play('hellhoundDeath', { volume: 1, rate: 1 });
-    }
-
-    public startOnPath ()
-    {
-        this.setPosition(this.scene[`path${this.name}`].x, this.scene[`path${this.name}`].y);
-        this.body.setAllowGravity(false);
-        this.angle = this.scene[`path${this.name}`].angle;
-        this.followPath = true;
-    }
-
-    public animate (str: string | Phaser.Animations.Animation | Phaser.Types.Animations.PlayAnimationConfig)
-    {
-        this.anims.play(str, true);
-    }
-
-    public checkCollision (d: { type: string; })
-    {
-        if (d.type === 'Sprite')
-        {
-            if (this.enemyState.directionX > 0)
-            {
-                this.enemyState.directionX = -this.speed;
-            } else
-            {
-                this.enemyState.directionX = this.speed;
-            }
-        }
     }
 }

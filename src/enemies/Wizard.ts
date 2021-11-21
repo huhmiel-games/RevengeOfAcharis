@@ -1,3 +1,6 @@
+import { COLORS } from '../constant/colors';
+import { FONTS, FONTS_SIZES } from '../constant/config';
+import Arrow from '../player/Arrow';
 import GameScene from '../scenes/GameScene';
 import Enemy from './Enemy';
 import Projectile from './Projectile';
@@ -113,6 +116,15 @@ export default class Wizard extends Enemy
 
         const randomX = Phaser.Math.Between(this.scene.player.x - 180, this.scene.player.x + 180);
         const randomY = Phaser.Math.Between(this.scene.player.y - 50, this.scene.player.y + 50);
+
+        if (this.scene.colliderLayer.getTileAtWorldXY(randomX, randomY) !== null)
+        {
+            this.isAppearing = true;
+
+            this.appears();
+
+            return;
+        }
 
         this.setPosition(randomX, randomY);
 
@@ -230,5 +242,74 @@ export default class Wizard extends Enemy
                 },
             });
         }
+    }
+
+    public looseLife (damage: number, weaponType: string, weapon?: Arrow): void
+    {
+        if (this.isHit)
+        {
+            return;
+        }
+
+        this.isHit = true;
+        
+        this.setTintFill(0xDDDDDD);
+
+        try
+        {
+            this.scene.sound.play(`${this.name}Hit`);
+        }
+        catch (error)
+        {
+            console.log(error);
+        }
+        
+        const specialDamage = weaponType === 'arrow' ? damage * 2 : damage;
+
+        this.enemyState.life -= specialDamage;
+
+        const damageText = this.scene.add.bitmapText(this.body.center.x, this.body.top, FONTS.GALAXY, `-${specialDamage}`, FONTS_SIZES.GALAXY, 1)
+            .setTintFill(COLORS.RED)
+            .setDropShadow(1, 1, 0xffffff)
+            .setDepth(2000);
+
+        this.scene.tweens.add({
+            targets: damageText,
+            duration: 1500,
+            y: {
+                from: this.body.top,
+                to: this.body.top -32
+            },
+            alpha: 0,
+            onComplete: () => damageText.destroy()
+        });
+
+        if (this.isAttacking === false)
+        {
+            this.isAttacking = true;
+        }
+
+        if (this.enemyState.life <= 0)
+        {
+            this.kill();
+        }
+
+        this.scene?.time.addEvent({
+            delay: 50,
+            callback: () =>
+            {
+                if (!this.active) return;
+                this.clearTint();
+            },
+        });
+
+        this.scene?.time.addEvent({
+            delay: 220,
+            callback: () =>
+            {
+                if (!this.active) return;
+                this.isHit = false;
+            },
+        });
     }
 }

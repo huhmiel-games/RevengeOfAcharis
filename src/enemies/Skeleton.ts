@@ -64,6 +64,8 @@ export default class Skeleton extends Enemy
         {
             this.isAttacking = true;
 
+            this.body.setEnable(true);
+
             this.anims.play('skeleton', true);
 
             this.enemyState.damage = this.damage;
@@ -72,6 +74,8 @@ export default class Skeleton extends Enemy
         if (this.anims.getName() === 'skeletonRise' && this.isAttacking)
         {
             this.isAttacking = false;
+
+            this.body.setEnable(false);
 
             this.setVisible(false);
 

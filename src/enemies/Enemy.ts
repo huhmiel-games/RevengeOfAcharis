@@ -1,10 +1,10 @@
-import GameScene from '../scenes/GameScene';
-
 import { GameObjects } from 'phaser';
+import GameScene from '../scenes/GameScene';
 import { COLORS } from '../constant/colors';
 import { FONTS, FONTS_SIZES } from '../constant/config';
 import SaveLoadService from '../services/SaveLoadService';
 import Projectile from './Projectile';
+import Arrow from '../player/Arrow';
 
 /**
  * @description The Enemy base class
@@ -24,6 +24,7 @@ export default class Enemy extends GameObjects.Sprite
     public enemyState: any;
     public isAttacking: boolean = false;
     public xp: number = 0;
+    public invulnerability: string = '';
     constructor (scene: GameScene, x: number, y: number, config: any)
     {
         super(scene, x, y, config as any);
@@ -49,7 +50,7 @@ export default class Enemy extends GameObjects.Sprite
         this.isDead = false;
     }
 
-    public looseLife (damage: number, weaponType: string): void
+    public looseLife (damage: number, weaponType: string, weapon?: Arrow): void
     {
         if (this.isHit)
         {
@@ -126,11 +127,13 @@ export default class Enemy extends GameObjects.Sprite
 
         this.scene.player.addXp(this.xp);
 
-        this.scene.giveLife = this.scene.physics.add.sprite(this.x, this.y, 'heart').setDataEnabled();
+        const { x, y } = this.body.center;
+
+        this.scene.giveLife = this.scene.physics.add.sprite(x, y, 'heart').setDataEnabled();
         this.scene.giveLife.setDepth(105);
         this.scene.giveLife.data.set('health', this.enemyState.giveLife);
         this.scene.giveLife.body = this.scene.giveLife.body as Phaser.Physics.Arcade.Body;
-        this.scene.giveLife.body.setSize(23, 21);
+        this.scene.giveLife.body.setSize(23, 21).setAllowGravity(false);
         this.scene.giveLife.anims.play('heart');
         this.scene.giveLifeGroup.push(this.scene.giveLife);
 
@@ -141,7 +144,9 @@ export default class Enemy extends GameObjects.Sprite
 
     public explode ()
     {
-        const flames = this.scene.explodeSprite.getFirstDead(true, this.x, this.y - 8, 'enemyExplode', undefined, true);
+        const { x, y } = this.body.center;
+
+        const flames = this.scene.explodeSprite.getFirstDead(true, x, y - 4, 'enemyExplode', undefined, true);
 
         if (flames)
         {

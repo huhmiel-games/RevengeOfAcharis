@@ -1,5 +1,6 @@
 import DEPTH from '../constant/depth';
 import GameScene from '../scenes/GameScene';
+
 const tilesetsNames = [
     'tileground',
     'tilesetSwamp',
@@ -11,8 +12,11 @@ const tilesetsNames = [
     'gothic-castle-tileset',
     'Castle-Assets',
     'castle-a',
+    'castle-b',
+    'castle-c',
     'decorative',
     'castle-back',
+    'castle-back-b',
     'castle-back2',
     'animated',
     'cave',
@@ -83,7 +87,6 @@ export default class LayerService
 
         torchArray?.objects.forEach((element) =>
         {
-            // element.properties = scene.convertTiledObjectProperties(element.properties);
             const torch = scene.torchs.get(element.x as number, element.y as number) as Phaser.GameObjects.PointLight;
             torch.attenuation = 0.125;
             torch.radius = 64;
@@ -93,16 +96,11 @@ export default class LayerService
 
             torch.color.setTo(color.r, color.g, color.b, color.a);
             torch.setActive(true).setVisible(true).setDepth(DEPTH.GROUND_LAYER - 1).setName('torch');
-
-            
-            // scene.add.pointlight(element.x as number, element.y as number, 0xd9a066, 48, 0.1, 0.125).setDepth(DEPTH.GROUND_LAYER).setName('torch');
         });
 
         scene.add.tween({
             targets: scene.children.list.filter(e => e.name === 'torch'),
             duration: 250,
-            //intensity: { from: 0.03999, to: 0.051111 },
-            //radius: { from: 47.5, to: 48.5 },
             attenuation: { from: 0.120, to: 0.125},
             repeat: -1
         });
@@ -111,7 +109,6 @@ export default class LayerService
 
         candleArray?.objects.forEach((element) =>
         {
-            // element.properties = scene.convertTiledObjectProperties(element.properties);
             const candle = scene.candles.get(element.x as number, element.y as number) as Phaser.GameObjects.PointLight;
             candle.attenuation = 0.125;
             candle.radius = 24;
@@ -121,15 +118,11 @@ export default class LayerService
 
             candle.color.setTo(color.r, color.g, color.b, color.a);
             candle.setActive(true).setVisible(true).setDepth(DEPTH.GROUND_LAYER + 1).setName('candle'); // 
-            
-            // scene.add.pointlight(element.x as number, element.y as number, 0xd9a066, 48, 0.1, 0.125).setDepth(DEPTH.GROUND_LAYER).setName('torch');
         });
 
         scene.add.tween({
             targets: scene.children.list.filter(e => e.name === 'candle'),
             duration: 150,
-            // intensity: { from: 0.0799, to: 0.081111 },
-            // radius: { from: 23.5, to: 24.5 },
             attenuation: { from: 0.120, to: 0.125},
             repeat: -1
         });
@@ -155,9 +148,6 @@ export default class LayerService
         groundLayers.forEach(layer =>
         {
             const layerElement = scene.map.createLayer(layer.name, tilesetsNames, 0, 0).setDepth(DEPTH.GROUND_LAYER);
-
-            // const layerName = layer.name.split('/')[1];
-
             layerElement.setName(layer.name);
         });
 
@@ -165,7 +155,6 @@ export default class LayerService
         foregroundLayers.forEach(layer =>
         {
             const layerElement = scene.map.createLayer(layer.name, tilesetsNames, 0, 0).setDepth(DEPTH.FRONT_LAYER);
-
             layerElement.setName(layer.name);
         });
 
@@ -199,28 +188,6 @@ export default class LayerService
                 console.log(error);
             }
         });
-
-        // // add invisible collide layer used on elevators rooms only (until now)
-        // if (LayerService.checkIfLayerExists(scene, 'collideInvisible'))
-        // {
-        //     scene.collideInvisibleLayer = scene.map.createLayer('collideInvisible', scene.tileset, 0, 0) || null;
-        //     // scene.collideInvisibleLayer.setDepth(DEPTH.INVISIBLE_COLLIDER_LAYER);
-        // }
-
-        // // add front mask for morphing sonar
-        // if (scene.player.inventory.morphingSonar)
-        // {
-        //     scene.frontLayer.mask = new Phaser.Display.Masks.BitmapMask(scene, scene.mask);
-        //     scene.frontLayer.mask.invertAlpha = true;
-
-        //     if (scene.secretLayer && scene.map.properties.environment !== 'water')
-        //     {
-        //         // @ts-ignore
-        //         scene.secretLayer.mask = new Phaser.Display.Masks.BitmapMask(scene, scene.mask);
-        //         // @ts-ignore
-        //         scene.secretLayer.mask.invertAlpha = true;
-        //     }
-        // }
     }
 
     /**

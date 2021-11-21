@@ -155,8 +155,8 @@ export default class Player extends Phaser.GameObjects.Sprite
 
         this.arrows = this.scene.physics.add.group({
             classType: Arrow,
-            maxSize: 10,
-            allowGravity: false,
+            maxSize: 3,
+            allowGravity: true,
         });
 
         this.sword = this.swords.getFirstDead(true, this.body.x, this.body.y, 'knife', undefined, true);
@@ -503,13 +503,6 @@ export default class Player extends Phaser.GameObjects.Sprite
         if (this.bowManager.getBows().length === 0) return;
 
         this.anims.play('adventurer-bow', true);
-
-        // const rate = this.bowManager.getCurrentBow()?.rate;
-
-        // if (time > this.playerState.lastFired + 300) // rate)
-        // {
-        //     this.anims.play('adventurer-bow', true);
-        // }
     }
 
     public shootArrow (time: number)
@@ -520,43 +513,36 @@ export default class Player extends Phaser.GameObjects.Sprite
         {
             this.anims.play('adventurer-idle', true);
         }
-        // const inventory = this.inventoryManager.getInventory();
 
         const currentBow = this.bowManager.getCurrentBow();
 
-        const { rate, damage, speed } = currentBow;
+        const { rate, speed } = currentBow;
 
-        if (time > this.playerState.lastFired + rate) // rate)
+        if (time > this.playerState.lastFired + rate)
         {
             const arrow: Arrow = this.arrows.getFirstDead(true, this.body.center.x, this.body.center.y, 'arrow', undefined, true);
+
             if (arrow)
             {
                 this.anims.play('adventurer-bow-end', true);
 
                 this.playerState.lastFired = time;
 
-                arrow.setVisible(true).setDepth(102);
+                arrow.setVisible(true).setActive(true);
+                arrow.body.reset(this.body.center.x, this.body.center.y);
 
-                // this.scene.sound.play('swell', { volume: 0.6 }); // need arrow sound
-                //    BULLET ORIENTATION    ////
+                this.scene.sound.play('bullet', { volume: 0.6, rate: 2 });
+
                 if (this.flipX)
                 {
                     arrow.setFlipX(true);
-                    arrow.body.setVelocityX(-speed);
+                    arrow.body.setEnable(true).setVelocityX(-speed).setGravityY(30);
                 }
                 if (!this.flipX)
                 {
                     arrow.setFlipX(false);
-                    arrow.body.setVelocityX(speed);
+                    arrow.body.setEnable(true).setVelocityX(speed).setGravityY(30);
                 }
-
-                this.scene.time.addEvent({
-                    delay: 1000,
-                    callback: () =>
-                    {
-                        arrow.destroy();
-                    },
-                });
             }
         }
     }
@@ -665,7 +651,13 @@ export default class Player extends Phaser.GameObjects.Sprite
         this.isHit = true;
         this.isHitMomentum = true;
 
-        inventory.life -= elm.enemyState.damage * Math.ceil(1 / (inventory.def > 0 ? inventory.def : 1));
+        let currentDef = inventory.def > 0 ? inventory.def : 1;
+
+        const shieldDef = this.shieldManager.getCurrentShield()?.defense;
+
+        if (shieldDef > 0) currentDef += shieldDef;
+
+        inventory.life -= Math.trunc(elm.enemyState.damage - elm.enemyState.damage * (shieldDef / 100));
 
         this.HealthUiText.setText(`${inventory.life}%${inventory.maxLife}`);
 

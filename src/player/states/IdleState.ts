@@ -49,6 +49,8 @@ export default class IdleState extends State
         // Player is hit by enemy
         if (player.isHit || player.isOnSpike)
         {
+            player.isBendBow = false;
+
             this.stateMachine.transition(PlayerState.HIT, this.stateMachine.state);
 
             return;
@@ -73,6 +75,8 @@ export default class IdleState extends State
         // Transition to jump if pressing jump
         if (jump.isDown && jump.getDuration() < 250 && blocked.down && !player.isJumping)
         {
+            player.isBendBow = false;
+
             this.stateMachine.transition(PlayerState.JUMP, this.stateMachine.state);
 
             return;
@@ -81,6 +85,8 @@ export default class IdleState extends State
         // Transition to move if pressing left or right key and not blocked
         if (right.isDown && !left.isDown && !blocked.right && !touching.right && !player.isAttacking)
         {
+            player.isBendBow = false;
+
             this.stateMachine.transition(PlayerState.MOVE, this.stateMachine.state);
 
             return;
@@ -88,6 +94,8 @@ export default class IdleState extends State
 
         if (left.isDown && !right.isDown && !blocked.left && !touching.left && !player.isAttacking)
         {
+            player.isBendBow = false;
+
             this.stateMachine.transition(PlayerState.MOVE, this.stateMachine.state);
 
             return;

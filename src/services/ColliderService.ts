@@ -1,4 +1,7 @@
+import BodyExtended from '../enemies/BodyExtended';
+import DragonHead from '../enemies/DragonHead';
 import Enemy from '../enemies/Enemy';
+import EvilWizard from '../enemies/EvilWizard';
 import Projectile from '../enemies/Projectile';
 import Arrow from '../player/Arrow';
 import Player from '../player/Player';
@@ -55,7 +58,7 @@ export default class ColliderService
                 }
 
                 // if player overlap with saveBlock tile
-                if (tile.properties.saveBlock)
+                if (tile.properties.saveBlock && !player.isPause)
                 {
                     scene.askForGameSave(player, tile);
                 }
@@ -97,13 +100,45 @@ export default class ColliderService
             if (enemy.name !== 'demon') return true;
         });
 
+        scene.physics.add.collider(scene.enemyGroup, scene.enemyGroup, undefined, (enemyA, enemyB) =>
+        {
+            if (enemyA instanceof DragonHead && enemyB instanceof DragonHead) return true;
+
+            return false;
+        });
+
         scene.physics.add.overlap(scene.giveLifeGroup, scene.player, elm => scene.player.getLife(elm), undefined, scene.player);
 
         scene.physics.add.overlap(scene.powerups, scene.player, elm => scene.getPowerUp(elm as PowerUp), undefined, scene);
 
         scene.physics.add.overlap(scene.player, scene.enemyGroup, (player, enemy) => scene.playerIsHit(enemy as Enemy), undefined, scene);
         scene.physics.add.overlap(scene.player, scene.projectileGroup, (player, projectile) => scene.playerIsHit(projectile as Projectile), undefined, scene);
-        scene.physics.add.overlap([scene.player.swords, scene.player.arrows], scene.enemyGroup, (weapon, enemy) => scene.enemyIsHit(weapon, enemy), undefined, scene);
+
+        scene.physics.add.overlap(scene.player, scene.bodiesGroup, (player, _body) =>
+        {
+            const body = _body as BodyExtended;
+            const enemy = body.parent;
+            scene.playerIsHit(enemy as Enemy);
+        }, undefined, scene);
+
+        scene.physics.add.overlap([scene.player.swords, scene.player.arrows], scene.enemyGroup,
+            (enemy, weapon) => scene.enemyIsHit(enemy, weapon),
+            (enemy, weapon) =>
+            {
+                if (enemy instanceof EvilWizard && weapon.name === 'arrow')
+                {
+                    const e = enemy as unknown as EvilWizard;
+                    e.dodge();
+
+                    return false;
+                }
+            }, scene);
+        scene.physics.add.overlap([scene.player.swords, scene.player.arrows], scene.bodiesGroup, (_body, _weapon) =>
+        {
+            const enemyBody = _body as BodyExtended;
+            enemyBody.looseLife(_weapon);
+        }, undefined, scene);
+
         scene.physics.add.collider([scene.player.swords, scene.player.arrows], scene.colliderLayer, undefined, undefined, scene);
     }
 }

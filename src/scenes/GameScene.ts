@@ -33,7 +33,16 @@ import Minotaur from '../enemies/Minotaur';
 import DEPTH from '../constant/depth.js';
 import SkeletonFlail from '../enemies/SkeletonFlail';
 import SkeletonSword from '../enemies/SkeletonSword';
-import Arrow from '../player/Arrow.js';
+import Arrow from '../player/Arrow';
+import DarkKnight from '../enemies/DarkKnight';
+import Horse from '../enemies/Horse';
+import BodyExtended from '../enemies/BodyExtended';
+import FireSkull from '../enemies/FireSkull';
+import Samurai from '../enemies/Samurai';
+import Ninja from '../enemies/Ninja';
+import Knight2 from '../enemies/Knight2';
+import EvilWizard from '../enemies/EvilWizard';
+import DragonHead from '../enemies/DragonHead';
 
 
 export default class GameScene extends Scene
@@ -46,7 +55,8 @@ export default class GameScene extends Scene
     public enemyGroup: (Enemy | Dragon | HellBeast | Demon)[];
     public pathGroup: Phaser.GameObjects.PathFollower[];
     public platformGroup: Platform[];
-    public projectileGroup: Projectile[];
+    public projectileGroup: Projectile[] = [];
+    public bodiesGroup: BodyExtended[] = [];
     public npcGroup: TNpc[];
     public platformSpikeGroup: PlatformSpike[];
     public breathGroup: any[];
@@ -112,13 +122,15 @@ export default class GameScene extends Scene
     public showMsg: Phaser.GameObjects.BitmapText;
     public player: Player;
     public backUi: Phaser.GameObjects.Image;
-    private isCheckSaving: boolean = false;
-    public isSaving: boolean;
+    public isCheckSaving: boolean = false;
+    public isSaving: boolean = false;
     public projectiles: Phaser.Physics.Arcade.Group;
     public isPause: boolean = false;
     private pauseText: Phaser.GameObjects.BitmapText;
     public torchs: Phaser.GameObjects.Group;
     public candles: Phaser.GameObjects.Group;
+    public bodyExtended: Phaser.Physics.Arcade.Group;
+    public dragonHeadBalls: Phaser.Physics.Arcade.Group;
 
     constructor ()
     {
@@ -248,6 +260,20 @@ export default class GameScene extends Scene
             classType: Projectile,
             // defaultKey: 'fireBall',
             maxSize: 3,
+            allowGravity: false
+        });
+
+        this.dragonHeadBalls = this.physics.add.group({
+            classType: Projectile,
+            // defaultKey: 'fireBall',
+            maxSize: 15,
+            allowGravity: false
+        });
+
+        // more bodies for complex enemies
+        this.bodyExtended = this.physics.add.group({
+            classType: BodyExtended,
+            maxSize: 10,
             allowGravity: false
         });
         // enemies projectiles
@@ -542,10 +568,10 @@ export default class GameScene extends Scene
         {
             if (elm.id === 23) this.player.addJumpBoots();
         }
-        
+
         this.sound.play('powerUp');
 
-        
+
         inventory.powerUp.push(elm.id);
 
 
@@ -762,45 +788,6 @@ ${elm.properties.desc}`;
         this.player.looseLife(elm);
     }
 
-    public playerOnSpikes (int: number)
-    {
-        this.player.onSpikes(int);
-        // if (!this.player.isHit)
-        // {
-        //     this.player.isHit = true; // flag
-        //     this.player.playerState.runSpeed = 285;
-        //     this.player.hitSfx.play();
-        //     this.player.inventory.life -= int;
-        //     if (this.player.inventory.life <= 30)
-        //     {
-        //         this.sound.play('lowLifeSfx');
-        //     }
-        //     this.playerFlashTween = this.tweens.add({
-        //         targets: this.player,
-        //         ease: 'Sine.easeInOut',
-        //         duration: 200,
-        //         delay: 0,
-        //         repeat: 5,
-        //         yoyo: true,
-        //         alpha: {
-        //             getStart: () => 0,
-        //             getEnd: () => 1,
-        //         },
-        //         onComplete: () =>
-        //         {
-        //             this.player.alpha = 1;
-        //             this.playerHurt = false;
-        //         },
-        //     });
-        //     // if player is dead, launch deadth sequence
-        //     if (this.player.inventory.life <= 0)
-        //     {
-        //         this.player.playerDeathSequence();
-        //     }
-        //     this.events.emit('setHealth', { life: this.player.inventory.life }); // set health dashboard scene
-        // }
-    }
-
     // ====================================================================
 
 
@@ -835,26 +822,19 @@ ${elm.properties.desc}`;
 
         if (_weapon.name === 'arrow')
         {
+            const weapon = _weapon as Arrow;
+
+            if (enemy.invulnerability === 'arrow')
+            {
+                weapon.deflect();
+
+                return;
+            }
             const str = Math.ceil(Math.sqrt(Math.pow(this.player.inventoryManager.getInventory().level, 3)) / 10);
 
-            enemy.looseLife(Math.floor(this.player.bowManager.getCurrentBow().damage * str), 'arrow');
+            enemy.looseLife(Math.floor(this.player.bowManager.getCurrentBow().damage * str), 'arrow', weapon);
 
-            const weapon = _weapon as Arrow;
-            weapon.kill();
-           // weapon.body.velocity.x = enemy.body.velocity.x;
-
-            // this.time.addEvent({
-            //     delay: 30,
-            //     callback: () =>
-            //     {
-            //         if (weapon.body && enemy.body) weapon.body.setVelocityX(enemy.body.velocity.x);
-            //     }
-            // });
-
-            // this.time.addEvent({
-            //     delay: 250,
-            //     callback: () => weapon.kill()
-            // });
+            if (!weapon.isDeflecting) weapon.kill();
         }
 
     }
@@ -1070,13 +1050,13 @@ ${elm.properties.desc}`;
 
         this.playerPosition = room;
         const properties = this.convertTiledObjectProperties(this.map.properties);
-        
+
         LayerService.addLayers(this);
-        
+
         this.player.x = this.player.inventoryManager.getInventory().savedPositionX + 24;
         this.player.y = this.player.inventoryManager.getInventory().savedPositionY;
         ColliderService.addColliders(this);
-        
+
         this.addPlayerSfx();
         this.addEnemies();
         // this.addMovingPlatform();
@@ -1104,36 +1084,26 @@ ${elm.properties.desc}`;
     {
         // if boss not dead return!
         if (this.battleWithBoss) return;
+
         // if door closed, return!!
         if (doorP && doorP.alpha === 1)
         {
             return;
         }
+
         if (this.playerIsPassingDoor)
         {
             return;
         }
+
         this.playerIsPassingDoor = true;
+
         console.clear();
+
         // destroy leaving room
         this.cameras.main.fadeOut(50);
-        this.physics.world.colliders.destroy();
-        this.map.destroy();
-        this.giveLifeGroup.forEach(e => e.destroy());
-        this.powerups.forEach(e => e.destroy());
-        this.powerups = [];
-        this.pathGroup.forEach(e => e.destroy());
-        this.pathGroup = [];
-        this.platformGroup.forEach(e => e.destroy());
-        this.platformGroup = [];
-        this.platformSpikeGroup.forEach(e => e.destroy());
-        this.platformSpikeGroup = [];
-        this.enemyGroup.forEach(e => e.destroy());
-        this.enemyGroup = [];
-        this.npcGroup.forEach(e => e.destroy());
-        this.npcGroup = [];
-        if (this.demon) this.demon.destroy();
-        if (this.escapeTimer) this.escapeTimer = null;
+        this.destroyRoom();
+
 
         // create new room
         this.map = this.make.tilemap({ key: doorP.name, tileWidth: 16, tileHeight: 16 });
@@ -1195,6 +1165,39 @@ ${elm.properties.desc}`;
         this.playerIsPassingDoor = false;
         this.isChangingRoom = false;
         // console.log(this);
+    }
+
+    private destroyRoom (): void
+    {
+        this.physics.world.colliders.destroy();
+        this.map.destroy();
+        this.giveLifeGroup.forEach(e => e.destroy());
+        this.powerups.forEach(e => e.destroy());
+        this.powerups = [];
+        this.pathGroup.forEach(e => e.destroy());
+        this.pathGroup = [];
+        this.platformGroup.forEach(e => e.destroy());
+        this.platformGroup = [];
+        this.platformSpikeGroup.forEach(e => e.destroy());
+        this.platformSpikeGroup = [];
+        this.enemyGroup.forEach(e =>
+        {
+            try
+            {
+                // @ts-ignore
+                e.destroyHitbox();
+            }
+            catch (error)
+            {
+                console.log(error);
+            }
+            e.destroy();
+        });
+        this.enemyGroup = [];
+        this.npcGroup.forEach(e => e.destroy());
+        this.npcGroup = [];
+        if (this.demon) this.demon.destroy();
+        if (this.escapeTimer) this.escapeTimer = null;
     }
 
     // ====================================================================
@@ -1431,6 +1434,98 @@ ${elm.properties.desc}`;
                     this.enemyGroup.push(viking);
                     break;
 
+                case 'samurai':
+                    if (!element.y) return;
+
+                    const samurai = new Samurai(this, element.x as unknown as number - 64, element.y as unknown as number - 64, {
+                        key: element.properties.key,
+                        name: element.name,
+                        life: element.properties.life,
+                        damage: element.properties.damage,
+                    });
+
+                    this.enemyGroup.push(samurai);
+                    break;
+
+                case 'dragon-head':
+                    if (!element.y) return;
+
+                    const dragonHead = new DragonHead(this, element.x as unknown as number, element.y as unknown as number - 16, {
+                        key: element.properties.key,
+                        name: element.name,
+                        life: element.properties.life,
+                        damage: element.properties.damage,
+                        flipX: element.properties.flipX
+                    });
+
+                    this.enemyGroup.push(dragonHead);
+                    break;
+
+                case 'evil-wizard':
+                    if (!element.y) return;
+
+                    const evilWizard = new EvilWizard(this, element.x as unknown as number - 64, element.y as unknown as number - 64, {
+                        key: element.properties.key,
+                        name: element.name,
+                        life: element.properties.life,
+                        damage: element.properties.damage,
+                    });
+
+                    this.enemyGroup.push(evilWizard);
+                    break;
+
+                case 'knight2':
+                    if (!element.y) return;
+
+                    const knight2 = new Knight2(this, element.x as unknown as number - 64, element.y as unknown as number - 64, {
+                        key: element.properties.key,
+                        name: element.name,
+                        life: element.properties.life,
+                        damage: element.properties.damage,
+                    });
+
+                    this.enemyGroup.push(knight2);
+                    break;
+
+                case 'ninja':
+                    if (!element.y) return;
+
+                    const ninja = new Ninja(this, element.x as unknown as number - 64, element.y as unknown as number - 64, {
+                        key: element.properties.key,
+                        name: element.name,
+                        life: element.properties.life,
+                        damage: element.properties.damage,
+                    });
+
+                    this.enemyGroup.push(ninja);
+                    break;
+
+                case 'dark-knight':
+                    if (!element.y) return;
+
+                    const darkKnight = new DarkKnight(this, element.x as unknown as number, element.y as unknown as number - 16, {
+                        key: element.properties.key,
+                        name: element.name,
+                        life: element.properties.life,
+                        damage: element.properties.damage,
+                    });
+
+                    this.enemyGroup.push(darkKnight);
+                    break;
+
+                case 'horse':
+                    if (!element.y) return;
+
+                    const horse = new Horse(this, element.x as unknown as number, element.y as unknown as number - 16, {
+                        key: 'horse-galloping_0',
+                        name: element.name,
+                        life: element.properties.life,
+                        damage: element.properties.damage,
+                    });
+
+                    this.enemyGroup.push(horse);
+                    break;
+
                 case 'skeleton-flail':
                     if (!element.y) return;
 
@@ -1460,15 +1555,27 @@ ${elm.properties.desc}`;
                 case 'hellhound':
                     if (!element.y) return;
 
-                    const hellhound = new HellHound(this, element.x as unknown as number, element.y as unknown as number - 16, {
-                        key: element.properties.key,
+                    const hellhound = new HellHound(this, element.x as unknown as number, element.y - 16 as unknown as number - 16, {
+                        key: 'hellHound',
                         name: element.name,
                         life: element.properties.life,
                         damage: element.properties.damage,
                     });
-                    hellhound.animate(element.properties.key);
+
                     this.enemyGroup.push(hellhound);
-                    hellhound.setPosition(element.x, element.y - 16);
+                    break;
+
+                case 'fireskull':
+                    if (!element.y) return;
+
+                    const fireskull = new FireSkull(this, element.x as unknown as number, element.y - 16 as unknown as number - 16, {
+                        key: 'fire-skull',
+                        name: element.name,
+                        life: element.properties.life,
+                        damage: element.properties.damage,
+                    });
+
+                    this.enemyGroup.push(fireskull);
                     break;
 
                 case 'thing':

@@ -1,5 +1,6 @@
 import { COLORS } from '../constant/colors';
 import { FONTS, FONTS_SIZES } from '../constant/config';
+import Arrow from '../player/Arrow';
 import GameScene from '../scenes/GameScene';
 import SaveLoadService from '../services/SaveLoadService';
 import { THitboxData } from '../types/types';
@@ -10,8 +11,7 @@ export default class Viking extends Enemy
 {
     public enemyState: { life: number; damage: number; giveLife: number; };
     public speed: number = 20;
-    public walkplay: boolean;
-    public walkk: Phaser.Sound.BaseSound;
+    public walkStepSfx: Phaser.Sound.BaseSound;
     public distance: number;
     private hitboxData: THitboxData;
     public hitbox: Projectile[] = [];
@@ -41,8 +41,10 @@ export default class Viking extends Enemy
 
         this.hitboxData = JSON.parse('{"viking-attack_2":{"hitboxes":[{"frame":"viking-attack_2","type":"rectangle","x":44,"y":45,"width":19,"height":19}]},"viking-attack_3":{"hitboxes":[{"frame":"viking-attack_3","type":"rectangle","x":45,"y":49,"width":9,"height":15}]},"viking-attack_4":{"hitboxes":[{"frame":"viking-attack_4","type":"rectangle","x":47,"y":49,"width":8,"height":14}]},"viking-attack_7":{"hitboxes":[{"frame":"viking-attack_7","type":"rectangle","x":36,"y":35,"width":28,"height":2}]},"viking-attack_8":{"hitboxes":[{"frame":"viking-attack_8","type":"rectangle","x":48,"y":32,"width":16,"height":2}]}}');
 
-        this.walkplay = false;
-        this.walkk = this.scene.sound.add('thingStep', { volume: 0.5 });
+        this.invulnerability = 'arrowOnShield';
+
+        this.walkStepSfx = this.scene.sound.add('thingStep', { volume: 0.5 });
+
         this.anims.play('viking-run');
 
         this.on(Phaser.Animations.Events.ANIMATION_UPDATE, () =>
@@ -111,7 +113,7 @@ export default class Viking extends Enemy
 
         if (this.scene.cameras.main.worldView.contains(this.x, this.y))
         {
-            this.walkk.play();
+            this.walkStepSfx.play();
         }
     }
 
@@ -171,22 +173,29 @@ export default class Viking extends Enemy
         }
     }
 
-    public looseLife (damage: number): void
+    public looseLife (damage: number, weaponType: string, weapon: Arrow): void
     {
         if (this.isHit)
         {
             return;
         }
 
-        // if (Phaser.Math.Between(1, 99) > 80)
-        // {
-        //     this.isShield = true;
+        if (weaponType === 'arrow')
+        {
+            if (this.flipX && !weapon.flipX)
+            {
+                weapon.deflect();
 
-        //     this.anims.play('viking-shield');
-        //     console.log('SHIELD')
+                return;
+            }
 
-        //     return;
-        // }
+            if (!this.flipX && weapon.flipX)
+            {
+                weapon.deflect();
+
+                return;
+            }
+        }
 
         this.isHit = true;
         

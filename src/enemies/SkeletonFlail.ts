@@ -170,13 +170,13 @@ export default class SkeletonFlail extends Enemy
 
             if (this.isAttacking)
             {
-                (this.scene.player.x - this.x) > 0 ? this.setFlipX(false) : this.setFlipX(true);
+                (x - this.body.center.x) > 0 ? this.setFlipX(false) : this.setFlipX(true);
 
                 this.body.setVelocityX(0);
             }
             else if (!this.isAttacking && velocity.x === 0)
             {
-                const speed = (this.scene.player.x - this.x) > 0 ? this.speed : -this.speed;
+                const speed = (x - this.body.center.x) > 0 ? this.speed : -this.speed;
 
                 this.body.setVelocityX(speed);
             }
@@ -250,6 +250,21 @@ export default class SkeletonFlail extends Enemy
         if (this.isAttacking === false && weaponType !== 'arrow')
         {
             this.isAttacking = true;
+        }
+
+        if (weaponType === 'arrow')
+        {
+            const { x, y } = this.scene.player.body.center;
+
+            if (x > this.body.center.x)
+            {
+                this.body.setVelocityX(this.speed);
+            }
+
+            if (x < this.body.center.x)
+            {
+                this.body.setVelocityX(-this.speed);
+            }
         }
 
         if (this.enemyState.life <= 0)

@@ -121,10 +121,10 @@
         },
         {
             "fileName": "map18.json",
-            "height": 512,
-            "width": 800,
-            "x": 8176,
-            "y": -3984
+            "height": 576,
+            "width": 1024,
+            "x": 9648,
+            "y": -176
         },
         {
             "fileName": "map19.json",
@@ -153,6 +153,76 @@
             "width": 1024,
             "x": 6576,
             "y": 816
+        },
+        {
+            "fileName": "map23.json",
+            "height": 576,
+            "width": 1024,
+            "x": 8624,
+            "y": -2336
+        },
+        {
+            "fileName": "map24.json",
+            "height": 1248,
+            "width": 512,
+            "x": 9648,
+            "y": -1904
+        },
+        {
+            "fileName": "map25.json",
+            "height": 288,
+            "width": 1024,
+            "x": 8624,
+            "y": -1760
+        },
+        {
+            "fileName": "map26.json",
+            "height": 576,
+            "width": 512,
+            "x": 8112,
+            "y": -1760
+        },
+        {
+            "fileName": "map27.json",
+            "height": 288,
+            "width": 1024,
+            "x": 8624,
+            "y": -1472
+        },
+        {
+            "fileName": "map28.json",
+            "height": 288,
+            "width": 1536,
+            "x": 8112,
+            "y": -1184
+        },
+        {
+            "fileName": "map29.json",
+            "height": 576,
+            "width": 1024,
+            "x": 10160,
+            "y": -1232
+        },
+        {
+            "fileName": "map30.json",
+            "height": 1536,
+            "width": 512,
+            "x": 10160,
+            "y": -3296
+        },
+        {
+            "fileName": "map31.json",
+            "height": 288,
+            "width": 512,
+            "x": 10160,
+            "y": -1520
+        },
+        {
+            "fileName": "map32.json",
+            "height": 288,
+            "width": 2560,
+            "x": 7088,
+            "y": -896
         }
     ],
     "onlyShowAdjacentMaps": false,

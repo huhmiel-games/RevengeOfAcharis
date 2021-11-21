@@ -40,6 +40,8 @@ export default class Minotaur extends Enemy
 
         this.swordSfx = this.scene.sound.add('bullet', { volume: 0.7, rate: 0.8 });
 
+        this.invulnerability = 'arrow';
+
         this.hitboxData = JSON.parse('{"minotaur-attack_6":{"hitboxes":[{"frame":"minotaur-attack_6","type":"circle","x":7,"y":15,"width":6,"height":6}]},"minotaur-attack_7":{"hitboxes":[{"frame":"minotaur-attack_7","type":"circle","x":1,"y":31,"width":6,"height":6}]},"minotaur-attack_8":{"hitboxes":[{"frame":"minotaur-attack_8","type":"circle","x":2,"y":42,"width":6,"height":6}]},"minotaur-attack_9":{"hitboxes":[{"frame":"minotaur-attack_9","type":"circle","x":4,"y":43,"width":5,"height":5}]}}');
 
         this.walkplay = false;
@@ -164,9 +166,9 @@ export default class Minotaur extends Enemy
         }
     }
 
-    public looseLife (damage: number): void
+    public looseLife (damage: number, weaponType: string): void
     {
-        if (this.isHit)
+        if (this.isHit || weaponType === 'arrow')
         {
             return;
         }
@@ -183,7 +185,6 @@ export default class Minotaur extends Enemy
         {
             console.log(error);
         }
-
 
         this.enemyState.life -= damage;
 

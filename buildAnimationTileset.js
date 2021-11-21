@@ -221,6 +221,130 @@ const tiles = [
             }
         ],
         "id": 192
+    },
+    {
+        "animation": [
+            {
+                "duration": 200,
+                "tileid": 257
+            },
+            {
+                "duration": 200,
+                "tileid": 261
+            },
+            {
+                "duration": 200,
+                "tileid": 265
+            },
+            {
+                "duration": 200,
+                "tileid": 269
+            },
+            {
+                "duration": 200,
+                "tileid": 273
+            }],
+        "id": 257
+    },
+    {
+        "animation": [
+            {
+                "duration": 200,
+                "tileid": 290
+            },
+            {
+                "duration": 200,
+                "tileid": 294
+            },
+            {
+                "duration": 200,
+                "tileid": 298
+            },
+            {
+                "duration": 200,
+                "tileid": 302
+            },
+            {
+                "duration": 200,
+                "tileid": 306
+            }
+        ],
+        "id": 290
+    },
+    {
+        "animation": [
+            {
+                "duration": 200,
+                "tileid": 320
+            },
+            {
+                "duration": 200,
+                "tileid": 324
+            },
+            {
+                "duration": 200,
+                "tileid": 328
+            },
+            {
+                "duration": 200,
+                "tileid": 332
+            },
+            {
+                "duration": 200,
+                "tileid": 336
+            }
+        ],
+        "id": 320
+    },
+    {
+        "animation": [
+            {
+                "duration": 200,
+                "tileid": 321
+            },
+            {
+                "duration": 200,
+                "tileid": 325
+            },
+            {
+                "duration": 200,
+                "tileid": 329
+            },
+            {
+                "duration": 200,
+                "tileid": 333
+            },
+            {
+                "duration": 200,
+                "tileid": 337
+            }
+        ],
+        "id": 321
+    },
+    {
+        "animation": [
+            {
+                "duration": 200,
+                "tileid": 323
+            },
+            {
+                "duration": 200,
+                "tileid": 327
+            },
+            {
+                "duration": 200,
+                "tileid": 331
+            },
+            {
+                "duration": 200,
+                "tileid": 335
+            },
+            {
+                "duration": 200,
+                "tileid": 339
+            }
+        ],
+        "id": 323
     }
 ]
 
@@ -432,6 +556,125 @@ const tileData = {
                 "tileid": 194
             }
         ]
+    },
+    "257": {
+        "animation": [
+            {
+                "duration": 200,
+                "tileid": 257
+            },
+            {
+                "duration": 200,
+                "tileid": 261
+            },
+            {
+                "duration": 200,
+                "tileid": 265
+            },
+            {
+                "duration": 200,
+                "tileid": 269
+            },
+            {
+                "duration": 200,
+                "tileid": 273
+            }]
+    },
+    "290": {
+        "animation": [
+            {
+                "duration": 200,
+                "tileid": 290
+            },
+            {
+                "duration": 200,
+                "tileid": 294
+            },
+            {
+                "duration": 200,
+                "tileid": 298
+            },
+            {
+                "duration": 200,
+                "tileid": 302
+            },
+            {
+                "duration": 200,
+                "tileid": 306
+            }
+        ]
+    },
+    "320": {
+        "animation": [
+            {
+                "duration": 200,
+                "tileid": 320
+            },
+            {
+                "duration": 200,
+                "tileid": 324
+            },
+            {
+                "duration": 200,
+                "tileid": 328
+            },
+            {
+                "duration": 200,
+                "tileid": 332
+            },
+            {
+                "duration": 200,
+                "tileid": 336
+            }
+        ]
+    },
+    "321": {
+        "animation": [
+            {
+                "duration": 200,
+                "tileid": 321
+            },
+            {
+                "duration": 200,
+                "tileid": 325
+            },
+            {
+                "duration": 200,
+                "tileid": 329
+            },
+            {
+                "duration": 200,
+                "tileid": 333
+            },
+            {
+                "duration": 200,
+                "tileid": 337
+            }
+        ]
+    },
+    "323": {
+        "animation": [
+            {
+                "duration": 200,
+                "tileid": 323
+            },
+            {
+                "duration": 200,
+                "tileid": 327
+            },
+            {
+                "duration": 200,
+                "tileid": 331
+            },
+            {
+                "duration": 200,
+                "tileid": 335
+            },
+            {
+                "duration": 200,
+                "tileid": 339
+            }
+        ]
     }
 }
 
@@ -442,7 +685,7 @@ function getFile(filename) {
 }
 
 //parsing json
-for(let i = 1; i < 22; i++) {
+for(let i = 1; i < 33; i++) {
     var jsonString = [getFile(`./src/maps/map${i}.json`)];
     var jsonObj = JSON.parse(jsonString);
 

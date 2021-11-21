@@ -59,7 +59,7 @@ export default class InventoryManager
 
     public showInventory ()
     {
-        if (this.player.isPause)
+        if (this.player.isPause || this.scene.isCheckSaving || this.scene.isSaving)
         {
             return;
         }
