@@ -230,13 +230,7 @@ export default class Horse extends Enemy
 
         const { x, y } = this.body.center;
 
-        this.scene.giveLife = this.scene.physics.add.sprite(x, y, 'heart').setDataEnabled();
-        this.scene.giveLife.setDepth(105);
-        this.scene.giveLife.data.set('health', this.enemyState.giveLife);
-        this.scene.giveLife.body = this.scene.giveLife.body as Phaser.Physics.Arcade.Body;
-        this.scene.giveLife.body.setSize(23, 21).setAllowGravity(false);
-        this.scene.giveLife.anims.play('heart');
-        this.scene.giveLifeGroup.push(this.scene.giveLife);
+        this.giveLife(x, y);
 
         SaveLoadService.setEnemiesDeathCount();
 

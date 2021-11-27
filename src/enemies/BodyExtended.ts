@@ -17,23 +17,6 @@ export default class BodyExtended extends GameObjects.Sprite
         this.scene.physics.world.enable(this);
     }
 
-    // public preUpdate (time: number, delta: number)
-    // {
-    //     super.preUpdate(time, delta);
-    //     if (this.active)
-    //     {
-    //         // flip to face the player
-    //         if (!this.body.blocked.none)
-    //         {
-    //             this.explode();
-    //         }
-    //         else
-    //         {
-    //             this.flipX = true;
-    //         }
-    //     }
-    // }
-
     public looseLife (weapon: any): void
     {
         this.scene.enemyIsHit(this.parent, weapon);

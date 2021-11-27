@@ -263,13 +263,9 @@ export default class EvilWizard extends Enemy
 
         this.scene.player.addXp(this.xp);
 
-        this.scene.giveLife = this.scene.physics.add.sprite(this.body.center.x, this.body.center.y, 'heart').setDataEnabled();
-        this.scene.giveLife.setDepth(105);
-        this.scene.giveLife.data.set('health', this.enemyState.giveLife);
-        this.scene.giveLife.body = this.scene.giveLife.body as Phaser.Physics.Arcade.Body;
-        this.scene.giveLife.body.setSize(23, 21);
-        this.scene.giveLife.anims.play('heart');
-        this.scene.giveLifeGroup.push(this.scene.giveLife);
+        const { x, y } = this.body.center;
+
+        this.giveLife(x, y);
 
         SaveLoadService.setEnemiesDeathCount();
 
@@ -302,12 +298,27 @@ export default class EvilWizard extends Enemy
 
         this.isDodging = true;
 
+        const { x } = this.scene.player.body.center;
+
+        if (x > this.body.center.x)
+        {
+            this.body.setVelocityX(200);
+        }
+        else
+        {
+            this.body.setVelocityX(-200);
+        }
+
         this.scene.tweens.add({
             targets: this,
             duration: 80,
             alpha: 0,
             yoyo: true,
-            onComplete: () => this.isDodging = false
+            onComplete: () =>
+            {
+                this.isDodging = false;
+                this.body.setVelocityX(0);
+            }
         });
     }
 }

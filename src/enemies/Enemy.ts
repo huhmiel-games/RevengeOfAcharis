@@ -129,6 +129,15 @@ export default class Enemy extends GameObjects.Sprite
 
         const { x, y } = this.body.center;
 
+        this.giveLife(x, y);
+
+        SaveLoadService.setEnemiesDeathCount();
+
+        this.destroy();
+    }
+
+    public giveLife (x: number, y: number): void
+    {
         this.scene.giveLife = this.scene.physics.add.sprite(x, y, 'heart').setDataEnabled();
         this.scene.giveLife.setDepth(105);
         this.scene.giveLife.data.set('health', this.enemyState.giveLife);
@@ -136,10 +145,6 @@ export default class Enemy extends GameObjects.Sprite
         this.scene.giveLife.body.setSize(23, 21).setAllowGravity(false);
         this.scene.giveLife.anims.play('heart');
         this.scene.giveLifeGroup.push(this.scene.giveLife);
-
-        SaveLoadService.setEnemiesDeathCount();
-
-        this.destroy();
     }
 
     public explode ()
