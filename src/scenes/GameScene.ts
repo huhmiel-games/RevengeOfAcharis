@@ -39,7 +39,6 @@ import Horse from '../enemies/Horse';
 import BodyExtended from '../enemies/BodyExtended';
 import FireSkull from '../enemies/FireSkull';
 import Samurai from '../enemies/Samurai';
-import Ninja from '../enemies/Ninja';
 import Knight2 from '../enemies/Knight2';
 import EvilWizard from '../enemies/EvilWizard';
 import DragonHead from '../enemies/DragonHead';
@@ -214,6 +213,76 @@ export default class GameScene extends Scene
         // PLAYER SECTION
         this.player = new Player(this, 80, 170, { key: 'playerAtlas' }); // 458, 122 4 * 16, 6 * 16
 
+        // create groups
+        this.createGroups();
+
+        
+
+        this.watchWindowInactive();
+
+        this.loadGame();
+
+        this.explodeSprite = this.add.group({
+            defaultKey: 'enemies',
+            // frames: ['enemy-death-1', 'enemy-death-2', 'enemy-death-3', 'enemy-death-4', 'enemy-death-5'],
+            maxSize: 50,
+            // allowGravity: false
+        });
+
+        // particles for map tiles exploded
+        this.weaponParticles = this.add.particles('blackPixel');
+        this.weaponParticleEmitter = this.weaponParticles.createEmitter({
+            angle: { min: -30, max: -150 },
+            speed: { min: 200, max: 400 },
+            // frame: arr,
+            quantity: 16,
+            lifespan: 3000,
+            alpha: 1,
+            scale: 0.5,
+            // rotate: { start: 0, end: 3, ease: 'Linear' },
+            gravityY: 500,
+            on: false,
+        });
+
+
+        // LAVA RISE
+        this.playerIsPassingDoor = false;
+        this.onSismic = false;
+        this.isTheEnd = false;
+
+
+        // ====================================================================
+        // CAMERA
+        // set bounds so the camera won't go outside the game world
+        this.cameras.main.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
+        this.cameras.main.startFollow(this.player, true, 0.4, 0.1).setRoundPixels(true);
+        this.cameras.main.transparent = true;
+        this.cameraIsShaking = false;
+        this.cameras.main.fadeIn(200);
+
+        // set the fps to 120 for good collisions at high speed
+        // this.physics.world.setFPS(120);
+
+        GenerateWorldRoom.generate(this);
+    }
+
+    // ====================================================================
+    public update (time: number, delta: number)
+    {
+        if (this.modalText)
+        {
+            this.modalText.x = this.player.x;
+            this.modalText.y = this.player.y - 100;
+        }
+        // anti fall trough map
+        if (this.player.y > this.map.heightInPixels)
+        {
+            this.player.setPosition(this.map.widthInPixels / 2, this.map.heightInPixels / 2);
+        }
+    }
+
+    private createGroups (): void
+    {
         this.torchs = this.add.group({
             classType: Phaser.GameObjects.PointLight,
             maxSize: 20,
@@ -277,68 +346,6 @@ export default class GameScene extends Scene
             maxSize: 8,
             allowGravity: false
         });
-
-        this.watchWindowInactive();
-
-        this.loadGame();
-
-        this.explodeSprite = this.add.group({
-            defaultKey: 'enemies',
-            // frames: ['enemy-death-1', 'enemy-death-2', 'enemy-death-3', 'enemy-death-4', 'enemy-death-5'],
-            maxSize: 50,
-            // allowGravity: false
-        });
-
-        // particles for map tiles exploded
-        this.weaponParticles = this.add.particles('blackPixel');
-        this.weaponParticleEmitter = this.weaponParticles.createEmitter({
-            angle: { min: -30, max: -150 },
-            speed: { min: 200, max: 400 },
-            // frame: arr,
-            quantity: 16,
-            lifespan: 3000,
-            alpha: 1,
-            scale: 0.5,
-            // rotate: { start: 0, end: 3, ease: 'Linear' },
-            gravityY: 500,
-            on: false,
-        });
-
-
-        // LAVA RISE
-        this.playerIsPassingDoor = false;
-        this.onSismic = false;
-        this.isTheEnd = false;
-
-
-        // ====================================================================
-        // CAMERA
-        // set bounds so the camera won't go outside the game world
-        this.cameras.main.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
-        this.cameras.main.startFollow(this.player, true, 0.4, 0.1).setRoundPixels(true);
-        this.cameras.main.transparent = true;
-        this.cameraIsShaking = false;
-        this.cameras.main.fadeIn(200);
-
-        // set the fps to 120 for good collisions at high speed
-        // this.physics.world.setFPS(120);
-
-        GenerateWorldRoom.generate(this);
-    }
-
-    // ====================================================================
-    public update (time: number, delta: number)
-    {
-        if (this.modalText)
-        {
-            this.modalText.x = this.player.x;
-            this.modalText.y = this.player.y - 100;
-        }
-        // anti fall trough map
-        if (this.player.y > this.map.heightInPixels)
-        {
-            this.player.setPosition(this.map.widthInPixels / 2, this.map.heightInPixels / 2);
-        }
     }
 
     /**
