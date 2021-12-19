@@ -23,3 +23,6 @@ and webpack will automatically recompile and reload your server (available at `h
 by default).
 
 
+## Credits:
+
+Jam991

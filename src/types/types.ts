@@ -92,3 +92,17 @@ export type THitboxData = {
         ]
     };
 };
+
+export type TCoord = {
+    x: number;
+    y: number;
+};
+
+export type TDoor = {
+    name: string;
+    side: string;
+    door: {
+        x: number;
+        y: number;
+    }
+};

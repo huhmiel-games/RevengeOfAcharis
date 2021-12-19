@@ -148,7 +148,7 @@ export default class Player extends Phaser.GameObjects.Sprite
         this.body.gravity.y = 600;
 
         this.swords = this.scene.physics.add.group({
-            defaultKey: 'knife',
+            defaultKey: 'whitePixel',
             maxSize: 1,
             allowGravity: false,
         });
@@ -159,7 +159,7 @@ export default class Player extends Phaser.GameObjects.Sprite
             allowGravity: true,
         });
 
-        this.sword = this.swords.getFirstDead(true, this.body.x, this.body.y, 'knife', undefined, true);
+        this.sword = this.swords.getFirstDead(true, this.body.x, this.body.y, undefined, undefined, true);
         this.sword.setVisible(false).setName('sword');
         this.sword.body.setSize(24, this.body.height).setEnable(false);
 
@@ -396,6 +396,19 @@ export default class Player extends Phaser.GameObjects.Sprite
         }
     }
 
+    public slowDownOnWater (on: boolean)
+    {
+        if (on)
+        {
+            this.body.setMaxVelocity(this.playerState.speed / 2, this.playerState.speed * 3);
+        }
+        else
+        {
+            this.body.setMaxVelocity(this.playerState.speed, this.playerState.speed * 4);
+        }
+        
+    }
+
     public playerOnPlatform (platform)
     {
         if (this.isSpelling)
@@ -464,7 +477,7 @@ export default class Player extends Phaser.GameObjects.Sprite
 
                 case (blocked.down):
                     this.anims.play({
-                        key: 'adventurer-attack3',
+                        key: 'adventurer-attack1',
                         frameRate: Math.round(10000 / this.swordManager.getCurrentSword().rate) - 5,
                         repeat: 0
                     }, true);
@@ -653,7 +666,7 @@ export default class Player extends Phaser.GameObjects.Sprite
 
         let currentDef = inventory.def > 0 ? inventory.def : 1;
 
-        const shieldDef = this.shieldManager.getCurrentShield()?.defense;
+        const shieldDef = this.shieldManager.getCurrentShield()?.defense || 0;
 
         if (shieldDef > 0) currentDef += shieldDef;
 

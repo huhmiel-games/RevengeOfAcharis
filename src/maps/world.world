@@ -108,8 +108,8 @@
         {
             "fileName": "map16.json",
             "height": 512,
-            "width": 176,
-            "x": 5888,
+            "width": 512,
+            "x": 5552,
             "y": -1232
         },
         {
@@ -201,7 +201,7 @@
             "height": 576,
             "width": 1024,
             "x": 10160,
-            "y": -1232
+            "y": -1600
         },
         {
             "fileName": "map30.json",
@@ -215,7 +215,7 @@
             "height": 288,
             "width": 512,
             "x": 10160,
-            "y": -1520
+            "y": -944
         },
         {
             "fileName": "map32.json",
@@ -223,6 +223,13 @@
             "width": 2560,
             "x": 7088,
             "y": -896
+        },
+        {
+            "fileName": "map33.json",
+            "height": 288,
+            "width": 2560,
+            "x": 7600,
+            "y": 976
         }
     ],
     "onlyShowAdjacentMaps": false,

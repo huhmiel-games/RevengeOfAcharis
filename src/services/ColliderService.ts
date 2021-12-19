@@ -92,6 +92,58 @@ export default class ColliderService
             scene
         );
 
+        scene.physics.add.overlap(scene.player.sword, scene.colliderLayer, undefined, (_sword, _tile) =>
+        {
+            const tile = _tile as unknown as Phaser.Tilemaps.Tile;
+            if (tile.properties.breakableBlock)
+            {
+                const sword = scene.player.swordManager.getCurrentSword();
+
+                if (sword.id !== 8) return;
+
+                if (tile.properties.hit === 3)
+                {
+                    scene.colliderLayer.removeTileAt(tile.x, tile.y);
+
+                    LayerService.removeGroundTileAt(scene, tile);
+
+                    return;
+                }
+
+                const smoke = scene.smoke.getFirstDead(true, tile.getCenterX(), tile.getCenterY(), undefined, undefined, true);
+
+                const impactFx = scene.sound.get('impact');
+
+                if (smoke)
+                {
+                    smoke.setDepth(2000);
+                    smoke.once(Phaser.Animations.Events.ANIMATION_COMPLETE, () => smoke.destroy());
+                    smoke.anims.play('smoke1');
+
+                    if (!tile.properties.hit)
+                    {
+                        tile.properties.hit = 1;
+                    }
+                    else
+                    {
+                        tile.properties.hit += 1;
+                    }
+
+                    if (!impactFx)
+                    {
+                        scene.sound.play('impact', { rate: 0.5 });
+
+                        return;
+                    }
+
+                    if (!impactFx?.isPlaying)
+                    {
+                        impactFx.play({ rate: 0.5 });
+                    }
+                }
+            }
+        }, scene);
+
         scene.physics.add.collider(scene.platformGroup, scene.player, (platform) => scene.player.playerOnPlatform(platform), undefined, scene);
         scene.physics.add.collider(scene.platformSpikeGroup, scene.colliderLayer, undefined);
         // scene.physics.add.collider(scene.platformSpikeGroup, scene.player, (platform) => scene.playerIsHit(platform), undefined, scene);
@@ -133,6 +185,7 @@ export default class ColliderService
                     return false;
                 }
             }, scene);
+
         scene.physics.add.overlap([scene.player.swords, scene.player.arrows], scene.bodiesGroup, (_body, _weapon) =>
         {
             const enemyBody = _body as BodyExtended;

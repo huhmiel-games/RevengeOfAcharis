@@ -1,0 +1,628 @@
+{
+	"textures": [
+		{
+			"image": "smokeAtlas.png",
+			"format": "RGBA8888",
+			"size": {
+				"w": 210,
+				"h": 198
+			},
+			"scale": 1,
+			"frames": [
+				{
+					"filename": "Smoke VFX B12",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 64,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 64,
+						"h": 64
+					},
+					"frame": {
+						"x": 1,
+						"y": 1,
+						"w": 64,
+						"h": 64
+					}
+				},
+				{
+					"filename": "Smoke VFX B8",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 64,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 6,
+						"y": 5,
+						"w": 54,
+						"h": 49
+					},
+					"frame": {
+						"x": 67,
+						"y": 1,
+						"w": 54,
+						"h": 49
+					}
+				},
+				{
+					"filename": "Smoke VFX B7",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 64,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 6,
+						"y": 5,
+						"w": 54,
+						"h": 49
+					},
+					"frame": {
+						"x": 67,
+						"y": 52,
+						"w": 54,
+						"h": 49
+					}
+				},
+				{
+					"filename": "Smoke VFX B9",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 64,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 6,
+						"y": 5,
+						"w": 53,
+						"h": 49
+					},
+					"frame": {
+						"x": 1,
+						"y": 67,
+						"w": 53,
+						"h": 49
+					}
+				},
+				{
+					"filename": "Smoke VFX B11",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 64,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 6,
+						"y": 5,
+						"w": 53,
+						"h": 45
+					},
+					"frame": {
+						"x": 1,
+						"y": 118,
+						"w": 53,
+						"h": 45
+					}
+				},
+				{
+					"filename": "Smoke VFX B10",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 64,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 6,
+						"y": 5,
+						"w": 53,
+						"h": 45
+					},
+					"frame": {
+						"x": 56,
+						"y": 103,
+						"w": 53,
+						"h": 45
+					}
+				},
+				{
+					"filename": "Smoke VFX B6",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 64,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 7,
+						"y": 6,
+						"w": 52,
+						"h": 47
+					},
+					"frame": {
+						"x": 123,
+						"y": 1,
+						"w": 52,
+						"h": 47
+					}
+				},
+				{
+					"filename": "Smoke VFX B5",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 64,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 8,
+						"y": 7,
+						"w": 51,
+						"h": 46
+					},
+					"frame": {
+						"x": 123,
+						"y": 50,
+						"w": 51,
+						"h": 46
+					}
+				},
+				{
+					"filename": "Smoke VFX B4",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 64,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 9,
+						"y": 7,
+						"w": 50,
+						"h": 46
+					},
+					"frame": {
+						"x": 123,
+						"y": 98,
+						"w": 50,
+						"h": 46
+					}
+				},
+				{
+					"filename": "Smoke VFX A9",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 48,
+						"h": 32
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 48,
+						"h": 32
+					},
+					"frame": {
+						"x": 1,
+						"y": 165,
+						"w": 48,
+						"h": 32
+					}
+				},
+				{
+					"filename": "Smoke VFX B3",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 64,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 10,
+						"y": 9,
+						"w": 47,
+						"h": 43
+					},
+					"frame": {
+						"x": 56,
+						"y": 150,
+						"w": 47,
+						"h": 43
+					}
+				},
+				{
+					"filename": "Smoke VFX B2",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 64,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 14,
+						"y": 14,
+						"w": 38,
+						"h": 33
+					},
+					"frame": {
+						"x": 105,
+						"y": 150,
+						"w": 38,
+						"h": 33
+					}
+				},
+				{
+					"filename": "Smoke VFX C8",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 32,
+						"h": 16
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 32,
+						"h": 16
+					},
+					"frame": {
+						"x": 177,
+						"y": 1,
+						"w": 32,
+						"h": 16
+					}
+				},
+				{
+					"filename": "Smoke VFX A1",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 32
+					},
+					"spriteSourceSize": {
+						"x": 19,
+						"y": 15,
+						"w": 29,
+						"h": 17
+					},
+					"frame": {
+						"x": 177,
+						"y": 19,
+						"w": 29,
+						"h": 17
+					}
+				},
+				{
+					"filename": "Smoke VFX A2",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 32
+					},
+					"spriteSourceSize": {
+						"x": 16,
+						"y": 13,
+						"w": 29,
+						"h": 19
+					},
+					"frame": {
+						"x": 177,
+						"y": 38,
+						"w": 29,
+						"h": 19
+					}
+				},
+				{
+					"filename": "Smoke VFX A5",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 32
+					},
+					"spriteSourceSize": {
+						"x": 10,
+						"y": 11,
+						"w": 24,
+						"h": 21
+					},
+					"frame": {
+						"x": 176,
+						"y": 59,
+						"w": 24,
+						"h": 21
+					}
+				},
+				{
+					"filename": "Smoke VFX A6",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 32
+					},
+					"spriteSourceSize": {
+						"x": 9,
+						"y": 10,
+						"w": 23,
+						"h": 22
+					},
+					"frame": {
+						"x": 176,
+						"y": 82,
+						"w": 23,
+						"h": 22
+					}
+				},
+				{
+					"filename": "Smoke VFX A4",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 32
+					},
+					"spriteSourceSize": {
+						"x": 11,
+						"y": 12,
+						"w": 23,
+						"h": 20
+					},
+					"frame": {
+						"x": 175,
+						"y": 106,
+						"w": 23,
+						"h": 20
+					}
+				},
+				{
+					"filename": "Smoke VFX A3",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 32
+					},
+					"spriteSourceSize": {
+						"x": 13,
+						"y": 12,
+						"w": 23,
+						"h": 20
+					},
+					"frame": {
+						"x": 175,
+						"y": 128,
+						"w": 23,
+						"h": 20
+					}
+				},
+				{
+					"filename": "Smoke VFX C6",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 16
+					},
+					"spriteSourceSize": {
+						"x": 6,
+						"y": 6,
+						"w": 21,
+						"h": 9
+					},
+					"frame": {
+						"x": 105,
+						"y": 185,
+						"w": 21,
+						"h": 9
+					}
+				},
+				{
+					"filename": "Smoke VFX B1",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 64,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 23,
+						"y": 18,
+						"w": 21,
+						"h": 21
+					},
+					"frame": {
+						"x": 145,
+						"y": 146,
+						"w": 21,
+						"h": 21
+					}
+				},
+				{
+					"filename": "Smoke VFX C7",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 16
+					},
+					"spriteSourceSize": {
+						"x": 6,
+						"y": 9,
+						"w": 21,
+						"h": 5
+					},
+					"frame": {
+						"x": 128,
+						"y": 185,
+						"w": 21,
+						"h": 5
+					}
+				},
+				{
+					"filename": "Smoke VFX C5",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 16
+					},
+					"spriteSourceSize": {
+						"x": 6,
+						"y": 6,
+						"w": 21,
+						"h": 10
+					},
+					"frame": {
+						"x": 145,
+						"y": 169,
+						"w": 21,
+						"h": 10
+					}
+				},
+				{
+					"filename": "Smoke VFX C4",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 16
+					},
+					"spriteSourceSize": {
+						"x": 7,
+						"y": 6,
+						"w": 19,
+						"h": 10
+					},
+					"frame": {
+						"x": 151,
+						"y": 181,
+						"w": 19,
+						"h": 10
+					}
+				},
+				{
+					"filename": "Smoke VFX C3",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 16
+					},
+					"spriteSourceSize": {
+						"x": 8,
+						"y": 7,
+						"w": 17,
+						"h": 9
+					},
+					"frame": {
+						"x": 168,
+						"y": 150,
+						"w": 17,
+						"h": 9
+					}
+				},
+				{
+					"filename": "Smoke VFX C2",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 16
+					},
+					"spriteSourceSize": {
+						"x": 9,
+						"y": 10,
+						"w": 16,
+						"h": 6
+					},
+					"frame": {
+						"x": 187,
+						"y": 150,
+						"w": 16,
+						"h": 6
+					}
+				},
+				{
+					"filename": "Smoke VFX A7",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 32
+					},
+					"spriteSourceSize": {
+						"x": 9,
+						"y": 11,
+						"w": 7,
+						"h": 15
+					},
+					"frame": {
+						"x": 202,
+						"y": 59,
+						"w": 7,
+						"h": 15
+					}
+				},
+				{
+					"filename": "Smoke VFX C1",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 16
+					},
+					"spriteSourceSize": {
+						"x": 10,
+						"y": 10,
+						"w": 14,
+						"h": 6
+					},
+					"frame": {
+						"x": 187,
+						"y": 158,
+						"w": 14,
+						"h": 6
+					}
+				},
+				{
+					"filename": "Smoke VFX A8",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 32
+					},
+					"spriteSourceSize": {
+						"x": 9,
+						"y": 12,
+						"w": 6,
+						"h": 13
+					},
+					"frame": {
+						"x": 168,
+						"y": 166,
+						"w": 6,
+						"h": 13
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "http://free-tex-packer.com",
+		"version": "0.6.6"
+	}
+}

@@ -68,7 +68,7 @@ export default class LayerService
     {
         // layer that only handle collisions
         scene.colliderLayer = scene.map.createLayer('collider', 'colliderTileset', 0, 0)
-            .setAlpha(0.2);
+            .setAlpha(0);
         
         scene.torchs.children.getArray().forEach(e =>
         {
@@ -261,7 +261,7 @@ export default class LayerService
         return result;
     }
 
-    public static removeGroundTileAt (scene, tile)
+    public static removeGroundTileAt (scene: GameScene, tile: Phaser.Tilemaps.Tile)
     {
         this.getGroundLayers(scene).forEach(layer =>
         {

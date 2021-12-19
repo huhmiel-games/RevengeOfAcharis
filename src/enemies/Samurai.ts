@@ -215,7 +215,7 @@ export default class Samurai extends Enemy
             }
         }
 
-        if (!this.body.blocked.down)
+        if (!this.body.blocked.down && this.active && !this.isDead)
         {
             this.anims.play('samurai-fall', true);
             this.guardCount = 0;

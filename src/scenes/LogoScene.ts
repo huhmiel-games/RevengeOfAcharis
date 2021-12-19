@@ -71,7 +71,6 @@ export default class LogoScene extends Scene
     {
         this.huhmiel = this.add.bitmapText(WIDTH / 2, HEIGHT / 2, FONTS.GALAXY, 'huhmiel games', 8, 1)
             .setOrigin(0.5, 0.5)
-            //.setTintFill(0xffffff)
             .setLetterSpacing(2)
             .setAlpha(0);
 

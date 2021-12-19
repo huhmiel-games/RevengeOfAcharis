@@ -43,6 +43,7 @@ import Ninja from '../enemies/Ninja';
 import Knight2 from '../enemies/Knight2';
 import EvilWizard from '../enemies/EvilWizard';
 import DragonHead from '../enemies/DragonHead';
+import Saw from '../enemies/Saw';
 
 
 export default class GameScene extends Scene
@@ -83,7 +84,6 @@ export default class GameScene extends Scene
     public breathBlue: any;
     public breathFire: any;
     public skullHeads: any;
-    public playerFlashTween: Phaser.Tweens.Tween;
     public explodeSprite: Phaser.GameObjects.Group;
     public weaponParticles: Phaser.GameObjects.Particles.ParticleEmitterManager;
     public weaponParticleEmitter: Phaser.GameObjects.Particles.ParticleEmitter;
@@ -94,31 +94,22 @@ export default class GameScene extends Scene
     public cameraIsShaking: boolean;
     public isPausing: boolean;
     public modalText: Phaser.GameObjects.BitmapText;
-    public msgtext: Phaser.GameObjects.BitmapText;
-    public fadingTween: Phaser.Tweens.Tween;
     public lifeText: Phaser.GameObjects.BitmapText;
     public lastPosition: number;
     public head: any;
     public position: any;
     public continueBtn: any;
-    public playerDead: boolean;
-    public round: Phaser.GameObjects.Sprite;
     public tween: Phaser.Tweens.Tween;
-    public hitTimer: Phaser.Time.TimerEvent;
     public giveLife: Phaser.GameObjects.Sprite;
     public bossMusic: Phaser.Sound.BaseSound;
-    public msgText: Phaser.GameObjects.BitmapText;
     public playerPosition: string;
     public demon: Demon;
     public escapeTimer: Phaser.Time.TimerEvent | null;
     public isChangingRoom: boolean;
     public colliderLayer: Phaser.Tilemaps.TilemapLayer;
     public oldman: Oldman;
-    public dragon: Dragon;
     public angel: Angel;
     public hellBeast: HellBeast;
-    public escapeParticles: Phaser.GameObjects.Particles.ParticleEmitterManager;
-    public escapeParticleEmitter: Phaser.GameObjects.Particles.ParticleEmitter;
     public showMsg: Phaser.GameObjects.BitmapText;
     public player: Player;
     public backUi: Phaser.GameObjects.Image;
@@ -131,6 +122,7 @@ export default class GameScene extends Scene
     public candles: Phaser.GameObjects.Group;
     public bodyExtended: Phaser.Physics.Arcade.Group;
     public dragonHeadBalls: Phaser.Physics.Arcade.Group;
+    public smoke: Phaser.GameObjects.Group;
 
     constructor ()
     {
@@ -140,13 +132,6 @@ export default class GameScene extends Scene
         };
     }
 
-    public init ()
-    {
-        // set health text
-        // this.player?.HealthUiText.setText(`${this.inventory.life}%${this.inventory.maxLife}`);
-    }
-
-    // ====================================================================
     public preload ()
     {
         this.load.scenePlugin({
@@ -156,7 +141,6 @@ export default class GameScene extends Scene
         });
     }
 
-    // ====================================================================
     public create ()
     {
         // initialize the map and tileset
@@ -165,17 +149,9 @@ export default class GameScene extends Scene
         {
             this.map.addTilesetImage(this.map.tilesets[i].name, this.map.tilesets[i].name, 16, 16);
         });
-        // this.tileset = this.map.addTilesetImage('tileground', 'tiles', 16, 16);
 
         // initialize the time
         this.firstTimestamp = new Date().getTime();
-
-        // if (!localStorage.getItem('time'))
-        // {
-        //     localStorage.setItem('time', '0');
-        // }
-
-
 
         // @ts-ignore
         this.backUi = this.add.rexNinePatch(WIDTH / 2, HEIGHT / 2, WIDTH / 4 * 3, HEIGHT / 4 * 3, 'framing', [7, undefined, 7], [7, undefined, 7], 0)
@@ -183,7 +159,6 @@ export default class GameScene extends Scene
             .setDepth(1999)
             .setScrollFactor(0)
             .setVisible(false);
-
 
         // ====================================================================
         // Groups that need to be destroyed on changing room
@@ -197,7 +172,6 @@ export default class GameScene extends Scene
         this.platformSpikeGroup = [];
         this.breathGroup = [];
         this.skullGroup = [];
-
 
         // ====================================================================
         // AMBIENT MUSIC
@@ -255,17 +229,20 @@ export default class GameScene extends Scene
             maxSize: 1,
             allowGravity: false
         });
+
+        this.smoke = this.add.group({
+            defaultKey: 'Smoke VFX B1',
+            maxSize: 1,
+        });
         // fireball
         this.fireballs = this.physics.add.group({
             classType: Projectile,
-            // defaultKey: 'fireBall',
             maxSize: 3,
             allowGravity: false
         });
 
         this.dragonHeadBalls = this.physics.add.group({
             classType: Projectile,
-            // defaultKey: 'fireBall',
             maxSize: 15,
             allowGravity: false
         });
@@ -301,31 +278,7 @@ export default class GameScene extends Scene
             allowGravity: false
         });
 
-
         this.watchWindowInactive();
-
-        // this.playerFlashTween = null;
-
-        // ====================================================================
-        // loading saved game
-        // if (this.data.systems.settings.data.loadSavedGame)
-        // {
-
-        // }
-        // creating new game
-        // if (!localStorage.getItem('RevengeOfAcharis'))
-        // {
-        //     this.player.inventory.savedPositionX = 4 * 16;
-        //     this.player.inventory.savedPositionY = 9 * 16;
-        //     this.player.inventory.map = 'map2';
-        //     const s = JSON.stringify(this.player.inventory);
-        //     localStorage.setItem('RevengeOfAcharis', s);
-        //     this.loadGame();
-        // }
-        // else
-        // {
-        //     this.loadGame();
-        // }
 
         this.loadGame();
 
@@ -335,7 +288,6 @@ export default class GameScene extends Scene
             maxSize: 50,
             // allowGravity: false
         });
-
 
         // particles for map tiles exploded
         this.weaponParticles = this.add.particles('blackPixel');
@@ -356,7 +308,7 @@ export default class GameScene extends Scene
         // LAVA RISE
         this.playerIsPassingDoor = false;
         this.onSismic = false;
-        this.isTheEnd = false; // My only friend, the end
+        this.isTheEnd = false;
 
 
         // ====================================================================
@@ -370,11 +322,6 @@ export default class GameScene extends Scene
 
         // set the fps to 120 for good collisions at high speed
         // this.physics.world.setFPS(120);
-
-        // toggler for pause button
-        // this.isPausing = false;
-
-        // DEBUG / HELPERS
 
         GenerateWorldRoom.generate(this);
     }
@@ -481,7 +428,6 @@ export default class GameScene extends Scene
 
     public playMusic (music)
     {
-        // return; //disabled music for working on walk sounds
         // tslint:disable-next-line: prefer-for-of
         for (let i = 0; i < this.musicGroup.length; i += 1)
         {
@@ -501,7 +447,7 @@ export default class GameScene extends Scene
         for (let i = 0; i < this.musicGroup.length; i += 1)
         {
             if (this.musicGroup[i].isPlaying)
-            { // && this.musicGroup[i].key === music
+            {
                 this.musicGroup[i].stop();
                 console.log(this.musicGroup[i].key + ' is stopped');
             }
@@ -881,14 +827,6 @@ ${elm.properties.desc}`;
     // LOAD ROOM
     public loadGame ()
     {
-        // const gameData = SaveLoadService.loadGameData();
-
-        // if (gameData === 'undefined')
-        // {
-        //     this.player.inventoryManager.initInventory(JSON.parse(gameData));
-        //     this.player.HealthUiText.setText(`${this.player.inventoryManager.getInventory().life}%${this.player.inventoryManager.getInventory().maxLife}`);
-        // }
-
         this.player.x = this.player.inventoryManager.getInventory().savedPositionX;
         this.player.y = this.player.inventoryManager.getInventory().savedPositionY;
 
@@ -916,7 +854,9 @@ ${elm.properties.desc}`;
             if (event.key === this.player.keys.fire.originalEvent.key)
             {
                 label?.destroy();
+
                 ui?.destroy();
+
                 this.saveGame();
             }
         });
@@ -945,6 +885,7 @@ ${elm.properties.desc}`;
         this.setPause();
 
         this.isSaving = true;
+
         // @ts-ignore
         const ui = this.add.rexNinePatch(WIDTH / 2, HEIGHT - HEIGHT / 8, WIDTH / 2, HEIGHT / 4, 'framing', [7, undefined, 7], [7, undefined, 7], 0)
             .setOrigin(0.5, 0.5)
@@ -1029,67 +970,70 @@ ${elm.properties.desc}`;
     {
         // clean up
         this.cameras.main.fadeOut(50);
+
         this.physics.world.colliders.destroy();
+
         this.map.destroy();
+
         this.giveLifeGroup.forEach(e => e.destroy());
+
         this.powerups.forEach(e => e.destroy());
+
         this.enemyGroup.forEach(e => e.destroy());
+
         if (this.thunderGateSfx.isPlaying)
         {
             this.thunderGateSfx.stop();
         }
+
         this.stopMusic();
+
         // create room
         this.map = this.make.tilemap({ key: room, tileWidth: 16, tileHeight: 16 });
+
         // @ts-ignore
         this.sys.animatedTilesPlugin.init(this.map);
+
         this.map.tilesets.forEach((tileset, i) =>
         {
             this.map.addTilesetImage(this.map.tilesets[i].name, this.map.tilesets[i].name, 16, 16);
         });
 
         this.playerPosition = room;
+
         const properties = this.convertTiledObjectProperties(this.map.properties);
 
         LayerService.addLayers(this);
 
         this.player.x = this.player.inventoryManager.getInventory().savedPositionX + 24;
         this.player.y = this.player.inventoryManager.getInventory().savedPositionY;
+
         ColliderService.addColliders(this);
 
         this.addPlayerSfx();
+
         this.addEnemies();
-        // this.addMovingPlatform();
+
         this.playMusic(properties?.music);
+
         // launch special functions from the room
         if (properties?.callFunction && properties?.callFunction.length)
         {
             const arr = properties.callFunction.split(',');
             arr.forEach(elm => this[elm]());
         }
+
         this.cameras.main.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
+
         this.physics.world.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
-        this.cameras.main.startFollow(this.player, true, 0.4, 0.1);
-        this.cameras.main.fadeIn(50);
-        this.time.addEvent({
-            delay: 1000,
-            callback: () =>
-            {
-                this.events.emit('loadingDone');
-            },
-        });
+
+        this.cameras.main.startFollow(this.player, true, 0.4, 0.1).fadeIn(50);
     }
 
-    public changeRoom (player, doorP)
+    public changeRoom (player: Player, doorP: { alpha: number; name: string; side: any; door: { x: number; y: number; }; })
     {
         // if boss not dead return!
         if (this.battleWithBoss) return;
-
-        // if door closed, return!!
-        if (doorP && doorP.alpha === 1)
-        {
-            return;
-        }
 
         if (this.playerIsPassingDoor)
         {
@@ -1102,19 +1046,24 @@ ${elm.properties.desc}`;
 
         // destroy leaving room
         this.cameras.main.fadeOut(50);
-        this.destroyRoom();
 
+        this.destroyRoom();
 
         // create new room
         this.map = this.make.tilemap({ key: doorP.name, tileWidth: 16, tileHeight: 16 });
+
         // @ts-ignore
         this.sys.animatedTilesPlugin.init(this.map);
+
         this.map.tilesets.forEach((tileset, i) =>
         {
             this.map.addTilesetImage(this.map.tilesets[i].name, this.map.tilesets[i].name, 16, 16);
         });
+
         this.playerPosition = doorP.name;
+
         const properties = this.convertTiledObjectProperties(this.map.properties);
+
         LayerService.addLayers(this);
 
         ColliderService.addColliders(this);
@@ -1134,13 +1083,19 @@ ${elm.properties.desc}`;
                 player.body.reset(doorP.door.x + player.body.halfWidth, doorP.door.y + 32);
                 break;
         }
+
         this.addMovingPlatform();
+
         this.addEnemies();
+
         ColliderService.addColliders(this);
 
         this.addPowerUp();
+
         this.addPlayerSfx();
+
         this.playMusic(properties?.music);
+
         // launch special functions from the room
         try
         {
@@ -1155,31 +1110,37 @@ ${elm.properties.desc}`;
             console.log(error);
         }
 
-
-
         this.cameras.main.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
-        this.physics.world.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
-        this.cameras.main.startFollow(this.player, true, 0.4, 0.1);
-        this.cameras.main.fadeIn(50);
-        this.physics.world.setBoundsCollision();
+
+        this.physics.world.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels).setBoundsCollision();
+
+        this.cameras.main.setDeadzone(0, 80).startFollow(this.player, true, 0.4, 0.1, 0, 20).fadeIn(50);
+
         this.playerIsPassingDoor = false;
+
         this.isChangingRoom = false;
-        // console.log(this);
     }
 
     private destroyRoom (): void
     {
         this.physics.world.colliders.destroy();
+
         this.map.destroy();
+
         this.giveLifeGroup.forEach(e => e.destroy());
+
         this.powerups.forEach(e => e.destroy());
         this.powerups = [];
+
         this.pathGroup.forEach(e => e.destroy());
         this.pathGroup = [];
+
         this.platformGroup.forEach(e => e.destroy());
         this.platformGroup = [];
+
         this.platformSpikeGroup.forEach(e => e.destroy());
         this.platformSpikeGroup = [];
+
         this.enemyGroup.forEach(e =>
         {
             try
@@ -1194,9 +1155,12 @@ ${elm.properties.desc}`;
             e.destroy();
         });
         this.enemyGroup = [];
+
         this.npcGroup.forEach(e => e.destroy());
         this.npcGroup = [];
+
         if (this.demon) this.demon.destroy();
+
         if (this.escapeTimer) this.escapeTimer = null;
     }
 
@@ -1446,6 +1410,21 @@ ${elm.properties.desc}`;
 
                     this.enemyGroup.push(samurai);
                     break;
+                
+                    case 'saw':
+                        if (!element.y) return;
+    
+                        const saw = new Saw(this, element.x as unknown as number + 8, element.y - 12 as unknown as number, {
+                            key: 'atlas',
+                            name: 'saw',
+                            life: 0,
+                            damage: 15,
+                            amplitude: element.properties.amplitude,
+                            duration: element.properties.duration ? element.properties.duration : 2000
+                        });
+    
+                        this.enemyGroup.push(saw);
+                        break;
 
                 case 'dragon-head':
                     if (!element.y) return;
@@ -1487,31 +1466,18 @@ ${elm.properties.desc}`;
                     this.enemyGroup.push(knight2);
                     break;
 
-                case 'ninja':
-                    if (!element.y) return;
+                // case 'dark-knight':
+                //     if (!element.y) return;
 
-                    const ninja = new Ninja(this, element.x as unknown as number - 64, element.y as unknown as number - 64, {
-                        key: element.properties.key,
-                        name: element.name,
-                        life: element.properties.life,
-                        damage: element.properties.damage,
-                    });
+                //     const darkKnight = new DarkKnight(this, element.x as unknown as number, element.y as unknown as number - 16, {
+                //         key: element.properties.key,
+                //         name: element.name,
+                //         life: element.properties.life,
+                //         damage: element.properties.damage,
+                //     });
 
-                    this.enemyGroup.push(ninja);
-                    break;
-
-                case 'dark-knight':
-                    if (!element.y) return;
-
-                    const darkKnight = new DarkKnight(this, element.x as unknown as number, element.y as unknown as number - 16, {
-                        key: element.properties.key,
-                        name: element.name,
-                        life: element.properties.life,
-                        damage: element.properties.damage,
-                    });
-
-                    this.enemyGroup.push(darkKnight);
-                    break;
+                //     this.enemyGroup.push(darkKnight);
+                //     break;
 
                 case 'horse':
                     if (!element.y) return;
@@ -1878,6 +1844,7 @@ ${elm.properties.desc}`;
             this.cameraIsShaking = true;
             this.cameras.main.shake(duration, intensity);
             this.sound.play('impact', { rate: 0.5 });
+
             this.time.addEvent({
                 delay: duration,
                 callback: () =>

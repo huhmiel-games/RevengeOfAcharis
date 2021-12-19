@@ -679,23 +679,27 @@ const tileData = {
 }
 
 //function for file input
-function getFile(filename) {
+function getFile (filename)
+{
     var data = fs.readFileSync(filename, "ascii");
     return data;
 }
 
 //parsing json
-for(let i = 1; i < 33; i++) {
-    var jsonString = [getFile(`./src/maps/map${i}.json`)];
+for (let i = 1; i < 34; i++)
+{
+    var jsonString = [getFile(`./src/maps/map${ i }.json`)];
     var jsonObj = JSON.parse(jsonString);
 
-    jsonObj.tilesets.forEach(e => {
-        if(e.name === 'animated') {
+    jsonObj.tilesets.forEach(e =>
+    {
+        if (e.name === 'animated')
+        {
             e.tiles = tiles;
             e.tileData = tileData;
         }
     });
 
     jsonData = JSON.stringify(jsonObj);
-    fs.writeFileSync(`./src/maps/map${i}.json`, jsonData);
+    fs.writeFileSync(`./src/maps/map${ i }.json`, jsonData);
 }

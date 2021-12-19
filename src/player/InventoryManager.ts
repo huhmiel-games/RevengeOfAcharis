@@ -26,7 +26,7 @@ export default class InventoryManager
         this.inventory = data;
     }
 
-    public setDefaultInventory (): void
+    public setDefaultInventory (): TInventory
     {
         this.inventory = {
             xp: 0,
@@ -50,6 +50,8 @@ export default class InventoryManager
             fireRate: 420,
             powerUp: [],
         };
+
+        return this.inventory;
     }
 
     public getInventory (): TInventory
@@ -81,9 +83,9 @@ export default class InventoryManager
 
         let items: (Sword | Bow | Shield)[] = [];
         items = [...items,
-            this.player.swordManager.getSwords(),
-            this.player.shieldManager.getShields(),
-            this.player.bowManager.getBows()
+        this.player.swordManager.getSwords(),
+        this.player.shieldManager.getShields(),
+        this.player.bowManager.getBows()
         ].flat();
 
         const selectableItemsToDisplay: Phaser.GameObjects.Image[] = [];
@@ -107,7 +109,7 @@ export default class InventoryManager
                 const img = this.scene.add.image(-100, -100, 'stuff', i).setDepth(2000).setScrollFactor(0, 0);
                 fixedItemsToDisplay.push(img);
             }
-            
+
         }
 
         Phaser.Actions.GridAlign(selectableItemsToDisplay, {
@@ -163,7 +165,9 @@ export default class InventoryManager
         const swordRate = this.scene.add.bitmapText(WIDTH / 2, origin.center.y + 32, FONTS.ULTIMA, `Sword RATE: ${Math.round(this.player.swordManager.getCurrentSword().rate)}`, FONTS_SIZES.ULTIMA)
             .setOrigin(0, 0.5).setDepth(2000).setScrollFactor(0, 0).setTintFill(COLORS.EAST_BLUE);
 
-        let bowAttack, bowRate, shieldDef;
+        let bowAttack: Phaser.GameObjects.BitmapText;
+        let bowRate: Phaser.GameObjects.BitmapText;
+        let shieldDef: Phaser.GameObjects.BitmapText;
 
         if (this.inventory.bows.length)
         {

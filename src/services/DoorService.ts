@@ -1,6 +1,7 @@
-import Door from '../props/Door';
+// import Door from '../props/Door';
 
 import { TILE_SIZE } from '../constant/config';
+import { TDoor } from '../types/types';
 
 
 
@@ -9,44 +10,44 @@ export default class DoorService
     /**
      * Search the doors in the current room map
      */
-    public static searchDoorsInRoomMap (scene)
-    {
+    // public static searchDoorsInRoomMap (scene)
+    // {
 
-        scene.colliderLayer.layer.data.forEach(tileArray =>
-        {
-            tileArray.forEach(tile =>
-            {
-                switch (true)
-                {
-                    case (tile.properties.blueDoorBlock):
-                        this.addDoor(scene, tile, 'blueDoor', 'gun');
-                        break;
+    //     scene.colliderLayer.layer.data.forEach(tileArray =>
+    //     {
+    //         tileArray.forEach(tile =>
+    //         {
+    //             switch (true)
+    //             {
+    //                 case (tile.properties.blueDoorBlock):
+    //                     this.addDoor(scene, tile, 'blueDoor', 'gun');
+    //                     break;
 
-                    case (tile.properties.greenDoorBlock):
-                        this.addDoor(scene, tile, 'greenDoor', 'missileLauncher');
-                        break;
+    //                 case (tile.properties.greenDoorBlock):
+    //                     this.addDoor(scene, tile, 'greenDoor', 'missileLauncher');
+    //                     break;
 
-                    default:
-                        break;
-                }
-            });
-        });
-    }
+    //                 default:
+    //                     break;
+    //             }
+    //         });
+    //     });
+    // }
 
     /**
      * Add the doors to the current room
      */
-    public static addDoor (scene, tile, key, openWith)
-    {
-        const door = new Door(scene, tile.pixelX + 4, tile.pixelY + 4, {
-            key,
-            openWith,
-            hidden: tile.properties.hidden,
-            rotation: tile.rotation
-        });
+    // public static addDoor (scene, tile, key, openWith)
+    // {
+    //     const door = new Door(scene, tile.pixelX + 4, tile.pixelY + 4, {
+    //         key,
+    //         openWith,
+    //         hidden: tile.properties.hidden,
+    //         rotation: tile.rotation
+    //     });
 
-        scene.doorGroup.push(door);
-    }
+    //     scene.doorGroup.push(door);
+    // }
 
     public static searchNextRoom (scene, tile)
     {
@@ -57,7 +58,7 @@ export default class DoorService
         const currentRoom = world.maps.filter(room => room.fileName === scene.playerPosition)[0];
 
         // create an empty nextRoom object
-        const nextRoom = {
+        const nextRoom: TDoor = {
             name: '',
             side: '',
             door: {
@@ -70,7 +71,7 @@ export default class DoorService
         let currentDoor = { x: 0, y: 0 };
 
         // detect the current door
-        currentRoom.doors.forEach((door, i) =>
+        currentRoom.doors.forEach((door: { x: number; y: number; }, i: number) =>
         {
             const localdoorX = door.x - currentRoom.x;
             const localdoorY = door.y - currentRoom.y;
@@ -80,16 +81,11 @@ export default class DoorService
                 currentDoor = door;
 
                 const doorName = `${currentRoom.fileName}_door${i}`;
-
-                // if (!scene.player.inventory.openedDoors.includes(doorName))
-                // {
-                //     scene.player.inventory.openedDoors.push(doorName);
-                // }
             }
         });
 
         // search the next map
-        world.maps.forEach((room) =>
+        world.maps.forEach((room: { fileName: string; doors: any[]; x: number; y: number; }) =>
         {
             if (room.fileName === 'map0' || room.fileName === currentRoom.fileName)
             {

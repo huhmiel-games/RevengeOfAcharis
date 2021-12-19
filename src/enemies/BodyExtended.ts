@@ -20,7 +20,6 @@ export default class BodyExtended extends GameObjects.Sprite
     public looseLife (weapon: any): void
     {
         this.scene.enemyIsHit(this.parent, weapon);
-        // this.parent.looseLife(damage, weaponType);
     }
 
     public kill ()

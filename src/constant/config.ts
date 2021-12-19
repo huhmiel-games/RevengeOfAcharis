@@ -43,7 +43,7 @@ export const enum SCENES_NAMES
 
 export const SWORDS: TSwordConfig[] = [
     {
-        id: 0,
+        id: 0, // done
         name: 'wood-sword',
         desc: 'a simple wood sword',
         damage: 4,
@@ -51,7 +51,7 @@ export const SWORDS: TSwordConfig[] = [
         key: 0
     },
     {
-        id: 1,
+        id: 1, // done 
         name: 'iron-sword',
         desc: 'a simple iron sword',
         damage: 5,
@@ -59,7 +59,7 @@ export const SWORDS: TSwordConfig[] = [
         key: 1
     },
     {
-        id: 2,
+        id: 2, // done -> cave
         name: 'steel-sword',
         desc: 'a solid steel sword',
         damage: 6,
@@ -67,7 +67,7 @@ export const SWORDS: TSwordConfig[] = [
         key: 2
     },
     {
-        id: 3,
+        id: 3, // done -> chapelle
         name: 'long-sword',
         desc: 'a long sword',
         damage: 8,
@@ -75,7 +75,7 @@ export const SWORDS: TSwordConfig[] = [
         key: 3
     },
     {
-        id: 6,
+        id: 6, // done -> castle-b entrance
         name: 'saber',
         desc: 'a simple saber',
         damage: 5,
@@ -107,11 +107,11 @@ export const SWORDS: TSwordConfig[] = [
         key: 7
     },
     {
-        id: 8,
+        id: 8, // done
         name: 'hammer-sword',
-        desc: 'a huge sword',
+        desc: 'a huge sword that can break walls',
         damage: 20,
-        rate: 300,
+        rate: 440,
         key: 8
     },
     {
@@ -126,26 +126,62 @@ export const SWORDS: TSwordConfig[] = [
 
 export const BOWS: TBowConfig[] = [
     {
-        id: 10,
+        id: 10, // done
         name: 'wood-bow',
         desc: 'a simple old wood sword',
         damage: 2,
+        rate: 300,
+        speed: 450,
+        key: 10
+    },
+    {
+        id: 11,
+        name: 'steel-bow',
+        desc: 'throws fastest arrows',
+        damage: 3,
+        rate: 300,
+        speed: 550,
+        key: 11
+    },
+    {
+        id: 12,
+        name: 'dark-bow',
+        desc: 'a strange dark sword in a unknown matter',
+        damage: 4,
         rate: 270,
         speed: 500,
-        key: 10
+        key: 12
+    },
+    {
+        id: 13,
+        name: 'hammer-bow',
+        desc: 'throws heavy arrows',
+        damage: 5,
+        rate: 440,
+        speed: 500,
+        key: 13
+    },
+    {
+        id: 14,
+        name: 'fire-bow',
+        desc: 'throws flamed arrows',
+        damage: 6,
+        rate: 250,
+        speed: 550,
+        key: 14
     }
 ];
 
 export const SHIELDS: TShieldConfig[] = [
     {
-        id: 15,
+        id: 15, // done
         name: 'wood shield',
         desc: 'a simple shield made with wood',
         defense: 4,
         key: 15
     },
     {
-        id: 16,
+        id: 16, // done
         name: 'iron shield',
         desc: 'a full iron shield ',
         defense: 6,
