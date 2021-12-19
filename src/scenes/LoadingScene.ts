@@ -399,11 +399,9 @@ export default class LoadingScreen extends Scene
 
         // player animation
         this.load.atlas('atlas', atlas, atlasJson);
-        // this.load.atlas('playerAtlas', adventurerAtlas, adventurerAtlasJSON);
 
         // player bullets
         this.load.spritesheet('heart', heart, { frameWidth: 12, frameHeight: 12 });
-        // this.load.spritesheet('fireBall', fireBall, { frameWidth: 16, frameHeight: 16 });
         this.load.spritesheet('stuff', stuff, { frameWidth: 32, frameHeight: 32 });
         this.load.spritesheet('arrow', arrow, { frameWidth: 19, frameHeight: 3 });
 
@@ -416,7 +414,6 @@ export default class LoadingScreen extends Scene
         this.load.image('framing32', framing32);
         this.load.image('inventory-grid', inventoryGrid);
         this.load.image('parchment', parchment);
-        // this.load.image('arrow', arrow);
 
         // dashboard
         this.load.image('framing', framing);
@@ -576,12 +573,6 @@ export default class LoadingScreen extends Scene
 
         // PRELOAD SECTION //
         this.load.atlas('smokeAtlas', smokeAtlas, smokeAtlasJSON);
-        // this.load.atlas('skeletonSwordAtlas', skeletonSwordAtlas, skeletonSwordAtlasJSON);
-        // this.load.atlas('imp-red-atlas', impRedAtlas, impRedAtlasJSON);
-        // this.load.atlas('atlas', impAxeRedAtlas, impAxeRedAtlasJSON);
-        // this.load.atlas('atlas', evilWizard2Atlas, evilWizard2AtlasJSON);
-        // this.load.atlas('atlas', enemies2Atlas, enemies2AtlasJSON);
-
     }
 
     public create ()
@@ -1567,14 +1558,6 @@ export default class LoadingScreen extends Scene
             repeat: -1,
         });
 
-        // this.anims.create({
-        //     key: 'fireball',
-        //     frames: this.anims.generateFrameNumbers('fireBall', { start: 0, end: 2, first: 0 }),
-        //     frameRate: 5,
-        //     yoyo: false,
-        //     repeat: -1,
-        // });
-
         this.anims.create({
             key: 'fireball',
             frames: [
@@ -2346,31 +2329,7 @@ export default class LoadingScreen extends Scene
             frameRate: 16,
             repeat: -1,
         });
-                
-        this.anims.create({
-            key: 'ninja-attack2',
-            frames: [
-                { key: 'atlas', frame: 'ninja-attack2_0', duration: 200 },
-                { key: 'atlas', frame: 'ninja-attack2_1', duration: 200 },
-                { key: 'atlas', frame: 'ninja-attack2_2' },
-                { key: 'atlas', frame: 'ninja-attack2_3' },
-            ],
-            frameRate: 8,
-            repeat: 0,
-        });
-                
-        this.anims.create({
-            key: 'ninja-attack1',
-            frames: [
-                { key: 'atlas', frame: 'ninja-attack1_0', duration: 200 },
-                { key: 'atlas', frame: 'ninja-attack1_1', duration: 200 },
-                { key: 'atlas', frame: 'ninja-attack1_2' },
-                { key: 'atlas', frame: 'ninja-attack1_3' },
-            ],
-            frameRate: 8,
-            repeat: 0,
-        });
-                
+
         this.anims.create({
             key: 'knight2-attack',
             frames: [
@@ -2458,22 +2417,7 @@ export default class LoadingScreen extends Scene
         //     frameRate: 8,
         //     repeat: -1,
         // });
-                
-        this.anims.create({
-            key: 'ninja-death',
-            frames: [
-                { key: 'atlas', frame: 'ninja-death_0' },
-                { key: 'atlas', frame: 'ninja-death_1' },
-                { key: 'atlas', frame: 'ninja-death_2' },
-                { key: 'atlas', frame: 'ninja-death_3' },
-                { key: 'atlas', frame: 'ninja-death_4' },
-                { key: 'atlas', frame: 'ninja-death_5' },
-                { key: 'atlas', frame: 'ninja-death_6' },
-            ],
-            frameRate: 14,
-            repeat: 0,
-        });
-                
+
         this.anims.create({
             key: 'night-borne-death',
             frames: [
@@ -2635,40 +2579,7 @@ export default class LoadingScreen extends Scene
             frameRate: 16,
             repeat: -1,
         });
-                
-        this.anims.create({
-            key: 'ninja-hurt',
-            frames: [
-                { key: 'atlas', frame: 'ninja-hurt_0' },
-                { key: 'atlas', frame: 'ninja-hurt_1' },
-                { key: 'atlas', frame: 'ninja-hurt_2' },
-            ],
-            frameRate: 6,
-            repeat: 0,
-        });
-                
-        this.anims.create({
-            key: 'ninja-idle',
-            frames: [
-                { key: 'atlas', frame: 'ninja-idle_0' },
-                { key: 'atlas', frame: 'ninja-idle_1' },
-                { key: 'atlas', frame: 'ninja-idle_2' },
-                { key: 'atlas', frame: 'ninja-idle_3' },
-            ],
-            frameRate: 8,
-            repeat: -1,
-        });
-                
-        this.anims.create({
-            key: 'ninja-jump',
-            frames: [
-                { key: 'atlas', frame: 'ninja-jump_0' },
-                { key: 'atlas', frame: 'ninja-jump_1' },
-            ],
-            frameRate: 4,
-            repeat: -1,
-        });
-                
+
         this.anims.create({
             key: 'samurai-fall',
             frames: [
@@ -2678,17 +2589,7 @@ export default class LoadingScreen extends Scene
             frameRate: 4,
             repeat: -1,
         });
-                
-        this.anims.create({
-            key: 'ninja-fall',
-            frames: [
-                { key: 'atlas', frame: 'ninja-fall_0' },
-                { key: 'atlas', frame: 'ninja-fall_1' },
-            ],
-            frameRate: 4,
-            repeat: -1,
-        });
-                
+
         this.anims.create({
             key: 'skull',
             frames: [
@@ -2894,22 +2795,6 @@ export default class LoadingScreen extends Scene
             ],
             frameRate: 8,
             repeat: -1,
-        });
-                
-        this.anims.create({
-            key: 'ninja-run',
-            frames: [
-                { key: 'atlas', frame: 'ninja-run_0' },
-                { key: 'atlas', frame: 'ninja-run_1' },
-                { key: 'atlas', frame: 'ninja-run_2' },
-                { key: 'atlas', frame: 'ninja-run_3' },
-                { key: 'atlas', frame: 'ninja-run_4' },
-                { key: 'atlas', frame: 'ninja-run_5' },
-                { key: 'atlas', frame: 'ninja-run_6' },
-                { key: 'atlas', frame: 'ninja-run_7' },
-            ],
-            frameRate: 16,
-            repeat: 0,
         });
                 
         this.anims.create({
