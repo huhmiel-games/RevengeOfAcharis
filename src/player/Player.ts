@@ -1,8 +1,7 @@
 import getConfigKeys from '../utils/getConfigKeys';
-import { ACCELERATION_X, FONTS, FONTS_SIZES, HEIGHT, WIDTH } from '../constant/config';
+import { ACCELERATION_X, FONTS, FONTS_SIZES } from '../constant/config';
 import GameScene from '../scenes/GameScene';
-import { TInventory, TKeys } from '../types/types';
-import Sword from './Sword';
+import { TKeys, TPlayerState } from '../types/types';
 import SwordManager from './SwordManager';
 import { COLORS } from '../constant/colors';
 import PlatformSpike from '../enemies/PlatformSpike';
@@ -14,12 +13,10 @@ import JumpState from './states/JumpState';
 import MoveState from './states/MoveState';
 import StateTimestamp from '../utils/StateTimestamp';
 import JumpMomentumState from './states/JumpMomentumState';
-import PlayerAnims from '../constant/playerAnims';
 import Enemy from '../enemies/Enemy';
 import Projectile from '../enemies/Projectile';
 import PlayerState from '../constant/playerState';
 import ShieldManager from './ShieldManager';
-import Shield from './Shield';
 import InventoryManager from './InventoryManager';
 import SaveLoadService from '../services/SaveLoadService';
 import BowManager from './BowManager';
@@ -31,9 +28,8 @@ export default class Player extends Phaser.GameObjects.Sprite
     public body: Phaser.Physics.Arcade.Body;
     public swords: Phaser.Physics.Arcade.Group;
     public arrows: Phaser.Physics.Arcade.Group;
-    // public inventory: TInventory;
     public inventoryManager: InventoryManager;
-    public playerState: any;
+    public playerState: TPlayerState;
     public jumpTime: number;
     public isJumping: boolean = false;
     public isAttacking: boolean = false;
@@ -41,13 +37,11 @@ export default class Player extends Phaser.GameObjects.Sprite
     private isSpelling: boolean;
     public sword: any;
     public keys: TKeys;
-    public fallSfx: any;
-    public jumpSfx: any;
-    public hitSfx: any;
+    public fallSfx: Phaser.Sound.BaseSound;
+    public jumpSfx: Phaser.Sound.BaseSound;
+    public hitSfx: Phaser.Sound.BaseSound;
     public walkStepSfx: Phaser.Sound.BaseSound;
     private playerFlashTween: Phaser.Tweens.Tween;
-    private playerDead: boolean;
-    public state: any;
     public swordManager: SwordManager;
     public bowManager: BowManager;
     public shieldManager: ShieldManager;
@@ -114,6 +108,7 @@ export default class Player extends Phaser.GameObjects.Sprite
             selectedSword: 0,
             lastFired: 0,
             isDead: false,
+            blockedDownTimestamp: 0
         };
 
         const inventory = this.inventoryManager.getInventory();
@@ -123,7 +118,6 @@ export default class Player extends Phaser.GameObjects.Sprite
 
         this.bowManager.initBows(inventory.bows);
         this.shieldManager.initShields(inventory.shields);
-        // this.bowManager.selectBow(inventory.selectedBow);
 
         if (inventory.selectedBow !== null)
         {
@@ -741,9 +735,6 @@ export default class Player extends Phaser.GameObjects.Sprite
     {
         this.playerState.isDead = true;
 
-        this.playerDead = true;
-
-        // this.scene.physics.pause();
         this.body.setAccelerationX(0).setDragX(10000).setVelocityX(0);
 
         this.scene.input.enabled = false;

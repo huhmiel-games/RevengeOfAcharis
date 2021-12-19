@@ -7,6 +7,16 @@ import Woman from '../npc/Woman';
 
 export type TNpc = Angel | Bearded | Hatman | Oldman | Woman | Npc;
 
+export type TPlayerState = {
+    isDead: boolean;
+    blockedDownTimestamp: number;
+    speed: number;
+    lastFired: number;
+    swordAttackAnim?: number;
+    selectedWeapon?: string;
+    selectedSword?: number;
+};
+
 export type TKeys =
     {
         left: Phaser.Input.Keyboard.Key;
