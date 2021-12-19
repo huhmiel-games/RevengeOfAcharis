@@ -256,7 +256,7 @@ export default class Demon extends Phaser.GameObjects.Sprite
                         this[`skull${i}`].state = { damage: 25 };
                         this[`skull${i}`].name = 'skullHead';
                         this[`skull${i}`].body.setSize(24, 28).setOffset(12, 18).reset(arrPositionsX[i], arrPositionsY[i]);
-                        //this.scene.skullGroup.push(this[`skull${i}`]);
+                        // this.scene.skullGroup.push(this[`skull${i}`]);
                     }
                 }
                 this.twee.play();
@@ -624,7 +624,7 @@ export default class Demon extends Phaser.GameObjects.Sprite
     for you ...`;
         this.scene.player.anims.play('stand');
 
-        this.scene.player.state.pause = true;
+        // this.scene.player.state.pause = true;
 
         this.scene.time.addEvent({
             delay: 1000,
@@ -672,7 +672,7 @@ export default class Demon extends Phaser.GameObjects.Sprite
                     this.setFlipX(false);
                     this.body.setOffset(56, 64);
                     this.battleStarted = true;
-                    this.scene.player.state.pause = false;
+                    // this.scene.player.state.pause = false;
                     this.scene.sound.play('demonScreamSfx');
                     startTimer.destroy();
                     this.scene.stopMusic();
@@ -684,10 +684,10 @@ export default class Demon extends Phaser.GameObjects.Sprite
 
     public startPhase1 ()
     {
-        if (this.scene.player.state.dead)
-        {
-            return;
-        }
+        // if (this.scene.player.state.dead)
+        // {
+        //     return;
+        // }
         this.scene.demonFight1.stop();
         this.scene.demonLighting.play();
         this.phase = 1;
@@ -697,7 +697,7 @@ export default class Demon extends Phaser.GameObjects.Sprite
         this.isFollowingPath = false;
         this.enemyState.life = 30000;
         this.scene.player.anims.play('stand');
-        this.scene.player.state.pause = true;
+        // this.scene.player.state.pause = true;
 
         this.body.setVelocity(0, 0);
         this.scene.cameras.main.startFollow(this);
@@ -841,7 +841,7 @@ export default class Demon extends Phaser.GameObjects.Sprite
             return;
         }
         this.isDead = true;
-        //this.scene.player.inventory.bossFinal = true;
+        // this.scene.player.inventory.bossFinal = true;
         this.isFollowingPath = false;
         this.body.setVelocity(0, 0);
         this.deathMsg = this.scene.add.bitmapText(this.body.x - 140, this.body.y - 48, 'atomic', '', 10, 1).setDepth(300);

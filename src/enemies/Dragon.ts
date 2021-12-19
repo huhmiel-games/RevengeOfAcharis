@@ -128,7 +128,7 @@ export default class Dragon extends Phaser.GameObjects.Sprite
         
         if (this.active && !this.isDead && this.body.blocked.down)
         {
-            if (!this.scene.player.state.dead)
+            if (!this.scene.player.playerState.isDead)
             {
                 const distance = Phaser.Math.Distance.Between(this.scene.player.x, this.scene.player.y, this.x, this.y);
                 // tail attack
@@ -175,7 +175,7 @@ export default class Dragon extends Phaser.GameObjects.Sprite
                     this.anims.play('dragon-idle', true);
                 }
             }
-            else if (this.scene.player.state.dead)
+            else if (this.scene.player.playerState.isDead)
             {
                 this.anims.play('dragon-idle', true);
 
