@@ -28,7 +28,7 @@ export default class EvilWizard extends Enemy
             giveLife: Math.round(config.life / 3),
         };
 
-        this.setTexture('enemies2Atlas').setFrame('evil-wizard-idle_0');
+        this.setTexture('atlas').setFrame('evil-wizard-idle_0');
 
         this.setOrigin(0, 0);
 

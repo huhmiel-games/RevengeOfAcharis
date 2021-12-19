@@ -28,7 +28,7 @@ export default class Samurai extends Enemy
             giveLife: Math.round(config.life / 3),
         };
 
-        this.setTexture('enemies2Atlas').setFrame('samurai-idle_0');
+        this.setTexture('atlas').setFrame('samurai-idle_0');
 
         this.setOrigin(0, 0);
 

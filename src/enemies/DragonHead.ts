@@ -27,7 +27,7 @@ export default class DragonHead extends Enemy
 
         this.flipX = config.flipX;
 
-        this.setTexture('enemies2Atlas').setFrame('dragon-head_0');
+        this.setTexture('atlas').setFrame('dragon-head_0');
 
         this.setOrigin(0, 0);
 
@@ -143,7 +143,6 @@ export default class DragonHead extends Enemy
                 delay: 3500,
                 callback: () =>
                 {
-                    // this.isFiring = false;
                     ball.destroy();
                 },
             });

@@ -28,7 +28,7 @@ export default class Knight2 extends Enemy
             giveLife: Math.round(config.life / 3),
         };
 
-        this.setTexture('enemies2Atlas').setFrame('knight2-idle_0');
+        this.setTexture('atlas').setFrame('knight2-idle_0');
 
         this.setOrigin(0, 0);
 
