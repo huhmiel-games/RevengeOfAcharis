@@ -687,6 +687,8 @@ export default class Player extends Phaser.GameObjects.Sprite
 
             this.playerDeathSequence();
 
+            this.scene.battleWithBoss = false;
+
             return;
         }
 
