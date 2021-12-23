@@ -1,3 +1,4 @@
+//#region imports
 import { Scene } from 'phaser';
 import animatedTilesPlugin from '../plugins/AnimatedTiles.js';
 import { WIDTH, HEIGHT, FONTS, SCENES_NAMES, FONTS_SIZES, SWORDS, TILE_SIZE, SHIELDS, BOWS } from '../constant/config';
@@ -16,7 +17,6 @@ import HellBeast from '../enemies/HellBeast';
 import Demon from '../enemies/Demon';
 import Platform from '../utils/Platform';
 import PlatformSpike from '../enemies/PlatformSpike';
-import countDeadEnemies from '../utils/counDeadEnemies';
 import ColliderService from '../services/ColliderService';
 import LayerService from '../services/LayerService';
 import GenerateWorldRoom from '../utils/GenerateWorldRoom';
@@ -43,10 +43,11 @@ import Knight2 from '../enemies/Knight2';
 import EvilWizard from '../enemies/EvilWizard';
 import DragonHead from '../enemies/DragonHead';
 import Saw from '../enemies/Saw';
-
+//#endregion
 
 export default class GameScene extends Scene
 {
+    //#region properties
     public state: { displayPowerUpMsg: boolean; };
     public map: Phaser.Tilemaps.Tilemap;
     public firstTimestamp: number;
@@ -122,6 +123,7 @@ export default class GameScene extends Scene
     public bodyExtended: Phaser.Physics.Arcade.Group;
     public dragonHeadBalls: Phaser.Physics.Arcade.Group;
     public smoke: Phaser.GameObjects.Group;
+    //#endregion
 
     constructor ()
     {
@@ -790,12 +792,6 @@ ${elm.properties.desc}`;
             if (!weapon.isDeflecting) weapon.kill();
         }
 
-    }
-
-    public enemyDestroy (e)
-    {
-        e.destroy();
-        countDeadEnemies();
     }
 
     public bossExplode (x, y)
