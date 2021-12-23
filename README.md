@@ -11,6 +11,9 @@
 |---------|-------------|
 | `npm install` | Install project dependencies |
 | `npm start` | Build project and open web server running project |
+| `buildCollisionTileset` | Build the collision tileset for each map |
+| `buildAnimationTileset` | Build the animation tileset for each map |
+| `p3ct` | Launch the phaser3 cli tool |
 
 ## Writing Code
 
@@ -25,4 +28,17 @@ by default).
 
 ## Credits:
 
-Jam991
+- Clembod
+- LuizMelo
+- sanctumpixel
+- blueapollo
+- anokolisa
+- calciumtrice
+- ansimuz
+- emcee flesher
+- creativekind
+- eli cuaycong
+- astrobob
+- ramirov
+- oco
+- Jam991
