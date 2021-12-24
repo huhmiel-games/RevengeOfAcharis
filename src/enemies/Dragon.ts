@@ -52,7 +52,7 @@ export default class Dragon extends Phaser.GameObjects.Sprite
 
         this.walkk = this.scene.sound.add('dragonWalkSfx', { volume: 0.5 });
         
-        this.on(Phaser.Animations.Events.ANIMATION_START, (e: any) =>
+        this.on(Phaser.Animations.Events.ANIMATION_START, () =>
         {
             if (this.anims.currentAnim.key === 'dragon-breath')
             {
@@ -65,7 +65,7 @@ export default class Dragon extends Phaser.GameObjects.Sprite
             }
         });
 
-        this.on(Phaser.Animations.Events.ANIMATION_COMPLETE, (e) =>
+        this.on(Phaser.Animations.Events.ANIMATION_COMPLETE, () =>
         {
             if (this.anims.currentAnim.key === 'dragon-breath' && this.isFireAttacking)
             {

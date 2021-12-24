@@ -4,7 +4,7 @@ export default class Thunder extends Phaser.GameObjects.Sprite
 {
     public scene: GameScene;
     public body: Phaser.Physics.Arcade.Body;
-    public enemyState: { life: any; damage: any; directionX: number; directionY: number; hited: boolean; giveLife: number; };
+    public enemyState: { life: number; damage: number; directionX: number; directionY: number; hited: boolean; giveLife: number; };
     public lastAnim: null;
     public getFired: boolean;
     public followPath: boolean;
@@ -54,13 +54,13 @@ export default class Thunder extends Phaser.GameObjects.Sprite
         this.anims.play(str, true);
     }
 
-    public looseLife (e)
+    public looseLife (e: any)
     {
         return;
     }
 
-    public explode (bullet)
+    public explode (bullet: any)
     {
-
+        return;
     }
 }

@@ -6,7 +6,7 @@ import Enemy from './Enemy';
 export default class Skeleton extends Enemy
 {
     public damage: number;
-    public enemyState: { life: any; damage: number; directionX: number; directionY: number; hited: boolean; giveLife: any; };
+    public enemyState: { life: number; damage: number; directionX: number; directionY: number; hited: boolean; giveLife: number; };
     public speed: number = 40;
     public isAttacking: boolean = false;
     public walkplay: boolean = false;

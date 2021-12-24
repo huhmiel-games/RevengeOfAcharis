@@ -20,7 +20,7 @@ export default class Flames extends Enemy
         this.body.setAllowGravity(false).setImmovable(true);
     }
 
-    public looseLife (e: any)
+    public looseLife (e: number)
     {
         return;
     }

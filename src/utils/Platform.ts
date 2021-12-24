@@ -1,8 +1,8 @@
 export default class Platform extends Phaser.GameObjects.Sprite
 {
     public body: Phaser.Physics.Arcade.Body;
-    private duration: any;
-    private directionType: any;
+    private duration: number;
+    private directionType: string;
     private followPath: boolean;
     private direction: string;
     constructor (scene, x, y, config)

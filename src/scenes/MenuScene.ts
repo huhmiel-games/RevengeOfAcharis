@@ -9,20 +9,12 @@ export default class LoadSavedGame extends Scene
     private position: number[];
     private lastPosition: number;
     private titleTheme: Phaser.Sound.BaseSound;
-    private background: Phaser.GameObjects.Image;
-    private loadGame: Phaser.GameObjects.BitmapText;
-    private timeGame: Phaser.GameObjects.BitmapText;
-    private deleteSavedGame: Phaser.GameObjects.BitmapText;
-    private newGame: Phaser.GameObjects.BitmapText;
     private keys: any;
-    private options: Phaser.GameObjects.BitmapText;
     private head: Phaser.GameObjects.Image;
     constructor ()
     {
         super({ key: 'menuScene' });
     }
-
-
 
     public create ()
     {
@@ -35,7 +27,7 @@ export default class LoadSavedGame extends Scene
         this.titleTheme = this.sound.add('titleMenu');
         this.titleTheme.play({ loop: true });
 
-        this.background = this.add.image(0, 0, 'backgroundWithoutTitles')
+        this.add.image(0, 0, 'backgroundWithoutTitles')
             .setOrigin(0, 0)
             .setDisplaySize(WIDTH, HEIGHT);
 
@@ -44,17 +36,17 @@ export default class LoadSavedGame extends Scene
             this.position = [74, 114, 154];
             this.position = [HEIGHT / 4, HEIGHT / 2, HEIGHT / 4 * 3];
 
-            const loadGameText = this.add.bitmapText(WIDTH / 4, this.position[0], 'alagard', ' Load Game ', 18, 1).setTintFill(COLORS.RED).setDropShadow(0, 1, 0xFFFFFF);
+            this.add.bitmapText(WIDTH / 4, this.position[0], 'alagard', ' Load Game ', 18, 1).setTintFill(COLORS.RED).setDropShadow(0, 1, 0xFFFFFF);
 
-            const timeGameText = this.add.bitmapText(WIDTH / 4 * 3 - 24, this.position[0] + 5, 'alagard', ` ${totalTime} `, 9, 2).setLetterSpacing(2).setDropShadow(0, 1, COLORS.RED);
+            this.add.bitmapText(WIDTH / 4 * 3 - 24, this.position[0] + 5, 'alagard', ` ${totalTime} `, 9, 2).setLetterSpacing(2).setDropShadow(0, 1, COLORS.RED);
 
-            const deleteSavedGameText = this.add.bitmapText(WIDTH / 4, this.position[2], 'alagard', ' Delete Game ', 18, 1).setTintFill(COLORS.RED).setDropShadow(0, 1, 0xFFFFFF);
+            this.add.bitmapText(WIDTH / 4, this.position[2], 'alagard', ' Delete Game ', 18, 1).setTintFill(COLORS.RED).setDropShadow(0, 1, 0xFFFFFF);
         }
         else
         {
             this.position = [74, 114];
 
-            this.newGame = this.add.bitmapText(WIDTH / 4, this.position[0], 'alagard', ' New Game ', 18, 1).setTintFill(COLORS.RED).setDropShadow(0, 1, 0xFFFFFF);
+            this.add.bitmapText(WIDTH / 4, this.position[0], 'alagard', ' New Game ', 18, 1).setTintFill(COLORS.RED).setDropShadow(0, 1, 0xFFFFFF);
         }
 
         const keysOptions = getConfigKeys();
@@ -65,13 +57,12 @@ export default class LoadSavedGame extends Scene
             fire: Phaser.Input.Keyboard.KeyCodes[keysOptions[4]],
         });
 
-        this.options = this.add.bitmapText(WIDTH / 4, this.position[1], 'alagard', ' Options ', 18, 1).setTintFill(COLORS.RED).setDropShadow(0, 1, 0xFFFFFF);
+        this.add.bitmapText(WIDTH / 4, this.position[1], 'alagard', ' Options ', 18, 1).setTintFill(COLORS.RED).setDropShadow(0, 1, 0xFFFFFF);
 
         this.head = this.add.image(WIDTH / 4 - 16, this.position[0] + 11, 'head')
-            // .setOrigin(0, 0)
             .setDisplaySize(16, 16);
 
-        const menu = this.input.keyboard.on('keydown', (event) =>
+        const menu = this.input.keyboard.on('keydown', (event: { key: string; }) =>
         {
             if (this.keys.down.isDown && event.key === this.keys.down.originalEvent.key)
             {

@@ -42,7 +42,7 @@ export default class Hatman extends Phaser.GameObjects.Sprite
             {
                 this.flipX = false;
             }
-            if (Math.abs(this.x - this.scene.player.x) < 20 && !this.scene.oldman.isTalking)
+            if (Math.abs(this.x - this.scene.player.x) < 20 && this.scene.showMsg.alpha !== 1)
             {
                 this.talkToPlayer();
             }

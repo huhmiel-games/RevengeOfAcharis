@@ -70,7 +70,7 @@ export default class FallState extends State
         {
             player.stopSwordAttack();
 
-            const smoke = scene.smoke.getFirstDead(true, body.center.x, body.bottom - 8, undefined, undefined, true);
+            const smoke = scene.smokeGroup.getFirstDead(true, body.center.x, body.bottom - 8, undefined, undefined, true);
 
             smoke?.setDepth(2000);
             smoke?.once(Phaser.Animations.Events.ANIMATION_COMPLETE, () => smoke.destroy());

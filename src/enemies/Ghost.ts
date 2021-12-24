@@ -3,7 +3,7 @@ import Enemy from './Enemy';
 
 export default class Ghost extends Enemy
 {
-    public enemyState: { life: any; damage: any; directionX: number; directionY: number; hited: boolean; giveLife: number; };
+    public enemyState: { life: number; damage: number; directionX: number; directionY: number; hited: boolean; giveLife: number; };
     public waspFX: Phaser.Sound.BaseSound;
     public speed: number = 10;
     constructor (scene: GameScene, x: number, y: number, config: any)

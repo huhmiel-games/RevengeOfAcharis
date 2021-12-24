@@ -57,7 +57,7 @@ export default class Viking extends Enemy
 
                 data.forEach(element =>
                 {
-                    const hitbox = this.scene.fireballs.get(true, element.x, element.y, 'fireBall', undefined, true);
+                    const hitbox = this.scene.fireballs.get(element.x, element.y, 'fireBall', undefined, true);
 
                     if (hitbox)
                     {

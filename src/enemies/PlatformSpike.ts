@@ -3,8 +3,8 @@ import Enemy from './Enemy';
 
 export default class PlatformSpike extends Enemy
 {
-    public duration: any;
-    public directionType: any;
+    public duration: number;
+    public directionType: string;
     public enemyState: { damage: number; };
     public durationTimer: number;
     public fallTimer: Phaser.Time.TimerEvent;

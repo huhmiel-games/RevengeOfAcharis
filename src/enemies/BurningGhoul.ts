@@ -4,7 +4,7 @@ import Enemy from './Enemy';
 
 export default class BurningGhoul extends Enemy
 {
-    public enemyState: { life: any; damage: any; directionX: number; directionY: number; hited: boolean; giveLife: number; };
+    public enemyState: { life: number; damage: number; directionX: number; directionY: number; hited: boolean; giveLife: number; };
     private walkplay: boolean;
     private walkk: Phaser.Sound.BaseSound;
     private distance: number;

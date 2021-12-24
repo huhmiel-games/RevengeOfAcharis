@@ -110,7 +110,7 @@ export default class ColliderService
                     return;
                 }
 
-                const smoke = scene.smoke.getFirstDead(true, tile.getCenterX(), tile.getCenterY(), undefined, undefined, true);
+                const smoke = scene.smokeGroup.getFirstDead(true, tile.getCenterX(), tile.getCenterY(), undefined, undefined, true);
 
                 const impactFx = scene.sound.get('impact');
 

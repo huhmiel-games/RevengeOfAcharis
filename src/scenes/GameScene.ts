@@ -76,18 +76,16 @@ export default class GameScene extends Scene
     public revengeTheme: Phaser.Sound.BaseSound;
     public EndingTheme: Phaser.Sound.BaseSound;
     public thunderGateSfx: Phaser.Sound.BaseSound;
-    public fireballs: any;
-    public skullHeads: any;
+    public fireballs: Phaser.Physics.Arcade.Group;
+    public skullHeads: Phaser.Physics.Arcade.Group;
     public explodeSprite: Phaser.GameObjects.Group;
-    public playerIsPassingDoor: boolean;
-    public onSismic: boolean;
-    public isTheEnd: boolean;
+    public playerIsPassingDoor: boolean = false;
+    public onSismic: boolean = false;
+    public isTheEnd: boolean = false;
     public battleWithBoss: boolean = false;
     public cameraIsShaking: boolean;
-    public isPausing: boolean;
     public modalText: Phaser.GameObjects.BitmapText;
     public lifeText: Phaser.GameObjects.BitmapText;
-    public lastPosition: number;
     public heart: Phaser.GameObjects.Sprite;
     public bossMusic: Phaser.Sound.BaseSound;
     public playerRoomName: string;
@@ -95,8 +93,6 @@ export default class GameScene extends Scene
     public escapeTimer: Phaser.Time.TimerEvent | null;
     public isChangingRoom: boolean;
     public colliderLayer: Phaser.Tilemaps.TilemapLayer;
-    public oldman: Oldman;
-    public angel: Angel;
     public hellBeast: HellBeast;
     public showMsg: Phaser.GameObjects.BitmapText;
     public player: Player;
@@ -110,7 +106,7 @@ export default class GameScene extends Scene
     public lightCandlesGroup: Phaser.GameObjects.Group;
     public bodyExtended: Phaser.Physics.Arcade.Group;
     public dragonHeadBalls: Phaser.Physics.Arcade.Group;
-    public smoke: Phaser.GameObjects.Group;
+    public smokeGroup: Phaser.GameObjects.Group;
     //#endregion
 
     constructor ()
@@ -149,7 +145,6 @@ export default class GameScene extends Scene
             .setScrollFactor(0)
             .setVisible(false);
 
-
         // Groups that need to be destroyed on changing room
         this.heartGroup = [];
         this.powerUpGroup = [];
@@ -158,7 +153,6 @@ export default class GameScene extends Scene
         this.projectileGroup = [];
         this.npcGroup = [];
         this.platformSpikeGroup = [];
-
 
         // AMBIENT MUSIC
         this.musicGroup = [];
@@ -178,7 +172,6 @@ export default class GameScene extends Scene
         this.revengeTheme = this.sound.add('revengeTheme', { volume: 1, loop: true });
         this.EndingTheme = this.sound.add('EndingTheme', { volume: 1, loop: true });
 
-
         this.thunderGateSfx = this.sound.add('thunderGateSfx', { volume: 0.6, loop: true });
         this.musicGroup.push(
             this.hauntedForest,
@@ -196,14 +189,11 @@ export default class GameScene extends Scene
             this.escapeTheme,
         );
 
-
         // PLAYER SECTION
         this.player = new Player(this, 80, 170, { key: 'playerAtlas' }); // 458, 122 4 * 16, 6 * 16
 
         // create groups
         this.createGroups();
-
-        
 
         this.watchWindowInactive();
 
@@ -214,18 +204,7 @@ export default class GameScene extends Scene
             defaultFrame: 'enemy-death-1',
             // frames: ['enemy-death-1', 'enemy-death-2', 'enemy-death-3', 'enemy-death-4', 'enemy-death-5'],
             maxSize: 50,
-            // allowGravity: false
         });
-
-        
-
-
-        // LAVA RISE
-        this.playerIsPassingDoor = false;
-        this.onSismic = false;
-        this.isTheEnd = false;
-
-
 
         // CAMERA
         // set bounds so the camera won't go outside the game world
@@ -234,9 +213,6 @@ export default class GameScene extends Scene
         this.cameras.main.transparent = true;
         this.cameraIsShaking = false;
         this.cameras.main.fadeIn(200);
-
-        // set the fps to 120 for good collisions at high speed
-        // this.physics.world.setFPS(120);
 
         GenerateWorldRoom.generate(this);
     }
@@ -267,7 +243,7 @@ export default class GameScene extends Scene
             maxSize: 20,
         });
 
-        this.smoke = this.add.group({
+        this.smokeGroup = this.add.group({
             defaultKey: 'Smoke VFX B1',
             maxSize: 1,
         });
@@ -535,7 +511,7 @@ ${elm.properties.desc}`;
 
         elm.destroy();
 
-        const dialog = this.input.keyboard.once(Phaser.Input.Keyboard.Events.ANY_KEY_DOWN, (event) =>
+        const dialog = this.input.keyboard.once(Phaser.Input.Keyboard.Events.ANY_KEY_DOWN, () =>
         {
             powerUpDesc.destroy();
             ui.destroy();
@@ -731,7 +707,7 @@ ${elm.properties.desc}`;
         const label = this.add.bitmapText(WIDTH / 2, HEIGHT - 24, FONTS.ULTIMA_BOLD, 'Press fire to save', FONTS_SIZES.ULTIMA, 1)
             .setOrigin(0.5, 0).setLetterSpacing(1).setAlpha(1).setDepth(2000).setScrollFactor(0, 0);
 
-        const check = this.input.keyboard.on(Phaser.Input.Keyboard.Events.ANY_KEY_DOWN, (event) =>
+        const check = this.input.keyboard.on(Phaser.Input.Keyboard.Events.ANY_KEY_DOWN, (event: { key: string; }) =>
         {
             if (event.key === this.player.keys.fire.originalEvent.key)
             {
@@ -786,7 +762,7 @@ ${elm.properties.desc}`;
         const no = this.add.bitmapText(WIDTH / 2 + 64, HEIGHT - 48, FONTS.MINIMAL, 'no', 22, 1)
             .setOrigin(0.5, 0).setLetterSpacing(1).setAlpha(1).setDepth(2000).setScrollFactor(0, 0).setTintFill(COLORS.DARK_GREEN);
 
-        const dialog = this.input.keyboard.on(Phaser.Input.Keyboard.Events.ANY_KEY_DOWN, (event) =>
+        const dialog = this.input.keyboard.on(Phaser.Input.Keyboard.Events.ANY_KEY_DOWN, (event: { key: string; }) =>
         {
             if (event.key === this.player.keys.right.originalEvent.key)
             {
@@ -912,7 +888,7 @@ ${elm.properties.desc}`;
         this.cameras.main.startFollow(this.player, true, 0.4, 0.1).fadeIn(50);
     }
 
-    public changeRoom (player: Player, doorP: { alpha: number; name: string; side: any; door: { x: number; y: number; }; })
+    public changeRoom (player: Player, doorP: { alpha: number; name: string; side: string; door: { x: number; y: number; }; })
     {
         // if boss not dead return!
         if (this.battleWithBoss) return;
@@ -1507,12 +1483,12 @@ ${elm.properties.desc}`;
                 case 'oldman':
                     if (!element.y) return;
 
-                    this.oldman = new Oldman(this, element.x as unknown as number, element.y as unknown as number - 16, {
+                    const oldman = new Oldman(this, element.x as unknown as number, element.y as unknown as number - 16, {
                         key: element.properties.key,
                         name: element.name,
                     });
 
-                    this.npcGroup.push(this.oldman);
+                    this.npcGroup.push(oldman);
                     break;
 
                 case 'woman':

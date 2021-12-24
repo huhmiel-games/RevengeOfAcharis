@@ -9,7 +9,7 @@ export default class Wizard extends Enemy
 {
     public scene: GameScene;
     public body: Phaser.Physics.Arcade.Body;
-    public enemyState: { life: any; damage: number; directionX: number; directionY: number; hited: boolean; giveLife: number; delay: any; };
+    public enemyState: { life: number; damage: number; directionX: number; directionY: number; hited: boolean; giveLife: number; delay: number; };
     public lastAnim: string = '';
     public getFired: boolean;
     public isAppearing: boolean;

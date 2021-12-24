@@ -17,7 +17,7 @@ export default class BodyExtended extends GameObjects.Sprite
         this.scene.physics.world.enable(this);
     }
 
-    public looseLife (weapon: any): void
+    public looseLife (weapon: Phaser.Types.Physics.Arcade.GameObjectWithBody): void
     {
         this.scene.enemyIsHit(this.parent, weapon);
     }
