@@ -1,4 +1,3 @@
-import getConfigKeys from '../utils/getConfigKeys';
 import { ACCELERATION_X, FONTS, FONTS_SIZES } from '../constant/config';
 import GameScene from '../scenes/GameScene';
 import { TKeys, TPlayerState } from '../types/types';
@@ -157,7 +156,7 @@ export default class Player extends Phaser.GameObjects.Sprite
         this.sword.setVisible(false).setName('sword');
         this.sword.body.setSize(24, this.body.height).setEnable(false);
 
-        const keysOptions = getConfigKeys();
+        const keysOptions = SaveLoadService.getConfigKeys();
 
         this.keys = this.scene.input.keyboard.addKeys({
             left: Phaser.Input.Keyboard.KeyCodes[keysOptions[0]],

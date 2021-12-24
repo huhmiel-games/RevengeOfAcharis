@@ -97,6 +97,22 @@ export default class SaveLoadService
         localStorage.removeItem(`${GAMENAME}_bossDeath`);
     }
 
+    public static getConfigKeys (): string[]
+    {
+        if (!localStorage.getItem(`${GAMENAME}_Options`))
+        {
+            const defaultConfig = ['LEFT', 'RIGHT', 'UP', 'DOWN', 'ENTER', 'SPACE', 'SHIFT', 'S', 'P'];
+    
+            const defaultConfigJson = JSON.stringify(defaultConfig);
+    
+            localStorage.setItem(`${GAMENAME}_Options`, defaultConfigJson);
+        }
+    
+        const config = localStorage.getItem(`${GAMENAME}_Options`) as string;
+    
+        return JSON.parse(config);
+    }
+
     /**
      * Return the saved game time to string
      */

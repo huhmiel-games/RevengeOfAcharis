@@ -2,7 +2,6 @@ import { Scene } from 'phaser';
 import { COLORS } from '../constant/colors';
 import { WIDTH, HEIGHT, SCENES_NAMES } from '../constant/config';
 import SaveLoadService from '../services/SaveLoadService';
-import getConfigKeys from '../utils/getConfigKeys';
 
 export default class LoadSavedGame extends Scene
 {
@@ -49,7 +48,7 @@ export default class LoadSavedGame extends Scene
             this.add.bitmapText(WIDTH / 4, this.position[0], 'alagard', ' New Game ', 18, 1).setTintFill(COLORS.RED).setDropShadow(0, 1, 0xFFFFFF);
         }
 
-        const keysOptions = getConfigKeys();
+        const keysOptions = SaveLoadService.getConfigKeys();
 
         this.keys = this.input.keyboard.addKeys({
             up: Phaser.Input.Keyboard.KeyCodes[keysOptions[2]],

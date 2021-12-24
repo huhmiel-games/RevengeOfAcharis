@@ -1,6 +1,6 @@
 import { Scene } from 'phaser';
 import { WIDTH, HEIGHT, SCENES_NAMES } from '../constant/config';
-import getConfigKeys from '../utils/getConfigKeys';
+import SaveLoadService from '../services/SaveLoadService';
 
 export default class GameOver extends Scene
 {
@@ -45,7 +45,7 @@ export default class GameOver extends Scene
             .setOrigin(0, 0)
             .setDisplaySize(16, 16);
 
-        const keysOptions = getConfigKeys();
+        const keysOptions = SaveLoadService.getConfigKeys();
 
         this.keys = this.input.keyboard.addKeys({
             up: Phaser.Input.Keyboard.KeyCodes[keysOptions[2]],
