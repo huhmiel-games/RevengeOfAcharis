@@ -159,9 +159,9 @@ export default class ColliderService
             return false;
         });
 
-        scene.physics.add.overlap(scene.giveLifeGroup, scene.player, elm => scene.player.getLife(elm), undefined, scene.player);
+        scene.physics.add.overlap(scene.heartGroup, scene.player, elm => scene.player.getLife(elm), undefined, scene.player);
 
-        scene.physics.add.overlap(scene.powerups, scene.player, elm => scene.getPowerUp(elm as PowerUp), undefined, scene);
+        scene.physics.add.overlap(scene.powerUpGroup, scene.player, elm => scene.getPowerUp(elm as PowerUp), undefined, scene);
 
         scene.physics.add.overlap(scene.player, scene.enemyGroup, (player, enemy) => scene.playerIsHit(enemy as Enemy), undefined, scene);
         scene.physics.add.overlap(scene.player, scene.projectileGroup, (player, projectile) => scene.playerIsHit(projectile as Projectile), undefined, scene);

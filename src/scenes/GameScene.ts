@@ -51,24 +51,21 @@ export default class GameScene extends Scene
     public state: { displayPowerUpMsg: boolean; };
     public map: Phaser.Tilemaps.Tilemap;
     public firstTimestamp: number;
-    public giveLifeGroup: Phaser.GameObjects.Sprite[];
-    public powerups: PowerUp[];
+    public heartGroup: Phaser.GameObjects.Sprite[];
+    public powerUpGroup: PowerUp[];
     public enemyGroup: (Enemy | Dragon | HellBeast | Demon)[];
-    public pathGroup: Phaser.GameObjects.PathFollower[];
     public platformGroup: Platform[];
     public projectileGroup: Projectile[] = [];
     public bodiesGroup: BodyExtended[] = [];
     public npcGroup: TNpc[];
     public platformSpikeGroup: PlatformSpike[];
-    public breathGroup: any[];
-    public skullGroup: any[];
     public musicGroup: Phaser.Sound.BaseSound[];
     public hauntedForest: Phaser.Sound.BaseSound;
     public angelCalling: Phaser.Sound.BaseSound;
     public townTheme: Phaser.Sound.BaseSound;
     public townAttackTheme: Phaser.Sound.BaseSound;
     public graveyardTheme: Phaser.Sound.BaseSound;
-    public dragonFight: Phaser.Sound.BaseSound;
+    public bossBattleMusic: Phaser.Sound.BaseSound;
     public castleTheme: Phaser.Sound.BaseSound;
     public churchTheme: Phaser.Sound.BaseSound;
     public hellBeastFight: Phaser.Sound.BaseSound;
@@ -79,14 +76,9 @@ export default class GameScene extends Scene
     public revengeTheme: Phaser.Sound.BaseSound;
     public EndingTheme: Phaser.Sound.BaseSound;
     public thunderGateSfx: Phaser.Sound.BaseSound;
-    public thunderPower: any;
     public fireballs: any;
-    public breathBlue: any;
-    public breathFire: any;
     public skullHeads: any;
     public explodeSprite: Phaser.GameObjects.Group;
-    public weaponParticles: Phaser.GameObjects.Particles.ParticleEmitterManager;
-    public weaponParticleEmitter: Phaser.GameObjects.Particles.ParticleEmitter;
     public playerIsPassingDoor: boolean;
     public onSismic: boolean;
     public isTheEnd: boolean;
@@ -96,13 +88,9 @@ export default class GameScene extends Scene
     public modalText: Phaser.GameObjects.BitmapText;
     public lifeText: Phaser.GameObjects.BitmapText;
     public lastPosition: number;
-    public head: any;
-    public position: any;
-    public continueBtn: any;
-    public tween: Phaser.Tweens.Tween;
-    public giveLife: Phaser.GameObjects.Sprite;
+    public heart: Phaser.GameObjects.Sprite;
     public bossMusic: Phaser.Sound.BaseSound;
-    public playerPosition: string;
+    public playerRoomName: string;
     public demon: Demon;
     public escapeTimer: Phaser.Time.TimerEvent | null;
     public isChangingRoom: boolean;
@@ -118,8 +106,8 @@ export default class GameScene extends Scene
     public projectiles: Phaser.Physics.Arcade.Group;
     public isPause: boolean = false;
     private pauseText: Phaser.GameObjects.BitmapText;
-    public torchs: Phaser.GameObjects.Group;
-    public candles: Phaser.GameObjects.Group;
+    public lightTorchesGroup: Phaser.GameObjects.Group;
+    public lightCandlesGroup: Phaser.GameObjects.Group;
     public bodyExtended: Phaser.Physics.Arcade.Group;
     public dragonHeadBalls: Phaser.Physics.Arcade.Group;
     public smoke: Phaser.GameObjects.Group;
@@ -161,20 +149,17 @@ export default class GameScene extends Scene
             .setScrollFactor(0)
             .setVisible(false);
 
-        // ====================================================================
+
         // Groups that need to be destroyed on changing room
-        this.giveLifeGroup = [];
-        this.powerups = [];
+        this.heartGroup = [];
+        this.powerUpGroup = [];
         this.enemyGroup = [];
-        this.pathGroup = [];
         this.platformGroup = [];
         this.projectileGroup = [];
         this.npcGroup = [];
         this.platformSpikeGroup = [];
-        this.breathGroup = [];
-        this.skullGroup = [];
 
-        // ====================================================================
+
         // AMBIENT MUSIC
         this.musicGroup = [];
         this.hauntedForest = this.sound.add('hauntedForest', { volume: 1, loop: true });
@@ -182,7 +167,7 @@ export default class GameScene extends Scene
         this.townTheme = this.sound.add('townTheme', { volume: 1, loop: true });
         this.townAttackTheme = this.sound.add('townAttackTheme', { volume: 1, loop: true });
         this.graveyardTheme = this.sound.add('graveyardTheme', { volume: 1, loop: true });
-        this.dragonFight = this.sound.add('dragonFight', { volume: 1, loop: true });
+        this.bossBattleMusic = this.sound.add('dragonFight', { volume: 1, loop: true });
         this.castleTheme = this.sound.add('castleTheme', { volume: 1, loop: true });
         this.churchTheme = this.sound.add('churchTheme', { volume: 1, loop: true });
         this.hellBeastFight = this.sound.add('hellBeastFight', { volume: 1, loop: true });
@@ -201,7 +186,7 @@ export default class GameScene extends Scene
             this.townTheme,
             this.townAttackTheme,
             this.graveyardTheme,
-            this.dragonFight,
+            this.bossBattleMusic,
             this.castleTheme,
             this.churchTheme,
             this.hellBeastFight,
@@ -211,7 +196,7 @@ export default class GameScene extends Scene
             this.escapeTheme,
         );
 
-        // ====================================================================
+
         // PLAYER SECTION
         this.player = new Player(this, 80, 170, { key: 'playerAtlas' }); // 458, 122 4 * 16, 6 * 16
 
@@ -225,26 +210,14 @@ export default class GameScene extends Scene
         this.loadGame();
 
         this.explodeSprite = this.add.group({
-            defaultKey: 'enemies',
+            defaultKey: 'atlas',
+            defaultFrame: 'enemy-death-1',
             // frames: ['enemy-death-1', 'enemy-death-2', 'enemy-death-3', 'enemy-death-4', 'enemy-death-5'],
             maxSize: 50,
             // allowGravity: false
         });
 
-        // particles for map tiles exploded
-        this.weaponParticles = this.add.particles('blackPixel');
-        this.weaponParticleEmitter = this.weaponParticles.createEmitter({
-            angle: { min: -30, max: -150 },
-            speed: { min: 200, max: 400 },
-            // frame: arr,
-            quantity: 16,
-            lifespan: 3000,
-            alpha: 1,
-            scale: 0.5,
-            // rotate: { start: 0, end: 3, ease: 'Linear' },
-            gravityY: 500,
-            on: false,
-        });
+        
 
 
         // LAVA RISE
@@ -253,7 +226,7 @@ export default class GameScene extends Scene
         this.isTheEnd = false;
 
 
-        // ====================================================================
+
         // CAMERA
         // set bounds so the camera won't go outside the game world
         this.cameras.main.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
@@ -268,7 +241,6 @@ export default class GameScene extends Scene
         GenerateWorldRoom.generate(this);
     }
 
-    // ====================================================================
     public update (time: number, delta: number)
     {
         if (this.modalText)
@@ -285,20 +257,14 @@ export default class GameScene extends Scene
 
     private createGroups (): void
     {
-        this.torchs = this.add.group({
+        this.lightTorchesGroup = this.add.group({
             classType: Phaser.GameObjects.PointLight,
             maxSize: 20,
         });
 
-        this.candles = this.add.group({
+        this.lightCandlesGroup = this.add.group({
             classType: Phaser.GameObjects.PointLight,
             maxSize: 20,
-        });
-
-        this.thunderPower = this.physics.add.group({
-            defaultKey: 'thunder-storm',
-            maxSize: 1,
-            allowGravity: false
         });
 
         this.smoke = this.add.group({
@@ -330,21 +296,10 @@ export default class GameScene extends Scene
             maxSize: 30,
             allowGravity: false,
         });
-        // breathBlue
-        this.breathBlue = this.physics.add.group({
-            defaultKey: 'finalBoss',
-            maxSize: 1,
-            allowGravity: false
-        });
-        // breath-fire
-        this.breathFire = this.physics.add.group({
-            defaultKey: 'finalBoss',
-            maxSize: 1,
-            allowGravity: false
-        });
+
         this.skullHeads = this.physics.add.group({
             defaultKey: 'finalBoss',
-            frame: ['fire-skull1', 'fire-skull2', 'fire-skull3', 'fire-skull4', 'fire-skull5', 'fire-skull6', 'fire-skull7'],
+            frame: ['fire-skull_1', 'fire-skull_2', 'fire-skull_3', 'fire-skull_4', 'fire-skull_5', 'fire-skull_6', 'fire-skull_7'],
             maxSize: 8,
             allowGravity: false
         });
@@ -433,8 +388,6 @@ export default class GameScene extends Scene
         this.sound.resumeAll();
     }
 
-    // ====================================================================
-
     public playMusic (music)
     {
         // tslint:disable-next-line: prefer-for-of
@@ -481,7 +434,6 @@ export default class GameScene extends Scene
         }
     }
 
-    // ====================================================================
     public getPowerUp (elm: PowerUp)
     {
         this.state.displayPowerUpMsg = true;
@@ -531,8 +483,6 @@ export default class GameScene extends Scene
 
 
         this.setPause();
-
-        const pos = this.getCamCenter();
 
         // @ts-ignore
         const ui = this.add.rexNinePatch(WIDTH / 2, HEIGHT / 2, WIDTH / 2, HEIGHT / 2, 'framing', [7, undefined, 7], [7, undefined, 7], 0)
@@ -594,145 +544,82 @@ ${elm.properties.desc}`;
         });
     }
 
-    // ====================================================================
     // GAME PAUSE
-    public pauseGamePowerUp ()
-    {
-        if (this.isPausing)
-        {
-            return;
-        }
-        if (!this.isPausing && !this.player.isPause)
-        {
-            this.isPausing = true;
-            this.player.isPause = true;
-            this.physics.pause();
-            this.player.anims.play('adventurer-idle');
+    // public pauseGamePowerUp ()
+    // {
+    //     if (this.isPausing)
+    //     {
+    //         return;
+    //     }
+    //     if (!this.isPausing && !this.player.isPause)
+    //     {
+    //         this.isPausing = true;
+    //         this.player.isPause = true;
+    //         this.physics.pause();
+    //         this.player.anims.play('adventurer-idle');
 
-            this.time.addEvent({
-                delay: 3000,
-                callback: () =>
-                {
-                    this.isPausing = false;
-                    this.player.isPause = false;
-                    this.scene.scene.physics.resume();
-                    this.player.anims.resume(this.player.anims.currentFrame);
-                }
-            });
+    //         this.time.addEvent({
+    //             delay: 3000,
+    //             callback: () =>
+    //             {
+    //                 this.isPausing = false;
+    //                 this.player.isPause = false;
+    //                 this.scene.scene.physics.resume();
+    //                 this.player.anims.resume(this.player.anims.currentFrame);
+    //             }
+    //         });
 
-            return;
-        }
-    }
+    //         return;
+    //     }
+    // }
 
-    public pauseGame ()
-    {
-        if (this.isPausing)
-        {
-            return;
-        }
+    // public pauseGame ()
+    // {
+    //     if (this.isPausing)
+    //     {
+    //         return;
+    //     }
 
-        if (!this.isPausing && !this.player.isPause)
-        {
-            this.isPausing = true;
+    //     if (!this.isPausing && !this.player.isPause)
+    //     {
+    //         this.isPausing = true;
 
-            SaveLoadService.setSavedGameTime(this);
-            this.player.anims.play('stand');
-            this.player.isPause = true;
-            this.physics.pause();
-            const pos = this.getCamCenter();
+    //         SaveLoadService.setSavedGameTime(this);
+    //         this.player.anims.play('stand');
+    //         this.player.isPause = true;
+    //         this.physics.pause();
+    //         const pos = this.getCamCenter();
 
-            this.lifeText = this.add.bitmapText(pos.x, pos.y, FONTS.MINIMAL, 'PAUSE', 14, 1)
-                .setDepth(300)
-                .setOrigin(0.5, 0.5)
-                .setAlpha(1);
+    //         this.lifeText = this.add.bitmapText(pos.x, pos.y, FONTS.MINIMAL, 'PAUSE', 14, 1)
+    //             .setDepth(300)
+    //             .setOrigin(0.5, 0.5)
+    //             .setAlpha(1);
 
-            this.time.addEvent({
-                delay: 120,
-                callback: () =>
-                {
-                    this.isPausing = false;
-                },
-            });
+    //         this.time.addEvent({
+    //             delay: 120,
+    //             callback: () =>
+    //             {
+    //                 this.isPausing = false;
+    //             },
+    //         });
 
-            return;
-        }
-        this.isPausing = true;
-        this.events.emit('unpause');
-        this.lifeText.destroy();
-        this.player.isPause = false;
-        this.scene.scene.physics.resume();
-        this.player.anims.resume(this.player.anims.currentFrame);
-        this.time.addEvent({
-            delay: 200,
-            callback: () =>
-            {
-                this.isPausing = false;
-            },
-        });
-    }
+    //         return;
+    //     }
+    //     this.isPausing = true;
+    //     this.events.emit('unpause');
+    //     this.lifeText.destroy();
+    //     this.player.isPause = false;
+    //     this.scene.scene.physics.resume();
+    //     this.player.anims.resume(this.player.anims.currentFrame);
+    //     this.time.addEvent({
+    //         delay: 200,
+    //         callback: () =>
+    //         {
+    //             this.isPausing = false;
+    //         },
+    //     });
+    // }
 
-    public choose ()
-    {
-        this.player.chooseDone = true;
-        if (this.player.isPause)
-        {
-            if (this.lastPosition === 1)
-            {
-                this.lastPosition = 0;
-            }
-            else
-            {
-                this.lastPosition += 1;
-            }
-
-            this.head.y = this.position[this.lastPosition];
-
-            this.time.addEvent({
-                delay: 300,
-                callback: () =>
-                {
-                    this.player.chooseDone = false;
-                },
-            });
-        }
-    }
-
-    public launch ()
-    {
-        this.player.chooseDone = true;
-        if (this.player.isPause)
-        {
-            if (this.lastPosition === 0)
-            {
-                this.events.emit('unpause');
-                this.player.isPause = false;
-                this.scene.scene.physics.resume();
-                this.player.anims.resume(this.player.anims.currentFrame);
-                this.continueBtn.destroy();
-                this.firstTimestamp = new Date().getTime();
-                this.time.addEvent({
-                    delay: 300,
-                    callback: () =>
-                    {
-                        this.player.chooseDone = false;
-                    },
-                });
-            }
-            if (this.lastPosition === 1)
-            {
-                // this.saveGame(this.player);
-                this.time.addEvent({
-                    delay: 300,
-                    callback: () =>
-                    {
-                        this.player.chooseDone = false;
-                    },
-                });
-            }
-        }
-    }
-
-    // ====================================================================
     public playerIsHit (elm: Enemy | Projectile)
     {
         if (elm.enemyState.damage === 0)
@@ -742,9 +629,6 @@ ${elm.properties.desc}`;
 
         this.player.looseLife(elm);
     }
-
-    // ====================================================================
-
 
     public playerIsDead ()
     {
@@ -761,8 +645,6 @@ ${elm.properties.desc}`;
         this.scene.start(SCENES_NAMES.GAMEOVER);
     }
 
-
-    // ====================================================================
     public enemyIsHit (_enemy, _weapon)
     {
         const enemy = _enemy as Enemy;
@@ -824,9 +706,6 @@ ${elm.properties.desc}`;
         }
     }
 
-
-
-    // ====================================================================
     // LOAD ROOM
     public loadGame ()
     {
@@ -978,9 +857,9 @@ ${elm.properties.desc}`;
 
         this.map.destroy();
 
-        this.giveLifeGroup.forEach(e => e.destroy());
+        this.heartGroup.forEach(e => e.destroy());
 
-        this.powerups.forEach(e => e.destroy());
+        this.powerUpGroup.forEach(e => e.destroy());
 
         this.enemyGroup.forEach(e => e.destroy());
 
@@ -1002,7 +881,7 @@ ${elm.properties.desc}`;
             this.map.addTilesetImage(this.map.tilesets[i].name, this.map.tilesets[i].name, 16, 16);
         });
 
-        this.playerPosition = room;
+        this.playerRoomName = room;
 
         const properties = this.convertTiledObjectProperties(this.map.properties);
 
@@ -1063,7 +942,7 @@ ${elm.properties.desc}`;
             this.map.addTilesetImage(this.map.tilesets[i].name, this.map.tilesets[i].name, 16, 16);
         });
 
-        this.playerPosition = doorP.name;
+        this.playerRoomName = doorP.name;
 
         const properties = this.convertTiledObjectProperties(this.map.properties);
 
@@ -1130,13 +1009,10 @@ ${elm.properties.desc}`;
 
         this.map.destroy();
 
-        this.giveLifeGroup.forEach(e => e.destroy());
+        this.heartGroup.forEach(e => e.destroy());
 
-        this.powerups.forEach(e => e.destroy());
-        this.powerups = [];
-
-        this.pathGroup.forEach(e => e.destroy());
-        this.pathGroup = [];
+        this.powerUpGroup.forEach(e => e.destroy());
+        this.powerUpGroup = [];
 
         this.platformGroup.forEach(e => e.destroy());
         this.platformGroup = [];
@@ -1167,7 +1043,6 @@ ${elm.properties.desc}`;
         if (this.escapeTimer) this.escapeTimer = null;
     }
 
-    // ====================================================================
     // ADD ROOM STUFF
     public addPlayerSfx ()
     {
@@ -1230,11 +1105,6 @@ ${elm.properties.desc}`;
         });
     }
 
-
-
-
-
-
     public addPowerUp ()
     {
         const layerArray = this.checkObjectsLayerIndex('powerup');
@@ -1261,7 +1131,7 @@ ${elm.properties.desc}`;
                         category: 'sword'
                     });
 
-                    this.powerups.push(sword);
+                    this.powerUpGroup.push(sword);
 
                     return;
                 }
@@ -1277,7 +1147,7 @@ ${elm.properties.desc}`;
                         category: 'bow'
                     });
 
-                    this.powerups.push(bow);
+                    this.powerUpGroup.push(bow);
 
                     return;
                 }
@@ -1293,7 +1163,7 @@ ${elm.properties.desc}`;
                         category: 'shield'
                     });
 
-                    this.powerups.push(shield);
+                    this.powerUpGroup.push(shield);
                 }
 
                 if (element.properties.id === 23)
@@ -1311,7 +1181,7 @@ ${elm.properties.desc}`;
                         category: 'equipment'
                     });
 
-                    this.powerups.push(jumpBoots);
+                    this.powerUpGroup.push(jumpBoots);
                 }
             }
         });
@@ -1687,11 +1557,6 @@ ${elm.properties.desc}`;
         });
     }
 
-
-
-
-
-    // ====================================================================
     // HANDLE ROOM ELEMENTS
     public openDoor (door)
     {
@@ -1700,145 +1565,32 @@ ${elm.properties.desc}`;
 
     public callHellBeast ()
     {
-        // if (this.player.inventory.boss2)
-        // {
-        //     return;
-        // }
+        const deadBosses = SaveLoadService.getDeadBoss(this);
+
+        if (deadBosses.includes(1))
+        {
+            return;
+        }
 
         this.hellBeast = new HellBeast(this, -100, -100, { key: 'hell-beast-idle', name: 'hellBeast' });
         this.enemyGroup.push(this.hellBeast);
         this.stopMusic();
-        // this.playMusic('hellBeastFight');
+        this.bossBattleMusic.play();
     }
 
     public callDemon ()
     {
-        // if (this.player.inventory.bossFinal)
-        // {
-        //     return;
-        // }
+        const deadBosses = SaveLoadService.getDeadBoss(this);
+
+        if (deadBosses.includes(3))
+        {
+            return;
+        }
         this.stopMusic();
         this.demon = new Demon(this, 24 * 16, 24 * 16, { key: 'finalBoss', name: 'demon' });
-        // this.enemyGroup.push(this.demon);
-        // this.physics.add.overlap(this.player, this.demon, elm => this.playerIsHit(elm), undefined, this);
-        // this.physics.add.overlap(this.skullGroup, this.player, elm => this.playerIsHit(elm), undefined, this);
-        // this.physics.add.overlap(this.breathGroup, this.player, elm => this.playerIsHit(elm), undefined, this);
-        // this.physics.add.overlap(this.player.swords, this.skullGroup, (elm, bull) =>
-        // {
-        //     // @ts-ignore
-        //     this.enemyExplode(bull.x, bull.y);
-        //     this.sound.play('demonSkullHitSfx');
-        //     bull.destroy();
-        // }, undefined, this.player);
-
-        this.physics.add.overlap(this.thunderPower, this.player, (player, thunder) =>
-        {
-            // if (this.thunderOnPlayer)
-            // {
-            //     return;
-            // }
-
-            // this.thunderOnPlayer = true;
-
-            thunder.body = thunder.body as Phaser.Physics.Arcade.Body;
-            thunder.body.setVelocity(0, 0);
-
-            this.time.addEvent({
-                delay: 100,
-                repeat: this.player.inventoryManager.getInventory().life - 1,
-                callback: () =>
-                {
-                    if (this.player.inventoryManager.getInventory().life > 1)
-                    {
-                        this.player.inventoryManager.getInventory().life -= 1;
-                        this.player.hitSfx.play();
-                        this.events.emit('setHealth', { life: Math.round(this.player.inventoryManager.getInventory().life) });
-                    }
-                    else
-                    {
-                        this.thunderGateSfx.stop();
-                        this.demon.demonThunder.destroy();
-                        this.demon.startPhase2();
-                    }
-                }
-            });
-        }, undefined, this);
+        this.enemyGroup.push(this.demon);
     }
 
-    public noSaveIfEscape ()
-    {
-        // if (!this.player.inventory.escape)
-        // {
-        //     return;
-        // }
-        // disable checkpoints during escape
-        // this.saveStationGroup.forEach(checkpoint => checkpoint.destroy());
-    }
-
-    public escape ()
-    {
-        // if (!this.player.inventory.escape)
-        // {
-        //     return;
-        // }
-        // const arr: number[] = [];
-        // for (let i = 0; i < 16; i += 1)
-        // {
-        //     arr.push(i);
-        // }
-
-        // if (this.convertTiledObjectProperties(this.map.properties)?.walkSfx === 'churchWalkSfx')
-        // {
-        //     this.escapeParticles = this.add.particles('churchParticles').setDepth(200);
-        // }
-        // else
-        // {
-        //     this.escapeParticles = this.add.particles('castleParticles').setDepth(200);
-        // }
-        // this.escapeParticleEmitter = this.escapeParticles.createEmitter({
-        //     angle: { min: -30, max: -150 },
-        //     speed: { min: 100, max: 200 },
-        //     frame: arr,
-        //     quantity: 16,
-        //     lifespan: 3000,
-        //     alpha: 1,
-        //     scale: { min: 0.2, max: 3 },
-        //     rotate: {
-        //         onEmit: (e) =>
-        //         {
-        //             return Phaser.Math.Between(0, 90);
-        //         }
-        //     },
-        //     gravityY: 500,
-        //     on: false,
-        // });
-
-        // shake camera
-        // this.events.emit('count');
-        // const rdm = Phaser.Math.Between(2000, 5000);
-        // this.escapeTimer = this.time.addEvent({
-        //     delay: rdm,
-        //     repeat: -1,
-        //     callback: () =>
-        //     {
-        //         if (!this.player.inventory.escape)
-        //         {
-        //             this.escapeTimer = null;
-
-        //             return;
-        //         }
-        //         this.shakeCameraEscape(1000);
-        //         const pos = this.getCamCenter();
-        //         const random = Phaser.Math.Between(-400, 600);
-        //         this.escapeParticleEmitter.explode(10, pos.x + random, pos.y - 150);
-        //     }
-        // });
-
-        // this.stopMusic();
-        // this.playMusic('escapeTheme');
-    }
-
-    // ====================================================================
     // CAMERA EFFECTS
     public shakeCamera (duration: number | undefined, intensity: number = 0.025)
     {
@@ -1858,7 +1610,7 @@ ${elm.properties.desc}`;
         }
     }
 
-    public shakeCameraEscape (e)
+    public shakeCameraEscape (e: number | undefined)
     {
         if (!this.cameraIsShaking)
         {
@@ -1878,76 +1630,6 @@ ${elm.properties.desc}`;
     public flashCamera ()
     {
         this.cameras.main.flash(1000);
-    }
-
-    public getCamCenter ()
-    {
-        return { x: this.cameras.main.scrollX + WIDTH / 2, y: this.cameras.main.scrollY + HEIGHT / 2 };
-    }
-
-    public getCamOrigin ()
-    {
-        return { x: this.cameras.main.scrollX, y: this.cameras.main.scrollY };
-    }
-
-    // ====================================================================
-    // The end
-
-    public callBackEndMission ()
-    {
-        // if (!this.player.inventory.escape)
-        // {
-        //     return;
-        // }
-        // this.colliderLayer.setTileLocationCallback(0, 10, 20, 4, (e, t) =>
-        // {
-        //     if (e instanceof Player)
-        //     {
-        //         this.endMission();
-        //     }
-        // }, this);
-
-
-    }
-
-    public endMission ()
-    {
-        if (this.isTheEnd)
-        {
-            return;
-        }
-        this.events.emit('countStop');
-        this.isTheEnd = true;
-        this.battleWithBoss = true;
-        // this.player.inventory.escape = false;
-        this.showMsg = this.add.bitmapText(WIDTH / 2, HEIGHT / 2, 'alagard', `
-    Congratulations Acharis!!
-    You got your revenge!!!`, 14, 1)
-            .setOrigin(0.5, 0.5).setAlpha(0).setDepth(200);
-        SaveLoadService.setSavedGameTime(this);
-        this.tween = this.tweens.add({
-            targets: this.showMsg,
-            ease: 'Sine.easeInOut',
-            duration: 2000,
-            delay: 2000,
-            repeat: 0,
-            yoyo: false,
-            alpha: {
-                getStart: () => 0,
-                getEnd: () => 1,
-            },
-            onComplete: () =>
-            {
-                this.time.addEvent({
-                    delay: 3000,
-                    callback: () =>
-                    {
-                        this.stopMusic();
-                        this.scene.start(SCENES_NAMES.ENDGAME);
-                    }
-                });
-            },
-        });
     }
 
     private resetAnimatedTiles ()

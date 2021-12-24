@@ -70,13 +70,13 @@ export default class LayerService
         scene.colliderLayer = scene.map.createLayer('collider', 'colliderTileset', 0, 0)
             .setAlpha(0);
         
-        scene.torchs.children.getArray().forEach(e =>
+        scene.lightTorchesGroup.children.getArray().forEach(e =>
         {
             const torch = e as Phaser.GameObjects.PointLight;
             torch.setActive(false).setVisible(false);
         });
 
-        scene.candles.children.getArray().forEach(e =>
+        scene.lightCandlesGroup.children.getArray().forEach(e =>
         {
             const candle = e as Phaser.GameObjects.PointLight;
             candle.setActive(false).setVisible(false);
@@ -87,7 +87,7 @@ export default class LayerService
 
         torchArray?.objects.forEach((element) =>
         {
-            const torch = scene.torchs.get(element.x as number, element.y as number) as Phaser.GameObjects.PointLight;
+            const torch = scene.lightTorchesGroup.get(element.x as number, element.y as number) as Phaser.GameObjects.PointLight;
             torch.attenuation = 0.125;
             torch.radius = 64;
             torch.intensity = 0.05;
@@ -109,7 +109,7 @@ export default class LayerService
 
         candleArray?.objects.forEach((element) =>
         {
-            const candle = scene.candles.get(element.x as number, element.y as number) as Phaser.GameObjects.PointLight;
+            const candle = scene.lightCandlesGroup.get(element.x as number, element.y as number) as Phaser.GameObjects.PointLight;
             candle.attenuation = 0.125;
             candle.radius = 24;
             candle.intensity = 0.05;

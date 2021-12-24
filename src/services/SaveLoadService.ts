@@ -53,7 +53,7 @@ export default class SaveLoadService
     {
         scene.player.inventoryManager.getInventory().savedPositionX = scene.player.x;
         scene.player.inventoryManager.getInventory().savedPositionY = scene.player.y;
-        scene.player.inventoryManager.getInventory().map = scene.playerPosition;
+        scene.player.inventoryManager.getInventory().map = scene.playerRoomName;
 
         const s = JSON.stringify(scene.player.inventoryManager.getInventory());
 
