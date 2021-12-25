@@ -823,20 +823,20 @@ export default class LoadingScreen extends Scene
             repeat: 0,
         });
 
-        this.anims.create({
-            key: 'adventurer-bow-jump',
-            frames: [
-                { key: 'atlas', frame: 'adventurer-bow-jump-00' },
-                { key: 'atlas', frame: 'adventurer-bow-jump-01' },
-                { key: 'atlas', frame: 'adventurer-bow-jump-02' },
-                { key: 'atlas', frame: 'adventurer-bow-jump-03' },
-                { key: 'atlas', frame: 'adventurer-bow-jump-04' },
-                { key: 'atlas', frame: 'adventurer-bow-jump-05' },
-                { key: 'atlas', frame: 'adventurer-bow-jump-06' }
-            ],
-            frameRate: 7,
-            repeat: 0,
-        });
+        // this.anims.create({
+        //     key: 'adventurer-bow-jump',
+        //     frames: [
+        //         { key: 'atlas', frame: 'adventurer-bow-jump-00' },
+        //         { key: 'atlas', frame: 'adventurer-bow-jump-01' },
+        //         { key: 'atlas', frame: 'adventurer-bow-jump-02' },
+        //         { key: 'atlas', frame: 'adventurer-bow-jump-03' },
+        //         { key: 'atlas', frame: 'adventurer-bow-jump-04' },
+        //         { key: 'atlas', frame: 'adventurer-bow-jump-05' },
+        //         { key: 'atlas', frame: 'adventurer-bow-jump-06' }
+        //     ],
+        //     frameRate: 7,
+        //     repeat: 0,
+        // });
 
         // this.anims.create({
         //     key: 'adventurer-air-attack3',
@@ -864,16 +864,16 @@ export default class LoadingScreen extends Scene
             repeat: -1,
         });
 
-        this.anims.create({
-            key: 'adventurer-special-air-attack-end',
-            frames: [
-                { key: 'atlas', frame: 'adventurer-air-attack3-end-00' },
-                { key: 'atlas', frame: 'adventurer-air-attack3-end-01' },
-                { key: 'atlas', frame: 'adventurer-air-attack3-end-02' },
-            ],
-            frameRate: 9,
-            repeat: 0,
-        });
+        // this.anims.create({
+        //     key: 'adventurer-special-air-attack-end',
+        //     frames: [
+        //         { key: 'atlas', frame: 'adventurer-air-attack3-end-00' },
+        //         { key: 'atlas', frame: 'adventurer-air-attack3-end-01' },
+        //         { key: 'atlas', frame: 'adventurer-air-attack3-end-02' },
+        //     ],
+        //     frameRate: 9,
+        //     repeat: 0,
+        // });
 
         // this.anims.create({
         //     key: 'adventurer-air-attack3',
@@ -1118,12 +1118,12 @@ export default class LoadingScreen extends Scene
         //#endregion
 
         //#region impacts
-        this.anims.create({
-            key: 'impact',
-            frames: this.anims.generateFrameNumbers('impact', { start: 0, end: 5, first: 0 }),
-            frameRate: 20,
-            repeat: 0,
-        });
+        // this.anims.create({
+        //     key: 'impact',
+        //     frames: this.anims.generateFrameNumbers('impact', { start: 0, end: 5, first: 0 }),
+        //     frameRate: 20,
+        //     repeat: 0,
+        // });
 
         this.anims.create({
             key: 'heart',
@@ -1148,13 +1148,7 @@ export default class LoadingScreen extends Scene
             yoyo: false,
             repeat: 0,
         });
-        this.anims.create({
-            key: 'bossExplode',
-            frames: this.anims.generateFrameNumbers('enemyExplode', { start: 0, end: 5, first: 0 }),
-            frameRate: 15,
-            yoyo: false,
-            repeat: 10,
-        });
+
         //#endregion
 
         //#region flames
@@ -1488,14 +1482,14 @@ export default class LoadingScreen extends Scene
         this.anims.create({
             key: 'angel-idle',
             frames: [
-                { key: 'atlas', frame: 'angel1' },
-                { key: 'atlas', frame: 'angel2' },
-                { key: 'atlas', frame: 'angel3' },
-                { key: 'atlas', frame: 'angel4' },
-                { key: 'atlas', frame: 'angel5' },
-                { key: 'atlas', frame: 'angel6' },
-                { key: 'atlas', frame: 'angel7' },
-                { key: 'atlas', frame: 'angel8' },
+                { key: 'atlas', frame: 'angel_0' },
+                { key: 'atlas', frame: 'angel_1' },
+                { key: 'atlas', frame: 'angel_2' },
+                { key: 'atlas', frame: 'angel_3' },
+                { key: 'atlas', frame: 'angel_4' },
+                { key: 'atlas', frame: 'angel_5' },
+                { key: 'atlas', frame: 'angel_6' },
+                { key: 'atlas', frame: 'angel_7' }
             ],
             frameRate: 8,
             yoyo: false,
@@ -2657,14 +2651,12 @@ export default class LoadingScreen extends Scene
         this.anims.create({
             key: 'dark-knight-walk',
             frames: [
-                { key: 'atlas', frame: 'dark-knight-walk_0' },
                 { key: 'atlas', frame: 'dark-knight-walk_1' },
                 { key: 'atlas', frame: 'dark-knight-walk_2' },
                 { key: 'atlas', frame: 'dark-knight-walk_3' },
                 { key: 'atlas', frame: 'dark-knight-walk_4' },
                 { key: 'atlas', frame: 'dark-knight-walk_5' },
-                { key: 'atlas', frame: 'dark-knight-walk_6' },
-                { key: 'atlas', frame: 'dark-knight-walk_7' },
+                { key: 'atlas', frame: 'dark-knight-walk_6' }
             ],
             frameRate: 8,
             repeat: 0,
@@ -2693,10 +2685,9 @@ export default class LoadingScreen extends Scene
         this.anims.create({
             key: 'dark-knight-idle',
             frames: [
-                { key: 'atlas', frame: 'dark-knight-idle_0' },
-                { key: 'atlas', frame: 'dark-knight-idle_1' },
-                { key: 'atlas', frame: 'dark-knight-idle_2' },
-                { key: 'atlas', frame: 'dark-knight-idle_3' },
+                { key: 'atlas', frame: 'dark-knight-ready_1' },
+                { key: 'atlas', frame: 'dark-knight-ready_2' },
+                { key: 'atlas', frame: 'dark-knight-ready_3' }
             ],
             frameRate: 4,
             repeat: 0,
@@ -3475,23 +3466,6 @@ export default class LoadingScreen extends Scene
                 { key: 'atlas', frame: 'viking-attack_8' },
             ],
             frameRate: 16,
-            repeat: 0,
-        });
-
-        this.anims.create({
-            key: 'viking-shield',
-            frames: [
-                // { key: 'atlas', frame: 'viking-shield_0' },
-                // { key: 'atlas', frame: 'viking-shield_1' },
-                // { key: 'atlas', frame: 'viking-shield_2' },
-                // { key: 'atlas', frame: 'viking-shield_3' },
-                // { key: 'atlas', frame: 'viking-shield_4' },
-                { key: 'atlas', frame: 'viking-shield_5' },
-                { key: 'atlas', frame: 'viking-shield_6' },
-                { key: 'atlas', frame: 'viking-shield_7' },
-                { key: 'atlas', frame: 'viking-shield_8' },
-            ],
-            frameRate: 32,
             repeat: 0,
         });
         //#endregion
