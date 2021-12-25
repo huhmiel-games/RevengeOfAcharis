@@ -66,7 +66,7 @@ export default class OptionsScene extends Scene
             .setOrigin(0.5, 0.5)
             .setTintFill(COLORS.RED);
 
-        this.info = this.add.bitmapText(WIDTH / 2, 38, FONTS.GALAXY, 'available keys: all letters, cursors, space, ctrl, shift', FONTS_SIZES.GALAXY, 1)
+        this.info = this.add.bitmapText(WIDTH / 2, 38, FONTS.GALAXY, 'available keys: a to z, cursors, space, ctrl, shift', FONTS_SIZES.GALAXY, 1)
             .setOrigin(0.5, 0.5)
             .setTintFill(COLORS.RED);
 
@@ -123,8 +123,8 @@ export default class OptionsScene extends Scene
         });
 
         // fading the scene from black
-        this.cameras.main.setBackgroundColor(COLORS.STEEL_GRAY);
-        this.cameras.main.fadeIn(500);
+        this.cameras.main.setBackgroundColor(COLORS.STEEL_GRAY)
+            .fadeIn(500);
     }
 
     private choose (count: number)
@@ -170,28 +170,29 @@ export default class OptionsScene extends Scene
         if (pos === 11)
         {
             this.sound.stopAll();
+
             this.scene.start(SCENES_NAMES.MENU);
 
             return;
         }
         // assign a key
-        const regex = /Key/gm;
-        const regex2 = /Arrow/gm;
-        const regex3 = /ShiftLeft/gm;
-        const regex4 = /ShiftRight/gm;
-        const regex5 = /ControlLeft/gm;
-        const regex6 = /ControlRight/gm;
+        const keyRegex = /Key/gm;
+        const arrowRegex = /Arrow/gm;
+        const shiftLeftRegex = /ShiftLeft/gm;
+        const shiftRightRegex = /ShiftRight/gm;
+        const constrolLeftRegex = /ControlLeft/gm;
+        const controlRightRegex = /ControlRight/gm;
 
         this[`selectedKey${pos}`].text = 'press a key';
 
         this.input.keyboard.once('keydown', (e: { key: string; }) =>
         {
-            let str = e.key.replace(regex, '');
-            str = str.replace(regex2, '');
-            str = str.replace(regex3, 'SHIFT');
-            str = str.replace(regex4, 'SHIFT');
-            str = str.replace(regex5, 'CTRL');
-            str = str.replace(regex6, 'CTRL');
+            let str = e.key.replace(keyRegex, '');
+            str = str.replace(arrowRegex, '');
+            str = str.replace(shiftLeftRegex, 'SHIFT');
+            str = str.replace(shiftRightRegex, 'SHIFT');
+            str = str.replace(constrolLeftRegex, 'CTRL');
+            str = str.replace(controlRightRegex, 'CTRL');
 
             if (str === ' ')
             {
