@@ -43,3 +43,20 @@ const config: Phaser.Types.Core.GameConfig = {
 };
 
 const game = new Phaser.Game(config);
+
+
+window.addEventListener('resize', (evt) =>
+{
+    const canva = document.querySelector('canvas');
+    // @ts-ignore
+    const width = evt.currentTarget?.innerWidth;
+
+    const correctWidth = width - width % 16;
+
+    const correctHeight = Math.round(correctWidth / 1.7777778);
+
+    if (canva && correctHeight % 2 === 0)
+    {
+        game.scale.setParentSize(correctWidth, correctHeight);
+    }
+});
