@@ -101,7 +101,7 @@ export default class SaveLoadService
     {
         if (!localStorage.getItem(`${GAMENAME}_Options`))
         {
-            const defaultConfig = ['LEFT', 'RIGHT', 'UP', 'DOWN', 'ENTER', 'SPACE', 'SHIFT', 'S', 'P'];
+            const defaultConfig = ['A', 'D', 'W', 'S', 'SPACE', 'SHIFT', 'Q', 'E', 'P'];
     
             const defaultConfigJson = JSON.stringify(defaultConfig);
     
