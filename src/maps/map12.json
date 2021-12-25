@@ -160,34 +160,34 @@
                  "gid":4,
                  "height":16,
                  "id":566,
-                 "name":"dark-knight",
+                 "name":"viking",
                  "properties":[
                         {
                          "name":"damage",
                          "type":"int",
-                         "value":15
+                         "value":5
                         }, 
                         {
                          "name":"key",
                          "type":"string",
-                         "value":"dark-knight"
+                         "value":"viking"
                         }, 
                         {
                          "name":"life",
                          "type":"int",
-                         "value":20
+                         "value":15
                         }, 
                         {
                          "name":"name",
                          "type":"string",
-                         "value":"dark-knight"
+                         "value":"viking"
                         }],
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":16,
-                 "x":176,
-                 "y":240
+                 "x":192,
+                 "y":256
                 }, 
                 {
                  "gid":4,

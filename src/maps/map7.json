@@ -144,7 +144,7 @@
                         {
                          "name":"damage",
                          "type":"int",
-                         "value":10
+                         "value":5
                         }, 
                         {
                          "name":"key",
@@ -154,7 +154,7 @@
                         {
                          "name":"life",
                          "type":"int",
-                         "value":50
+                         "value":15
                         }, 
                         {
                          "name":"name",
@@ -166,7 +166,73 @@
                  "visible":true,
                  "width":16,
                  "x":512,
-                 "y":224
+                 "y":256
+                }, 
+                {
+                 "gid":4,
+                 "height":16,
+                 "id":630,
+                 "name":"viking",
+                 "properties":[
+                        {
+                         "name":"damage",
+                         "type":"int",
+                         "value":5
+                        }, 
+                        {
+                         "name":"key",
+                         "type":"string",
+                         "value":"viking"
+                        }, 
+                        {
+                         "name":"life",
+                         "type":"int",
+                         "value":15
+                        }, 
+                        {
+                         "name":"name",
+                         "type":"string",
+                         "value":"viking"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":304,
+                 "y":256
+                }, 
+                {
+                 "gid":4,
+                 "height":16,
+                 "id":629,
+                 "name":"viking",
+                 "properties":[
+                        {
+                         "name":"damage",
+                         "type":"int",
+                         "value":5
+                        }, 
+                        {
+                         "name":"key",
+                         "type":"string",
+                         "value":"viking"
+                        }, 
+                        {
+                         "name":"life",
+                         "type":"int",
+                         "value":15
+                        }, 
+                        {
+                         "name":"name",
+                         "type":"string",
+                         "value":"viking"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":432,
+                 "y":96
                 }, 
                 {
                  "gid":4,
@@ -237,74 +303,8 @@
                 {
                  "gid":4,
                  "height":16,
-                 "id":626,
-                 "name":"skeleton-flail",
-                 "properties":[
-                        {
-                         "name":"damage",
-                         "type":"int",
-                         "value":5
-                        }, 
-                        {
-                         "name":"key",
-                         "type":"string",
-                         "value":"skeleton-flail"
-                        }, 
-                        {
-                         "name":"life",
-                         "type":"int",
-                         "value":20
-                        }, 
-                        {
-                         "name":"name",
-                         "type":"string",
-                         "value":"skeleton-flail"
-                        }],
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":16,
-                 "x":384,
-                 "y":240
-                }, 
-                {
-                 "gid":4,
-                 "height":16,
-                 "id":625,
-                 "name":"skeleton-flail",
-                 "properties":[
-                        {
-                         "name":"damage",
-                         "type":"int",
-                         "value":5
-                        }, 
-                        {
-                         "name":"key",
-                         "type":"string",
-                         "value":"skeleton-flail"
-                        }, 
-                        {
-                         "name":"life",
-                         "type":"int",
-                         "value":20
-                        }, 
-                        {
-                         "name":"name",
-                         "type":"string",
-                         "value":"skeleton-flail"
-                        }],
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":16,
-                 "x":416,
-                 "y":96
-                }, 
-                {
-                 "gid":4,
-                 "height":16,
                  "id":627,
-                 "name":"dark-knight",
+                 "name":"viking",
                  "properties":[
                         {
                          "name":"damage",
@@ -314,24 +314,24 @@
                         {
                          "name":"key",
                          "type":"string",
-                         "value":"dark-knight"
+                         "value":"viking"
                         }, 
                         {
                          "name":"life",
                          "type":"int",
-                         "value":20
+                         "value":15
                         }, 
                         {
                          "name":"name",
                          "type":"string",
-                         "value":"dark-knight"
+                         "value":"viking"
                         }],
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":16,
                  "x":288,
-                 "y":80
+                 "y":96
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -518,7 +518,7 @@
          "y":0
         }],
  "nextlayerid":33,
- "nextobjectid":629,
+ "nextobjectid":631,
  "orientation":"orthogonal",
  "properties":[
         {
