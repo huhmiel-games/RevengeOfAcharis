@@ -43,6 +43,7 @@ import Knight2 from '../enemies/Knight2';
 import EvilWizard from '../enemies/EvilWizard';
 import DragonHead from '../enemies/DragonHead';
 import Saw from '../enemies/Saw';
+import VikingAxe from '../enemies/VikingAxe';
 //#endregion
 
 export default class GameScene extends Scene
@@ -1005,7 +1006,7 @@ ${elm.properties.desc}`;
             }
             catch (error)
             {
-                console.log(error);
+                // console.log(error);
             }
             e.destroy();
         });
@@ -1237,7 +1238,7 @@ ${elm.properties.desc}`;
                 case 'viking':
                     if (!element.y) return;
 
-                    const viking = new Viking(this, element.x as unknown as number, element.y as unknown as number - 16, {
+                    const viking = new VikingAxe(this, element.x as unknown as number, element.y as unknown as number - 16, {
                         key: element.properties.key,
                         name: element.name,
                         life: element.properties.life,
@@ -1259,21 +1260,21 @@ ${elm.properties.desc}`;
 
                     this.enemyGroup.push(samurai);
                     break;
-                
-                    case 'saw':
-                        if (!element.y) return;
-    
-                        const saw = new Saw(this, element.x as unknown as number + 8, element.y - 12 as unknown as number, {
-                            key: 'atlas',
-                            name: 'saw',
-                            life: 0,
-                            damage: 15,
-                            amplitude: element.properties.amplitude,
-                            duration: element.properties.duration ? element.properties.duration : 2000
-                        });
-    
-                        this.enemyGroup.push(saw);
-                        break;
+
+                case 'saw':
+                    if (!element.y) return;
+
+                    const saw = new Saw(this, element.x as unknown as number + 8, element.y - 12 as unknown as number, {
+                        key: 'atlas',
+                        name: 'saw',
+                        life: 0,
+                        damage: 15,
+                        amplitude: element.properties.amplitude,
+                        duration: element.properties.duration ? element.properties.duration : 2000
+                    });
+
+                    this.enemyGroup.push(saw);
+                    break;
 
                 case 'dragon-head':
                     if (!element.y) return;

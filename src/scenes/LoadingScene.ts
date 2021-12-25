@@ -3865,9 +3865,9 @@ export default class LoadingScreen extends Scene
         this.anims.create({
             key: 'viking-axe-attack2',
             frames: [
-                { key: 'atlas', frame: 'viking-axe-attack2_1' },
-                { key: 'atlas', frame: 'viking-axe-attack2_2' },
-                { key: 'atlas', frame: 'viking-axe-attack2_3' },
+                { key: 'atlas', frame: 'viking-axe-attack2_1', duration: 50 },
+                { key: 'atlas', frame: 'viking-axe-attack2_2', duration: 100 },
+                { key: 'atlas', frame: 'viking-axe-attack2_3', duration: 125 },
                 { key: 'atlas', frame: 'viking-axe-attack2_4' },
                 { key: 'atlas', frame: 'viking-axe-attack2_5' },
                 { key: 'atlas', frame: 'viking-axe-attack2_6' },
@@ -3935,7 +3935,7 @@ export default class LoadingScreen extends Scene
                 { key: 'atlas', frame: 'viking-axe-walk_5' },
                 { key: 'atlas', frame: 'viking-axe-walk_6' },
             ],
-            frameRate: 12,
+            frameRate: 6,
             repeat: 0,
         });
         //#endregion

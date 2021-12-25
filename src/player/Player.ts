@@ -93,7 +93,7 @@ export default class Player extends Phaser.GameObjects.Sprite
         {
             const data = SaveLoadService.loadGameData();
 
-            if (data) this.inventoryManager.initInventory(JSON.parse(data));  // = JSON.parse(data);
+            if (data) this.inventoryManager.initInventory(JSON.parse(data));
         }
         catch (error)
         {
@@ -116,6 +116,7 @@ export default class Player extends Phaser.GameObjects.Sprite
         this.swordManager.selectSword(inventory.selectedSword);
 
         this.bowManager.initBows(inventory.bows);
+
         this.shieldManager.initShields(inventory.shields);
 
         if (inventory.selectedBow !== null)
@@ -134,11 +135,17 @@ export default class Player extends Phaser.GameObjects.Sprite
             .setScrollFactor(0, 0).setDepth(2000).setTintFill(COLORS.STEEL_GRAY);
 
         this.setDepth(105);
+
         this.scene.physics.world.enable(this);
+
         this.scene.add.existing(this);
-        this.body.setSize(10, 25, true).setOffset(21, 10).setAllowGravity(true).setCollideWorldBounds(true);
-        this.body.setMaxVelocity(this.playerState.speed, this.playerState.speed * 4);
-        this.body.gravity.y = 600;
+
+        this.body.setSize(10, 25, true)
+            .setOffset(21, 10)
+            .setAllowGravity(true)
+            .setGravityY(600)
+            .setCollideWorldBounds(true)
+            .setMaxVelocity(this.playerState.speed, this.playerState.speed * 4);
 
         this.swords = this.scene.physics.add.group({
             defaultKey: 'whitePixel',
