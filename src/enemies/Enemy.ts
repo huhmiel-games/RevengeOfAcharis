@@ -122,7 +122,7 @@ export default class Enemy extends GameObjects.Sprite
     {
         this.clearTint();
         this.playSfxDeath();
-        this.explode();
+        this.burn();
         // kill the enemy
 
         this.scene.player.addXp(this.xp);
@@ -147,7 +147,7 @@ export default class Enemy extends GameObjects.Sprite
         this.scene.heartGroup.push(this.scene.heart);
     }
 
-    public explode ()
+    public burn ()
     {
         const { x, y } = this.body.center;
 

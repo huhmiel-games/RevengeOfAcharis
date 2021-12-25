@@ -223,7 +223,7 @@ export default class Horse extends Enemy
         this.destroyHitbox();
         this.clearTint();
         this.playSfxDeath();
-        this.explode();
+        this.burn();
         // kill the enemy
 
         this.scene.player.addXp(this.xp);
