@@ -129,7 +129,7 @@ export const BOWS: TBowConfig[] = [
     {
         id: 10, // done
         name: 'wood-bow',
-        desc: 'a simple old wood sword',
+        desc: 'a simple old wood bow',
         damage: 2,
         rate: 300,
         speed: 450,
