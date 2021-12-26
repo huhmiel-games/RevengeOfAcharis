@@ -138,13 +138,21 @@ export default class Enemy extends GameObjects.Sprite
 
     public giveLife (x: number, y: number): void
     {
-        this.scene.heart = this.scene.physics.add.sprite(x, y, 'heart').setDataEnabled();
-        this.scene.heart.setDepth(105);
-        this.scene.heart.data.set('health', this.enemyState.giveLife);
-        this.scene.heart.body = this.scene.heart.body as Phaser.Physics.Arcade.Body;
-        this.scene.heart.body.setSize(23, 21).setAllowGravity(false);
-        this.scene.heart.anims.play('heart');
-        this.scene.heartGroup.push(this.scene.heart);
+        const heart = this.scene.hearts.get(x, y, 'heart', undefined, true);
+
+        if (heart)
+        {
+            heart.setDepth(104)
+                .anims.play('heart')
+                .setActive(true)
+                .setVisible(true)
+                .setDataEnabled()
+                .data.set('health', this.enemyState.giveLife);
+            
+            heart.body.setEnable(true);
+            
+            this.scene.heartGroup.push(heart);
+        }
     }
 
     public burn ()

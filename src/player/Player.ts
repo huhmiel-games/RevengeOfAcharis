@@ -615,13 +615,15 @@ export default class Player extends Phaser.GameObjects.Sprite
 
     public getLife (l: Phaser.Types.Physics.Arcade.GameObjectWithBody)
     {
+        l.body.enable = false;
         const inventory = this.inventoryManager.getInventory();
 
         const life: number = l.data.get('health');
 
         if (!life)
         {
-            l.destroy();
+            // @ts-ignore
+            l.setActive(false).setVisible(false);
 
             return;
         }
@@ -641,7 +643,8 @@ export default class Player extends Phaser.GameObjects.Sprite
 
         this.scene.sound.play('getLife', { volume: 2 });
 
-        l.destroy();
+        // @ts-ignore
+        l.setActive(false).setVisible(false);
     }
 
     public looseLife (elm: Enemy | Projectile)

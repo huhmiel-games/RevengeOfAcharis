@@ -108,6 +108,7 @@ export default class GameScene extends Scene
     public bodyExtended: Phaser.Physics.Arcade.Group;
     public dragonHeadBalls: Phaser.Physics.Arcade.Group;
     public smokeGroup: Phaser.GameObjects.Group;
+    public hearts: Phaser.GameObjects.Group;
     //#endregion
 
     constructor ()
@@ -203,8 +204,7 @@ export default class GameScene extends Scene
         this.explodeSprite = this.add.group({
             defaultKey: 'atlas',
             defaultFrame: 'enemy-death-1',
-            // frames: ['enemy-death-1', 'enemy-death-2', 'enemy-death-3', 'enemy-death-4', 'enemy-death-5'],
-            maxSize: 50,
+            maxSize: 30,
         });
 
         // CAMERA
@@ -238,6 +238,12 @@ export default class GameScene extends Scene
             classType: Phaser.GameObjects.PointLight,
             maxSize: 20,
         });
+
+        this.hearts = this.physics.add.group({
+            defaultKey: 'heart',
+            maxSize: 10,
+            allowGravity: false,
+        }) as Phaser.GameObjects.Group;
 
         this.lightCandlesGroup = this.add.group({
             classType: Phaser.GameObjects.PointLight,
@@ -410,84 +416,6 @@ export default class GameScene extends Scene
             });
         }
     }
-
-    
-
-    // GAME PAUSE
-    // public pauseGamePowerUp ()
-    // {
-    //     if (this.isPausing)
-    //     {
-    //         return;
-    //     }
-    //     if (!this.isPausing && !this.player.isPause)
-    //     {
-    //         this.isPausing = true;
-    //         this.player.isPause = true;
-    //         this.physics.pause();
-    //         this.player.anims.play('adventurer-idle');
-
-    //         this.time.addEvent({
-    //             delay: 3000,
-    //             callback: () =>
-    //             {
-    //                 this.isPausing = false;
-    //                 this.player.isPause = false;
-    //                 this.scene.scene.physics.resume();
-    //                 this.player.anims.resume(this.player.anims.currentFrame);
-    //             }
-    //         });
-
-    //         return;
-    //     }
-    // }
-
-    // public pauseGame ()
-    // {
-    //     if (this.isPausing)
-    //     {
-    //         return;
-    //     }
-
-    //     if (!this.isPausing && !this.player.isPause)
-    //     {
-    //         this.isPausing = true;
-
-    //         SaveLoadService.setSavedGameTime(this);
-    //         this.player.anims.play('stand');
-    //         this.player.isPause = true;
-    //         this.physics.pause();
-    //         const pos = this.getCamCenter();
-
-    //         this.lifeText = this.add.bitmapText(pos.x, pos.y, FONTS.MINIMAL, 'PAUSE', 14, 1)
-    //             .setDepth(300)
-    //             .setOrigin(0.5, 0.5)
-    //             .setAlpha(1);
-
-    //         this.time.addEvent({
-    //             delay: 120,
-    //             callback: () =>
-    //             {
-    //                 this.isPausing = false;
-    //             },
-    //         });
-
-    //         return;
-    //     }
-    //     this.isPausing = true;
-    //     this.events.emit('unpause');
-    //     this.lifeText.destroy();
-    //     this.player.isPause = false;
-    //     this.scene.scene.physics.resume();
-    //     this.player.anims.resume(this.player.anims.currentFrame);
-    //     this.time.addEvent({
-    //         delay: 200,
-    //         callback: () =>
-    //         {
-    //             this.isPausing = false;
-    //         },
-    //     });
-    // }
 
     public playerIsHit (elm: Enemy | Projectile)
     {
