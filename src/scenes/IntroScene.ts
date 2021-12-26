@@ -57,7 +57,7 @@ export default class Intro extends Scene
 
             this.revengeTheme.stop();
 
-            this.scene.start(SCENES_NAMES.MENU);
+            this.scene.start(SCENES_NAMES.GAME);
         });
 
         this.tweens.add({

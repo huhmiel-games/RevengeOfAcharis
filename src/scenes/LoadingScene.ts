@@ -3978,7 +3978,7 @@ export default class LoadingScreen extends Scene
             img.setCrop(0, 0, Math.ceil(v * w), h);
         }).on('complete', (v) =>
         {
-            this.scene.start(SCENES_NAMES.INTRO);
+            this.scene.start(SCENES_NAMES.MENU);
         });
     }
 }

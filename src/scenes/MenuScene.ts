@@ -111,6 +111,13 @@ export default class LoadSavedGame extends Scene
         {
             this.titleTheme.stop();
 
+            if (this.position.length === 2)
+            {
+                this.scene.start(SCENES_NAMES.INTRO);
+
+                return;
+            }
+
             this.scene.start(SCENES_NAMES.GAME);
         }
 
