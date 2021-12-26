@@ -3935,7 +3935,7 @@ export default class LoadingScreen extends Scene
                 { key: 'atlas', frame: 'viking-axe-walk_5' },
                 { key: 'atlas', frame: 'viking-axe-walk_6' },
             ],
-            frameRate: 6,
+            frameRate: 8,
             repeat: 0,
         });
         //#endregion

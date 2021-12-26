@@ -35,7 +35,8 @@ export default class VikingAxe extends Enemy
             .setSize(5, 29)
             .setOffset(58, 12)
             .setVelocityX(-this.speed)
-            .setMaxVelocityX(this.speed);
+            .setMaxVelocityX(this.speed)
+            .reset(x, y);
 
         this.swordSfx = this.scene.sound.add('bullet', { volume: 0.7, rate: 0.8 });
 
@@ -269,6 +270,8 @@ export default class VikingAxe extends Enemy
 
         if (this.enemyState.life <= 0)
         {
+            this.destroyHitbox();
+
             this.kill();
 
             return;
