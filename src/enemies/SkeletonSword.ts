@@ -37,7 +37,6 @@ export default class SkeletonSword extends Enemy
             .setSize(8, 31)
             .setOffset(46, 20)
             .setVelocityX(-this.speed);
-            //.setMaxVelocityX(this.speed);
 
         this.swordSfx = this.scene.sound.add('bullet', { volume: 0.7, rate: 0.8 });
 
@@ -372,6 +371,8 @@ export default class SkeletonSword extends Enemy
 
         this.once(Phaser.Animations.Events.ANIMATION_COMPLETE, () =>
         {
+            this.burn();
+
             this.scene.tweens.add({
                 duration: 250,
                 targets: this,

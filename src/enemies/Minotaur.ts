@@ -264,6 +264,8 @@ export default class Minotaur extends Enemy
 
         this.once(Phaser.Animations.Events.ANIMATION_COMPLETE, () =>
         {
+            this.burn();
+
             this.destroy();
         });
     }

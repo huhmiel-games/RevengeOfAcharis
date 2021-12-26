@@ -273,6 +273,8 @@ export default class EvilWizard extends Enemy
 
         this.once(Phaser.Animations.Events.ANIMATION_COMPLETE, () =>
         {
+            this.burn();
+
             this.scene.tweens.add({
                 duration: 250,
                 targets: this,

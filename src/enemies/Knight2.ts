@@ -348,6 +348,8 @@ export default class Knight2 extends Enemy
 
         this.once(Phaser.Animations.Events.ANIMATION_COMPLETE, () =>
         {
+            this.burn();
+
             this.scene.tweens.add({
                 duration: 250,
                 targets: this,
