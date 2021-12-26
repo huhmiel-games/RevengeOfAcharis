@@ -131,7 +131,7 @@ export default class Player extends Phaser.GameObjects.Sprite
 
         const healthUiBack = this.scene.add.image(0, 0, 'parchment').setScrollFactor(0, 0).setDepth(1900).setOrigin(0, 0);
 
-        this.HealthUiText = this.scene.add.bitmapText(20, 9, FONTS.GALAXY, `${inventory.life}%${inventory.maxLife}`, FONTS_SIZES.GALAXY, 1)
+        this.HealthUiText = this.scene.add.bitmapText(20, 9, FONTS.GALAXY, `${inventory.life}/${inventory.maxLife}`, FONTS_SIZES.GALAXY, 1)
             .setScrollFactor(0, 0).setDepth(2000).setTintFill(COLORS.STEEL_GRAY);
 
         this.setDepth(105);
@@ -630,13 +630,13 @@ export default class Player extends Phaser.GameObjects.Sprite
         {
             inventory.life += life;
 
-            this.HealthUiText.setText(`${inventory.life}%${inventory.maxLife}`);
+            this.HealthUiText.setText(`${inventory.life}/${inventory.maxLife}`);
         }
         else
         {
             inventory.life = inventory.maxLife;
 
-            this.HealthUiText.setText(`${inventory.life}%${inventory.maxLife}`);
+            this.HealthUiText.setText(`${inventory.life}/${inventory.maxLife}`);
         }
 
         this.scene.sound.play('getLife', { volume: 2 });
@@ -652,7 +652,7 @@ export default class Player extends Phaser.GameObjects.Sprite
         {
             inventory.life = 0;
 
-            this.HealthUiText.setText(`${inventory.life}%${inventory.maxLife}`);
+            this.HealthUiText.setText(`${inventory.life}/${inventory.maxLife}`);
 
             this.playerDeathSequence();
 
@@ -672,7 +672,7 @@ export default class Player extends Phaser.GameObjects.Sprite
 
         inventory.life -= Math.trunc(elm.enemyState.damage - elm.enemyState.damage * (shieldDef / 100));
 
-        this.HealthUiText.setText(`${inventory.life}%${inventory.maxLife}`);
+        this.HealthUiText.setText(`${inventory.life}/${inventory.maxLife}`);
 
         if (inventory.life <= Math.floor(inventory.maxLife / 10))
         {
