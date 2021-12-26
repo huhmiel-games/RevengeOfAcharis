@@ -34,7 +34,7 @@ const config: Phaser.Types.Core.GameConfig = {
         arcade: {
             tileBias: 20,
             gravity: { y: 1 },
-            debug: false,
+            debug: true,
             debugShowBody: true,
             debugShowStaticBody: true,
         },
@@ -55,7 +55,7 @@ window.addEventListener('resize', (evt) =>
 
     const correctHeight = Math.round(correctWidth / 1.7777778);
 
-    if (canva && correctHeight % 2 === 0)
+    if (canva && correctWidth % 2 === 0 && correctHeight % 2 === 0)
     {
         game.scale.setParentSize(correctWidth, correctHeight);
     }
