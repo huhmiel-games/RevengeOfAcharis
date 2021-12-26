@@ -148,54 +148,47 @@ export default class InventoryManager
             .setDepth(2000)
             .setScrollFactor(0, 0)
             .setLetterSpacing(2)
-            .setTintFill(COLORS.STEEL_GRAY)
-            .setDropShadow(0, 1, COLORS.STEEL_GRAY);
+            .setTintFill(COLORS.STEEL_GRAY);
 
         const nextLevelXp = Math.floor(0.8 * Math.pow(this.inventory.level, 2) + 1.8 * Math.pow(this.inventory.level, 3) + 3.3 * Math.pow(this.inventory.level, 2) + 0.6 * Math.pow(this.inventory.level - 1, 2) + 184.8 * this.inventory.level - 0.6);
 
-        const XP = this.scene.add.bitmapText(WIDTH / 2, origin.center.y - 68, FONTS.ULTIMA, `XP: ${Math.round(this.inventory.xp)}/${nextLevelXp}`, FONTS_SIZES.ULTIMA)
+        const XP = this.scene.add.bitmapText(WIDTH / 2, origin.center.y - 68, FONTS.GALAXY, `xp: ${Math.round(this.inventory.xp)}/${nextLevelXp}`, FONTS_SIZES.GALAXY)
             .setOrigin(0, 0.5)
             .setDepth(2000)
             .setScrollFactor(0, 0)
-            .setTintFill(COLORS.STEEL_GRAY)
-            .setDropShadow(0, 1, COLORS.STEEL_GRAY);
+            .setTintFill(COLORS.STEEL_GRAY);
 
-        const HP = this.scene.add.bitmapText(WIDTH / 2, origin.center.y - 50, FONTS.ULTIMA, `HP: ${this.inventory.life}/${this.inventory.maxLife}`, FONTS_SIZES.ULTIMA)
+        const HP = this.scene.add.bitmapText(WIDTH / 2, origin.center.y - 58, FONTS.GALAXY, `hp: ${this.inventory.life}/${this.inventory.maxLife}`, FONTS_SIZES.GALAXY)
             .setOrigin(0, 0.5)
             .setDepth(2000)
             .setScrollFactor(0, 0)
-            .setTintFill(COLORS.DARK_GREEN)
-            .setDropShadow(0, 1, COLORS.STEEL_GRAY);
+            .setTintFill(COLORS.DARK_GREEN);
 
-        const s = Math.ceil(Math.sqrt(Math.pow(this.inventory.level, 3)) / 10);
+        const strength = Math.ceil(Math.sqrt(Math.pow(this.inventory.level, 3)) / 10);
 
-        const STR = this.scene.add.bitmapText(WIDTH / 2, origin.center.y - 34, FONTS.ULTIMA, `STR: ${s}`, FONTS_SIZES.ULTIMA)
+        const STR = this.scene.add.bitmapText(WIDTH / 2, origin.center.y - 48, FONTS.GALAXY, `str: ${strength}`, FONTS_SIZES.GALAXY)
             .setOrigin(0, 0.5)
             .setDepth(2000)
             .setScrollFactor(0, 0)
-            .setTintFill(COLORS.RED)
-            .setDropShadow(0, 1, COLORS.STEEL_GRAY);
+            .setTintFill(COLORS.RED);
 
-        const DEF = this.scene.add.bitmapText(WIDTH / 5 * 3, origin.center.y - 34, FONTS.ULTIMA, `ARMOR DEF: ${this.inventory.def}`, FONTS_SIZES.ULTIMA)
+        const DEF = this.scene.add.bitmapText(WIDTH / 5 * 3, origin.center.y - 48, FONTS.GALAXY, `def: ${this.inventory.def}`, FONTS_SIZES.GALAXY)
             .setOrigin(0, 0.5)
             .setDepth(2000)
             .setScrollFactor(0, 0)
-            .setTintFill(COLORS.DARK_GREEN)
-            .setDropShadow(0, 1, COLORS.STEEL_GRAY);
+            .setTintFill(COLORS.DARK_GREEN);
 
-        const swordAttack = this.scene.add.bitmapText(WIDTH / 2, origin.center.y - 16, FONTS.ULTIMA, `Sword ATK: ${this.player.swordManager.getCurrentSword().damage}`, FONTS_SIZES.ULTIMA)
+        const swordAttack = this.scene.add.bitmapText(WIDTH / 2, origin.center.y - 38, FONTS.GALAXY, `sword atk: ${this.player.swordManager.getCurrentSword().damage}`, FONTS_SIZES.GALAXY)
             .setOrigin(0, 0.5)
             .setDepth(2000)
             .setScrollFactor(0, 0)
-            .setTintFill(COLORS.RED)
-            .setDropShadow(0, 1, COLORS.STEEL_GRAY);
+            .setTintFill(COLORS.RED);
 
-        const swordRate = this.scene.add.bitmapText(WIDTH / 2, origin.center.y, FONTS.ULTIMA, `Sword RATE: ${Math.round(this.player.swordManager.getCurrentSword().rate)}`, FONTS_SIZES.ULTIMA)
+        const swordRate = this.scene.add.bitmapText(WIDTH / 2, origin.center.y - 28, FONTS.GALAXY, `sword rate: ${Math.round(this.player.swordManager.getCurrentSword().rate)}`, FONTS_SIZES.GALAXY)
             .setOrigin(0, 0.5)
             .setDepth(2000)
             .setScrollFactor(0, 0)
-            .setTintFill(COLORS.EAST_BLUE)
-            .setDropShadow(0, 1, COLORS.STEEL_GRAY);
+            .setTintFill(COLORS.EAST_BLUE);
 
         let bowAttack: Phaser.GameObjects.BitmapText;
         let bowRate: Phaser.GameObjects.BitmapText;
@@ -203,43 +196,39 @@ export default class InventoryManager
 
         if (this.inventory.bows.length)
         {
-            bowAttack = this.scene.add.bitmapText(WIDTH / 2, origin.center.y + 48, FONTS.ULTIMA, `Bow ATK: 5`, FONTS_SIZES.ULTIMA)
+            bowAttack = this.scene.add.bitmapText(WIDTH / 2, origin.center.y - 8, FONTS.GALAXY, `bow atk: 5`, FONTS_SIZES.GALAXY)
                 .setOrigin(0, 0.5)
                 .setDepth(2000)
                 .setScrollFactor(0, 0)
-                .setTintFill(COLORS.RED)
-                .setDropShadow(0, 1, COLORS.STEEL_GRAY);
+                .setTintFill(COLORS.RED);
 
-            bowRate = this.scene.add.bitmapText(WIDTH / 2, origin.center.y + 64, FONTS.ULTIMA, `Bow RATE: 300`, FONTS_SIZES.ULTIMA)
+            bowRate = this.scene.add.bitmapText(WIDTH / 2, origin.center.y + 2, FONTS.GALAXY, `bow rate: 300`, FONTS_SIZES.GALAXY)
                 .setOrigin(0, 0.5)
                 .setDepth(2000)
                 .setScrollFactor(0, 0)
-                .setTintFill(COLORS.EAST_BLUE)
-                .setDropShadow(0, 1, COLORS.STEEL_GRAY);
+                .setTintFill(COLORS.EAST_BLUE);
         }
 
         if (this.inventory.shields.length)
         {
-            shieldDef = this.scene.add.bitmapText(WIDTH / 2, origin.center.y + 16, FONTS.ULTIMA, `Shield DEF: ${this.player.shieldManager.getCurrentShield()?.defense || 0}`, FONTS_SIZES.ULTIMA)
+            shieldDef = this.scene.add.bitmapText(WIDTH / 2, origin.center.y - 18, FONTS.GALAXY, `shield def: ${this.player.shieldManager.getCurrentShield()?.defense || 0}`, FONTS_SIZES.GALAXY)
                 .setOrigin(0, 0.5)
                 .setDepth(2000)
                 .setScrollFactor(0, 0)
-                .setTintFill(COLORS.DARK_GREEN)
-                .setDropShadow(0, 1, COLORS.STEEL_GRAY);
+                .setTintFill(COLORS.DARK_GREEN);
         }
         else
         {
-            shieldDef = this.scene.add.bitmapText(WIDTH / 2, origin.center.y + 16, FONTS.ULTIMA, `Shield DEF: no shield`, FONTS_SIZES.ULTIMA)
+            shieldDef = this.scene.add.bitmapText(WIDTH / 2, origin.center.y - 18, FONTS.GALAXY, `shield def: no shield`, FONTS_SIZES.GALAXY)
                 .setOrigin(0, 0.5)
                 .setDepth(2000)
                 .setScrollFactor(0, 0)
-                .setTintFill(COLORS.DARK_GREEN)
-                .setDropShadow(0, 1, COLORS.STEEL_GRAY);
+                .setTintFill(COLORS.DARK_GREEN);
         }
 
         const currentSword = this.player.swordManager.getCurrentSword();
 
-        const itemName = this.scene.add.bitmapText(WIDTH / 2, origin.center.y + 32, FONTS.ULTIMA_BOLD, `${currentSword.name.toUpperCase()}
+        const itemName = this.scene.add.bitmapText(WIDTH / 2, origin.center.y + 16, FONTS.ULTIMA_BOLD, `${currentSword.name.toUpperCase()}
 ${currentSword.desc}
 ATK: ${currentSword.damage}   RATE: ${currentSword.rate}`, FONTS_SIZES.ULTIMA_BOLD)
             .setOrigin(0, 0)
@@ -253,7 +242,6 @@ ATK: ${currentSword.damage}   RATE: ${currentSword.rate}`, FONTS_SIZES.ULTIMA_BO
             .setDepth(2000)
             .setScrollFactor(0, 0)
             .setTintFill(COLORS.STEEL_GRAY);
-
 
         const dialog = this.scene.input.keyboard.on(Phaser.Input.Keyboard.Events.ANY_KEY_DOWN, (event) =>
         {
@@ -368,9 +356,9 @@ DEF: ${shield.defense}`);
 
                         this.inventory.selectedSword = id;
 
-                        swordAttack.setText(`Sword ATK: ${this.player.swordManager.getCurrentSword().damage}`);
+                        swordAttack.setText(`sword atk: ${this.player.swordManager.getCurrentSword().damage}`);
 
-                        swordRate.setText(`Sword RATE: ${(Math.round(this.player.swordManager.getCurrentSword().rate))}`);
+                        swordRate.setText(`sword rate: ${(Math.round(this.player.swordManager.getCurrentSword().rate))}`);
 
                         return;
                     }
@@ -381,9 +369,9 @@ DEF: ${shield.defense}`);
 
                         this.inventory.selectedBow = id;
 
-                        bowAttack.setText(`Bow ATK: ${this.player.bowManager.getCurrentBow().damage}`);
+                        bowAttack.setText(`bow atk: ${this.player.bowManager.getCurrentBow().damage}`);
 
-                        bowRate.setText(`Bow RATE: ${this.player.bowManager.getCurrentBow().rate}`);
+                        bowRate.setText(`bow rate: ${this.player.bowManager.getCurrentBow().rate}`);
 
                         return;
                     }
@@ -394,7 +382,7 @@ DEF: ${shield.defense}`);
 
                         this.inventory.selectedShield = id;
 
-                        shieldDef.setText(`Shield DEF: ${this.player.shieldManager.getCurrentShield().defense}`);
+                        shieldDef.setText(`shield def: ${this.player.shieldManager.getCurrentShield().defense}`);
                     }
                 }
             }
