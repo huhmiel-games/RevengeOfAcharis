@@ -84,7 +84,7 @@ export type TEquipmentConfig = {
     id: number;
     name: string;
     desc: string;
-    defense?: number;
+    defense: number;
     key: number;
 };
 

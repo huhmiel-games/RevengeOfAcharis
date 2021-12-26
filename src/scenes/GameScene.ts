@@ -1,7 +1,7 @@
 //#region imports
 import { Scene } from 'phaser';
 import animatedTilesPlugin from '../plugins/AnimatedTiles.js';
-import { WIDTH, HEIGHT, FONTS, SCENES_NAMES, FONTS_SIZES, SWORDS, TILE_SIZE, SHIELDS, BOWS } from '../constant/config';
+import { WIDTH, HEIGHT, FONTS, SCENES_NAMES, FONTS_SIZES, SWORDS, TILE_SIZE, SHIELDS, BOWS, EQUIPMENT } from '../constant/config';
 import PowerUp from '../player/powerUp';
 import HellHound from '../enemies/HellHound';
 import Thing from '../enemies/Thing';
@@ -21,7 +21,7 @@ import ColliderService from '../services/ColliderService';
 import LayerService from '../services/LayerService';
 import GenerateWorldRoom from '../utils/GenerateWorldRoom';
 import Player from '../player/Player';
-import { TBowConfig, TNpc, TShieldConfig, TSwordConfig } from '../types/types';
+import { TBowConfig, TEquipmentConfig, TNpc, TShieldConfig, TSwordConfig } from '../types/types';
 import Npc from '../npc/Npc';
 import Enemy from '../enemies/Enemy';
 import SaveLoadService from '../services/SaveLoadService';
@@ -411,115 +411,7 @@ export default class GameScene extends Scene
         }
     }
 
-    public getPowerUp (elm: PowerUp)
-    {
-        this.state.displayPowerUpMsg = true;
-
-        const inventory = this.player.inventoryManager.getInventory();
-
-        if (elm.category === 'sword')
-        {
-            const props: TSwordConfig = elm.properties as TSwordConfig;
-
-            this.player.swordManager.addSword(props);
-
-            inventory.swords.push(elm.id);
-        }
-
-        if (elm.category === 'shield')
-        {
-            const props: TShieldConfig = elm.properties as TShieldConfig;
-
-            this.player.shieldManager.addShield(props);
-
-            inventory.shields.push(elm.id);
-
-            if (inventory.selectedShield === null) inventory.selectedShield = elm.id;
-        }
-
-        if (elm.category === 'bow')
-        {
-            const props: TBowConfig = elm.properties as TBowConfig;
-
-            this.player.bowManager.addBow(props);
-
-            inventory.bows.push(elm.id);
-
-            if (inventory.selectedBow === null) inventory.selectedBow = elm.id;
-        }
-
-        if (elm.category === 'equipment')
-        {
-            if (elm.id === 23) this.player.addJumpBoots();
-        }
-
-        this.sound.play('powerUp');
-
-
-        inventory.powerUp.push(elm.id);
-
-
-        this.setPause();
-
-        // @ts-ignore
-        const ui = this.add.rexNinePatch(WIDTH / 2, HEIGHT / 2, WIDTH / 2, HEIGHT / 2, 'framing', [7, undefined, 7], [7, undefined, 7], 0)
-            .setOrigin(0.5, 0.5)
-            .setDepth(1999)
-            .setScrollFactor(0, 0)
-            .setVisible(true);
-
-        let txt = '';
-
-        if (elm.category === 'sword')
-        {
-            const props: TSwordConfig = elm.properties as TSwordConfig;
-
-            txt = `${props.name.toUpperCase()}
-${props.desc}
-ATK: ${props.damage}  RATE: ${props.rate}`;
-        }
-
-        if (elm.category === 'shield')
-        {
-            const props: TShieldConfig = elm.properties as TShieldConfig;
-
-            txt = `${props.name.toUpperCase()}
-${props.desc}
-DEF: ${props.defense}`;
-        }
-
-        if (elm.category === 'bow')
-        {
-            const props: TBowConfig = elm.properties as TBowConfig;
-
-            txt = `${props.name.toUpperCase()}
-${props.desc}
-ATK: ${props.damage}  RATE: ${props.rate}  SPEED: ${props.speed}`;
-        }
-
-        if (elm.category === 'equipment')
-        {
-            txt = `${elm.properties.name.toUpperCase()}
-${elm.properties.desc}`;
-        }
-
-
-        const powerUpDesc = this.add.bitmapText(WIDTH / 2, HEIGHT / 2, FONTS.ULTIMA_BOLD, txt, FONTS_SIZES.ULTIMA_BOLD, 1)
-            .setOrigin(0.5, 0.5)
-            .setAlpha(1)
-            .setDepth(2000)
-            .setScrollFactor(0, 0);
-
-        elm.destroy();
-
-        const dialog = this.input.keyboard.once(Phaser.Input.Keyboard.Events.ANY_KEY_DOWN, () =>
-        {
-            powerUpDesc.destroy();
-            ui.destroy();
-            dialog.removeAllListeners();
-            this.unPause();
-        });
-    }
+    
 
     // GAME PAUSE
     // public pauseGamePowerUp ()
@@ -1143,24 +1035,160 @@ ${elm.properties.desc}`;
                     this.powerUpGroup.push(shield);
                 }
 
-                if (element.properties.id === 23)
+                if (element.properties.id >= 20)
                 {
-                    const jumpBoots = new PowerUp(this, element.x as unknown as number + TILE_SIZE / 2, element.y as unknown as number - TILE_SIZE, {
+                    const props = EQUIPMENT.filter(e => e.id === element.properties.id)[0];
+
+                    const equipment = new PowerUp(this, element.x as unknown as number + TILE_SIZE / 2, element.y as unknown as number - TILE_SIZE, {
                         key: 'stuff',
                         id: element.properties.id,
-                        properties: {
-                            id: element.properties.id,
-                            name: 'jump boots',
-                            desc: 'jump higher with this boots',
-                            defense: 0,
-                            key: 23
-                        },
+                        properties: props,
                         category: 'equipment'
                     });
 
-                    this.powerUpGroup.push(jumpBoots);
+                    this.powerUpGroup.push(equipment);
                 }
+
+                // if (element.properties.id === 23)
+                // {
+                //     const jumpBoots = new PowerUp(this, element.x as unknown as number + TILE_SIZE / 2, element.y as unknown as number - TILE_SIZE, {
+                //         key: 'stuff',
+                //         id: element.properties.id,
+                //         properties: {
+                //             id: element.properties.id,
+                //             name: 'jump boots',
+                //             desc: 'jump higher with this boots',
+                //             defense: 0,
+                //             key: 23
+                //         },
+                //         category: 'equipment'
+                //     });
+
+                //     this.powerUpGroup.push(jumpBoots);
+                // }
             }
+        });
+    }
+
+    public getPowerUp (elm: PowerUp)
+    {
+        this.state.displayPowerUpMsg = true;
+
+        const inventory = this.player.inventoryManager.getInventory();
+
+        if (elm.category === 'sword')
+        {
+            const props: TSwordConfig = elm.properties as TSwordConfig;
+
+            this.player.swordManager.addSword(props);
+
+            inventory.swords.push(elm.id);
+        }
+
+        if (elm.category === 'shield')
+        {
+            const props: TShieldConfig = elm.properties as TShieldConfig;
+
+            this.player.shieldManager.addShield(props);
+
+            inventory.shields.push(elm.id);
+
+            if (inventory.selectedShield === null) inventory.selectedShield = elm.id;
+        }
+
+        if (elm.category === 'bow')
+        {
+            const props: TBowConfig = elm.properties as TBowConfig;
+
+            this.player.bowManager.addBow(props);
+
+            inventory.bows.push(elm.id);
+
+            if (inventory.selectedBow === null) inventory.selectedBow = elm.id;
+        }
+
+        if (elm.category === 'equipment')
+        {
+            if (elm.id === 23)
+            {
+                this.player.addJumpBoots();
+            }
+            else
+            {
+                const props: TEquipmentConfig = elm.properties as TEquipmentConfig;
+
+                inventory.def += props.defense;
+            }
+        }
+
+        this.sound.play('powerUp');
+
+
+        inventory.powerUp.push(elm.id);
+
+
+        this.setPause();
+
+        // @ts-ignore
+        const ui = this.add.rexNinePatch(WIDTH / 2, HEIGHT / 2, WIDTH / 4 * 3, HEIGHT / 2, 'framing', [7, undefined, 7], [7, undefined, 7], 0)
+            .setOrigin(0.5, 0.5)
+            .setDepth(1999)
+            .setScrollFactor(0, 0)
+            .setVisible(true);
+
+        let txt = '';
+
+        if (elm.category === 'sword')
+        {
+            const props: TSwordConfig = elm.properties as TSwordConfig;
+
+            txt = `${props.name.toUpperCase()}
+${props.desc}
+ATK: ${props.damage}  RATE: ${props.rate}`;
+        }
+
+        if (elm.category === 'shield')
+        {
+            const props: TShieldConfig = elm.properties as TShieldConfig;
+
+            txt = `${props.name.toUpperCase()}
+${props.desc}
+DEF: ${props.defense}`;
+        }
+
+        if (elm.category === 'bow')
+        {
+            const props: TBowConfig = elm.properties as TBowConfig;
+
+            txt = `${props.name.toUpperCase()}
+${props.desc}
+ATK: ${props.damage}  RATE: ${props.rate}  SPEED: ${props.speed}`;
+        }
+
+        if (elm.category === 'equipment')
+        {
+            const props: TEquipmentConfig = elm.properties as TEquipmentConfig;
+
+            txt = `${props.name.toUpperCase()}
+${props.desc}
+DEF: ${props.defense}`;
+        }
+
+
+        const powerUpDesc = this.add.bitmapText(WIDTH / 2, HEIGHT / 2, FONTS.ULTIMA_BOLD, txt, FONTS_SIZES.ULTIMA_BOLD, 1)
+            .setOrigin(0.5, 0.5)
+            .setAlpha(1)
+            .setDepth(2000)
+            .setScrollFactor(0, 0);
+
+        elm.destroy();
+
+        const dialog = this.input.keyboard.once(Phaser.Input.Keyboard.Events.ANY_KEY_DOWN, () =>
+        {
+            powerUpDesc.destroy();
+            ui.destroy();
+            dialog.removeAllListeners();
+            this.unPause();
         });
     }
 
@@ -1238,7 +1266,7 @@ ${elm.properties.desc}`;
                 case 'viking':
                     if (!element.y) return;
 
-                    const viking = new VikingAxe(this, element.x as unknown as number, element.y as unknown as number - 16, {
+                    const viking = new VikingAxe(this, element.x as unknown as number - 58, element.y as unknown as number - 16, {
                         key: element.properties.key,
                         name: element.name,
                         life: element.properties.life,

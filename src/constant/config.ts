@@ -1,4 +1,4 @@
-import { TBowConfig, TShieldConfig, TSwordConfig } from '../types/types';
+import { TBowConfig, TShieldConfig, TSwordConfig, TEquipmentConfig } from '../types/types';
 
 export const GAMENAME = 'Revenge of Acharis';
 export const WIDTH = 512;
@@ -6,7 +6,8 @@ export const HEIGHT = 288;
 export const ACCELERATION_X = 600;
 export const TILE_SIZE = 16;
 
-export const enum FONTS {
+export const enum FONTS
+{
     MINIMAL = 'DungeonFont',
     GALAXY = 'galaxy8',
     ALAGARD = 'alagard',
@@ -26,13 +27,13 @@ export const enum SCENES_NAMES
 {
     LOGO = 'logoScene',
     LOADING = 'loadingScene',
-    INTRO= 'introScene',
+    INTRO = 'introScene',
     MENU = 'menuScene',
     GAME = 'gameScene',
     GAMEOVER = 'gameOverScene',
     ENDGAME = 'endGameScene',
     OPTIONS = 'optionsScene'
-    
+
 }
 
 
@@ -208,4 +209,35 @@ export const SHIELDS: TShieldConfig[] = [
         defense: 15,
         key: 19
     },
+];
+
+export const EQUIPMENT: TEquipmentConfig[] = [
+    {
+        id: 20,
+        name: 'helm',
+        desc: 'protect your head',
+        defense: 2,
+        key: 20
+    },
+    {
+        id: 21,
+        name: 'cuirass',
+        desc: 'protect your torso',
+        defense: 2,
+        key: 21
+    },
+    {
+        id: 22,
+        name: 'cuisses',
+        desc: 'protect your upper legs',
+        defense: 2,
+        key: 22
+    },
+    {
+        id: 23,
+        name: 'jump boots',
+        desc: 'jump higher with this boots',
+        defense: 0,
+        key: 23
+    }
 ];
