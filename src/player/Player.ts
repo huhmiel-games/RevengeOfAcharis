@@ -161,7 +161,8 @@ export default class Player extends Phaser.GameObjects.Sprite
 
         this.sword = this.swords.getFirstDead(true, this.body.x, this.body.y, undefined, undefined, true);
         this.sword.setVisible(false).setName('sword');
-        this.sword.body.setSize(24, this.body.height).setEnable(false);
+        this.sword.body.setCircle(24)
+            .setEnable(false);
 
         const keysOptions = SaveLoadService.getConfigKeys();
 
@@ -321,7 +322,7 @@ export default class Player extends Phaser.GameObjects.Sprite
         super.preUpdate(time, delta);
 
         const { playerState, isPause } = this;
-        const { fire, select, pause } = this.keys;
+        const { select, pause } = this.keys;
 
         const currentAnim = this.anims.getName();
         // if not game pause
@@ -332,23 +333,17 @@ export default class Player extends Phaser.GameObjects.Sprite
             // weapon hitbox
             if (this.flipX && this.sword.body)
             {
-                this.sword.body.reset(this.body.left - this.sword.body.width / 2, this.body.y + this.body.height / 2);
+                this.sword.body.reset(this.body.left - this.sword.body.width / 2, this.body.y - this.body.height / 2);
             }
             if (!this.flipX && this.sword.body)
             {
-                this.sword.body.reset(this.body.right + this.sword.body.width / 2, this.body.y + this.body.height / 2);
+                this.sword.body.reset(this.body.right - this.sword.body.width / 2, this.body.y - this.body.height / 2);
             }
 
             // select weapon
             if (Phaser.Input.Keyboard.JustDown(select))
             {
-                this.inventoryManager.showInventory(); // selectWeapon();
-            }
-
-            // pause
-            if (pause.isDown)
-            {
-                // this.scene.pauseGame();
+                this.inventoryManager.showInventory();
             }
         }
     }
