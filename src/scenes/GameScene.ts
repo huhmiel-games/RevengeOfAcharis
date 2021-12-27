@@ -1203,6 +1203,19 @@ DEF: ${props.defense}`;
 
                     this.enemyGroup.push(viking);
                     break;
+                
+                case 'angel':
+                    if (!element.y) return;
+
+                    const angel = new Angel(this, element.x as unknown as number - 58, element.y as unknown as number - 16, {
+                        key: element.properties.key,
+                        name: element.name,
+                        life: element.properties.life,
+                        damage: element.properties.damage,
+                    });
+
+                    this.enemyGroup.push(angel);
+                    break;
 
                 case 'samurai':
                     if (!element.y) return;

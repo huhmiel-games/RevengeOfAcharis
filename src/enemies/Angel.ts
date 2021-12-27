@@ -3,53 +3,85 @@ import Enemy from './Enemy';
 
 export default class Angel extends Enemy
 {
-    public scene: GameScene;
-    public body: Phaser.Physics.Arcade.Body;
     constructor (scene: GameScene, x: number, y: number, config: any)
     {
         super(scene, x, y, config);
 
-        this.scene = scene;
+        this.enemyState = {
+            life: config.life,
+            damage: config.damage,
+            giveLife: Math.round(config.life / 10),
+            directionX: -10,
+            directionY: 0,
+        };
 
         this.name = config.name;
-        
-        this.setDepth(101);
-        
-        this.scene.physics.world.enable(this);
-        this.scene.add.existing(this);
-        
+
         this.body
             .setAllowGravity(false)
-            .setSize(20, 40).setOffset(50, 40);
-        
+            .setSize(8, 45).setOffset(58, 48);
+
         this.flipX = true;
-        
+
         this.anims.play('angel-idle', true);
 
-        this.on('animationrepeat', () =>
+        this.on(Phaser.Animations.Events.ANIMATION_REPEAT, () =>
         {
-            const distance = Phaser.Math.Distance.Between(this.scene.player.x, this.scene.player.y, this.x, this.y);
-            
-            if (distance < 350)
+            const { center } = this.body;
+
+            if (this.scene.cameras.main.worldView.contains(center.x, center.y))
             {
-                this.scene.sound.play('angelWing', { volume: 0.5 });
+                this.scene.sound.play('angelWing', { volume: 0.3 });
+
             }
         });
     }
 
-    public preUpdate (time, delta)
+    public preUpdate (time: number, delta: number)
     {
         super.preUpdate(time, delta);
-        if (this.active)
+        if (this.active && !this.scene.physics.world.isPaused)
         {
-            // flip to face the player
-            if (this.x > this.scene.player.x)
+            if (!this.isAttacking)
             {
-                this.flipX = true;
+                this.body.setVelocityY(this.enemyState.directionY);
+
+                if (this.enemyState.directionY > 0)
+                {
+                    this.enemyState.directionY += 0.2;
+                }
+                else
+                {
+                    this.enemyState.directionY -= 0.2;
+                }
+
+                if (this.body.blocked.down || this.enemyState.directionY > 32)
+                {
+                    this.enemyState.directionY = -0.1;
+                }
+                else if (this.body.blocked.up || this.enemyState.directionY < -32)
+                {
+                    this.enemyState.directionY = 0.2;
+                }
             }
             else
             {
+                const { center } = this.scene.player.body;
+
+                const dx = center.x - this.body.center.x;
+                const dy = center.y - this.body.center.y;
+
+                this.body.setVelocity(dx * 2, dy * 2);
+            }
+
+            // flip the sprite
+            if (this.body.velocity.x > 0)
+            {
                 this.flipX = false;
+            }
+            else
+            {
+                this.flipX = true;
             }
         }
     }
