@@ -27,18 +27,16 @@ by default).
 
 ## Credits:
 
-- Clembod
-- LuizMelo
-- sanctumpixel
-- blueapollo
-- anokolisa
-- calciumtrice
-- ansimuz
-- emcee flesher
-- creativekind
-- eli cuaycong
-- astrobob
-- ramirov
-- oco
-- Jam991
-- David Garay
+- Clembod https://clembod.itch.io/
+- LuizMelo https://luizmelo.itch.io/
+- sanctumpixel https://sanctumpixel.itch.io/
+- anokolisa https://anokolisa.itch.io/
+- calciumtrice https://opengameart.org/users/calciumtrice
+- ansimuz https://ansimuz.itch.io/
+- emcee flesher https://opengameart.org/users/emcee-flesher
+- creativekind https://creativekind.itch.io/
+- astrobob https://astrobob.itch.io/
+- oco https://oco.itch.io/
+- Jam991 https://jam991.itch.io/
+- David Garay https://yaragad.itch.io/dragon-head-vector-parts
+- pimen https://pimen.itch.io/
