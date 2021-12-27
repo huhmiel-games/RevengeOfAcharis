@@ -44,6 +44,7 @@ import EvilWizard from '../enemies/EvilWizard';
 import DragonHead from '../enemies/DragonHead';
 import Saw from '../enemies/Saw';
 import VikingAxe from '../enemies/VikingAxe';
+import Archer from '../enemies/Archer';
 //#endregion
 
 export default class GameScene extends Scene
@@ -54,7 +55,7 @@ export default class GameScene extends Scene
     public firstTimestamp: number;
     public heartGroup: Phaser.GameObjects.Sprite[];
     public powerUpGroup: PowerUp[];
-    public enemyGroup: (Enemy | Dragon | HellBeast | Demon)[];
+    public enemyGroup: (Enemy | Dragon | HellBeast | Demon | Arrow)[];
     public platformGroup: Platform[];
     public projectileGroup: Projectile[] = [];
     public bodiesGroup: BodyExtended[] = [];
@@ -109,6 +110,7 @@ export default class GameScene extends Scene
     public dragonHeadBalls: Phaser.Physics.Arcade.Group;
     public smokeGroup: Phaser.GameObjects.Group;
     public hearts: Phaser.GameObjects.Group;
+    public archerArrows: Phaser.Physics.Arcade.Group;
     //#endregion
 
     constructor ()
@@ -280,6 +282,12 @@ export default class GameScene extends Scene
             allowGravity: false,
         });
 
+        this.archerArrows = this.physics.add.group({
+            classType: Arrow,
+            maxSize: 10,
+            allowGravity: true,
+        });
+
         this.skullHeads = this.physics.add.group({
             defaultKey: 'finalBoss',
             frame: ['fire-skull_1', 'fire-skull_2', 'fire-skull_3', 'fire-skull_4', 'fire-skull_5', 'fire-skull_6', 'fire-skull_7'],
@@ -417,7 +425,7 @@ export default class GameScene extends Scene
         }
     }
 
-    public playerIsHit (elm: Enemy | Projectile)
+    public playerIsHit (elm: Enemy | Projectile | Arrow)
     {
         if (elm.enemyState.damage === 0)
         {
@@ -425,6 +433,7 @@ export default class GameScene extends Scene
         }
 
         this.player.looseLife(elm);
+        if (elm.name === 'arrow') elm.setVisible(false).setActive(false);
     }
 
     public playerIsDead ()
@@ -442,9 +451,17 @@ export default class GameScene extends Scene
         this.scene.start(SCENES_NAMES.GAMEOVER);
     }
 
-    public enemyIsHit (_enemy, _weapon)
+    public enemyIsHit (_enemy: Phaser.Types.Physics.Arcade.GameObjectWithBody, _weapon: Phaser.Types.Physics.Arcade.GameObjectWithBody)
     {
         const enemy = _enemy as Enemy;
+
+        if (enemy.name === 'arrow')
+        {
+            const arrow = enemy as unknown as Arrow;
+            arrow.deflect();
+
+            return;
+        }
 
         if (_weapon.name === 'sword')
         {
@@ -902,6 +919,7 @@ export default class GameScene extends Scene
         });
     }
 
+    //#region handle powerUps
     public addPowerUp ()
     {
         const layerArray = this.checkObjectsLayerIndex('powerup');
@@ -1119,6 +1137,7 @@ DEF: ${props.defense}`;
             this.unPause();
         });
     }
+//#endregion
 
     public checkObjectsLayerIndex (layerName)
     {
@@ -1215,6 +1234,19 @@ DEF: ${props.defense}`;
                     });
 
                     this.enemyGroup.push(angel);
+                    break;
+                
+                case 'archer':
+                    if (!element.y) return;
+
+                    const archer = new Archer(this, element.x as unknown as number - 25, element.y as unknown as number - 16, {
+                        key: element.properties.key,
+                        name: element.name,
+                        life: element.properties.life,
+                        damage: element.properties.damage,
+                    });
+
+                    this.enemyGroup.push(archer);
                     break;
 
                 case 'samurai':

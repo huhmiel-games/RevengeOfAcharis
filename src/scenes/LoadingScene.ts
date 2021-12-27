@@ -3174,7 +3174,7 @@ export default class LoadingScreen extends Scene
                 { key: 'atlas', frame: 'archer-idle_3' },
             ],
             frameRate: 8,
-            repeat: -1,
+            repeat: 0,
         });
         this.anims.create({
             key: 'archer-fall',
@@ -3225,16 +3225,15 @@ export default class LoadingScreen extends Scene
         this.anims.create({
             key: 'archer-attack',
             frames: [
-                { key: 'atlas', frame: 'archer-attack_0' },
-                { key: 'atlas', frame: 'archer-attack_1' },
-                { key: 'atlas', frame: 'archer-attack_2' },
-                { key: 'atlas', frame: 'archer-attack_3' },
-                { key: 'atlas', frame: 'archer-attack_4' },
-                { key: 'atlas', frame: 'archer-attack_5' },
+                { key: 'atlas', frame: 'archer-attack_0', duration: 220 },
+                { key: 'atlas', frame: 'archer-attack_1', duration: 100 },
+                { key: 'atlas', frame: 'archer-attack_2', duration: 80 },
+                { key: 'atlas', frame: 'archer-attack_4', duration: 100 },
+                { key: 'atlas', frame: 'archer-attack_5', duration: 150 },
                 { key: 'atlas', frame: 'archer-attack_6' },
             ],
             frameRate: 14,
-            repeat: -1,
+            repeat: 0,
         });
         this.anims.create({
             key: 'archer-wall-slide',
@@ -3273,7 +3272,7 @@ export default class LoadingScreen extends Scene
                 { key: 'atlas', frame: 'archer-death_7' },
             ],
             frameRate: 16,
-            repeat: -1,
+            repeat: 0,
         });
         //#endregion
 

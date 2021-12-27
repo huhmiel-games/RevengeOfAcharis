@@ -560,50 +560,39 @@ export default class Player extends Phaser.GameObjects.Sprite
         }
     }
 
-    public bowKill (e, playSfxBool = true)
-    {
-        const { blocked } = e.body;
-        const { body, texture, x, y } = e;
-        e.setVelocity(0, 0);
-        e.destroy();
-        const sideHit = Object.entries(blocked)
-            .filter((key) =>
-            {
-                return key[1] === true;
-            })[0][0];
-        const sideHitOffset = sideHit === 'right' ? body.width / 2 : -body.width / 2;
-        // this.scene.weaponParticles = this.scene.add.particles('whitePixel');
-        // this.scene.weaponParticleEmitter = this.scene.weaponParticles.createEmitter({
-        //     //angle: { min: -e.body.velocity.x / 10, max: Math.abs(e.body.velocity.x / 10) },
-        //     speed: { min: 200, max: 400 },
-        //     quantity: 6,
-        //     lifespan: 100,
-        //     alpha: 1,
-        //     scale: texture.key === 'axe' ? 1 : 0.5,
-        //     gravityX: -(Math.abs(body.velocity.x)),
-        //     on: false,
-        // });
-        // this.scene.weaponParticleEmitter.explode(6, x + sideHitOffset, y);
-        // leave if hit enemy, or play sfx on wall
-        if (!playSfxBool)
-        {
-            return;
-        }
+    // public bowKill (e, playSfxBool = true)
+    // {
+    //     const { blocked } = e.body;
+    //     const { body, texture, x, y } = e;
+    //     e.setVelocity(0, 0);
+    //     e.destroy();
+    //     const sideHit = Object.entries(blocked)
+    //         .filter((key) =>
+    //         {
+    //             return key[1] === true;
+    //         })[0][0];
+    //     const sideHitOffset = sideHit === 'right' ? body.width / 2 : -body.width / 2;
+        
+    //     // leave if hit enemy, or play sfx on wall
+    //     if (!playSfxBool)
+    //     {
+    //         return;
+    //     }
 
-        switch (e.name)
-        {
-            case 'knife':
-                this.scene.sound.play('knifeIcon', { volume: 0.4, rate: 1.5 });
-                break;
-            case 'sword':
-                this.scene.sound.play('knifeIcon', { volume: 0.4, rate: 1.2 });
-                break;
-            case 'axe':
-                this.scene.sound.play('knifeIcon', { volume: 0.4, rate: 0.5 });
-                break;
-        }
+    //     switch (e.name)
+    //     {
+    //         case 'knife':
+    //             this.scene.sound.play('knifeIcon', { volume: 0.4, rate: 1.5 });
+    //             break;
+    //         case 'sword':
+    //             this.scene.sound.play('knifeIcon', { volume: 0.4, rate: 1.2 });
+    //             break;
+    //         case 'axe':
+    //             this.scene.sound.play('knifeIcon', { volume: 0.4, rate: 0.5 });
+    //             break;
+    //     }
 
-    }
+    // }
 
     public addJumpBoots ()
     {
@@ -647,7 +636,7 @@ export default class Player extends Phaser.GameObjects.Sprite
         l.setActive(false).setVisible(false);
     }
 
-    public looseLife (elm: Enemy | Projectile)
+    public looseLife (elm: Enemy | Projectile | Arrow)
     {
         const inventory = this.inventoryManager.getInventory();
 

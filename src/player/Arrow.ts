@@ -8,6 +8,7 @@ export default class Arrow extends GameObjects.Sprite
     public body: Phaser.Physics.Arcade.Body;
     public damage: number;
     public isDeflecting: boolean;
+    public enemyState?: any;
 
     constructor (scene: GameScene, x: number, y: number, config: any)
     {
