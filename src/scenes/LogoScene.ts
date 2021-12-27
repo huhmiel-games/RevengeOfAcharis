@@ -1,7 +1,6 @@
 import { Scene } from 'phaser';
 import { WIDTH, HEIGHT, FONTS, SCENES_NAMES } from '../constant/config';
-// import atomicsc from '../assets/atomicsc.png';
-// import atomicscXML from '../assets/atomicsc.xml';
+
 import minimalPixelFont from '../assets/fonts/dungeon.png';
 import minimalPixelXml from '../assets/fonts/dungeon.xml';
 
@@ -14,8 +13,8 @@ import ultimaXml from '../assets/fonts/PixelUltima.xml';
 import ultimaBold from '../assets/fonts/PixelUltimaBold.png';
 import ultimaBoldXml from '../assets/fonts/PixelUltimaBold.xml';
 
-import alagard from '../assets/alagard.png';
-import alagardXML from '../assets/alagard.xml';
+import alagard from '../assets/fonts/alagard.png';
+import alagardXML from '../assets/fonts/alagard.xml';
 
 import progressBar from '../assets/progress-bar.png';
 import whitePixel from '../assets/whitePixel.png';
