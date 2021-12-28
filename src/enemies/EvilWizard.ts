@@ -259,13 +259,10 @@ export default class EvilWizard extends Enemy
         this.playSfxDeath();
 
         this.destroyHitbox();
-        // kill the enemy
 
         this.scene.player.addXp(this.xp);
 
         const { x, y } = this.body.center;
-
-        this.giveLife(x, y);
 
         SaveLoadService.setEnemiesDeathCount();
 
@@ -274,6 +271,8 @@ export default class EvilWizard extends Enemy
         this.once(Phaser.Animations.Events.ANIMATION_COMPLETE, () =>
         {
             this.burn();
+
+            this.giveLife(x, y);
 
             this.scene.tweens.add({
                 duration: 250,

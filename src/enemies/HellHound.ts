@@ -36,10 +36,7 @@ export default class HellHound extends Enemy
 
         this.walkplay = false;
 
-        this.attackSfx = this.scene.sound.add('hellhoundAttack').on('complete', () =>
-        {
-            //this.isAttacking = false;
-        });
+        this.attackSfx = this.scene.sound.add('hellhoundAttack');
 
         this.walkk = this.scene.sound.add('hellhoundStep', { volume: 0.5 });
 
@@ -70,7 +67,7 @@ export default class HellHound extends Enemy
 
         this.on(Phaser.Animations.Events.ANIMATION_COMPLETE, () =>
         {
-            const { velocity, blocked, center } = this.body;
+            const { center } = this.body;
 
             const anim = this.anims.getName();
 
@@ -119,14 +116,10 @@ export default class HellHound extends Enemy
                 return;
             }
 
-            
-
             if (anim === 'hellHoundRun')
             {
                 if (distanceCadaverPlayer <= 250)
                 {
-                    // this.body.setVelocityX(playerX - center.x > 0 ? this.speed : -this.speed);
-                    // this.playAttackSfx();
                     this.anims.play('hellHoundRun', true);
 
                     return;
@@ -134,7 +127,6 @@ export default class HellHound extends Enemy
 
                 if (distanceCadaverPlayer > 250)
                 {
-                    // this.body.setVelocityX(0);
                     this.body.setVelocityX(this.cadaver.x - center.x > 0 ? this.speed / 3 : -this.speed / 3);
                     this.anims.play('hellHoundWalk', true);
 
@@ -153,7 +145,7 @@ export default class HellHound extends Enemy
 
             const { velocity, blocked } = this.body;
 
-            //     // turn back if blocked
+            // turn back if blocked
             if (blocked.left)
             {
                 this.body.setVelocityX(this.speed);

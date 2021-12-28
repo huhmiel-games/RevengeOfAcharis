@@ -1,22 +1,24 @@
 import { COLORS } from '../constant/colors';
 import { FONTS, FONTS_SIZES } from '../constant/config';
 import GameScene from '../scenes/GameScene';
+import SaveLoadService from '../services/SaveLoadService';
 import { THitboxData } from '../types/types';
 import Enemy from './Enemy';
 import Projectile from './Projectile';
 
-export default class VikingAxe extends Enemy
+export default class Imp extends Enemy
 {
     public enemyState: { life: number; damage: number; giveLife: number; };
-    public speed: number = 30;
+    public speed: number = 20;
     public walkplay: boolean;
     public walkk: Phaser.Sound.BaseSound;
     public distance: number;
     private hitboxData: THitboxData;
     public hitbox: Projectile[] = [];
     private swordSfx: Phaser.Sound.BaseSound;
+    private secondLife: number;
 
-    constructor (scene: GameScene, x: number, y: number, config: any)
+    constructor (scene: GameScene, x: number, y: number, config: { key?: string; name?: 'imp'; life: number; damage: number; })
     {
         super(scene, x, y, config);
 
@@ -26,30 +28,31 @@ export default class VikingAxe extends Enemy
             giveLife: Math.round(config.life / 3),
         };
 
+        this.secondLife = config.life;
+
         this.setOrigin(0, 0);
 
         this.body
             .setAllowGravity(true)
             .setGravityY(500)
-            .setSize(5, 29)
-            .setOffset(58, 12)
+            .setSize(8, 29)
+            .setOffset(35, 13)
             .setVelocityX(-this.speed)
-            .setMaxVelocityX(this.speed)
-            .reset(x, y);
+            .setMaxVelocityX(this.speed);
 
         this.swordSfx = this.scene.sound.add('bullet', { volume: 0.7, rate: 0.8 });
 
-        this.hitboxData = JSON.parse('{"viking-axe-attack2_4":{"hitboxes":[{"frame":"viking-axe-attack2_4","type":"rectangle","x":36,"y":13,"width":42,"height":3},{"frame":"viking-axe-attack2_4","type":"rectangle","x":78,"y":15,"width":11,"height":4},{"frame":"viking-axe-attack2_4","type":"circle","x":89,"y":17,"width":10,"height":10},{"frame":"viking-axe-attack2_4","type":"rectangle","x":79,"y":24,"width":11,"height":4},{"frame":"viking-axe-attack2_4","type":"rectangle","x":68,"y":27,"width":11,"height":3}]}}');
+        this.hitboxData = JSON.parse('{"imp-red-attack1_4":{"hitboxes":[{"frame":"imp-red-attack1_4","type":"circle","x":42,"y":6,"width":30,"height":30}]},"imp-red-attack2_4":{"hitboxes":[{"frame":"imp-red-attack2_4","type":"circle","x":56,"y":12,"width":21,"height":21}]}}');
 
         this.walkplay = false;
-        this.walkk = this.scene.sound.add('townWalkSfx', { volume: 0.8 });
-        this.anims.play('viking-axe-walk');
+        this.walkk = this.scene.sound.add('skeletonStep', { volume: 0.5 });
+        this.anims.play('imp-red-walk');
 
         this.on(Phaser.Animations.Events.ANIMATION_UPDATE, () =>
         {
             const frame = this.anims.getFrameName();
 
-            if (frame === 'viking-axe-walk_3' || frame === 'viking-axe-walk_9') this.playSound();
+            if (frame === 'imp-red-walk_3' || frame === 'imp-red-walk_9') this.playSound();
 
             if (this.hitboxData.hasOwnProperty(frame) && !this.isDead)
             {
@@ -71,7 +74,7 @@ export default class VikingAxe extends Enemy
 
                         if (element.type === 'circle')
                         {
-                            hitbox.body.setCircle(element.width).setEnable(true);
+                            hitbox.body.setCircle(element.width / 2).setEnable(true);
                         }
 
                         if (this.flipX)
@@ -104,16 +107,48 @@ export default class VikingAxe extends Enemy
         {
             if (this.isDead) return;
 
+            if (this.body.blocked.down === false) return;
+
             const anim = this.anims.getName();
 
-            if (anim === 'viking-axe-hit')
+            if (anim === 'imp-red-hit')
             {
-                this.anims.play('viking-axe-attack2', true);
+                this.anims.play('imp-red-attack2', true);
 
                 return;
             }
 
+            if (anim === 'imp-red-attack1')
+            {
+                this.anims.play('imp-red-attack2', true);
+
+                return;
+            }
+
+            if (anim === 'imp-red-stand_up')
+            {
+                this.anims.play('imp-red-ready', true);
+
+                return;
+            }
+
+            if (anim === 'imp-red-touch-ground')
+            {
+                this.anims.play('imp-red-walk', true);
+
+                if (this.body.center.x > this.scene.player.body.center.x)
+                {
+                    this.body.setVelocityX(-this.speed);
+                }
+                else
+                {
+                    this.body.setVelocityX(this.speed);
+                }
+            }
+
             this.isAttacking = false;
+
+            if (this.secondLife === 0 && this.body.center.y < this.scene.player.body.center.y) return;
 
             const tileLeftBottom = this.scene.colliderLayer.getTileAtWorldXY(this.body.left - 16, this.body.bottom);
 
@@ -129,7 +164,7 @@ export default class VikingAxe extends Enemy
                 this.body.setVelocityX(-this.speed);
             }
 
-            this.anims.play('viking-axe-walk', true);
+            this.anims.play('imp-red-walk', true);
         });
     }
 
@@ -149,23 +184,41 @@ export default class VikingAxe extends Enemy
     {
         super.preUpdate(time, delta);
 
-        if (this.active && this.body.blocked.down && !this.isDead)
+        if (this.active && !this.isDead)
         {
             const { blocked, velocity } = this.body;
             const { x, y } = this.scene.player.body.center;
 
             const distance = Phaser.Math.Distance.Between(x, y, this.body.center.x, this.body.center.y);
 
+            const anim = this.anims.getName();
+
+            if (blocked.down === false)
+            {
+                this.anims.play('imp-red-fall', true);
+
+                return;
+            }
+
+            if (this.body.onFloor() && anim === 'imp-red-fall')
+            {
+                this.body.setVelocityX(0);
+
+                this.anims.play('imp-red-touch-ground');
+
+                return;
+            }
+
             if (distance <= 30 && !this.isAttacking)
             {
-                this.anims.play('viking-axe-attack2', true);
+                this.anims.play('imp-red-attack1', true);
 
                 this.isAttacking = true;
             }
 
-            if (distance > 30 && !this.isAttacking)
+            if (distance > 30 && !this.isAttacking && anim !== 'imp-red-touch-ground')
             {
-                this.anims.play('viking-axe-walk', true);
+                this.anims.play('imp-red-walk', true);
             }
 
             if (this.isAttacking)
@@ -174,7 +227,7 @@ export default class VikingAxe extends Enemy
 
                 this.body.setVelocityX(0);
             }
-            else if (!this.isAttacking && velocity.x === 0)
+            else if (!this.isAttacking && velocity.x === 0 && anim !== 'imp-red-touch-ground')
             {
                 const speed = (x - this.body.center.x) > 0 ? this.speed : -this.speed;
 
@@ -211,7 +264,7 @@ export default class VikingAxe extends Enemy
 
         if (!this.isAttacking)
         {
-            this.anims.play('viking-axe-hit');
+            this.anims.play('imp-red-hit');
         }
         else
         {
@@ -238,7 +291,7 @@ export default class VikingAxe extends Enemy
 
         this.scene.tweens.add({
             targets: damageText,
-            duration: 800,
+            duration: 1500,
             y: {
                 from: this.body.top,
                 to: this.body.top - 32
@@ -269,8 +322,6 @@ export default class VikingAxe extends Enemy
 
         if (this.enemyState.life <= 0)
         {
-            this.destroyHitbox();
-
             this.kill();
 
             return;
@@ -294,6 +345,79 @@ export default class VikingAxe extends Enemy
 
                 this.isHit = false;
             }
+        });
+    }
+
+    public kill (): void
+    {
+        if (this.isDead) return;
+
+        if (this.secondLife > 0)
+        {
+            this.isDead = true;
+
+            this.enemyState.life = this.secondLife;
+
+            this.secondLife = 0;
+
+            this.body.stop().setEnable(false);
+
+            this.clearTint();
+
+            this.anims.play('imp-red-fall_back', true);
+
+            this.once(Phaser.Animations.Events.ANIMATION_COMPLETE, () =>
+            {
+                this.scene.time.addEvent({
+                    delay: 2000,
+                    callback: () =>
+                    {
+                        this.isDead = false;
+                        
+                        this.isHit = false;
+
+                        this.body.setEnable(true);
+
+                        this.anims.play('imp-red-stand_up', true);
+                    }
+                });
+            });
+
+            return;
+        }
+
+
+        this.isDead = true;
+
+        this.body.stop().setEnable(false);
+
+        this.clearTint();
+
+        this.playSfxDeath();
+
+        this.destroyHitbox();
+        // kill the enemy
+
+        this.scene.player.addXp(this.xp);
+
+        const { x, y } = this.body.center;
+
+        SaveLoadService.setEnemiesDeathCount();
+
+        this.anims.play('imp-red-fall_back', true);
+
+        this.once(Phaser.Animations.Events.ANIMATION_COMPLETE, () =>
+        {
+            this.burn();
+
+            this.giveLife(x, y);
+
+            this.scene.tweens.add({
+                duration: 250,
+                targets: this,
+                alpha: 0,
+                onComplete: () => this.destroy()
+            });
         });
     }
 

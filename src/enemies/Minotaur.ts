@@ -256,7 +256,7 @@ export default class Minotaur extends Enemy
 
         const { x, y } = this.body.center;
 
-        this.giveLife(x, y);
+        
 
         SaveLoadService.setEnemiesDeathCount();
 
@@ -265,6 +265,8 @@ export default class Minotaur extends Enemy
         this.once(Phaser.Animations.Events.ANIMATION_COMPLETE, () =>
         {
             this.burn();
+
+            this.giveLife(x, y);
 
             this.destroy();
         });

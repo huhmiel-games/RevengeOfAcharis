@@ -177,8 +177,6 @@ export default class Archer extends Enemy
 
         const { x, y } = this.body.center;
 
-        this.giveLife(x, y);
-
         SaveLoadService.setEnemiesDeathCount();
 
         this.anims.play('archer-death', true);
@@ -186,6 +184,8 @@ export default class Archer extends Enemy
         this.once(Phaser.Animations.Events.ANIMATION_COMPLETE, () =>
         {
             this.burn();
+
+            this.giveLife(x, y);
 
             this.scene.tweens.add({
                 duration: 250,

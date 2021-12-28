@@ -87,7 +87,6 @@ export default class Ghost extends Enemy
                 this.body.setVelocity(dx, dy);
             }
 
-
             // flip the sprite
             if (this.body.velocity.x > 0)
             {

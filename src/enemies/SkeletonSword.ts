@@ -363,8 +363,6 @@ export default class SkeletonSword extends Enemy
 
         const { x, y } = this.body.center;
 
-        this.giveLife(x, y);
-
         SaveLoadService.setEnemiesDeathCount();
 
         this.anims.play('skeleton-sword-dead_far', true);
@@ -372,6 +370,8 @@ export default class SkeletonSword extends Enemy
         this.once(Phaser.Animations.Events.ANIMATION_COMPLETE, () =>
         {
             this.burn();
+
+            this.giveLife(x, y);
 
             this.scene.tweens.add({
                 duration: 250,
