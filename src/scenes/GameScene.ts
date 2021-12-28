@@ -46,6 +46,7 @@ import Saw from '../enemies/Saw';
 import VikingAxe from '../enemies/VikingAxe';
 import Archer from '../enemies/Archer';
 import DemonAxe from '../enemies/DemonAxe';
+import Imp from '../enemies/Imp';
 //#endregion
 
 export default class GameScene extends Scene
@@ -1226,6 +1227,19 @@ DEF: ${props.defense}`;
                     });
 
                     this.enemyGroup.push(demonAxe);
+                    break;
+                
+                case 'imp':
+                    if (!element.y) return;
+
+                    const imp = new Imp(this, element.x as unknown as number, element.y as unknown as number - 16, {
+                        key: element.properties.key,
+                        name: element.name,
+                        life: element.properties.life,
+                        damage: element.properties.damage,
+                    });
+
+                    this.enemyGroup.push(imp);
                     break;
 
                 case 'viking':

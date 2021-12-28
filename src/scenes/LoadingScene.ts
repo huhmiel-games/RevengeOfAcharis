@@ -1719,7 +1719,7 @@ export default class LoadingScreen extends Scene
                 { key: 'atlas', frame: 'imp-red-attack2_6' },
             ],
             frameRate: 12,
-            repeat: -1,
+            repeat: 0,
         });
                 
         this.anims.create({
@@ -1727,13 +1727,13 @@ export default class LoadingScreen extends Scene
             frames: [
                 { key: 'atlas', frame: 'imp-red-attack1_1' },
                 { key: 'atlas', frame: 'imp-red-attack1_2' },
-                { key: 'atlas', frame: 'imp-red-attack1_3' },
+                { key: 'atlas', frame: 'imp-red-attack1_3', duration: 300 },
                 { key: 'atlas', frame: 'imp-red-attack1_4' },
                 { key: 'atlas', frame: 'imp-red-attack1_5' },
                 { key: 'atlas', frame: 'imp-red-attack1_6' },
             ],
             frameRate: 12,
-            repeat: -1,
+            repeat: 0,
         });
                 
         this.anims.create({
@@ -1746,7 +1746,7 @@ export default class LoadingScreen extends Scene
                 { key: 'atlas', frame: 'imp-red-stand_up_5' },
             ],
             frameRate: 10,
-            repeat: -1,
+            repeat: 0,
         });
                 
         this.anims.create({
@@ -1759,7 +1759,7 @@ export default class LoadingScreen extends Scene
                 { key: 'atlas', frame: 'imp-red-fall_back_5' },
             ],
             frameRate: 10,
-            repeat: -1,
+            repeat: 0,
         });
                 
         this.anims.create({
@@ -1772,21 +1772,26 @@ export default class LoadingScreen extends Scene
                 { key: 'atlas', frame: 'imp-red-walk_5' },
                 { key: 'atlas', frame: 'imp-red-walk_6' },
             ],
-            frameRate: 12,
-            repeat: -1,
+            frameRate: 8,
+            repeat: 0,
         });
                 
         this.anims.create({
-            key: 'imp-red-jump',
+            key: 'imp-red-fall',
             frames: [
-                { key: 'atlas', frame: 'imp-red-jump_1' },
-                { key: 'atlas', frame: 'imp-red-jump_2' },
-                { key: 'atlas', frame: 'imp-red-jump_3' },
                 { key: 'atlas', frame: 'imp-red-jump_4' },
-                { key: 'atlas', frame: 'imp-red-jump_5' },
             ],
             frameRate: 10,
-            repeat: -1,
+            repeat: 0,
+        });
+
+        this.anims.create({
+            key: 'imp-red-touch-ground',
+            frames: [
+                { key: 'atlas', frame: 'imp-red-jump_5' },
+            ],
+            frameRate: 5,
+            repeat: 1,
         });
                 
         this.anims.create({
@@ -1814,7 +1819,7 @@ export default class LoadingScreen extends Scene
                 { key: 'atlas', frame: 'imp-red-ready_6' },
             ],
             frameRate: 12,
-            repeat: -1,
+            repeat: 0,
         });
                 
         this.anims.create({
@@ -1825,7 +1830,7 @@ export default class LoadingScreen extends Scene
                 { key: 'atlas', frame: 'imp-red-hit_3' },
             ],
             frameRate: 6,
-            repeat: -1,
+            repeat: 0,
         });
         //#endregion
                 
@@ -1835,7 +1840,7 @@ export default class LoadingScreen extends Scene
             frames: [
                 { key: 'atlas', frame: 'demon-axe-red-attack1_1' },
                 { key: 'atlas', frame: 'demon-axe-red-attack1_2' },
-                { key: 'atlas', frame: 'demon-axe-red-attack1_3', duration: 200 },
+                { key: 'atlas', frame: 'demon-axe-red-attack1_3', duration: 800 },
                 { key: 'atlas', frame: 'demon-axe-red-attack1_4' },
                 { key: 'atlas', frame: 'demon-axe-red-attack1_5', duration: 400 },
                 { key: 'atlas', frame: 'demon-axe-red-attack1_6' },
@@ -1849,9 +1854,9 @@ export default class LoadingScreen extends Scene
             frames: [
                 { key: 'atlas', frame: 'demon-axe-red-attack2_1' },
                 { key: 'atlas', frame: 'demon-axe-red-attack2_2' },
-                { key: 'atlas', frame: 'demon-axe-red-attack2_3' },
+                { key: 'atlas', frame: 'demon-axe-red-attack2_3', duration: 800 },
                 { key: 'atlas', frame: 'demon-axe-red-attack2_4' },
-                { key: 'atlas', frame: 'demon-axe-red-attack2_5' },
+                { key: 'atlas', frame: 'demon-axe-red-attack2_5', duration: 400 },
                 { key: 'atlas', frame: 'demon-axe-red-attack2_6' },
             ],
             frameRate: 6,
@@ -1905,8 +1910,8 @@ export default class LoadingScreen extends Scene
                 { key: 'atlas', frame: 'demon-axe-red-walk_5' },
                 { key: 'atlas', frame: 'demon-axe-red-walk_6' },
             ],
-            frameRate: 6,
-            repeat: -1,
+            frameRate: 5,
+            repeat: 0,
         });
                 
         this.anims.create({
