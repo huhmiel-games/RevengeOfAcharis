@@ -45,6 +45,7 @@ import DragonHead from '../enemies/DragonHead';
 import Saw from '../enemies/Saw';
 import VikingAxe from '../enemies/VikingAxe';
 import Archer from '../enemies/Archer';
+import DemonAxe from '../enemies/DemonAxe';
 //#endregion
 
 export default class GameScene extends Scene
@@ -433,7 +434,11 @@ export default class GameScene extends Scene
         }
 
         this.player.looseLife(elm);
-        if (elm.name === 'arrow') elm.setVisible(false).setActive(false);
+        if (elm instanceof Arrow)
+        {
+            elm.kill();
+        }
+        // if (elm.name === 'arrow') elm.setVisible(false).setActive(false);
     }
 
     public playerIsDead ()
@@ -1208,6 +1213,19 @@ DEF: ${props.defense}`;
                     });
 
                     this.enemyGroup.push(minotaur);
+                    break;
+                
+                case 'demon-axe':
+                    if (!element.y) return;
+
+                    const demonAxe = new DemonAxe(this, element.x as unknown as number, element.y - 16 as unknown as number - 16, {
+                        key: element.properties.key,
+                        name: element.name,
+                        life: element.properties.life,
+                        damage: element.properties.damage,
+                    });
+
+                    this.enemyGroup.push(demonAxe);
                     break;
 
                 case 'viking':
