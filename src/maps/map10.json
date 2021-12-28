@@ -160,27 +160,27 @@
                  "gid":4100,
                  "height":16,
                  "id":582,
-                 "name":"dark-knight",
+                 "name":"imp",
                  "properties":[
                         {
                          "name":"damage",
                          "type":"int",
-                         "value":15
+                         "value":10
                         }, 
                         {
                          "name":"key",
                          "type":"string",
-                         "value":"dark-knight"
+                         "value":"imp"
                         }, 
                         {
                          "name":"life",
                          "type":"int",
-                         "value":20
+                         "value":25
                         }, 
                         {
                          "name":"name",
                          "type":"string",
-                         "value":"dark-knight"
+                         "value":"imp"
                         }],
                  "rotation":0,
                  "type":"",
@@ -358,27 +358,27 @@
                  "gid":4100,
                  "height":16,
                  "id":583,
-                 "name":"dark-knight",
+                 "name":"imp",
                  "properties":[
                         {
                          "name":"damage",
                          "type":"int",
-                         "value":15
+                         "value":10
                         }, 
                         {
                          "name":"key",
                          "type":"string",
-                         "value":"dark-knight"
+                         "value":"imp"
                         }, 
                         {
                          "name":"life",
                          "type":"int",
-                         "value":20
+                         "value":25
                         }, 
                         {
                          "name":"name",
                          "type":"string",
-                         "value":"dark-knight"
+                         "value":"imp"
                         }],
                  "rotation":0,
                  "type":"",
@@ -391,27 +391,27 @@
                  "gid":4100,
                  "height":16,
                  "id":584,
-                 "name":"dark-knight",
+                 "name":"imp",
                  "properties":[
                         {
                          "name":"damage",
                          "type":"int",
-                         "value":15
+                         "value":10
                         }, 
                         {
                          "name":"key",
                          "type":"string",
-                         "value":"dark-knight"
+                         "value":"imp"
                         }, 
                         {
                          "name":"life",
                          "type":"int",
-                         "value":20
+                         "value":25
                         }, 
                         {
                          "name":"name",
                          "type":"string",
-                         "value":"dark-knight"
+                         "value":"imp"
                         }],
                  "rotation":0,
                  "type":"",
@@ -485,6 +485,39 @@
                  "width":16,
                  "x":304,
                  "y":192
+                }, 
+                {
+                 "gid":4100,
+                 "height":16,
+                 "id":598,
+                 "name":"imp",
+                 "properties":[
+                        {
+                         "name":"damage",
+                         "type":"int",
+                         "value":10
+                        }, 
+                        {
+                         "name":"key",
+                         "type":"string",
+                         "value":"imp"
+                        }, 
+                        {
+                         "name":"life",
+                         "type":"int",
+                         "value":25
+                        }, 
+                        {
+                         "name":"name",
+                         "type":"string",
+                         "value":"imp"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":128,
+                 "y":256
                 }, 
                 {
                  "gid":4100,
@@ -886,7 +919,7 @@
          "y":0
         }],
  "nextlayerid":32,
- "nextobjectid":598,
+ "nextobjectid":599,
  "orientation":"orthogonal",
  "properties":[
         {

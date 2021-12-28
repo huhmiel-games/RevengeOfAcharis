@@ -120,40 +120,7 @@
          "draworder":"topdown",
          "id":33,
          "name":"objects",
-         "objects":[
-                {
-                 "gid":4,
-                 "height":16,
-                 "id":568,
-                 "name":"wizard",
-                 "properties":[
-                        {
-                         "name":"damage",
-                         "type":"int",
-                         "value":2
-                        }, 
-                        {
-                         "name":"key",
-                         "type":"string",
-                         "value":"wizard-idle"
-                        }, 
-                        {
-                         "name":"life",
-                         "type":"int",
-                         "value":50
-                        }, 
-                        {
-                         "name":"name",
-                         "type":"string",
-                         "value":"wizard-idle"
-                        }],
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":16,
-                 "x":80,
-                 "y":320
-                }],
+         "objects":[],
          "opacity":1,
          "type":"objectgroup",
          "visible":true,

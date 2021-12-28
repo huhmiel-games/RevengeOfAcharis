@@ -117,39 +117,6 @@
                 {
                  "gid":4,
                  "height":16,
-                 "id":554,
-                 "name":"wizard",
-                 "properties":[
-                        {
-                         "name":"damage",
-                         "type":"int",
-                         "value":2
-                        }, 
-                        {
-                         "name":"key",
-                         "type":"string",
-                         "value":"wizard-idle"
-                        }, 
-                        {
-                         "name":"life",
-                         "type":"int",
-                         "value":50
-                        }, 
-                        {
-                         "name":"name",
-                         "type":"string",
-                         "value":"wizard-idle"
-                        }],
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":16,
-                 "x":400,
-                 "y":272
-                }, 
-                {
-                 "gid":4,
-                 "height":16,
                  "id":557,
                  "name":"saw",
                  "properties":[
