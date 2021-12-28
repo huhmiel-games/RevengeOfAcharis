@@ -16,6 +16,8 @@ export default class DemonAxe extends Enemy
     private hitboxData: THitboxData;
     public hitbox: Projectile[] = [];
     private swordSfx: Phaser.Sound.BaseSound;
+    private isBattleMusic: boolean = false;
+    private currentsong: Phaser.Sound.BaseSound;
 
     constructor (scene: GameScene, x: number, y: number, config: any)
     {
@@ -109,6 +111,8 @@ export default class DemonAxe extends Enemy
 
         this.on(Phaser.Animations.Events.ANIMATION_COMPLETE, () =>
         {
+            this.checkMusic();
+
             if (this.isDead) return;
 
             const anim = this.anims.getName();
@@ -138,6 +142,28 @@ export default class DemonAxe extends Enemy
 
             this.anims.play('demon-axe-red-walk', true);
         });
+    }
+
+    private checkMusic ()
+    {
+        if (!this.isBattleMusic && !this.isDead)
+        {
+            if (!this.scene.cameras.main.worldView.contains(this.body.center.x, this.body.center.y))
+            {
+                return;
+            }
+
+            if (Math.round(this.body.bottom) !== Math.round(this.scene.player.body.bottom))
+            {
+                return;
+            }
+            
+            this.currentsong = this.scene.musicGroup.filter(elm => elm.isPlaying)[0];
+            this.isBattleMusic = true;
+            this.scene.stopMusic();
+            this.scene.bossBattleMusic.play();
+            
+        }
     }
 
     private playSound ()
@@ -322,8 +348,6 @@ export default class DemonAxe extends Enemy
 
         const { x, y } = this.body.center;
 
-        this.giveLife(x, y);
-
         SaveLoadService.setEnemiesDeathCount();
 
         this.anims.play('demon-axe-red-dead', true);
@@ -331,7 +355,13 @@ export default class DemonAxe extends Enemy
         this.once(Phaser.Animations.Events.ANIMATION_COMPLETE, () =>
         {
             this.burn();
-            
+
+            this.giveLife(x, y);
+
+            this.scene.stopMusic();
+
+            this.currentsong.play();
+
             this.scene.tweens.add({
                 duration: 250,
                 targets: this,
