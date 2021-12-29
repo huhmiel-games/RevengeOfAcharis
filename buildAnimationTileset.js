@@ -48,6 +48,26 @@ const tiles = [
         "animation": [
             {
                 "duration": 200,
+                "tileid": 11
+            },
+            {
+                "duration": 200,
+                "tileid": 12
+            },
+            {
+                "duration": 200,
+                "tileid": 13
+            },
+            {
+                "duration": 200,
+                "tileid": 14
+            }],
+        "id": 11
+    },
+    {
+        "animation": [
+            {
+                "duration": 200,
                 "tileid": 32
             },
             {
@@ -389,6 +409,26 @@ const tileData = {
             }
         ]
     },
+    "11": {
+        "animation": [
+            {
+                "duration": 200,
+                "tileid": 11
+            },
+            {
+                "duration": 200,
+                "tileid": 12
+            },
+            {
+                "duration": 200,
+                "tileid": 13
+            },
+            {
+                "duration": 200,
+                "tileid": 14
+            }
+        ],
+    },
     "32": {
         "animation": [
             {
@@ -695,6 +735,7 @@ for (let i = 1; i < 35; i++)
     {
         if (e.name === 'animated')
         {
+            console.log('here')
             e.tiles = tiles;
             e.tileData = tileData;
         }
