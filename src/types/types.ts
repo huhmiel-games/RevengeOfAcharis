@@ -51,6 +51,8 @@ export type TInventory = {
     shieldDef: number
     fireRate: number
     powerUp: number[]
+    fireElement: boolean
+    waterElement: boolean
 };
 
 export type TSwordConfig = {

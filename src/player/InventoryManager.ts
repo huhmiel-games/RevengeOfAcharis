@@ -42,13 +42,15 @@ export default class InventoryManager
             selectableWeapon: ['sword'],
             swords: [0],
             selectedSword: 0,
-            bows: [],
-            selectedBow: null,
-            shields: [],
-            selectedShield: null,
-            shieldDef: 0,
+            bows: [10],
+            selectedBow: 10,
+            shields: [15],
+            selectedShield: 15,
+            shieldDef: 4,
             fireRate: 420,
             powerUp: [],
+            fireElement: false,
+            waterElement: false
         };
 
         return this.inventory;
