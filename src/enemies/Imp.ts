@@ -372,6 +372,8 @@ export default class Imp extends Enemy
                     delay: 2000,
                     callback: () =>
                     {
+                        if (!this.active) return;
+
                         this.isDead = false;
                         
                         this.isHit = false;
