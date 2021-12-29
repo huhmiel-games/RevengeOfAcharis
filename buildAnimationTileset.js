@@ -735,7 +735,6 @@ for (let i = 1; i < 35; i++)
     {
         if (e.name === 'animated')
         {
-            console.log('here')
             e.tiles = tiles;
             e.tileData = tileData;
         }
