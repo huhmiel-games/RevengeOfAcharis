@@ -1,36 +1,37 @@
 import { FONTS, FONTS_SIZES, HEIGHT, WIDTH } from '../constant/config';
 import DEPTH from '../constant/depth';
 import GameScene from '../scenes/GameScene';
+import DialogueService from '../services/DialogueService';
 
 export default class HellBeast extends Phaser.GameObjects.Sprite
 {
     public scene: GameScene;
     public body: Phaser.Physics.Arcade.Body;
     public enemyState: { life: number; damage: number; directionX: number; directionY: number; hited: boolean; lastFired: number; fireRate: number; };
-    public getFired: boolean;
-    public lastAnim: null;
-    public isAppearing: boolean;
-    public isFiring: boolean;
-    public isHidden: boolean;
-    public isShooting: boolean;
-    public isLavaAttack: boolean;
+    public getFired: boolean = false;
+    public isAppearing: boolean = false;
+    public isFiring: boolean = false;
+    public isHidden: boolean = true;
+    public isShooting: boolean = false;
+    public isLavaAttack: boolean = false;
     public hellBeastTimer: Phaser.Time.TimerEvent | undefined;
-    public battleStarted: boolean;
-    public attackTime: null;
-    public fireBallAttackCount: number;
-    public isGlowing: boolean;
-    public isDead: boolean;
-    public hellBeastThemeIsPlaying: boolean;
+    public battleStarted: boolean = false;
+    public fireBallAttackCount: number = 0;
+    public isDead: boolean = false;
     public showMsg: Phaser.GameObjects.BitmapText;
     public fadingTween: Phaser.Tweens.Tween;
+    private isBattleMusic: boolean = false;
+    private currentsong: Phaser.Sound.BaseSound;
     constructor (scene: GameScene, x: number, y: number, config: any)
     {
         super(scene, x, y, config.key);
 
         this.scene = scene;
+
         this.name = config.name;
+
         this.enemyState = {
-            life: 2000,
+            life: 100,
             damage: 0,
             directionX: -550,
             directionY: 0,
@@ -39,31 +40,28 @@ export default class HellBeast extends Phaser.GameObjects.Sprite
             fireRate: 20,
         };
 
-        this.setDepth(DEPTH.ENEMY);
+        this.setDepth(DEPTH.FRONT_LAYER + 1);
+
         this.scene.physics.world.enable(this);
         this.scene.add.existing(this);
-        this.body.allowGravity = true;
-        this.body.setSize(64, 64);
-        this.getFired = false;
-        this.lastAnim = null;
-        this.isAppearing = false;
-        this.isFiring = false;
-        this.isHidden = true;
-        this.isShooting = false;
-        this.isLavaAttack = false;
-        this.battleStarted = false;
-        this.attackTime = null;
-        this.fireBallAttackCount = 0;
-        this.isGlowing = false;
-        this.isDead = false;
-        this.hellBeastThemeIsPlaying = false;
-        // this.glowingSfx = this.scene.sound.add('hellBeastGlowingSfx');
+
+        this.body.setAllowGravity(true)
+            .setSize(64, 64);
+
         this.blockDoors();
+
         this.startBattle();
 
         this.on(Phaser.Animations.Events.ANIMATION_COMPLETE, () =>
         {
             const currentAnim = this.anims.getName();
+
+            if (this.isDead && currentAnim === 'hell-beast-burn')
+            {
+                this.anims.play({ key: 'hell-beast-lava', repeat: -1 }, true);
+
+                return;
+            }
 
             if (this.isLavaAttack && currentAnim === 'hell-beast-burn')
             {
@@ -103,27 +101,10 @@ export default class HellBeast extends Phaser.GameObjects.Sprite
         });
     }
 
-    // availables anims
-    // hell-beast-idle
-    // hell-beast-idle-stroke
-    // hell-beast-breath
-    // hell-beast-breath-stroke
-    // hell-beast-burn
-    // hell-beast-lava
-
-    // hellBeastDeathSfx
-    // hellBeastFireballSfx
-    // hellBeastHitSfx
-    // hellBeastLavaAttackSfx
-    // hellBeastFirstLaughSfx
-    // hellBeastAppearLaughSfx
-    // hellBeastDisappearLaughSfx
-    // hellBeastGlowingSfx
-
-    public preUpdate (time, delta)
+    public preUpdate (time: number, delta: number)
     {
         super.preUpdate(time, delta);
-        if (this.active)
+        if (this.active && !this.isDead)
         {
             if (this.x > this.scene.player.x)
             {
@@ -133,53 +114,106 @@ export default class HellBeast extends Phaser.GameObjects.Sprite
             {
                 this.flipX = true;
             }
-            // if (this.scene.player.state.dead) {
-            //   this.glowingSfx.stop();
-            // }
         }
     }
 
-    // playGlowing() {
-    //   if (this.isGlowing) {
-    //     return;
-    //   }
-    //   this.isGlowing = true;
-    //   this.glowingSfx.play({ loop: true });
-    // }
+    private checkMusic ()
+    {
+        if (!this.isBattleMusic && !this.isDead)
+        {
+            this.currentsong = this.scene.musicGroup.filter(elm => elm.isPlaying)[0];
+
+            this.isBattleMusic = true;
+
+            this.scene.stopMusic();
+
+            this.scene.bossBattleMusic.play({ loop: true });
+        }
+    }
 
     public startBattle ()
     {
-        const msg = `Hmm fresh meat...`;
+        const text = [`Hmm fresh meat...`];
 
-        this.scene.time.addEvent({
-            delay: 600,
-            callback: () =>
+        this.scene.setPause();
+
+        this.scene.player.isPause = true;
+
+        this.scene.sound.play('hellBeastFirstLaughSfx');
+
+        // @ts-ignore
+        const ui = this.scene.add.rexNinePatch(WIDTH / 2, HEIGHT - HEIGHT / 8, WIDTH, HEIGHT / 4, 'framing', [7, undefined, 7], [7, undefined, 7], 0)
+            .setOrigin(0.5, 0.5)
+            .setDepth(1999)
+            .setScrollFactor(0)
+            .setVisible(true);
+
+        let index = 0;
+
+        const msg = this.scene.add.bitmapText(WIDTH / 32, HEIGHT - 48, FONTS.MINIMAL, text[index], 22, 1)
+            .setOrigin(0, 0).setLetterSpacing(1).setAlpha(1).setDepth(2000).setScrollFactor(0, 0);
+
+        const dialog = this.scene.input.keyboard.on(Phaser.Input.Keyboard.Events.ANY_KEY_DOWN, (event) =>
+        {
+            if (event.key === this.scene.player.keys.fire.originalEvent.key && index < text.length)
             {
-                this.showMsg = this.scene.add.bitmapText(WIDTH / 2, HEIGHT / 2, FONTS.MINIMAL, msg, FONTS_SIZES.MINIMAL, 1)
-                    .setOrigin(0.5, 0.5).setAlpha(1).setDepth(200).setScrollFactor(0, 0);
-                this.scene.sound.play('hellBeastFirstLaughSfx');
+                index += 1;
+
+                msg.setText('');
+
+                this.scene.time.addEvent({
+                    delay: 150,
+                    callback: () => msg.setText(text[index])
+                });
+            }
+
+            if (event.key === this.scene.player.keys.fire.originalEvent.key && index === text.length)
+            {
+                msg.destroy();
+
+                ui.destroy();
+
+                this.scene.unPause();
+
+                this.scene.time.addEvent({
+                    delay: 150,
+                    callback: () =>
+                    {
+                        this.scene.player.isPause = false;
+                        dialog.removeAllListeners();
+
+                        this.checkMusic();
+
+                        this.handleHellBeast();
+                    }
+                });
             }
         });
 
-        this.scene.time.addEvent({
-            delay: 2000,
-            callback: () =>
-            {
-                this.showMsg.destroy();
-                this.handleHellBeast();
-            }
-        });
+        // this.scene.time.addEvent({
+        //     delay: 600,
+        //     callback: () =>
+        //     {
+        //         this.showMsg = this.scene.add.bitmapText(WIDTH / 2, HEIGHT / 2, FONTS.MINIMAL, msg, FONTS_SIZES.MINIMAL, 1)
+        //             .setOrigin(0.5, 0.5).setAlpha(1).setDepth(200).setScrollFactor(0, 0);
+        //         this.scene.sound.play('hellBeastFirstLaughSfx');
+        //     }
+        // });
+
+        // this.scene.time.addEvent({
+        //     delay: 2000,
+        //     callback: () =>
+        //     {
+        //         this.showMsg.destroy();
+        //         this.handleHellBeast();
+        //     }
+        // });
 
     }
 
     public handleHellBeast ()
     {
-        if (this.hellBeastTimer !== undefined || !this.active)
-        {
-            return;
-        }
-
-        if (!this.scene)
+        if (this.hellBeastTimer !== undefined || !this.active || this.isDead || !this.scene)
         {
             return;
         }
@@ -188,7 +222,7 @@ export default class HellBeast extends Phaser.GameObjects.Sprite
             delay: this.enemyState.life,
             callback: () =>
             {
-                if (this.isHidden && this.active)
+                if (this.isHidden && this.active && !this.isDead)
                 {
                     this.isAppearing = true;
                     this.appears();
@@ -199,21 +233,9 @@ export default class HellBeast extends Phaser.GameObjects.Sprite
         });
     }
 
-    public playHellBeastTheme ()
-    {
-        if (this.hellBeastThemeIsPlaying)
-        {
-            return;
-        }
-
-        this.hellBeastThemeIsPlaying = true;
-
-        this.scene.playMusic('hellBeastFight');
-    }
-
     public appears ()
     {
-        if (!this.isAppearing)
+        if (!this.isAppearing || this.isDead)
         {
             return;
         }
@@ -233,8 +255,6 @@ export default class HellBeast extends Phaser.GameObjects.Sprite
 
         this.scene.sound.play('hellBeastAppearLaughSfx');
 
-        this.playHellBeastTheme();
-
         this.fadingTween = this.scene.tweens.add({
             targets: this,
             ease: 'Sine.easeInOut',
@@ -249,7 +269,7 @@ export default class HellBeast extends Phaser.GameObjects.Sprite
             onComplete: () =>
             {
                 this.isFiring = true;
-                // this.playHellBeastTheme();
+
                 this.prepareToFire();
             },
         });
@@ -257,7 +277,7 @@ export default class HellBeast extends Phaser.GameObjects.Sprite
 
     public prepareToFire ()
     {
-        if (!this.active)
+        if (!this.active || this.isDead)
         {
             return;
         }
@@ -269,7 +289,9 @@ export default class HellBeast extends Phaser.GameObjects.Sprite
         else
         {
             this.fireBallAttackCount = 0;
+
             this.isLavaAttack = true;
+
             this.lavaAttack();
 
             return;
@@ -281,7 +303,7 @@ export default class HellBeast extends Phaser.GameObjects.Sprite
             repeat: 4,
             callback: () =>
             {
-                if (!this.active)
+                if (!this.active || this.isDead)
                 {
                     return;
                 }
@@ -289,9 +311,7 @@ export default class HellBeast extends Phaser.GameObjects.Sprite
                 if (fireTimer.repeatCount > 1)
                 {
                     const selectAnim = this.enemyState.life > 750 ? 'hell-beast-breath' : 'hell-beast-breath-stroke';
-                    // if (selectAnim === 'hell-beast-breath-stroke') {
-                    //   this.playGlowing();
-                    // }
+
                     this.anims.play(selectAnim, true);
                 }
 
@@ -305,7 +325,7 @@ export default class HellBeast extends Phaser.GameObjects.Sprite
 
     public hellBeastFadeOut ()
     {
-        if (!this.active)
+        if (!this.active || this.isDead)
         {
             return;
         }
@@ -325,8 +345,10 @@ export default class HellBeast extends Phaser.GameObjects.Sprite
             },
             onComplete: () =>
             {
-                if (!this.active)
+                if (!this.active || this.isDead)
                 {
+                    this?.setAlpha(1);
+
                     return;
                 }
 
@@ -343,7 +365,7 @@ export default class HellBeast extends Phaser.GameObjects.Sprite
 
     public lavaAttack ()
     {
-        if (!this.isLavaAttack || !this.active)
+        if (!this.isLavaAttack || !this.active || this.isDead)
         {
             return;
         }
@@ -354,7 +376,7 @@ export default class HellBeast extends Phaser.GameObjects.Sprite
             repeat: 3,
             callback: () =>
             {
-                if (!this.active)
+                if (!this.active || this.isDead)
                 {
                     return;
                 }
@@ -406,7 +428,7 @@ export default class HellBeast extends Phaser.GameObjects.Sprite
 
     public shootThePlayer ()
     {
-        if (this.body.x < -30)
+        if (this.body.x < -30 || this.isDead)
         {
             return;
         }
@@ -448,14 +470,9 @@ export default class HellBeast extends Phaser.GameObjects.Sprite
         }
     }
 
-    public animate (str)
+    public looseLife (damage: number)
     {
-        this.anims.play(str, true);
-    }
-
-    public looseLife (e)
-    {
-        if (this.isLavaAttack || this.enemyState.hited)
+        if (this.isLavaAttack || this.enemyState.hited || this.isDead)
         {
             return;
         }
@@ -473,18 +490,17 @@ export default class HellBeast extends Phaser.GameObjects.Sprite
             }
         });
 
-        this.enemyState.life = this.enemyState.life - e;
+        this.enemyState.life -= damage;
 
         this.scene.sound.play('hellBeastHitSfx', { volume: 1, rate: 1 });
 
         if (this.enemyState.life <= 0)
         {
-            // this.glowingSfx.stop();
-            this.unlockDoors();
+            this.isDead = true;
 
-            // this.scene.player.inventory.boss2 = true;
+            this.startDeathSequence();
+
             this.scene.stopMusic();
-            this.scene.playMusic('hellBeastFight');
         }
     }
 
@@ -516,5 +532,58 @@ export default class HellBeast extends Phaser.GameObjects.Sprite
     public checkCollision (d)
     {
         return;
+    }
+
+    private startDeathSequence (): void
+    {
+        this.play({ key: 'hell-beast-lava', repeat: -1 }, true);
+
+        this.scene.sound.play('hellBeastHitSfx', { volume: 1, rate: 0.3 });
+
+        this.scene.sound.play('hellBeastLavaAttackSfx', { volume: 1, rate: 0.3 });
+
+        this.body.setSize(64, 160).setAllowGravity(false);
+        this.body.reset(288, 528 - this.body.height / 2);
+
+        this.scene.tweens.add({
+            targets: this,
+            delay: 1000,
+            duration: 1000,
+            ease: Phaser.Math.Easing.Expo.Out,
+            displayWidth: 2,
+            onComplete: this.startDeathSequence2,
+            onCompleteScope: this
+        });
+
+        
+    }
+
+    private startDeathSequence2 (): void
+    {
+        this.scene.tweens.add({
+            targets: this,
+            duration: 500,
+            ease: Phaser.Math.Easing.Linear,
+            displayHeight: 2,
+            onComplete: () =>
+            {
+                this.scene.flashCamera(2000);
+
+                this.setAlpha(0);
+
+                const { x, y } = this.body.center;
+
+                const fireElement = this.scene.physics.add.sprite(x, y, 'atlas', 'fire-element_0').play('fire-element').setDepth(2000);
+            
+                this.scene.physics.world.enable(fireElement);
+
+                fireElement.body.setAllowGravity(false);
+
+                this.scene.physics.add.overlap(this.scene.player, fireElement, () =>
+                {
+                    console.log('get fire element');
+                }, undefined, this.scene);
+            }
+        });
     }
 }

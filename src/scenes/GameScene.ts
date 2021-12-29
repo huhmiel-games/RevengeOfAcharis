@@ -1583,9 +1583,8 @@ DEF: ${props.defense}`;
         }
 
         this.hellBeast = new HellBeast(this, -100, -100, { key: 'hell-beast-idle', name: 'hellBeast' });
+
         this.enemyGroup.push(this.hellBeast);
-        this.stopMusic();
-        this.bossBattleMusic.play();
     }
 
     public callDemon ()
@@ -1637,9 +1636,9 @@ DEF: ${props.defense}`;
         }
     }
 
-    public flashCamera ()
+    public flashCamera (time: number = 1000)
     {
-        this.cameras.main.flash(1000);
+        this.cameras.main.flash(time);
     }
 
     private resetAnimatedTiles ()

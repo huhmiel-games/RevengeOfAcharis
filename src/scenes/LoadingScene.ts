@@ -274,6 +274,7 @@ import map30 from '../maps/map30.json';
 import map31 from '../maps/map31.json';
 import map32 from '../maps/map32.json';
 import map33 from '../maps/map33.json';
+import map34 from '../maps/map34.json';
 import mapWorld from '../maps/world.world';
 import world from '../maps/world.json';
 //#endregion
@@ -410,6 +411,7 @@ export default class LoadingScreen extends Scene
         this.load.tilemapTiledJSON('map31', map31);
         this.load.tilemapTiledJSON('map32', map32);
         this.load.tilemapTiledJSON('map33', map33);
+        this.load.tilemapTiledJSON('map34', map34);
         //#endregion
 
         //#region load atlas
@@ -3558,8 +3560,8 @@ export default class LoadingScreen extends Scene
                 { key: 'atlas', frame: 'fire-element_4' },
                 { key: 'atlas', frame: 'fire-element_5' },
             ],
-            frameRate: 12,
-            repeat: 0,
+            frameRate: 24,
+            repeat: -1,
         });
         //#endregion
 
