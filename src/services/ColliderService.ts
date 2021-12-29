@@ -3,6 +3,7 @@ import DragonHead from '../enemies/DragonHead';
 import Enemy from '../enemies/Enemy';
 import EvilWizard from '../enemies/EvilWizard';
 import Projectile from '../enemies/Projectile';
+import Skeleton from '../enemies/Skeleton';
 import Arrow from '../player/Arrow';
 import Player from '../player/Player';
 import PowerUp from '../player/powerUp';
@@ -183,6 +184,13 @@ export default class ColliderService
                     e.dodge();
 
                     return false;
+                }
+
+                if (enemy instanceof Skeleton && weapon.name === 'arrow')
+                {
+                    const e = enemy as unknown as EvilWizard;
+
+                    if (!e.visible) return false;
                 }
             }, scene);
 
