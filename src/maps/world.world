@@ -230,6 +230,13 @@
             "width": 2560,
             "x": 7600,
             "y": 976
+        },
+        {
+            "fileName": "map34.json",
+            "height": 288,
+            "width": 512,
+            "x": 7600,
+            "y": -1584
         }
     ],
     "onlyShowAdjacentMaps": false,

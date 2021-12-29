@@ -203,7 +203,7 @@ function getFile (filename)
 }
 
 //parsing json
-for (let i = 1; i < 34; i++)
+for (let i = 1; i < 35; i++)
 {
     var jsonString = [getFile(`./src/maps/map${ i }.json`)];
     var jsonObj = JSON.parse(jsonString);
