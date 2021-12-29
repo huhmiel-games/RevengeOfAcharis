@@ -1,27 +1,26 @@
+import { COLORS } from '../constant/colors';
 import { FONTS, FONTS_SIZES, HEIGHT, WIDTH } from '../constant/config';
 import DEPTH from '../constant/depth';
 import GameScene from '../scenes/GameScene';
-import DialogueService from '../services/DialogueService';
+import LayerService from '../services/LayerService';
 
 export default class HellBeast extends Phaser.GameObjects.Sprite
 {
     public scene: GameScene;
     public body: Phaser.Physics.Arcade.Body;
     public enemyState: { life: number; damage: number; directionX: number; directionY: number; hited: boolean; lastFired: number; fireRate: number; };
-    public getFired: boolean = false;
     public isAppearing: boolean = false;
     public isFiring: boolean = false;
     public isHidden: boolean = true;
-    public isShooting: boolean = false;
     public isLavaAttack: boolean = false;
     public hellBeastTimer: Phaser.Time.TimerEvent | undefined;
-    public battleStarted: boolean = false;
     public fireBallAttackCount: number = 0;
     public isDead: boolean = false;
-    public showMsg: Phaser.GameObjects.BitmapText;
     public fadingTween: Phaser.Tweens.Tween;
     private isBattleMusic: boolean = false;
     private currentsong: Phaser.Sound.BaseSound;
+    private healthUiText: Phaser.GameObjects.BitmapText;
+    private healthUiBack: Phaser.GameObjects.Image;
     constructor (scene: GameScene, x: number, y: number, config: any)
     {
         super(scene, x, y, config.key);
@@ -31,7 +30,7 @@ export default class HellBeast extends Phaser.GameObjects.Sprite
         this.name = config.name;
 
         this.enemyState = {
-            life: 100,
+            life: 2000,
             damage: 0,
             directionX: -550,
             directionY: 0,
@@ -51,6 +50,11 @@ export default class HellBeast extends Phaser.GameObjects.Sprite
         this.blockDoors();
 
         this.startBattle();
+
+        this.healthUiBack = this.scene.add.image(425, 0, 'parchment').setScrollFactor(0, 0).setDepth(1900).setOrigin(0, 0).setFlipX(true);
+
+        this.healthUiText = this.scene.add.bitmapText(435, 9, FONTS.GALAXY, `${this.enemyState.life}/2000`, FONTS_SIZES.GALAXY, 1)
+            .setScrollFactor(0, 0).setDepth(2000).setTintFill(COLORS.STEEL_GRAY);
 
         this.on(Phaser.Animations.Events.ANIMATION_COMPLETE, () =>
         {
@@ -185,6 +189,12 @@ export default class HellBeast extends Phaser.GameObjects.Sprite
                         this.checkMusic();
 
                         this.handleHellBeast();
+
+                        const layer: Phaser.Tilemaps.TilemapLayer = LayerService.getGroundLayers(this.scene).filter(l => l.name === 'ground/ground')[0];
+
+                        layer.putTileAt(734 + 17, 0, 30, true);
+                        layer.putTileAt(797 + 17, 0, 31);
+                        layer.putTileAt(860 + 17, 0, 32);
                     }
                 });
             }
@@ -226,8 +236,7 @@ export default class HellBeast extends Phaser.GameObjects.Sprite
                 {
                     this.isAppearing = true;
                     this.appears();
-                    // this.playHellBeastTheme();
-                    this.hellBeastTimer = undefined; // destroy();
+                    this.hellBeastTimer = undefined;
                 }
             },
         });
@@ -241,7 +250,7 @@ export default class HellBeast extends Phaser.GameObjects.Sprite
         }
         this.isAppearing = false;
 
-        this.hellBeastTimer = undefined; // .destroy();
+        this.hellBeastTimer = undefined;
 
         const selectAnim = this.enemyState.life > 1000 ? 'hell-beast-idle' : 'hell-beast-idle-stroke';
 
@@ -249,7 +258,7 @@ export default class HellBeast extends Phaser.GameObjects.Sprite
 
         this.body.setSize(64, 64);
 
-        const randomX = Phaser.Math.Between(24, 376);
+        const randomX = Phaser.Math.Between(80, 480);
 
         this.body.reset(randomX, 528 - this.body.height / 2);
 
@@ -492,11 +501,33 @@ export default class HellBeast extends Phaser.GameObjects.Sprite
 
         this.enemyState.life -= damage;
 
+        this.healthUiText.setText(`${this.enemyState.life}/2000`);
+
+        const damageText = this.scene.add.bitmapText(this.body.center.x, this.body.top, FONTS.GALAXY, `-${damage}`, FONTS_SIZES.GALAXY, 1)
+            .setTintFill(COLORS.RED)
+            .setDropShadow(1, 1, 0xffffff)
+            .setDepth(2000);
+
+        this.scene.tweens.add({
+            targets: damageText,
+            duration: 1500,
+            y: {
+                from: this.body.top,
+                to: this.body.top - 32
+            },
+            alpha: 0,
+            onComplete: () => damageText.destroy()
+        });
+
         this.scene.sound.play('hellBeastHitSfx', { volume: 1, rate: 1 });
 
         if (this.enemyState.life <= 0)
         {
             this.isDead = true;
+
+            this.healthUiText.destroy();
+
+            this.healthUiBack.destroy();
 
             this.startDeathSequence();
 
@@ -538,6 +569,8 @@ export default class HellBeast extends Phaser.GameObjects.Sprite
     {
         this.play({ key: 'hell-beast-lava', repeat: -1 }, true);
 
+        this.scene.shakeCamera(3500);
+
         this.scene.sound.play('hellBeastHitSfx', { volume: 1, rate: 0.3 });
 
         this.scene.sound.play('hellBeastLavaAttackSfx', { volume: 1, rate: 0.3 });
@@ -555,7 +588,7 @@ export default class HellBeast extends Phaser.GameObjects.Sprite
             onCompleteScope: this
         });
 
-        
+
     }
 
     private startDeathSequence2 (): void
@@ -574,14 +607,63 @@ export default class HellBeast extends Phaser.GameObjects.Sprite
                 const { x, y } = this.body.center;
 
                 const fireElement = this.scene.physics.add.sprite(x, y, 'atlas', 'fire-element_0').play('fire-element').setDepth(2000);
-            
+
                 this.scene.physics.world.enable(fireElement);
 
-                fireElement.body.setAllowGravity(false);
+                fireElement.body.setAllowGravity(false).setSize(10, 18).setOffset(27, 23);
 
-                this.scene.physics.add.overlap(this.scene.player, fireElement, () =>
+                const overlap = this.scene.physics.add.overlap(this.scene.player, fireElement, () =>
                 {
-                    console.log('get fire element');
+                    const inventory = this.scene.player.inventoryManager.getInventory();
+
+                    inventory.fireElement = true;
+
+                    fireElement.destroy();
+
+                    this.scene.setPause();
+
+                    // @ts-ignore
+                    const ui = this.scene.add.rexNinePatch(WIDTH / 2, HEIGHT / 2, WIDTH / 4 * 3, HEIGHT / 2, 'framing', [7, undefined, 7], [7, undefined, 7], 0)
+                        .setOrigin(0.5, 0.5)
+                        .setDepth(1999)
+                        .setScrollFactor(0, 0)
+                        .setVisible(true);
+
+                    const powerUpDesc = this.scene.add.bitmapText(WIDTH / 2, HEIGHT / 2, FONTS.ULTIMA_BOLD, 'you get the fire element', FONTS_SIZES.ULTIMA_BOLD, 1)
+                        .setOrigin(0.5, 0.5)
+                        .setAlpha(1)
+                        .setDepth(2000)
+                        .setScrollFactor(0, 0);
+
+                    const dialog = this.scene.input.keyboard.once(Phaser.Input.Keyboard.Events.ANY_KEY_DOWN, () =>
+                    {
+                        powerUpDesc.destroy();
+                        ui.destroy();
+                        dialog.removeAllListeners();
+                        this.scene.unPause();
+
+                        const layer: Phaser.Tilemaps.TilemapLayer = LayerService.getGroundLayers(this.scene).filter(l => l.name === 'ground/ground')[0];
+
+                        const tile = layer.getTileAt(0, 31);
+
+                        const smoke = this.scene.smokeGroup.getFirstDead(true, tile.getCenterX(), tile.getCenterY(), undefined, undefined, true);
+
+                        if (smoke)
+                        {
+                            smoke.setDepth(2000);
+                            smoke.once(Phaser.Animations.Events.ANIMATION_COMPLETE, () => smoke.destroy());
+                            smoke.anims.play('smoke1');
+
+                            this.scene.sound.play('impact', { rate: 0.5 });
+                        }
+                        layer.removeTileAt(0, 30);
+                        layer.removeTileAt(0, 31);
+                        layer.removeTileAt(0, 32);
+
+                        this.unlockDoors();
+                    });
+
+                    overlap.destroy();
                 }, undefined, this.scene);
             }
         });

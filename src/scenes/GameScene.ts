@@ -1575,12 +1575,9 @@ DEF: ${props.defense}`;
 
     public callHellBeast ()
     {
-        const deadBosses = SaveLoadService.getDeadBoss(this);
+        const inventory = this.player.inventoryManager.getInventory();
 
-        if (deadBosses.includes(1))
-        {
-            return;
-        }
+        if (inventory.fireElement) return;
 
         this.hellBeast = new HellBeast(this, -100, -100, { key: 'hell-beast-idle', name: 'hellBeast' });
 
