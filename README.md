@@ -40,3 +40,6 @@ by default).
 - Jam991 https://jam991.itch.io/
 - David Garay https://yaragad.itch.io/dragon-head-vector-parts
 - pimen https://pimen.itch.io/
+- Eddie's Workshop https://eddies-workshop.itch.io/
+
+All graphics are recolored with the db32 palette https://lospec.com/palette-list/dawnbringer-32 by dawnbringer
