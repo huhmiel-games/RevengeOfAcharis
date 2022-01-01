@@ -205,10 +205,10 @@
         },
         {
             "fileName": "map30.json",
-            "height": 1536,
-            "width": 512,
+            "height": 288,
+            "width": 1024,
             "x": 10160,
-            "y": -3296
+            "y": -2048
         },
         {
             "fileName": "map31.json",
