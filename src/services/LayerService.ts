@@ -35,7 +35,7 @@ export default class LayerService
     /**
      * Return the layer object
      */
-    public static checkObjectsLayerIndex (scene: GameScene, layerName)
+    public static checkObjectsLayerIndex (scene: GameScene, layerName: string)
     {
         const arr = scene.map.objects.filter((elm) => elm.name === layerName);
 
@@ -50,7 +50,7 @@ export default class LayerService
     /**
      * Return true or false
      */
-    public static checkIfLayerExists (scene: GameScene, layerName)
+    public static checkIfLayerExists (scene: GameScene, layerName: string)
     {
         const arr = scene.map.layers.filter((elm) => elm.name === layerName);
         if (!arr.length)
@@ -194,7 +194,7 @@ export default class LayerService
      * Reveals the secret path
      * @param scene 
      */
-    public static showSecretPath (scene)
+    public static showSecretPath (scene: GameScene)
     {
         const secretLayer = scene.map.layers.filter(layer => layer.name.startsWith('foreground/secret'))[0].tilemapLayer;
 
@@ -210,7 +210,7 @@ export default class LayerService
         });
     }
 
-    public static removeLayers (scene)
+    public static removeLayers (scene: GameScene)
     {
         scene.map.layers.forEach(layer =>
         {
@@ -222,22 +222,22 @@ export default class LayerService
         });
     }
 
-    public static getGroundLayers (scene)
+    public static getGroundLayers (scene: GameScene): Phaser.Tilemaps.TilemapLayer[]
     {
-        return scene.children.list.filter(layer => layer.name.startsWith('ground'));
+        return scene.children.list.filter(layer => layer.name.startsWith('ground')) as Phaser.Tilemaps.TilemapLayer[];
     }
 
-    public static getForegroundLayers (scene)
+    public static getForegroundLayers (scene: GameScene): Phaser.Tilemaps.TilemapLayer[]
     {
-        return scene.children.list.filter(layer => layer.name.startsWith('foreground'));
+        return scene.children.list.filter(layer => layer.name.startsWith('foreground')) as Phaser.Tilemaps.TilemapLayer[];
     }
 
-    public static getBackgroundLayers (scene)
+    public static getBackgroundLayers (scene: GameScene): Phaser.Tilemaps.TilemapLayer[]
     {
-        return scene.children.list.filter(layer => layer.name.startsWith('background'));
+        return scene.children.list.filter(layer => layer.name.startsWith('background')) as Phaser.Tilemaps.TilemapLayer[];
     }
 
-    public static removeForegroundTileAt (scene, tile)
+    public static removeForegroundTileAt (scene: GameScene, tile: Phaser.Tilemaps.Tile): boolean
     {
         let result = false;
         // remove foreground tiles
@@ -261,7 +261,7 @@ export default class LayerService
         return result;
     }
 
-    public static removeGroundTileAt (scene: GameScene, tile: Phaser.Tilemaps.Tile)
+    public static removeGroundTileAt (scene: GameScene, tile: Phaser.Tilemaps.Tile): void
     {
         this.getGroundLayers(scene).forEach(layer =>
         {
@@ -269,17 +269,18 @@ export default class LayerService
             {
                 return; // don't remove ground tiles
             }
+
             layer.removeTileAt(tile.x, tile.y);
         });
     }
 
-    public static addImageFromTile (scene, layer, tile)
+    public static addImageFromTile (scene: GameScene, layer: Phaser.Tilemaps.TilemapLayer, tile: Phaser.Tilemaps.Tile)
     {
         const currentTile = layer.getTileAt(tile.x, tile.y);
 
         if (currentTile)
         {
-            const data = currentTile.tileset.getTileTextureCoordinates(currentTile.index);
+            const data = currentTile.tileset.getTileTextureCoordinates(currentTile.index) as { x: number, y: number };
             const { columns } = currentTile.tileset;
             const frame = data.x / 8 * data.y / 8 * columns + 1;
             scene.add.image(tile.pixelX, tile.pixelY, currentTile.tileset.name, frame).setDepth(3000);
