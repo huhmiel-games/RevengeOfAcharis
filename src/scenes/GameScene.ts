@@ -732,7 +732,7 @@ export default class GameScene extends Scene
         this.cameras.main.startFollow(this.player, true, 0.4, 0.1).fadeIn(50);
     }
 
-    public changeRoom (player: Player, doorP: { alpha: number; name: string; side: string; door: { x: number; y: number; }; })
+    public changeRoom (player: Player, door: { alpha: number; name: string; side: string; door: { x: number; y: number; }; })
     {
         // if boss not dead return!
         if (this.battleWithBoss) return;
@@ -752,7 +752,7 @@ export default class GameScene extends Scene
         this.destroyRoom();
 
         // create new room
-        this.map = this.make.tilemap({ key: doorP.name, tileWidth: 16, tileHeight: 16 });
+        this.map = this.make.tilemap({ key: door.name, tileWidth: 16, tileHeight: 16 });
 
         // @ts-ignore
         this.sys.animatedTilesPlugin.init(this.map);
@@ -762,7 +762,7 @@ export default class GameScene extends Scene
             this.map.addTilesetImage(this.map.tilesets[i].name, this.map.tilesets[i].name, 16, 16);
         });
 
-        this.playerRoomName = doorP.name;
+        this.playerRoomName = door.name;
 
         const properties = this.convertTiledObjectProperties(this.map.properties);
 
@@ -770,19 +770,19 @@ export default class GameScene extends Scene
 
         ColliderService.addColliders(this);
 
-        switch (doorP.side)
+        switch (door.side)
         {
             case 'left':
-                player.body.reset(doorP.door.x - 20, doorP.door.y + 15);
+                player.body.reset(door.door.x - 20, door.door.y + 15);
                 break;
             case 'right':
-                player.body.reset(doorP.door.x + 20, doorP.door.y + 15);
+                player.body.reset(door.door.x + 20, door.door.y + 15);
                 break;
             case 'top':
-                player.body.reset(doorP.door.x + player.body.halfWidth, doorP.door.y - 48);
+                player.body.reset(door.door.x + player.body.halfWidth, door.door.y - 48);
                 break;
             case 'bottom':
-                player.body.reset(doorP.door.x + player.body.halfWidth, doorP.door.y + 32);
+                player.body.reset(door.door.x + player.body.halfWidth, door.door.y + 32);
                 break;
         }
 
@@ -1143,7 +1143,7 @@ DEF: ${props.defense}`;
             this.unPause();
         });
     }
-//#endregion
+    //#endregion
 
     public checkObjectsLayerIndex (layerName)
     {
@@ -1215,7 +1215,7 @@ DEF: ${props.defense}`;
 
                     this.enemyGroup.push(minotaur);
                     break;
-                
+
                 case 'demon-axe':
                     if (!element.y) return;
 
@@ -1228,7 +1228,7 @@ DEF: ${props.defense}`;
 
                     this.enemyGroup.push(demonAxe);
                     break;
-                
+
                 case 'imp':
                     if (!element.y) return;
 
@@ -1254,7 +1254,7 @@ DEF: ${props.defense}`;
 
                     this.enemyGroup.push(viking);
                     break;
-                
+
                 case 'angel':
                     if (!element.y) return;
 
@@ -1267,7 +1267,7 @@ DEF: ${props.defense}`;
 
                     this.enemyGroup.push(angel);
                     break;
-                
+
                 case 'archer':
                     if (!element.y) return;
 
@@ -1584,6 +1584,111 @@ DEF: ${props.defense}`;
         this.enemyGroup.push(this.hellBeast);
     }
 
+    public addElementCheck ()
+    {
+        const zone = this.add.zone(34 * 16, 16 * 16, 32, 32).setOrigin(0, 0.5);
+
+        this.physics.world.enable(zone);
+
+        const body = zone.body as Phaser.Physics.Arcade.Body;
+        body.setAllowGravity(false);
+        this.physics.add.overlap(this.player, zone, (_player, _zone) =>
+        {
+            const zonebody = _zone.body as Phaser.Physics.Arcade.Body;
+
+            const { x, y } = zonebody.center;
+
+            zonebody.setEnable(false);
+
+            let fireElement: Phaser.GameObjects.Sprite;
+
+            let waterElement: Phaser.GameObjects.Sprite;
+            
+            const inventory = this.player.inventoryManager.getInventory();
+
+            if (inventory.fireElement)
+            {
+                this.player.body.stop();
+                this.player.isPause = true;
+                
+                fireElement = this.add.sprite(x, y, 'atlas', 'fire-element_0').play('fire-element').setDepth(2000);
+
+                this.tweens.add({
+                    targets: fireElement,
+                    duration: 1000,
+                    x: 31 * 16
+                });
+            }
+
+            if (inventory.waterElement)
+            {
+                this.player.body.stop();
+                this.player.isPause = true;
+                
+                waterElement = this.add.sprite(x, y, 'atlas', 'water-element_0').play('water-element').setDepth(2000);
+                
+                this.tweens.add({
+                    targets: waterElement,
+                    duration: 1000,
+                    x: 39 * 16
+                });
+            }
+            // start the final boss
+            if (inventory.fireElement && inventory.waterElement)
+            {
+                this.time.addEvent({
+                    delay: 2000,
+                    callback: () =>
+                    {
+                        this.flashCamera(1000);
+                        fireElement.destroy();
+                        waterElement.destroy();
+                        this.callDemon();
+                        this.player.isPause = false;
+                    }
+                });
+            }
+            else
+            {
+                this.time.addEvent({
+                    delay: 2000,
+                    callback: () =>
+                    {
+                        if (fireElement)
+                        {
+                            this.tweens.add({
+                                targets: fireElement,
+                                duration: 500,
+                                x: this.player.body.center.x,
+                                scale: 0,
+                                onComplete: () =>
+                                {
+                                    fireElement.destroy();
+                                }
+                            });
+                        }
+
+                        if (waterElement)
+                        {
+                            this.tweens.add({
+                                targets: waterElement,
+                                duration: 500,
+                                x: this.player.body.center.x,
+                                scale: 0,
+                                onComplete: () =>
+                                {
+                                    waterElement.destroy();
+                                }
+                            });
+                        }
+                        
+                        this.player.isPause = false;
+                    }
+                });
+            }
+        });
+    }
+
     public callDemon ()
     {
         const deadBosses = SaveLoadService.getDeadBoss(this);
@@ -1593,7 +1698,7 @@ DEF: ${props.defense}`;
             return;
         }
         this.stopMusic();
-        this.demon = new Demon(this, 24 * 16, 24 * 16, { key: 'finalBoss', name: 'demon' });
+        this.demon = new Demon(this, 35 * 16 - 268 / 2, 8 * 16 - 192 / 2, { key: 'finalBoss', name: 'demon' });
         this.enemyGroup.push(this.demon);
     }
 
