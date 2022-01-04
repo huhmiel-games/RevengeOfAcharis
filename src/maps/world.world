@@ -237,6 +237,13 @@
             "width": 512,
             "x": 7600,
             "y": -1584
+        },
+        {
+            "fileName": "map35.json",
+            "height": 288,
+            "width": 512,
+            "x": 6064,
+            "y": 816
         }
     ],
     "onlyShowAdjacentMaps": false,
