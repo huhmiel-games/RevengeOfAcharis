@@ -21,7 +21,7 @@ import ColliderService from '../services/ColliderService';
 import LayerService from '../services/LayerService';
 import GenerateWorldRoom from '../utils/GenerateWorldRoom';
 import Player from '../player/Player';
-import { TBowConfig, TEquipmentConfig, TNpc, TShieldConfig, TSwordConfig } from '../types/types';
+import { TBowConfig, TDoor, TEquipmentConfig, TNpc, TShieldConfig, TSwordConfig } from '../types/types';
 import Npc from '../npc/Npc';
 import Enemy from '../enemies/Enemy';
 import SaveLoadService from '../services/SaveLoadService';
@@ -47,6 +47,8 @@ import VikingAxe from '../enemies/VikingAxe';
 import Archer from '../enemies/Archer';
 import DemonAxe from '../enemies/DemonAxe';
 import Imp from '../enemies/Imp';
+import SkeletonSeeker from '../enemies/SkeletonSeeker';
+import EvilWizardBoss from '../enemies/EvilWizardBoss';
 //#endregion
 
 export default class GameScene extends Scene
@@ -732,7 +734,7 @@ export default class GameScene extends Scene
         this.cameras.main.startFollow(this.player, true, 0.4, 0.1).fadeIn(50);
     }
 
-    public changeRoom (player: Player, door: { alpha: number; name: string; side: string; door: { x: number; y: number; }; })
+    public changeRoom (player: Player, door: TDoor)
     {
         // if boss not dead return!
         if (this.battleWithBoss) return;
@@ -1216,6 +1218,28 @@ DEF: ${props.defense}`;
                     this.enemyGroup.push(minotaur);
                     break;
 
+                case 'skeleton-seeker':
+                    const skelSeek = new SkeletonSeeker(this, element.x as unknown as number, element.y as unknown as number - 23, {
+                        key: element.properties.key,
+                        name: element.name,
+                        life: element.properties.life,
+                        damage: element.properties.damage,
+                    });
+
+                    this.enemyGroup.push(skelSeek);
+                    break;
+                
+                case 'wizardBoss':
+                    const wizardBoss = new EvilWizardBoss(this, element.x as unknown as number, element.y as unknown as number - 23, {
+                        key: element.properties.key,
+                        name: element.name,
+                        life: element.properties.life,
+                        damage: element.properties.damage,
+                    });
+
+                    this.enemyGroup.push(wizardBoss);
+                    break;
+
                 case 'demon-axe':
                     if (!element.y) return;
 
@@ -1603,14 +1627,14 @@ DEF: ${props.defense}`;
             let fireElement: Phaser.GameObjects.Sprite;
 
             let waterElement: Phaser.GameObjects.Sprite;
-            
+
             const inventory = this.player.inventoryManager.getInventory();
 
             if (inventory.fireElement)
             {
                 this.player.body.stop();
                 this.player.isPause = true;
-                
+
                 fireElement = this.add.sprite(x, y, 'atlas', 'fire-element_0').play('fire-element').setDepth(2000);
 
                 this.tweens.add({
@@ -1624,9 +1648,9 @@ DEF: ${props.defense}`;
             {
                 this.player.body.stop();
                 this.player.isPause = true;
-                
+
                 waterElement = this.add.sprite(x, y, 'atlas', 'water-element_0').play('water-element').setDepth(2000);
-                
+
                 this.tweens.add({
                     targets: waterElement,
                     duration: 1000,
@@ -1681,7 +1705,7 @@ DEF: ${props.defense}`;
                                 }
                             });
                         }
-                        
+
                         this.player.isPause = false;
                     }
                 });
@@ -1703,13 +1727,14 @@ DEF: ${props.defense}`;
     }
 
     // CAMERA EFFECTS
-    public shakeCamera (duration: number | undefined, intensity: number = 0.025)
+    public shakeCamera (duration: number | undefined, intensity: number = 0.025, playSnd: boolean = true)
     {
         if (!this.cameraIsShaking)
         {
             this.cameraIsShaking = true;
             this.cameras.main.shake(duration, intensity);
-            this.sound.play('impact', { rate: 0.5 });
+
+            if (playSnd) this.sound.play('impact', { rate: 0.5 });
 
             this.time.addEvent({
                 delay: duration,

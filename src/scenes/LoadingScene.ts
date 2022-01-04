@@ -275,6 +275,7 @@ import map31 from '../maps/map31.json';
 import map32 from '../maps/map32.json';
 import map33 from '../maps/map33.json';
 import map34 from '../maps/map34.json';
+import map35 from '../maps/map35.json';
 import mapWorld from '../maps/world.world';
 import world from '../maps/world.json';
 //#endregion
@@ -412,6 +413,7 @@ export default class LoadingScreen extends Scene
         this.load.tilemapTiledJSON('map32', map32);
         this.load.tilemapTiledJSON('map33', map33);
         this.load.tilemapTiledJSON('map34', map34);
+        this.load.tilemapTiledJSON('map35', map35);
         //#endregion
 
         //#region load atlas
@@ -3946,6 +3948,121 @@ export default class LoadingScreen extends Scene
         });
         //#endregion
 
+        //#region skeleton-seeker
+        this.anims.create({
+            key: 'skeleton-seeker-attack',
+            frames: [
+                { key: 'atlas', frame: 'skeleton-skeeker-attack_0' },
+                { key: 'atlas', frame: 'skeleton-skeeker-attack_1' },
+                { key: 'atlas', frame: 'skeleton-skeeker-attack_2', duration: 100 },
+                { key: 'atlas', frame: 'skeleton-skeeker-attack_3', duration: 250 },
+                { key: 'atlas', frame: 'skeleton-skeeker-attack_4' },
+                { key: 'atlas', frame: 'skeleton-skeeker-attack_5' },
+                { key: 'atlas', frame: 'skeleton-skeeker-attack_6' },
+                { key: 'atlas', frame: 'skeleton-skeeker-attack_7' },
+                { key: 'atlas', frame: 'skeleton-skeeker-attack_8' },
+                { key: 'atlas', frame: 'skeleton-skeeker-attack_9' },
+            ],
+            frameRate: 20,
+            repeat: 0,
+        });
+                
+        this.anims.create({
+            key: 'skeleton-seeker-death',
+            frames: [
+                { key: 'atlas', frame: 'skeleton-skeeker-death_0' },
+                { key: 'atlas', frame: 'skeleton-skeeker-death_1' },
+                { key: 'atlas', frame: 'skeleton-skeeker-death_2' },
+                { key: 'atlas', frame: 'skeleton-skeeker-death_3' },
+                { key: 'atlas', frame: 'skeleton-skeeker-death_4' },
+            ],
+            frameRate: 10,
+            repeat: 0,
+        });
+                
+        this.anims.create({
+            key: 'skeleton-seeker-hurt',
+            frames: [
+                { key: 'atlas', frame: 'skeleton-skeeker-hurt_0' },
+                { key: 'atlas', frame: 'skeleton-skeeker-hurt_1' },
+                // { key: 'atlas', frame: 'skeleton-skeeker-hurt_2' },
+                { key: 'atlas', frame: 'skeleton-skeeker-hurt_3' },
+            ],
+            frameRate: 8,
+            repeat: 0,
+        });
+                
+        this.anims.create({
+            key: 'skeleton-seeker-idle',
+            frames: [
+                { key: 'atlas', frame: 'skeleton-skeeker-idle_0' },
+                { key: 'atlas', frame: 'skeleton-skeeker-idle_1' },
+                { key: 'atlas', frame: 'skeleton-skeeker-idle_2' },
+                { key: 'atlas', frame: 'skeleton-skeeker-idle_3' },
+                { key: 'atlas', frame: 'skeleton-skeeker-idle_4' },
+                { key: 'atlas', frame: 'skeleton-skeeker-idle_5' },
+            ],
+            frameRate: 6,
+            repeat: 0,
+        });
+                
+        this.anims.create({
+            key: 'skeleton-seeker-spawn',
+            frames: [
+                { key: 'atlas', frame: 'skeleton-skeeker-spawn_0', duration: 100 },
+                { key: 'atlas', frame: 'skeleton-skeeker-spawn_1', duration: 100 },
+                { key: 'atlas', frame: 'skeleton-skeeker-spawn_2', duration: 100 },
+                { key: 'atlas', frame: 'skeleton-skeeker-spawn_3', duration: 100 },
+                { key: 'atlas', frame: 'skeleton-skeeker-spawn_4', duration: 100 },
+                { key: 'atlas', frame: 'skeleton-skeeker-spawn_5', duration: 1000 },
+                { key: 'atlas', frame: 'skeleton-skeeker-spawn_6', duration: 200 },
+                { key: 'atlas', frame: 'skeleton-skeeker-spawn_7', duration: 200 },
+                { key: 'atlas', frame: 'skeleton-skeeker-spawn_8', duration: 200 },
+                { key: 'atlas', frame: 'skeleton-skeeker-spawn_9', duration: 200 },
+                { key: 'atlas', frame: 'skeleton-skeeker-spawn_10', duration: 200 },
+            ],
+            frameRate: 12,
+            repeat: 0,
+        });
+                
+        this.anims.create({
+            key: 'skeleton-seeker-walk',
+            frames: [
+                { key: 'atlas', frame: 'skeleton-skeeker-walk_0' },
+                { key: 'atlas', frame: 'skeleton-skeeker-walk_1' },
+                { key: 'atlas', frame: 'skeleton-skeeker-walk_2' },
+                { key: 'atlas', frame: 'skeleton-skeeker-walk_3' },
+                { key: 'atlas', frame: 'skeleton-skeeker-walk_4' },
+                { key: 'atlas', frame: 'skeleton-skeeker-walk_5' },
+            ],
+            frameRate: 4,
+            repeat: 0,
+        });
+        //#endregion
+        
+        //#region earth-bound
+        this.anims.create({
+            key: 'earth-bump',
+            frames: [
+                { key: 'atlas', frame: 'earth-bump_0' },
+                { key: 'atlas', frame: 'earth-bump_1' },
+                { key: 'atlas', frame: 'earth-bump_2' },
+                { key: 'atlas', frame: 'earth-bump_3' },
+                { key: 'atlas', frame: 'earth-bump_4' },
+                { key: 'atlas', frame: 'earth-bump_5' },
+                { key: 'atlas', frame: 'earth-bump_6' },
+                { key: 'atlas', frame: 'earth-bump_7' },
+                { key: 'atlas', frame: 'earth-bump_8' },
+                { key: 'atlas', frame: 'earth-bump_9' },
+                { key: 'atlas', frame: 'earth-bump_10' },
+                { key: 'atlas', frame: 'earth-bump_11' },
+                { key: 'atlas', frame: 'earth-bump_12' },
+                { key: 'atlas', frame: 'earth-bump_13' },
+            ],
+            frameRate: 12,
+            repeat: 0,
+        });
+        //#endregion
         //#endregion --- ANIMS ---
 
         // ANIMS SECTION //
