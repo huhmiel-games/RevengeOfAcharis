@@ -244,6 +244,48 @@
             "width": 512,
             "x": 6064,
             "y": 816
+        },
+        {
+            "fileName": "map36.json",
+            "height": 864,
+            "width": 512,
+            "x": 11280,
+            "y": -1840
+        },
+        {
+            "fileName": "map37.json",
+            "height": 288,
+            "width": 2560,
+            "x": 10160,
+            "y": 976
+        },
+        {
+            "fileName": "map38.json",
+            "height": 1824,
+            "width": 608,
+            "x": 10672,
+            "y": -560
+        },
+        {
+            "fileName": "map39.json",
+            "height": 288,
+            "width": 1024,
+            "x": 9648,
+            "y": 688
+        },
+        {
+            "fileName": "map40.json",
+            "height": 288,
+            "width": 512,
+            "x": 9136,
+            "y": 688
+        },
+        {
+            "fileName": "map41.json",
+            "height": 288,
+            "width": 512,
+            "x": 8112,
+            "y": 688
         }
     ],
     "onlyShowAdjacentMaps": false,

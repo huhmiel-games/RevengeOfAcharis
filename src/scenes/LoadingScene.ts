@@ -276,6 +276,12 @@ import map32 from '../maps/map32.json';
 import map33 from '../maps/map33.json';
 import map34 from '../maps/map34.json';
 import map35 from '../maps/map35.json';
+import map36 from '../maps/map36.json';
+import map37 from '../maps/map37.json';
+import map38 from '../maps/map38.json';
+import map39 from '../maps/map39.json';
+import map40 from '../maps/map40.json';
+import map41 from '../maps/map41.json';
 import mapWorld from '../maps/world.world';
 import world from '../maps/world.json';
 //#endregion
@@ -414,6 +420,12 @@ export default class LoadingScreen extends Scene
         this.load.tilemapTiledJSON('map33', map33);
         this.load.tilemapTiledJSON('map34', map34);
         this.load.tilemapTiledJSON('map35', map35);
+        this.load.tilemapTiledJSON('map36', map36);
+        this.load.tilemapTiledJSON('map37', map37);
+        this.load.tilemapTiledJSON('map38', map38);
+        this.load.tilemapTiledJSON('map39', map39);
+        this.load.tilemapTiledJSON('map40', map40);
+        this.load.tilemapTiledJSON('map41', map41);
         //#endregion
 
         //#region load atlas
@@ -1985,7 +1997,7 @@ export default class LoadingScreen extends Scene
                 { key: 'atlas', frame: 'evil-wizard2-attack2_7' },
             ],
             frameRate: 16,
-            repeat: -1,
+            repeat: 0,
         });
                 
         this.anims.create({
@@ -2001,7 +2013,7 @@ export default class LoadingScreen extends Scene
                 { key: 'atlas', frame: 'evil-wizard2-attack1_7' },
             ],
             frameRate: 16,
-            repeat: -1,
+            repeat: 0,
         });
                 
         this.anims.create({
@@ -2016,7 +2028,7 @@ export default class LoadingScreen extends Scene
                 { key: 'atlas', frame: 'evil-wizard2-death_6' },
             ],
             frameRate: 14,
-            repeat: -1,
+            repeat: 0,
         });
                 
         this.anims.create({
@@ -2042,18 +2054,20 @@ export default class LoadingScreen extends Scene
                 { key: 'atlas', frame: 'evil-wizard2-fall_1' },
             ],
             frameRate: 4,
-            repeat: -1,
+            repeat: 0,
         });
                 
         this.anims.create({
             key: 'evil-wizard2-hurt',
             frames: [
+                { key: 'atlas', frame: 'evil-wizard2-hurt_2' },
+                { key: 'atlas', frame: 'evil-wizard2-hurt_2' },
                 { key: 'atlas', frame: 'evil-wizard2-hurt_0' },
                 { key: 'atlas', frame: 'evil-wizard2-hurt_1' },
                 { key: 'atlas', frame: 'evil-wizard2-hurt_2' },
             ],
             frameRate: 6,
-            repeat: -1,
+            repeat: 0,
         });
                 
         this.anims.create({
@@ -2063,7 +2077,7 @@ export default class LoadingScreen extends Scene
                 { key: 'atlas', frame: 'evil-wizard2-jump_1' },
             ],
             frameRate: 4,
-            repeat: -1,
+            repeat: 0,
         });
                 
         this.anims.create({
@@ -2079,7 +2093,7 @@ export default class LoadingScreen extends Scene
                 { key: 'atlas', frame: 'evil-wizard2-run_7' },
             ],
             frameRate: 16,
-            repeat: -1,
+            repeat: 2,
         });
         //#endregion
                 
