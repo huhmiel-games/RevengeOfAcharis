@@ -1,55 +1,10 @@
-// import Door from '../props/Door';
-
 import { TILE_SIZE } from '../constant/config';
+import GameScene from '../scenes/GameScene';
 import { TDoor } from '../types/types';
-
-
 
 export default class DoorService
 {
-    /**
-     * Search the doors in the current room map
-     */
-    // public static searchDoorsInRoomMap (scene)
-    // {
-
-    //     scene.colliderLayer.layer.data.forEach(tileArray =>
-    //     {
-    //         tileArray.forEach(tile =>
-    //         {
-    //             switch (true)
-    //             {
-    //                 case (tile.properties.blueDoorBlock):
-    //                     this.addDoor(scene, tile, 'blueDoor', 'gun');
-    //                     break;
-
-    //                 case (tile.properties.greenDoorBlock):
-    //                     this.addDoor(scene, tile, 'greenDoor', 'missileLauncher');
-    //                     break;
-
-    //                 default:
-    //                     break;
-    //             }
-    //         });
-    //     });
-    // }
-
-    /**
-     * Add the doors to the current room
-     */
-    // public static addDoor (scene, tile, key, openWith)
-    // {
-    //     const door = new Door(scene, tile.pixelX + 4, tile.pixelY + 4, {
-    //         key,
-    //         openWith,
-    //         hidden: tile.properties.hidden,
-    //         rotation: tile.rotation
-    //     });
-
-    //     scene.doorGroup.push(door);
-    // }
-
-    public static searchNextRoom (scene, tile)
+    public static searchNextRoom (scene: GameScene, tile: Phaser.Tilemaps.Tile)
     {
         // import of the planet.json file
         const world = scene.cache.json.get('world');
@@ -120,7 +75,6 @@ export default class DoorService
             });
         });
 
-
         if (nextRoom.name)
         {
             scene.changeRoom(scene.player, nextRoom);
@@ -130,21 +84,5 @@ export default class DoorService
             console.warn('no room found...');
             scene.isChangingRoom = false;
         }
-    }
-
-    public static lockDoors (scene)
-    {
-        scene.doorGroup.forEach((door) =>
-        {
-            door.lockDoor();
-        });
-    }
-
-    public static unlockDoors (scene)
-    {
-        scene.doorGroup.forEach((door) =>
-        {
-            door.unlockDoor();
-        });
     }
 }
