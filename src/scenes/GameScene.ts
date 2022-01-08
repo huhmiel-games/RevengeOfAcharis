@@ -216,7 +216,7 @@ export default class GameScene extends Scene
         // CAMERA
         // set bounds so the camera won't go outside the game world
         this.cameras.main.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
-        this.cameras.main.startFollow(this.player, true, 0.4, 0.1).setRoundPixels(true);
+        this.cameras.main.startFollow(this.player, true, 0.4, 0.4).setRoundPixels(true);
         this.cameras.main.transparent = true;
         this.cameraIsShaking = false;
         this.cameras.main.fadeIn(200);
@@ -731,7 +731,7 @@ export default class GameScene extends Scene
 
         this.physics.world.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
 
-        this.cameras.main.startFollow(this.player, true, 0.4, 0.1).fadeIn(50);
+        this.cameras.main.startFollow(this.player, true, 0.4, 0.4).fadeIn(50);
     }
 
     public changeRoom (player: Player, door: TDoor)
@@ -818,7 +818,7 @@ export default class GameScene extends Scene
 
         this.physics.world.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels).setBoundsCollision();
 
-        this.cameras.main.setDeadzone(0, 80).startFollow(this.player, true, 0.4, 0.1, 0, 20).fadeIn(50);
+        this.cameras.main.setDeadzone(0, 0).startFollow(this.player, true, 0.4, 0.1, 0, 20).fadeIn(50);
 
         this.playerIsPassingDoor = false;
 
@@ -1230,7 +1230,7 @@ DEF: ${props.defense}`;
                     break;
                 
                 case 'wizardBoss':
-                    const wizardBoss = new EvilWizardBoss(this, element.x as unknown as number, element.y as unknown as number - 23, {
+                    const wizardBoss = new EvilWizardBoss(this, element.x as unknown as number, element.y as unknown as number , {
                         key: element.properties.key,
                         name: element.name,
                         life: element.properties.life,
@@ -1248,6 +1248,7 @@ DEF: ${props.defense}`;
                         name: element.name,
                         life: element.properties.life,
                         damage: element.properties.damage,
+                        isBossMusic: element.properties.isBossMusic ? true : false
                     });
 
                     this.enemyGroup.push(demonAxe);
@@ -1595,6 +1596,12 @@ DEF: ${props.defense}`;
     public openDoor (door)
     {
         door.openDoor();
+    }
+
+    public hideBossDoor ()
+    {
+        const layer: Phaser.Tilemaps.TilemapLayer = LayerService.getForegroundLayers(this).filter(l => l.name === 'foreground/bossDoor')[0];
+        layer.setAlpha(0);
     }
 
     public callHellBeast ()
