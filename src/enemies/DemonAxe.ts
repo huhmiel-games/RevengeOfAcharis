@@ -18,6 +18,7 @@ export default class DemonAxe extends Enemy
     private swordSfx: Phaser.Sound.BaseSound;
     private isBattleMusic: boolean = false;
     private currentsong: Phaser.Sound.BaseSound;
+    private isBossMusic: boolean = false;
 
     constructor (scene: GameScene, x: number, y: number, config: any)
     {
@@ -28,6 +29,8 @@ export default class DemonAxe extends Enemy
             damage: config.damage,
             giveLife: Math.round(config.life / 3),
         };
+
+        this.isBossMusic = config.isBossMusic;
 
         this.setOrigin(0, 0).setScale(2, 2);
 
@@ -146,7 +149,7 @@ export default class DemonAxe extends Enemy
 
     private checkMusic ()
     {
-        if (!this.isBattleMusic && !this.isDead)
+        if (!this.isBattleMusic && !this.isDead && this.isBossMusic)
         {
             if (!this.scene.cameras.main.worldView.contains(this.body.center.x, this.body.center.y))
             {
@@ -358,9 +361,12 @@ export default class DemonAxe extends Enemy
 
             this.giveLife(x, y);
 
-            this.scene.stopMusic();
+            if (this.isBossMusic)
+            {
+                this.scene.stopMusic();
 
-            this.currentsong.play();
+                this.currentsong.play();
+            }
 
             this.scene.tweens.add({
                 duration: 250,
