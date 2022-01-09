@@ -4,6 +4,7 @@ import Enemy from '../enemies/Enemy';
 import EvilWizard from '../enemies/EvilWizard';
 import Projectile from '../enemies/Projectile';
 import Skeleton from '../enemies/Skeleton';
+import Worm from '../enemies/Worm';
 import Arrow from '../player/Arrow';
 import Player from '../player/Player';
 import PowerUp from '../player/powerUp';
@@ -192,6 +193,33 @@ export default class ColliderService
 
                     if (!e.visible) return false;
                 }
+
+                if (enemy instanceof Worm && weapon.name === 'arrow')
+                {
+                    const worm = enemy as unknown as Worm;
+
+                    const arrow = weapon as unknown as Arrow;
+
+                    if (!worm.flipX && arrow.body.velocity.x > 0)
+                    {
+                        const w = weapon as unknown as Arrow;
+
+                        w.deflect();
+
+                        return false;
+                    }
+
+                    if (worm.flipX && arrow.body.velocity.x < 0)
+                    {
+                        const w = weapon as unknown as Arrow;
+
+                        w.deflect();
+
+                        return false;
+                    }
+                }
+
+                return true;
             }, scene);
 
         scene.physics.add.overlap([scene.player.swords, scene.player.arrows], scene.bodiesGroup, (_body, _weapon) =>

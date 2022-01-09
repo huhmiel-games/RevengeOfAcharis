@@ -49,6 +49,7 @@ import DemonAxe from '../enemies/DemonAxe';
 import Imp from '../enemies/Imp';
 import SkeletonSeeker from '../enemies/SkeletonSeeker';
 import EvilWizardBoss from '../enemies/EvilWizardBoss';
+import Worm from '../enemies/Worm';
 //#endregion
 
 export default class GameScene extends Scene
@@ -489,6 +490,7 @@ export default class GameScene extends Scene
 
                 return;
             }
+
             const str = Math.ceil(Math.sqrt(Math.pow(this.player.inventoryManager.getInventory().level, 3)) / 10);
 
             enemy.looseLife(Math.floor(this.player.bowManager.getCurrentBow().damage * str), 'arrow', weapon);
@@ -1228,9 +1230,9 @@ DEF: ${props.defense}`;
 
                     this.enemyGroup.push(skelSeek);
                     break;
-                
+
                 case 'wizardBoss':
-                    const wizardBoss = new EvilWizardBoss(this, element.x as unknown as number, element.y as unknown as number , {
+                    const wizardBoss = new EvilWizardBoss(this, element.x as unknown as number, element.y as unknown as number, {
                         key: element.properties.key,
                         name: element.name,
                         life: element.properties.life,
@@ -1252,6 +1254,20 @@ DEF: ${props.defense}`;
                     });
 
                     this.enemyGroup.push(demonAxe);
+                    break;
+
+                case 'worm':
+                    if (!element.y) return;
+
+                    const worm = new Worm(this, element.x as unknown as number, element.y - 16 as unknown as number - 16, {
+                        key: element.properties.key,
+                        name: element.name,
+                        life: element.properties.life,
+                        damage: element.properties.damage,
+                        isBossMusic: element.properties.isBossMusic ? true : false
+                    });
+
+                    this.enemyGroup.push(worm);
                     break;
 
                 case 'imp':
@@ -1731,6 +1747,47 @@ DEF: ${props.defense}`;
         this.stopMusic();
         this.demon = new Demon(this, 35 * 16 - 268 / 2, 8 * 16 - 192 / 2, { key: 'finalBoss', name: 'demon' });
         this.enemyGroup.push(this.demon);
+    }
+
+    public addWaterElement ()
+    {
+        const waterElement = this.physics.add.sprite(18 * 16 + 8, 104 * 16, 'atlas', 'water-element_0').play('water-element').setDepth(2000);
+
+        this.physics.world.enable(waterElement);
+
+        waterElement.body.setAllowGravity(false).setSize(10, 18).setOffset(27, 23);
+
+        const overlap = this.physics.add.overlap(this.player, waterElement, () =>
+        {
+            const inventory = this.player.inventoryManager.getInventory();
+
+            inventory.waterElement = true;
+
+            waterElement.destroy();
+
+            this.setPause();
+
+            // @ts-ignore
+            const ui = this.add.rexNinePatch(WIDTH / 2, HEIGHT / 2, WIDTH / 4 * 3, HEIGHT / 2, 'framing', [7, undefined, 7], [7, undefined, 7], 0)
+                .setOrigin(0.5, 0.5)
+                .setDepth(1999)
+                .setScrollFactor(0, 0)
+                .setVisible(true);
+
+            const powerUpDesc = this.add.bitmapText(WIDTH / 2, HEIGHT / 2, FONTS.ULTIMA_BOLD, 'you get the water element', FONTS_SIZES.ULTIMA_BOLD, 1)
+                .setOrigin(0.5, 0.5)
+                .setAlpha(1)
+                .setDepth(2000)
+                .setScrollFactor(0, 0);
+
+            const dialog = this.input.keyboard.once(Phaser.Input.Keyboard.Events.ANY_KEY_DOWN, () =>
+            {
+                powerUpDesc.destroy();
+                ui.destroy();
+                dialog.removeAllListeners();
+                this.unPause();
+            });
+        });
     }
 
     // CAMERA EFFECTS
