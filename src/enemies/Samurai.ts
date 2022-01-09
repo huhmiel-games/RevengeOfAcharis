@@ -25,7 +25,7 @@ export default class Samurai extends Enemy
         this.enemyState = {
             life: config.life,
             damage: config.damage,
-            giveLife: Math.round(config.life / 3),
+            giveLife: Math.round(config.life / 10),
         };
 
         this.setTexture('atlas').setFrame('samurai-idle_0');
