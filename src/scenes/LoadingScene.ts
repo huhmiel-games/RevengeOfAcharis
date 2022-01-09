@@ -2731,8 +2731,8 @@ export default class LoadingScreen extends Scene
                 { key: 'atlas', frame: 'worm-idle_7' },
                 { key: 'atlas', frame: 'worm-idle_8' },
             ],
-            frameRate: 18,
-            repeat: -1,
+            frameRate: 12,
+            repeat: 2,
         });
         this.anims.create({
             key: 'worm-walk',
@@ -2747,8 +2747,8 @@ export default class LoadingScreen extends Scene
                 { key: 'atlas', frame: 'worm-walk_7' },
                 { key: 'atlas', frame: 'worm-walk_8' },
             ],
-            frameRate: 18,
-            repeat: -1,
+            frameRate: 12,
+            repeat: 2,
         });
         this.anims.create({
             key: 'worm-attack',
@@ -2770,8 +2770,8 @@ export default class LoadingScreen extends Scene
                 { key: 'atlas', frame: 'worm-attack_14' },
                 { key: 'atlas', frame: 'worm-attack_15' },
             ],
-            frameRate: 32,
-            repeat: -1,
+            frameRate: 16,
+            repeat: 0,
         });
         this.anims.create({
             key: 'worm-hurt',
@@ -2781,7 +2781,7 @@ export default class LoadingScreen extends Scene
                 { key: 'atlas', frame: 'worm-hurt_2' },
             ],
             frameRate: 6,
-            repeat: -1,
+            repeat: 0,
         });
         this.anims.create({
             key: 'worm-death',
@@ -2795,7 +2795,35 @@ export default class LoadingScreen extends Scene
                 { key: 'atlas', frame: 'worm-death_6' },
                 { key: 'atlas', frame: 'worm-death_7' },
             ],
-            frameRate: 16,
+            frameRate: 8,
+            repeat: 0,
+        });
+
+        this.anims.create({
+            key: 'worm-fireball-end',
+            frames: [
+                { key: 'atlas', frame: 'worm-fireball-end_0' },
+                { key: 'atlas', frame: 'worm-fireball-end_1' },
+                { key: 'atlas', frame: 'worm-fireball-end_2' },
+                { key: 'atlas', frame: 'worm-fireball-end_3' },
+                { key: 'atlas', frame: 'worm-fireball-end_4' },
+                { key: 'atlas', frame: 'worm-fireball-end_5' },
+            ],
+            frameRate: 12,
+            repeat: 0,
+        });
+                
+        this.anims.create({
+            key: 'worm-fireball-move',
+            frames: [
+                { key: 'atlas', frame: 'worm-fireball-move_0' },
+                { key: 'atlas', frame: 'worm-fireball-move_1' },
+                { key: 'atlas', frame: 'worm-fireball-move_2' },
+                { key: 'atlas', frame: 'worm-fireball-move_3' },
+                { key: 'atlas', frame: 'worm-fireball-move_4' },
+                { key: 'atlas', frame: 'worm-fireball-move_5' },
+            ],
+            frameRate: 12,
             repeat: -1,
         });
         //#endregion
