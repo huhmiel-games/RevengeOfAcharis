@@ -108,7 +108,7 @@ export const SWORDS: TSwordConfig[] = [
         key: 7
     },
     {
-        id: 8, // done
+        id: 8,
         name: 'hammer-sword',
         desc: 'a huge sword that can break walls',
         damage: 20,
@@ -136,7 +136,7 @@ export const BOWS: TBowConfig[] = [
         key: 10
     },
     {
-        id: 11,
+        id: 11, // done
         name: 'steel-bow',
         desc: 'throws fastest arrows',
         damage: 3,
@@ -145,7 +145,7 @@ export const BOWS: TBowConfig[] = [
         key: 11
     },
     {
-        id: 12,
+        id: 12, // done
         name: 'dark-bow',
         desc: 'a strange dark sword in a unknown matter',
         damage: 4,
@@ -189,21 +189,21 @@ export const SHIELDS: TShieldConfig[] = [
         key: 16
     },
     {
-        id: 17,
+        id: 17, // done
         name: 'knight shield',
         desc: 'a good knight shield',
         defense: 8,
         key: 17
     },
     {
-        id: 18,
+        id: 18, // done
         name: 'royal guard shield',
         desc: 'perhaps the best ever made shield',
         defense: 10,
         key: 18
     },
     {
-        id: 19,
+        id: 19, // done
         name: 'dark shield',
         desc: 'a strange dark shield in a unknown matter',
         defense: 15,
@@ -214,7 +214,7 @@ export const SHIELDS: TShieldConfig[] = [
 export const EQUIPMENT: TEquipmentConfig[] = [
     {
         id: 20,
-        name: 'helm',
+        name: 'helm', // done
         desc: 'protect your head',
         defense: 2,
         key: 20
@@ -227,14 +227,14 @@ export const EQUIPMENT: TEquipmentConfig[] = [
         key: 21
     },
     {
-        id: 22,
+        id: 22, // done
         name: 'cuisses',
         desc: 'protect your upper legs',
         defense: 2,
         key: 22
     },
     {
-        id: 23,
+        id: 23, // done
         name: 'jump boots',
         desc: 'jump higher with this boots',
         defense: 0,

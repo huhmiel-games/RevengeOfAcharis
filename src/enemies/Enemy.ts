@@ -17,13 +17,13 @@ export default class Enemy extends GameObjects.Sprite
 {
     public scene: GameScene;
     public body: Phaser.Physics.Arcade.Body;
-    public isHit: boolean;
-    public speed: number;
-    public isDead: boolean;
-    public isPaused: boolean = false;
+    protected isHit: boolean;
+    protected speed: number;
+    protected isDead: boolean;
+    protected isPaused: boolean = false;
     public enemyState: any;
-    public isAttacking: boolean = false;
-    public xp: number = 0;
+    protected isAttacking: boolean = false;
+    protected xp: number = 0;
     public invulnerability: string = '';
     constructor (scene: GameScene, x: number, y: number, config: any)
     {

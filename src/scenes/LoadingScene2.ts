@@ -2,6 +2,7 @@
 import atlasJSON from './src/assets/atlas/atlas.json';
 import atlas from './src/assets/atlas/atlas.png';
 
+
 class Test
 {
     private atlas = (a: any, b: any, c: any) => { console.log('test'); };
@@ -12,10 +13,7 @@ class Test
         return this;
     }
 
-    // private atlas (a, atlas, atlasJSON)
-    // {
-        
-    // }
+    
     private preload ()
     {
         // PRELOAD SECTION //
@@ -1915,6 +1913,96 @@ class Test
         });
                 
         this.anims.create({
+            key: 'skeleton-skeeker-attack',
+            frames: [
+                { key: 'atlas', frame: 'skeleton-skeeker-attack_0' },
+                { key: 'atlas', frame: 'skeleton-skeeker-attack_1' },
+                { key: 'atlas', frame: 'skeleton-skeeker-attack_2' },
+                { key: 'atlas', frame: 'skeleton-skeeker-attack_3' },
+                { key: 'atlas', frame: 'skeleton-skeeker-attack_4' },
+                { key: 'atlas', frame: 'skeleton-skeeker-attack_5' },
+                { key: 'atlas', frame: 'skeleton-skeeker-attack_6' },
+                { key: 'atlas', frame: 'skeleton-skeeker-attack_7' },
+                { key: 'atlas', frame: 'skeleton-skeeker-attack_8' },
+                { key: 'atlas', frame: 'skeleton-skeeker-attack_9' },
+            ],
+            frameRate: 20,
+            repeat: 0,
+        });
+                
+        this.anims.create({
+            key: 'skeleton-skeeker-death',
+            frames: [
+                { key: 'atlas', frame: 'skeleton-skeeker-death_0' },
+                { key: 'atlas', frame: 'skeleton-skeeker-death_1' },
+                { key: 'atlas', frame: 'skeleton-skeeker-death_2' },
+                { key: 'atlas', frame: 'skeleton-skeeker-death_3' },
+                { key: 'atlas', frame: 'skeleton-skeeker-death_4' },
+            ],
+            frameRate: 10,
+            repeat: 0,
+        });
+                
+        this.anims.create({
+            key: 'skeleton-skeeker-hurt',
+            frames: [
+                { key: 'atlas', frame: 'skeleton-skeeker-hurt_0' },
+                { key: 'atlas', frame: 'skeleton-skeeker-hurt_1' },
+                { key: 'atlas', frame: 'skeleton-skeeker-hurt_2' },
+                { key: 'atlas', frame: 'skeleton-skeeker-hurt_3' },
+            ],
+            frameRate: 8,
+            repeat: 0,
+        });
+                
+        this.anims.create({
+            key: 'skeleton-skeeker-idle',
+            frames: [
+                { key: 'atlas', frame: 'skeleton-skeeker-idle_0' },
+                { key: 'atlas', frame: 'skeleton-skeeker-idle_1' },
+                { key: 'atlas', frame: 'skeleton-skeeker-idle_2' },
+                { key: 'atlas', frame: 'skeleton-skeeker-idle_3' },
+                { key: 'atlas', frame: 'skeleton-skeeker-idle_4' },
+                { key: 'atlas', frame: 'skeleton-skeeker-idle_5' },
+            ],
+            frameRate: 12,
+            repeat: 0,
+        });
+                
+        this.anims.create({
+            key: 'skeleton-skeeker-spawn',
+            frames: [
+                { key: 'atlas', frame: 'skeleton-skeeker-spawn_0' },
+                { key: 'atlas', frame: 'skeleton-skeeker-spawn_1' },
+                { key: 'atlas', frame: 'skeleton-skeeker-spawn_2' },
+                { key: 'atlas', frame: 'skeleton-skeeker-spawn_3' },
+                { key: 'atlas', frame: 'skeleton-skeeker-spawn_4' },
+                { key: 'atlas', frame: 'skeleton-skeeker-spawn_5' },
+                { key: 'atlas', frame: 'skeleton-skeeker-spawn_6' },
+                { key: 'atlas', frame: 'skeleton-skeeker-spawn_7' },
+                { key: 'atlas', frame: 'skeleton-skeeker-spawn_8' },
+                { key: 'atlas', frame: 'skeleton-skeeker-spawn_9' },
+                { key: 'atlas', frame: 'skeleton-skeeker-spawn_10' },
+            ],
+            frameRate: 22,
+            repeat: 0,
+        });
+                
+        this.anims.create({
+            key: 'skeleton-skeeker-walk',
+            frames: [
+                { key: 'atlas', frame: 'skeleton-skeeker-walk_0' },
+                { key: 'atlas', frame: 'skeleton-skeeker-walk_1' },
+                { key: 'atlas', frame: 'skeleton-skeeker-walk_2' },
+                { key: 'atlas', frame: 'skeleton-skeeker-walk_3' },
+                { key: 'atlas', frame: 'skeleton-skeeker-walk_4' },
+                { key: 'atlas', frame: 'skeleton-skeeker-walk_5' },
+            ],
+            frameRate: 12,
+            repeat: 0,
+        });
+                
+        this.anims.create({
             key: 'skull',
             frames: [
                 { key: 'atlas', frame: 'skull_0' },
@@ -3522,6 +3610,9 @@ class Test
             frameRate: 12,
             repeat: 0,
         });
+                
+
+        
                 
 
     }

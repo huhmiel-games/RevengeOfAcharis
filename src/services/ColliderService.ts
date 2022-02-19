@@ -1,4 +1,5 @@
 import BodyExtended from '../enemies/BodyExtended';
+import BringerOfDeath from '../enemies/BringerOfDeath';
 import DragonHead from '../enemies/DragonHead';
 import Enemy from '../enemies/Enemy';
 import EvilWizard from '../enemies/EvilWizard';

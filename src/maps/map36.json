@@ -73,9 +73,53 @@
          "width":32,
          "x":0,
          "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "id":7,
+         "name":"objects",
+         "objects":[
+                {
+                 "gid":4,
+                 "height":16,
+                 "id":1,
+                 "name":"worm",
+                 "properties":[
+                        {
+                         "name":"damage",
+                         "type":"int",
+                         "value":5
+                        }, 
+                        {
+                         "name":"key",
+                         "type":"string",
+                         "value":"worm"
+                        }, 
+                        {
+                         "name":"life",
+                         "type":"int",
+                         "value":40
+                        }, 
+                        {
+                         "name":"name",
+                         "type":"string",
+                         "value":"worm"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":80,
+                 "y":1472
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
         }],
- "nextlayerid":7,
- "nextobjectid":1,
+ "nextlayerid":8,
+ "nextobjectid":2,
  "orientation":"orthogonal",
  "properties":[
         {

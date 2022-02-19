@@ -148,6 +148,138 @@
                 {
                  "gid":4,
                  "height":16,
+                 "id":3,
+                 "name":"worm",
+                 "properties":[
+                        {
+                         "name":"damage",
+                         "type":"int",
+                         "value":5
+                        }, 
+                        {
+                         "name":"key",
+                         "type":"string",
+                         "value":"worm"
+                        }, 
+                        {
+                         "name":"life",
+                         "type":"int",
+                         "value":40
+                        }, 
+                        {
+                         "name":"name",
+                         "type":"string",
+                         "value":"worm"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":640,
+                 "y":240
+                }, 
+                {
+                 "gid":4,
+                 "height":16,
+                 "id":6,
+                 "name":"samurai",
+                 "properties":[
+                        {
+                         "name":"damage",
+                         "type":"int",
+                         "value":15
+                        }, 
+                        {
+                         "name":"key",
+                         "type":"string",
+                         "value":"samurai"
+                        }, 
+                        {
+                         "name":"life",
+                         "type":"int",
+                         "value":60
+                        }, 
+                        {
+                         "name":"name",
+                         "type":"string",
+                         "value":"samurai"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":368,
+                 "y":208
+                }, 
+                {
+                 "gid":4,
+                 "height":16,
+                 "id":4,
+                 "name":"worm",
+                 "properties":[
+                        {
+                         "name":"damage",
+                         "type":"int",
+                         "value":5
+                        }, 
+                        {
+                         "name":"key",
+                         "type":"string",
+                         "value":"worm"
+                        }, 
+                        {
+                         "name":"life",
+                         "type":"int",
+                         "value":40
+                        }, 
+                        {
+                         "name":"name",
+                         "type":"string",
+                         "value":"worm"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":448,
+                 "y":240
+                }, 
+                {
+                 "gid":4,
+                 "height":16,
+                 "id":5,
+                 "name":"worm",
+                 "properties":[
+                        {
+                         "name":"damage",
+                         "type":"int",
+                         "value":5
+                        }, 
+                        {
+                         "name":"key",
+                         "type":"string",
+                         "value":"worm"
+                        }, 
+                        {
+                         "name":"life",
+                         "type":"int",
+                         "value":40
+                        }, 
+                        {
+                         "name":"name",
+                         "type":"string",
+                         "value":"worm"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":160,
+                 "y":240
+                }, 
+                {
+                 "gid":4,
+                 "height":16,
                  "id":2,
                  "name":"demon-axe",
                  "properties":[
@@ -182,6 +314,120 @@
                  "width":16,
                  "x":304,
                  "y":128
+                }, 
+                {
+                 "gid":4,
+                 "height":16,
+                 "id":7,
+                 "name":"demon-axe",
+                 "properties":[
+                        {
+                         "name":"damage",
+                         "type":"int",
+                         "value":5
+                        }, 
+                        {
+                         "name":"isBossMusic",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"key",
+                         "type":"string",
+                         "value":"demon-axe"
+                        }, 
+                        {
+                         "name":"life",
+                         "type":"int",
+                         "value":100
+                        }, 
+                        {
+                         "name":"name",
+                         "type":"string",
+                         "value":"demon-axe"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":-940,
+                 "y":128
+                }, 
+                {
+                 "gid":4,
+                 "height":16,
+                 "id":8,
+                 "name":"demon-axe",
+                 "properties":[
+                        {
+                         "name":"damage",
+                         "type":"int",
+                         "value":5
+                        }, 
+                        {
+                         "name":"isBossMusic",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"key",
+                         "type":"string",
+                         "value":"demon-axe"
+                        }, 
+                        {
+                         "name":"life",
+                         "type":"int",
+                         "value":100
+                        }, 
+                        {
+                         "name":"name",
+                         "type":"string",
+                         "value":"demon-axe"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":-1112,
+                 "y":128
+                }, 
+                {
+                 "gid":4,
+                 "height":16,
+                 "id":9,
+                 "name":"demon-axe",
+                 "properties":[
+                        {
+                         "name":"damage",
+                         "type":"int",
+                         "value":5
+                        }, 
+                        {
+                         "name":"isBossMusic",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"key",
+                         "type":"string",
+                         "value":"demon-axe"
+                        }, 
+                        {
+                         "name":"life",
+                         "type":"int",
+                         "value":100
+                        }, 
+                        {
+                         "name":"name",
+                         "type":"string",
+                         "value":"demon-axe"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":-1216,
+                 "y":128
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -190,7 +436,7 @@
          "y":0
         }],
  "nextlayerid":10,
- "nextobjectid":3,
+ "nextobjectid":10,
  "orientation":"orthogonal",
  "properties":[
         {
@@ -209,7 +455,7 @@
          "value":"castleWalkSfx"
         }],
  "renderorder":"right-down",
- "tiledversion":"1.7.2",
+ "tiledversion":"1.8.2",
  "tileheight":16,
  "tilesets":[
         {
@@ -439,6 +685,6 @@
         }],
  "tilewidth":16,
  "type":"map",
- "version":"1.6",
+ "version":"1.8",
  "width":64
 }

@@ -50,6 +50,7 @@ import Imp from '../enemies/Imp';
 import SkeletonSeeker from '../enemies/SkeletonSeeker';
 import EvilWizardBoss from '../enemies/EvilWizardBoss';
 import Worm from '../enemies/Worm';
+import BringerOfDeath from '../enemies/BringerOfDeath';
 //#endregion
 
 export default class GameScene extends Scene
@@ -432,12 +433,12 @@ export default class GameScene extends Scene
 
     public playerIsHit (elm: Enemy | Projectile | Arrow)
     {
-        if (elm.enemyState.damage === 0)
-        {
-            return;
-        }
+        if (elm.enemyState.damage === 0) return;
+
+        if (elm instanceof BringerOfDeath) return;
 
         this.player.looseLife(elm);
+
         if (elm instanceof Arrow)
         {
             elm.kill();
@@ -1079,9 +1080,7 @@ export default class GameScene extends Scene
 
         this.sound.play('powerUp');
 
-
         inventory.powerUp.push(elm.id);
-
 
         this.setPause();
 
@@ -1240,6 +1239,17 @@ DEF: ${props.defense}`;
                     });
 
                     this.enemyGroup.push(wizardBoss);
+                    break;
+
+                case 'bringerOfDeath':
+                    const bringer = new BringerOfDeath(this, element.x as unknown as number, element.y as unknown as number, {
+                        key: element.properties.key,
+                        name: element.name,
+                        life: element.properties.life,
+                        damage: element.properties.damage,
+                    });
+
+                    this.enemyGroup.push(bringer);
                     break;
 
                 case 'demon-axe':
@@ -1786,6 +1796,7 @@ DEF: ${props.defense}`;
                 ui.destroy();
                 dialog.removeAllListeners();
                 this.unPause();
+                overlap.destroy();
             });
         });
     }

@@ -2112,8 +2112,8 @@ export default class LoadingScreen extends Scene
                 { key: 'atlas', frame: 'Bringer-of-Death_Attack_9' },
                 { key: 'atlas', frame: 'Bringer-of-Death_Attack_10' },
             ],
-            frameRate: 20,
-            repeat: -1,
+            frameRate: 12,
+            repeat: 0,
         });
                 
         this.anims.create({
@@ -2129,8 +2129,8 @@ export default class LoadingScreen extends Scene
                 { key: 'atlas', frame: 'Bringer-of-Death_Cast_8' },
                 { key: 'atlas', frame: 'Bringer-of-Death_Cast_9' },
             ],
-            frameRate: 18,
-            repeat: -1,
+            frameRate: 8,
+            repeat: 0,
         });
                 
         this.anims.create({
@@ -2147,8 +2147,9 @@ export default class LoadingScreen extends Scene
                 { key: 'atlas', frame: 'Bringer-of-Death_Death_9' },
                 { key: 'atlas', frame: 'Bringer-of-Death_Death_10' },
             ],
-            frameRate: 20,
-            repeat: -1,
+            frameRate: 12,
+            repeat: 0,
+            hideOnComplete: true
         });
                 
         this.anims.create({
@@ -2171,8 +2172,8 @@ export default class LoadingScreen extends Scene
                 { key: 'atlas', frame: 'Bringer-of-Death_Spell_15' },
                 { key: 'atlas', frame: 'Bringer-of-Death_Spell_16' },
             ],
-            frameRate: 32,
-            repeat: -1,
+            frameRate: 16,
+            repeat: 2,
         });
                 
         this.anims.create({
@@ -2203,8 +2204,8 @@ export default class LoadingScreen extends Scene
                 { key: 'atlas', frame: 'Bringer-of-Death_Idle_7' },
                 { key: 'atlas', frame: 'Bringer-of-Death_Idle_8' },
             ],
-            frameRate: 16,
-            repeat: -1,
+            frameRate: 8,
+            repeat: 4,
         });
                 
         this.anims.create({
@@ -2215,7 +2216,7 @@ export default class LoadingScreen extends Scene
                 { key: 'atlas', frame: 'Bringer-of-Death_Hurt_3' },
             ],
             frameRate: 6,
-            repeat: -1,
+            repeat: 0,
         });
         //#endregion
                 

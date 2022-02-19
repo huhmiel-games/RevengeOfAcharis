@@ -7511,11 +7511,11 @@
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
-						"w": 210,
+						"w": 48,
 						"h": 93
 					},
 					"spriteSourceSize": {
-						"x": 50,
+						"x": 8,
 						"y": 35,
 						"w": 34,
 						"h": 57
@@ -7532,11 +7532,11 @@
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
-						"w": 210,
+						"w": 48,
 						"h": 93
 					},
 					"spriteSourceSize": {
-						"x": 49,
+						"x": 7,
 						"y": 35,
 						"w": 34,
 						"h": 57
@@ -7574,11 +7574,11 @@
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
-						"w": 210,
+						"w": 48,
 						"h": 93
 					},
 					"spriteSourceSize": {
-						"x": 52,
+						"x": 10,
 						"y": 35,
 						"w": 31,
 						"h": 57
@@ -7595,11 +7595,11 @@
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
-						"w": 210,
+						"w": 48,
 						"h": 93
 					},
 					"spriteSourceSize": {
-						"x": 51,
+						"x": 9,
 						"y": 35,
 						"w": 33,
 						"h": 57
@@ -8372,11 +8372,11 @@
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
-						"w": 210,
+						"w": 48,
 						"h": 93
 					},
 					"spriteSourceSize": {
-						"x": 51,
+						"x": 9,
 						"y": 37,
 						"w": 35,
 						"h": 55
@@ -8414,11 +8414,11 @@
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
-						"w": 210,
+						"w": 48,
 						"h": 93
 					},
 					"spriteSourceSize": {
-						"x": 50,
+						"x": 8,
 						"y": 37,
 						"w": 36,
 						"h": 55
@@ -9527,11 +9527,11 @@
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
-						"w": 210,
+						"w": 48,
 						"h": 93
 					},
 					"spriteSourceSize": {
-						"x": 52,
+						"x": 10,
 						"y": 35,
 						"w": 31,
 						"h": 53
@@ -22022,11 +22022,11 @@
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
-						"w": 210,
+						"w": 48,
 						"h": 93
 					},
 					"spriteSourceSize": {
-						"x": 52,
+						"x": 10,
 						"y": 35,
 						"w": 31,
 						"h": 36
@@ -22211,11 +22211,11 @@
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
-						"w": 210,
+						"w": 48,
 						"h": 93
 					},
 					"spriteSourceSize": {
-						"x": 51,
+						"x": 9,
 						"y": 37,
 						"w": 35,
 						"h": 16
@@ -22568,11 +22568,11 @@
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
-						"w": 210,
+						"w": 48,
 						"h": 93
 					},
 					"spriteSourceSize": {
-						"x": 51,
+						"x": 9,
 						"y": 37,
 						"w": 35,
 						"h": 16
@@ -24710,11 +24710,11 @@
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
-						"w": 210,
+						"w": 48,
 						"h": 93
 					},
 					"spriteSourceSize": {
-						"x": 52,
+						"x": 10,
 						"y": 35,
 						"w": 32,
 						"h": 19
@@ -24731,11 +24731,11 @@
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
-						"w": 210,
+						"w": 48,
 						"h": 93
 					},
 					"spriteSourceSize": {
-						"x": 52,
+						"x": 10,
 						"y": 35,
 						"w": 32,
 						"h": 19
@@ -25508,11 +25508,11 @@
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
-						"w": 210,
+						"w": 48,
 						"h": 93
 					},
 					"spriteSourceSize": {
-						"x": 52,
+						"x": 10,
 						"y": 35,
 						"w": 31,
 						"h": 19
@@ -25571,11 +25571,11 @@
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
-						"w": 210,
+						"w": 48,
 						"h": 93
 					},
 					"spriteSourceSize": {
-						"x": 52,
+						"x": 10,
 						"y": 35,
 						"w": 31,
 						"h": 19
@@ -27566,11 +27566,11 @@
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
-						"w": 210,
+						"w": 48,
 						"h": 93
 					},
 					"spriteSourceSize": {
-						"x": 54,
+						"x": 12,
 						"y": 35,
 						"w": 29,
 						"h": 23
@@ -28427,11 +28427,11 @@
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
-						"w": 210,
+						"w": 48,
 						"h": 93
 					},
 					"spriteSourceSize": {
-						"x": 54,
+						"x": 12,
 						"y": 35,
 						"w": 29,
 						"h": 18
