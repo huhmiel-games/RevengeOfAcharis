@@ -20,6 +20,7 @@ import InventoryManager from './InventoryManager';
 import SaveLoadService from '../services/SaveLoadService';
 import BowManager from './BowManager';
 import Arrow from './Arrow';
+import WaterQueen from '../enemies/WaterQueen';
 
 export default class Player extends Phaser.GameObjects.Sprite
 {
@@ -644,6 +645,21 @@ export default class Player extends Phaser.GameObjects.Sprite
             this.playerDeathSequence();
 
             return;
+        }
+
+        if (elm instanceof WaterQueen)
+        {
+            const { x, y } = this.body.center;
+            const { x: queenPosX, y: queenPosY } = elm.body.center;
+            if (x > queenPosX && elm.flipX && !this.flipX)
+            {
+                return;
+            }
+
+            if (x < queenPosX && !elm.flipX && this.flipX)
+            {
+                return;
+            }
         }
 
         if (this.isHit || this.isHitMomentum) return;

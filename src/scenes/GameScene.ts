@@ -51,6 +51,7 @@ import SkeletonSeeker from '../enemies/SkeletonSeeker';
 import EvilWizardBoss from '../enemies/EvilWizardBoss';
 import Worm from '../enemies/Worm';
 import BringerOfDeath from '../enemies/BringerOfDeath';
+import WaterQueen from '../enemies/WaterQueen';
 //#endregion
 
 export default class GameScene extends Scene
@@ -61,7 +62,7 @@ export default class GameScene extends Scene
     public firstTimestamp: number;
     public heartGroup: Phaser.GameObjects.Sprite[];
     public powerUpGroup: PowerUp[];
-    public enemyGroup: (Enemy | Dragon | HellBeast | Demon | Arrow)[];
+    public enemyGroup: (Enemy | Dragon | HellBeast | Demon | WaterQueen | Arrow)[];
     public platformGroup: Platform[];
     public projectileGroup: Projectile[] = [];
     public bodiesGroup: BodyExtended[] = [];
@@ -471,6 +472,30 @@ export default class GameScene extends Scene
             arrow.deflect();
 
             return;
+        }
+
+        if (enemy.name === 'waterQueen')
+        {
+            const boss = _enemy as WaterQueen;
+
+            if (_weapon.name === 'sword')
+            {
+                const str = Math.ceil(Math.sqrt(Math.pow(this.player.inventoryManager.getInventory().level, 3)) / 10);
+
+                boss.looseLife(Math.floor(this.player.swordManager.getCurrentSword().damage * str), 'sword', this.player.swordManager.getCurrentSword());
+
+            }
+
+            if (_weapon.name === 'arrow')
+            {
+                const weapon = _weapon as Arrow;
+
+                const str = Math.ceil(Math.sqrt(Math.pow(this.player.inventoryManager.getInventory().level, 3)) / 10);
+
+                boss.looseLife(Math.floor(this.player.bowManager.getCurrentBow().damage * str), 'arrow', _weapon as Arrow);
+
+                if (!weapon.isDeflecting) weapon.kill();
+            }
         }
 
         if (_weapon.name === 'sword')
@@ -1612,6 +1637,23 @@ DEF: ${props.defense}`;
                     this.npcGroup.push(hatman);
                     break;
 
+                case 'waterQueen':
+                    if (!element.y) return;
+
+                    if (this.callWaterQueen())
+                    {
+                        const waterQueen = new WaterQueen(this, element.x as unknown as number, element.y as unknown as number - 16, {
+                            key: element.properties.key,
+                            name: element.name,
+                            life: element.properties.life,
+                            damage: element.properties.damage,
+                        });
+    
+                        this.enemyGroup.push(waterQueen);
+                        break;
+                    }
+                    
+
                 default:
                     break;
             }
@@ -1628,6 +1670,18 @@ DEF: ${props.defense}`;
     {
         const layer: Phaser.Tilemaps.TilemapLayer = LayerService.getForegroundLayers(this).filter(l => l.name === 'foreground/bossDoor')[0];
         layer.setAlpha(0);
+    }
+
+    public callWaterQueen ()
+    {
+        const inventory = this.player.inventoryManager.getInventory();
+
+        if (inventory.waterElement) return false;
+
+        const deadBosses = SaveLoadService.getDeadBoss(this);
+        if (deadBosses.includes(2)) return false;
+
+        return true;
     }
 
     public callHellBeast ()

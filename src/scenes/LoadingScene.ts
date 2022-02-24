@@ -3667,7 +3667,7 @@ export default class LoadingScreen extends Scene
                 { key: 'atlas', frame: 'waterQueenAttack2_19' },
                 { key: 'atlas', frame: 'waterQueenAttack2_20' },
             ],
-            frameRate: 42,
+            frameRate: 14,
             repeat: 0,
         });
                 
@@ -3702,7 +3702,7 @@ export default class LoadingScreen extends Scene
                 { key: 'atlas', frame: 'waterQueenAttack3_25' },
                 { key: 'atlas', frame: 'waterQueenAttack3_26' },
             ],
-            frameRate: 54,
+            frameRate: 14,
             repeat: 0,
         });
                 
@@ -3742,7 +3742,7 @@ export default class LoadingScreen extends Scene
                 { key: 'atlas', frame: 'waterQueenAttack4_30' },
                 { key: 'atlas', frame: 'waterQueenAttack4_31' },
             ],
-            frameRate: 64,
+            frameRate: 14,
             repeat: 0,
         });
                 
@@ -3764,9 +3764,9 @@ export default class LoadingScreen extends Scene
                 { key: 'atlas', frame: 'waterQueenDeath_12' },
                 { key: 'atlas', frame: 'waterQueenDeath_13' },
                 { key: 'atlas', frame: 'waterQueenDeath_14' },
-                { key: 'atlas', frame: 'waterQueenDeath_15' },
+                { key: 'atlas', frame: 'waterQueenDeath_15', duration: 1000 },
             ],
-            frameRate: 32,
+            frameRate: 16,
             repeat: 0,
         });
                 
@@ -3778,7 +3778,7 @@ export default class LoadingScreen extends Scene
                 { key: 'atlas', frame: 'waterQueenDefend_2' },
                 { key: 'atlas', frame: 'waterQueenDefend_3' },
                 { key: 'atlas', frame: 'waterQueenDefend_4' },
-                { key: 'atlas', frame: 'waterQueenDefend_5' },
+                { key: 'atlas', frame: 'waterQueenDefend_5', duration: 1000 },
                 { key: 'atlas', frame: 'waterQueenDefend_6' },
                 { key: 'atlas', frame: 'waterQueenDefend_7' },
                 { key: 'atlas', frame: 'waterQueenDefend_8' },
@@ -3818,7 +3818,7 @@ export default class LoadingScreen extends Scene
                 { key: 'atlas', frame: 'waterQueenHeal_11' },
             ],
             frameRate: 24,
-            repeat: 0,
+            repeat: 3,
         });
                 
         this.anims.create({
@@ -3849,7 +3849,7 @@ export default class LoadingScreen extends Scene
                 { key: 'atlas', frame: 'waterQueenIdle_7' },
             ],
             frameRate: 16,
-            repeat: 0,
+            repeat: 3,
         });
                 
         this.anims.create({
@@ -3875,7 +3875,7 @@ export default class LoadingScreen extends Scene
                 { key: 'atlas', frame: 'waterQueenSurf_6' },
                 { key: 'atlas', frame: 'waterQueenSurf_7' },
             ],
-            frameRate: 16,
+            frameRate: 25,
             repeat: 0,
         });
                 
