@@ -1,4 +1,5 @@
 import { Scene } from 'phaser';
+import { COLORS } from '../constant/colors';
 import { WIDTH, HEIGHT, SCENES_NAMES } from '../constant/config';
 import SaveLoadService from '../services/SaveLoadService';
 
@@ -31,15 +32,15 @@ export default class GameOver extends Scene
         this.title = this.add.bitmapText(WIDTH / 2, HEIGHT / 2 - 40, 'alagard', ' No revenge today... ')
             .setFontSize(20)
             .setOrigin(0.5, 0.5)
-            .setTintFill(0xA20000);
+            .setDropShadow(0, 1, COLORS.ORANGE);
 
         this.retry = this.add.bitmapText(WIDTH / 4, this.position[0], 'alagard', ' Try again ')
             .setFontSize(18)
-            .setTintFill(0xA20000);
+            .setDropShadow(0, 1, COLORS.ORANGE);
 
         this.quit = this.add.bitmapText(WIDTH / 4, this.position[1], 'alagard', ' Quit ')
             .setFontSize(18)
-            .setTintFill(0xA20000);
+            .setDropShadow(0, 1, COLORS.ORANGE);
 
         this.head = this.add.image(WIDTH / 4 - 16, this.position[0], 'head')
             .setOrigin(0, 0)
@@ -59,11 +60,13 @@ export default class GameOver extends Scene
             {
                 this.sound.play('bullet', { volume: 0.8 });
                 this.choose(1);
-            } else if (this.keys.up.isDown && event.key === this.keys.up.originalEvent.key)
+            }
+            else if (this.keys.up.isDown && event.key === this.keys.up.originalEvent.key)
             {
                 this.sound.play('bullet', { volume: 0.8 });
                 this.choose(-1);
-            } else if (this.keys.fire.isDown && event.key === this.keys.fire.originalEvent.key)
+            }
+            else if (this.keys.fire.isDown && event.key === this.keys.fire.originalEvent.key)
             {
                 this.sound.play('swell', { volume: 0.8 });
                 this.launch();
@@ -71,23 +74,24 @@ export default class GameOver extends Scene
         });
 
         // fading the scene from black
-
-        this.cameras.main.setBackgroundColor('#0C1D1C');
-        this.cameras.main.fadeIn(100);
+        this.cameras.main.setBackgroundColor('#0C1D1C').fadeIn(100);
     }
 
-    public choose (count)
+    public choose (count: number)
     {
         if (this.lastPosition === this.position.length - 1 && count > 0)
         {
             this.lastPosition = 0;
-        } else if (this.lastPosition === 0 && count < 0)
+        }
+        else if (this.lastPosition === 0 && count < 0)
         {
             this.lastPosition = this.position.length - 1;
-        } else
+        }
+        else
         {
             this.lastPosition += count;
         }
+
         this.head.y = this.position[this.lastPosition];
     }
 
@@ -96,9 +100,10 @@ export default class GameOver extends Scene
         if (this.lastPosition === 0)
         {
             this.input.keyboard.enabled = true;
+
             this.scene.start(SCENES_NAMES.GAME, { loadSavedGame: true });
-            // this.scene.start('dashBoard');
         }
+
         if (this.lastPosition === 1)
         {
             this.scene.start(SCENES_NAMES.MENU);

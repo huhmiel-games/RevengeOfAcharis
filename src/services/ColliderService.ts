@@ -152,7 +152,7 @@ export default class ColliderService
         // scene.physics.add.collider(scene.platformSpikeGroup, scene.player, (platform) => scene.playerIsHit(platform), undefined, scene);
         scene.physics.add.collider(scene.enemyGroup, scene.colliderLayer, undefined, (enemy, tile) =>
         {
-            if (enemy.name !== 'demon') return true;
+            if (enemy.name !== 'demon' && enemy.name !== 'skullHeadDemon') return true;
         });
 
         scene.physics.add.collider(scene.enemyGroup, scene.enemyGroup, undefined, (enemyA, enemyB) =>
@@ -218,6 +218,25 @@ export default class ColliderService
 
                         return false;
                     }
+                }
+
+                if (enemy.name === 'skullHeadDemon' && enemy.data.get('counterAttack') === false)
+                {
+                    if (weapon.name === 'arrow')
+                    {
+                        const w = weapon as unknown as Arrow;
+
+                        w.deflect();
+
+                        return false;
+                    }
+                    enemy.data.set('counterAttack', true);
+                    // @ts-ignore
+                    enemy.body.setVelocityX(-enemy.body.velocity.x);
+                    // @ts-ignore
+                    enemy.body.setVelocityY(-enemy.body.velocity.y);
+
+                    return false;
                 }
 
                 return true;

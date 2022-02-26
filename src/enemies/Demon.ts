@@ -6,10 +6,11 @@ import Wizard from './Wizard';
 import BurningGhoul from './BurningGhoul';
 import Angel from './Angel';
 import GameScene from '../scenes/GameScene';
-import { FONTS, HEIGHT, WIDTH } from '../constant/config';
+import { FONTS, FONTS_SIZES, HEIGHT, SCENES_NAMES, WIDTH } from '../constant/config';
 import LayerService from '../services/LayerService';
 import { THitboxData } from '../types/types';
 import Projectile from './Projectile';
+import { COLORS } from '../constant/colors';
 
 
 export default class Demon extends Phaser.GameObjects.Sprite
@@ -17,25 +18,39 @@ export default class Demon extends Phaser.GameObjects.Sprite
     public scene: GameScene;
     public body: Phaser.Physics.Arcade.Body;
     public enemyState: { life: number; damage: number; hited: boolean; skullHeadQuantity: number; speed: number; };
-    public getFired: boolean = false;
-    public isBreathFire: boolean = false;
-    public isFollowingPath: boolean = false;
-    public battleStarted: boolean = false;
-    public skullRotates: boolean = false;
-    public releaseEnemy: boolean = false;
-    public fireBallAttackCount: number = 0;
-    public phase: number = 0;
-    public isDead: boolean = false;
-    public diameter: { x: number; };
-    public deathMsg;
-    public twee: Phaser.Tweens.Tween;
-    public skullTimer: Phaser.Time.TimerEvent;
-    public skullTimer2: Phaser.Time.TimerEvent;
-    public skullTimer3: Phaser.Time.TimerEvent;
+    private isHurt: boolean = false;
+    private isBreathFire: boolean = false;
+    private isBreathIce: boolean = false;
+    private isBattleStarted: boolean = false;
+    private isSkullRotates: boolean = false;
+    private isSkullAttack: boolean = false;
+    private isReleaseEnemy: boolean = false;
+    private isDead: boolean = false;
+    private fireBallAttackCount: number = 0;
+    // private phase: number = 0;
+    private diameter: { x: number; };
+    private deathMsg;
+    private twee: Phaser.Tweens.Tween;
+    private skullTimer: Phaser.Time.TimerEvent;
+    private skullTimer2: Phaser.Time.TimerEvent;
+    private skullTimer3: Phaser.Time.TimerEvent;
     private isBattleMusic: boolean = false;
     private currentsong: Phaser.Sound.BaseSound;
     private hitboxData: THitboxData;
     public hitbox: Projectile[] = [];
+    public skull0: Phaser.Physics.Arcade.Sprite;
+    public skull1: Phaser.Physics.Arcade.Sprite;
+    public skull2: Phaser.Physics.Arcade.Sprite;
+    public skull3: Phaser.Physics.Arcade.Sprite;
+    public skull4: Phaser.Physics.Arcade.Sprite;
+    public skull5: Phaser.Physics.Arcade.Sprite;
+    public skull6: Phaser.Physics.Arcade.Sprite;
+    public skull7: Phaser.Physics.Arcade.Sprite;
+    private skullGroup: Phaser.Physics.Arcade.Sprite[] = [];
+    private healthUiBack: Phaser.GameObjects.Image;
+    private healthUiText: Phaser.GameObjects.BitmapText;
+
+
 
     constructor (scene: GameScene, x: number, y: number, config: any)
     {
@@ -46,7 +61,7 @@ export default class Demon extends Phaser.GameObjects.Sprite
         this.name = config.name;
 
         this.enemyState = {
-            life: 10000,
+            life: 4000,
             damage: 20,
             hited: false,
             skullHeadQuantity: 8,
@@ -69,9 +84,6 @@ export default class Demon extends Phaser.GameObjects.Sprite
         this.deathMsg = null;
 
         this.blockDoors();
-
-        this.handleSkullHeads();
-        // this.body.setVelocityX(-200);
 
         this.on(Phaser.Animations.Events.ANIMATION_UPDATE, () =>
         {
@@ -155,48 +167,47 @@ export default class Demon extends Phaser.GameObjects.Sprite
             }
 
             this.anims.play('demon-idle');
-            // if (actualKey === 'demon-attack' && !this.releaseEnemy)
-            // {
-            //     this.isFollowingPath = false;
-            //     this.body.setVelocity(0, 0);
-            //     this.breathFire();
-            //     this.anims.play('demon-attack-end', true);
-
-            //     return;
-            // }
-            // if (actualKey === 'demon-attack' && this.releaseEnemy)
-            // {
-            //     this.isFollowingPath = false;
-            //     this.body.setVelocity(0, 0);
-            //     this.breathBlue();
-            //     this.anims.play('demon-attack-end', true);
-
-            //     return;
-            // }
         });
-        // this.addPath();
+
+        this.scene.physics.add.overlap(this, this.skullGroup, (demon, skull) =>
+        {
+            if (skull.active && skull.data.get('counterAttack') === true)
+            {
+                this.looseLife(200, 'skullHeadDemon');
+
+                this.skullGroup.forEach(skullHead =>
+                {
+                    if (skullHead.active)
+                    {
+                        const smoke = this.scene.smokeGroup.getFirstDead(true, skullHead.body.center.x, skullHead.body.center.y, undefined, undefined, true);
+
+                        if (smoke)
+                        {
+                            smoke.setDepth(200);
+                            smoke.once(Phaser.Animations.Events.ANIMATION_COMPLETE, () => smoke.destroy());
+                            smoke.anims.play('smoke1');
+                        }
+                        skullHead.destroy();
+                    }
+                });
+
+                this.isSkullAttack = false;
+            }
+        }, undefined, this.scene);
+
         this.startBattle();
-        // this.twee = this.scene.tweens.add({
-        //     targets: this.diameter,
-        //     ease: 'Sine.easeInOut',
-        //     duration: 4200,
-        //     delay: 0,
-        //     repeat: -1,
-        //     loop: -1,
-        //     yoyo: true,
-        //     x: {
-        //         getStart: () => 1,
-        //         getEnd: () => 250,
-        //     },
-        // });
-        // this.twee.play()
     }
+
+
+
+
 
     // availables anims
     // demon-idle
     // demon-attack
     // breathBlue
     // breathFire
+    // demon-hurt
     // fire-skull
 
     // demonDeathSfx
@@ -213,62 +224,90 @@ export default class Demon extends Phaser.GameObjects.Sprite
     public preUpdate (time: number, delta: number)
     {
         super.preUpdate(time, delta);
-        if (this.active && this.battleStarted && this.phase !== 1 && !this.isDead)
+        if (this.scene.isPause || !this.active || !this.isBattleStarted || this.isDead) return;
+
+        const { x, y } = this.body.center;
+
+        const { x: playerPosX, y: playerPosY } = this.scene.player.body.center;
+
+        const distance = Phaser.Math.Distance.Between(playerPosX, playerPosY, x, y);
+
+        // breath fire or ice attack
+        if (!this.isBreathFire && !this.isBreathIce && distance <= 120)
         {
-            const { x, y } = this.body.center;
+            this.body.setVelocity(0, 0);
 
-            if (!this.isBreathFire)
+            this.anims.play('demon-start-breath', true);
+        }
+
+        // chase player
+        if (this.canChase() && distance > 120)
+        {
+            const dx = playerPosX - x;
+            const dy = playerPosY - y;
+
+            this.body.setVelocityX(dx / 2);
+
+            if (y < 200)
             {
-                const distance = Phaser.Math.Distance.Between(this.scene.player.x, this.scene.player.y, x, y);
-
-                if (distance < 150 && !this.isBreathFire) // && y < this.scene.player.y - 50)
-                {
-                    this.anims.play('demon-start-breath', true);
-                }
-                else if (distance > 200 && y > 415)
-                {
-                    this.releaseEnemy = true;
-                    this.anims.play('demon-idle', true);
-                }
+                this.body.setVelocityY(dy / 2);
             }
-            if (x > this.scene.player.body.center.x && !this.isBreathFire)
+            else
             {
-                if (this.flipX)
-                {
-                    this.flipX = false;
-                }
-            }
-            else if (x < this.scene.player.body.center.x && !this.isBreathFire)
-            {
-                if (!this.flipX)
-                {
-                    this.flipX = true;
-                }
-            }
-
-            // if (this.demonPath && this.isFollowingPath)
-            // {
-            //     // follow path
-            //     const speed = this.enemyState.speed;
-            //     const dx = this.demonPath.x - this.body.x;
-            //     const dy = this.demonPath.y - this.body.y;
-            //     const angle = Phaser.Math.Angle.Between(this.body.x, this.body.y, this.demonPath.x, this.demonPath.y); // Math.atan2(dy, dx);
-            //     this.body.setVelocity(Math.cos(angle) * speed, Math.sin(angle) * speed);
-            // }
-
-            if (this.skullRotates && this.phase !== 1)
-            {
-                Phaser.Actions.RotateAroundDistance(this.scene.skullHeads.getChildren(), {
-                    x: this.body.center.x,
-                    y: this.body.center.y
-                }, 0.02, this.diameter.x);
+                this.body.setVelocityY(0);
             }
         }
 
-        if (this.active && this.phase === 1)
+        // flip demon
+        if (x > playerPosX && !this.isBreathFire)
         {
-            this.scene.skullHeads.getChildren().forEach(e => e.destroy());
+            if (this.flipX)
+            {
+                this.flipX = false;
+            }
         }
+        else if (x < playerPosX && !this.isBreathFire)
+        {
+            if (!this.flipX)
+            {
+                this.flipX = true;
+            }
+        }
+
+        if (this.isSkullRotates)
+        {
+            Phaser.Actions.RotateAroundDistance(this.scene.skullHeads.getChildren(), {
+                x: this.body.center.x,
+                y: this.body.center.y
+            }, 0.02, this.diameter.x);
+        }
+    }
+
+    private expandSkullHeadDiameter ()
+    {
+        this.scene.tweens.add({
+            targets: this.diameter,
+            ease: 'Sine.easeInOut',
+            duration: 1000,
+            delay: 0,
+            repeat: 0,
+            loop: 0,
+            yoyo: false,
+            x: {
+                getStart: () => 1,
+                getEnd: () => 80,
+            },
+        });
+    }
+
+    private canChase (): boolean
+    {
+        if (this.isSkullAttack || this.isSkullRotates || this.isBreathFire || this.isBreathIce)
+        {
+            return false;
+        }
+
+        return true;
     }
 
     private destroyHitbox (): void
@@ -283,145 +322,127 @@ export default class Demon extends Phaser.GameObjects.Sprite
 
     public handleSkullHeads ()
     {
-        if (!this.active || this.phase === 1)
+        if (!this.active || this.isDead)
         {
             return;
         }
-        this.skullTimer = this.scene.time.addEvent({
-            delay: 20000,
-            repeat: 0,
-            callback: () =>
+
+        if (!this.active || this.isDead)
+        {
+            return;
+        }
+
+        this.body.setVelocity(0, 0);
+
+        const arrPositionsX = [this.body.x + 1500, this.body.x + 750, this.body.x, this.body.x - 750, this.body.x - 1500, this.body.x - 750, this.body.x, this.body.x + 750];
+        const arrPositionsY = [this.body.y, this.body.y - 750, this.body.y - 1500, this.body.y - 750, this.body.y, this.body.y + 750, this.body.y + 1500, this.body.y + 750];
+
+        const arrAngle = [0, Math.PI / 4, Math.PI / 2, 3 / 4 * Math.PI, Math.PI, 5 / 4 * Math.PI, 3 / 2 * Math.PI, 7 / 4 * Math.PI];
+
+        this.skullGroup.length = 0;
+
+        for (let i = 0; i < this.enemyState.skullHeadQuantity; i += 1)
+        {
+            this[`skull${i}`] = this.scene.skullHeads.getFirstDead(true, this.body.x, this.body.y, 'atlas', undefined, true);
+            if (this[`skull${i}`])
             {
-                this.isFollowingPath = false;
-
-                if (!this.active || this.phase === 1)
-                {
-                    return;
-                }
-
-                this.body.setVelocity(0, 0);
-
-                const arrPositionsX = [this.body.x + 1500, this.body.x + 750, this.body.x, this.body.x - 750, this.body.x - 1500, this.body.x - 750, this.body.x, this.body.x + 750];
-                const arrPositionsY = [this.body.y, this.body.y - 750, this.body.y - 1500, this.body.y - 750, this.body.y, this.body.y + 750, this.body.y + 1500, this.body.y + 750];
-
-                const arrAngle = [0, Math.PI / 4, Math.PI / 2, 3 / 4 * Math.PI, Math.PI, 5 / 4 * Math.PI, 3 / 2 * Math.PI, 7 / 4 * Math.PI];
-
-                for (let i = 0; i < this.enemyState.skullHeadQuantity; i += 1)
-                {
-                    this[`skull${i}`] = this.scene.skullHeads.getFirstDead(true, this.body.x, this.body.y, 'finalBoss', undefined, true);
-                    if (this[`skull${i}`])
-                    {
-                        this[`skull${i}`].visible = true;
-                        this[`skull${i}`].anims.play('fire-skull', true);
-                        this[`skull${i}`].setDepth(103);
-                        this[`skull${i}`].state = { damage: 25 };
-                        this[`skull${i}`].name = 'skullHead';
-                        this[`skull${i}`].body.setSize(24, 28).setOffset(12, 18).reset(arrPositionsX[i], arrPositionsY[i]);
-                        this.scene.enemyGroup.push(this[`skull${i}`]);
-                    }
-                }
-                // this.twee.play();
-                this.skullRotates = true;
-                this.scene.sound.play('demonSkullSummonSfx');
-                this.skullHeadsAppears();
+                this[`skull${i}`].visible = true;
+                this[`skull${i}`].anims.play('fire-skull', true);
+                this[`skull${i}`].setDepth(103);
+                this[`skull${i}`].enemyState = { damage: 5 };
+                this[`skull${i}`].setDataEnabled().data.set('counterAttack', false);
+                this[`skull${i}`].name = 'skullHeadDemon';
+                this[`skull${i}`].body.setCircle(16, 10, 20).reset(arrPositionsX[i], arrPositionsY[i]);
+                this.scene.enemyGroup.push(this[`skull${i}`]);
+                this.skullGroup.push(this[`skull${i}`]);
             }
-        });
+        }
 
+        this.expandSkullHeadDiameter();
 
-        // this.twee.play();
-        // const skullhead = this.scene.skullHeads.getFirstDead(true, this.body.x, this.body.y, 'finalBoss', null, true);
+        this.isSkullRotates = true;
 
+        this.scene.sound.play('demonSkullSummonSfx');
+
+        this.skullHeadsAppears();
     }
 
     public skullHeadsAppears ()
     {
-        if (!this.active || this.phase === 1)
+        if (!this.active || this.isDead)
         {
             return;
         }
+
         this.skullTimer2 = this.scene.time.addEvent({
-            delay: 10000,
+            delay: 5000,
             repeat: 0,
             callback: () =>
             {
-                if (!this.active)
+                if (!this.active || this.isDead)
                 {
                     return;
                 }
 
-                // this.scene.skullGroup.forEach((skull) =>
-                // {
-                //     if (skull.active)
-                //     {
-                //         this.scene.sound.play('demonSkullAttackSfx', { volume: 0.1 });
-                //         this.skullRotates = false;
-                //         const angle = Phaser.Math.Angle.Between(skull.x, skull.y, this.scene.player.x, this.scene.player.y); // Math.atan2(dy, dx);
-                //         skull.body.setVelocity(Math.cos(angle) * 400, Math.sin(angle) * 400);
-                //         this.skullTimer3 = this.scene.time.addEvent({
-                //             delay: 3000,
-                //             repeat: 0,
-                //             callback: () =>
-                //             {
-                //                 if (!this.active)
-                //                 {
-                //                     return;
-                //                 }
-                //                 skull.destroy();
-                //             }
-                //         });
-                //     }
+                this.isSkullRotates = false;
 
-                // });
-                this.isFollowingPath = true;
-                this.handleSkullHeads();
+                this.skullAttack();
             }
         });
     }
 
     public skullAttack ()
     {
-        // return;
-        // const lavaFireTimer = this.scene.time.addEvent({
-        //     startAt: 100,
-        //     delay: 1000,
-        //     repeat: 0,
-        //     callback: () =>
-        //     {
-        //         if (!this.active)
-        //         {
-        //             return;
-        //         }
-        //         if (lavaFireTimer.repeatCount === 3)
-        //         {
-        //             this.anims.play('demon-idle', true);
-        //             // this.body.reset(200, 24 *16);
+        if (this.isSkullAttack) return;
 
-        //         }
-        //         if (lavaFireTimer.repeatCount === 2)
-        //         {
-        //             this.anims.play('demon-idle', true);
+        this.isSkullAttack = true;
 
-        //             // this.body.reset(79, 24 *16);
-        //         }
-        //         if (lavaFireTimer.repeatCount === 1)
-        //         {
-        //             this.anims.play('demon-idle', true);
+        [this.skull0, this.skull1, this.skull2, this.skull3, this.skull4, this.skull5, this.skull6, this.skull7].forEach((skull, i) =>
+        {
+            if (skull?.active)
+            {
+                this.scene.sound.play('demonSkullAttackSfx', { volume: 0.1 });
 
-        //             // this.body.reset(318, 24 *16);
-        //         }
-        //         if (lavaFireTimer.repeatCount === 0)
-        //         {
+                this.isSkullRotates = false;
 
-        //             // this.setAlpha(0);
-        //             this.enemyState.damage = 0;
-        //             // this.body.setVelocityX(0)
-        //             // this.body.reset(-100, -100);
+                const body = skull.body as Phaser.Physics.Arcade.Body;
 
-        //             this.isLavaAttack = false;
-        //             lavaFireTimer.destroy();
-        //         }
-        //     },
-        // });
+                body.setVelocity(0, 0);
+
+                this.scene.time.addEvent({
+                    delay: 800 * (i + 1),
+                    callback: () =>
+                    {
+                        const angle = Phaser.Math.Angle.Between(skull.x, skull.y, this.scene.player.body.center.x, this.scene.player.body.center.y); // Math.atan2(dy, dx);
+
+                        body.setVelocity(Math.cos(angle) * 400, Math.sin(angle) * 400);
+
+                        this.skullTimer3 = this.scene.time.addEvent({
+                            delay: 3000,
+                            repeat: 0,
+                            callback: () =>
+                            {
+                                if (!this.active || this.isDead)
+                                {
+                                    return;
+                                }
+
+                                skull.destroy();
+
+                                const deadSkulls = [this.skull0, this.skull1, this.skull2, this.skull3,
+                                this.skull4, this.skull5, this.skull6, this.skull7]
+                                    .filter(e => e?.active).length;
+
+                                if (deadSkulls === 0)
+                                {
+                                    this.isSkullAttack = false;
+                                }
+                            }
+                        });
+                    }
+                });
+            }
+        });
     }
 
     private checkMusic ()
@@ -440,12 +461,16 @@ export default class Demon extends Phaser.GameObjects.Sprite
 
     public startBattle ()
     {
-        // this.body.reset(35 * 16 - this.width / 2, 8 * 16 - this.height / 2);
-
         this.anims.play('demon-idle', true);
 
-        const text = ['Hey kid...', 'I\'m waiting for you ...'];
-        this.scene.player.anims.play('stand', true);
+        const text = ['Hey kid...', 'I\'m really angry ...', 'You destroyed my evil army!!', 'And worst...', 'you freed my wife from her prison!!', 'Be damned !!!'];
+
+        this.scene.player.anims.play('adventurer-idle', true);
+
+        this.scene.player.isPause = true;
+
+        this.scene.sound.play('demonScreamSfx');
+
         // @ts-ignore
         const ui = this.scene.add.rexNinePatch(WIDTH / 2, HEIGHT - HEIGHT / 8, WIDTH, HEIGHT / 4, 'framing', [7, undefined, 7], [7, undefined, 7], 0)
             .setOrigin(0.5, 0.5)
@@ -484,7 +509,6 @@ export default class Demon extends Phaser.GameObjects.Sprite
                     delay: 150,
                     callback: () =>
                     {
-                        this.scene.player.isPause = false;
                         dialog.removeAllListeners();
 
                         this.checkMusic();
@@ -494,176 +518,72 @@ export default class Demon extends Phaser.GameObjects.Sprite
                         layer.putTileAt(734 + 17, 8, 14, true);
                         layer.putTileAt(797 + 17, 8, 15);
                         layer.putTileAt(860 + 17, 8, 16);
+                        layer.putTileAt(754 + 17, 61, 14, true);
+                        layer.putTileAt(817 + 17, 61, 15);
+                        layer.putTileAt(880 + 17, 61, 16);
 
                         this.scene.colliderLayer.putTileAt(1, 8, 14).setCollision(true, true, true, true, true);
                         this.scene.colliderLayer.putTileAt(1, 8, 15).setCollision(true, true, true, true, true);
                         this.scene.colliderLayer.putTileAt(1, 8, 16).setCollision(true, true, true, true, true);
-                        console.log(this.scene.colliderLayer.getTileAt(8, 14))
+                        this.scene.colliderLayer.putTileAt(1, 61, 14).setCollision(true, true, true, true, true);
+                        this.scene.colliderLayer.putTileAt(1, 61, 15).setCollision(true, true, true, true, true);
+                        this.scene.colliderLayer.putTileAt(1, 61, 16).setCollision(true, true, true, true, true);
 
-                        this.battleStarted = true;
-                        // this.scene.player.state.pause = false;
-                        this.scene.sound.play('demonScreamSfx');
+                        this.healthUiBack = this.scene.add.image(425, 0, 'parchment').setScrollFactor(0, 0).setDepth(1900).setOrigin(0, 0).setFlipX(true);
+
+                        this.healthUiText = this.scene.add.bitmapText(435, 9, FONTS.GALAXY, `${this.enemyState.life}/4000`, FONTS_SIZES.GALAXY, 1)
+                            .setScrollFactor(0, 0).setDepth(2000).setTintFill(COLORS.STEEL_GRAY);
+
+                        this.isBattleStarted = true;
+
+                        this.scene.player.isPause = false;
                     }
                 });
+
+
             }
         });
-
-        // this.scene.player.state.pause = true;
-
-        
-        // const startTimer = this.scene.time.addEvent({
-        //     delay: 2000,
-        //     repeat: 5,
-        //     callback: () =>
-        //     {
-        //         if (startTimer.repeatCount === 5)
-        //         {
-        //             this.showMsg
-        //                 .setX(this.scene.player.x + 48)
-        //                 .setY(this.scene.player.y - 48)
-        //                 .setText('Hello');
-        //         }
-
-        //         if (startTimer.repeatCount === 4)
-        //         {
-        //             this.showMsg.setText('My name is Acharis');
-        //         }
-        //         if (startTimer.repeatCount === 3)
-        //         {
-        //             this.showMsg.setText('You killed my father');
-        //         }
-        //         if (startTimer.repeatCount === 2)
-        //         {
-        //             this.showMsg.setText('Prepare to die');
-        //             this.scene.sound.play('hellBeastFirstLaughSfx');
-        //         }
-        //         if (startTimer.repeatCount === 1)
-        //         {
-        //             this.showMsg.destroy();
-        //             this.setFlipX(true);
-        //             this.body.setOffset(75, 64);
-        //         }
-        //         if (startTimer.repeatCount === 0)
-        //         {
-        //             this.setFlipX(false);
-        //             this.body.setOffset(56, 64);
-        //             this.battleStarted = true;
-        //             // this.scene.player.state.pause = false;
-        //             this.scene.sound.play('demonScreamSfx');
-        //             startTimer.destroy();
-        //             this.scene.stopMusic();
-        //             this.scene.demonFight1.play();
-        //         }
-        //     }
-        // });
     }
 
-    public startPhase1 ()
-    {
-        // if (this.scene.player.state.dead)
-        // {
-        //     return;
-        // }
-        this.scene.demonFight1.stop();
-        this.scene.demonLighting.play();
-        this.phase = 1;
-        this.isBreathFire = false;
-        this.skullRotates = false;
-        this.isFollowingPath = false;
-        this.enemyState.life = 30000;
-        this.scene.player.anims.play('stand');
-        // this.scene.player.state.pause = true;
-
-        this.body.setVelocity(0, 0);
-        this.scene.cameras.main.startFollow(this);
-
-
-        // this.showMsg = this.scene.add.bitmapText(this.body.x, this.body.y - 48, FONTS.MINIMAL, '', 8, 1)
-        //     .setOrigin(0.5, 0.5).setAlpha(1).setDepth(200);
-
-        // const startTimer = this.scene.time.addEvent({
-        //     delay: 2000,
-        //     repeat: 4,
-        //     callback: () =>
-        //     {
-        //         if (startTimer.repeatCount === 4)
-        //         {
-        //             this.showMsg.setText('Kid...');
-        //         }
-        //         if (startTimer.repeatCount === 3)
-        //         {
-        //             this.showMsg.setText('I\'m bored to play with you');
-        //         }
-        //         if (startTimer.repeatCount === 2)
-        //         {
-        //             this.showMsg.setText('Let\'s end this joke');
-        //         }
-        //         if (startTimer.repeatCount === 1)
-        //         {
-        //             this.showMsg.destroy();
-
-        //             const positionX = this.flipX ? this.body.x + 74 : this.body.x - 12;
-
-        //             // this.demonThunder = this.scene.thunderPower.getFirstDead(true, -100, this.scene.player.body.x - 256, 'storm', undefined, true);
-
-        //             // if (this.demonThunder)
-        //             // {
-        //             //     this.scene.cameras.main.startFollow(this.scene.player);
-        //             //     this.demonThunder.visible = true;
-        //             //     this.demonThunder.anims.play('thunder-magic', true);
-        //             //     // this.demonThunder.on('animationcomplete', () => {
-        //             //     //   //this.demonThunder.destroy();
-        //             //     // });
-        //             //     this.demonThunder.setDepth(105);
-        //             //     this.demonThunder.state = { damage: 30 };
-        //             //     this.demonThunder.name = 'demonThunder';
-
-        //             //     // const dx = this.scene.player.x - this.x;
-        //             //     // const dy = this.scene.player.y - this.y;
-        //             //     // const angle = Math.atan2(dy, dx);
-
-        //             //     this.demonThunder.body.setSize(32, 240).setOffset(24, 0);
-        //             //     // this.scene.player.state.pause = true;
-        //             //     this.scene.player.anims.play('duck', true);
-        //             //     this.scene.player.body.setSize(10, 15, true).setOffset(21, 20);
-        //             //     this.scene.player.body.setVelocity(0, 0);
-        //             //     this.demonThunder.body.reset(this.scene.player.body.center.x, -100);
-        //             //     this.demonThunder.body.setVelocity(0, 1900);
-        //             //     this.scene.thunderGateSfx.play();
-        //             //     this.scene.time.addEvent({
-        //             //         delay: 2000,
-        //             //         callback: () =>
-        //             //         {
-        //             //             this.scene.sound.play('demonlightingLaughSfx');
-        //             //         }
-        //             //     });
-
-        //             //     // destroy all enemies
-        //             //     this.scene.enemyGroup.forEach(enemy =>
-        //             //     {
-        //             //         if (enemy.active && enemy.name !== 'demon')
-        //             //         {
-        //             //             this.scene.enemyExplode(enemy.body.x, enemy.body.y);
-        //             //             enemy.destroy();
-        //             //         }
-        //             //     });
-        //             // }
-        //         }
-        //     }
-        // });
-    }
-
-    public startPhase3 ()
+    public kill ()
     {
         if (this.isDead)
         {
             return;
         }
         this.isDead = true;
-        // this.scene.player.inventory.bossFinal = true;
-        this.isFollowingPath = false;
-        this.body.setVelocity(0, 0);
-        this.deathMsg = this.scene.add.bitmapText(this.body.x - 140, this.body.y - 48, FONTS.MINIMAL, '', 10, 1).setDepth(300);
+
+        this.skullGroup.forEach(skullHead =>
+        {
+            if (skullHead?.active)
+            {
+                const smoke = this.scene.smokeGroup.getFirstDead(true, skullHead.body.center.x, skullHead.body.center.y, undefined, undefined, true);
+
+                if (smoke)
+                {
+                    smoke.setDepth(200);
+                    smoke.once(Phaser.Animations.Events.ANIMATION_COMPLETE, () => smoke.destroy());
+                    smoke.anims.play('smoke1');
+                }
+                skullHead.destroy();
+            }
+        });
+
+        this.healthUiText.setText(`0/4000`);
+
+        this.body.setVelocity(0, 0).setEnable(false);
+
+        this.scene.stopMusic();
+
+        // @ts-ignore
+        const ui = this.scene.add.rexNinePatch(WIDTH / 2, HEIGHT / 4, WIDTH, HEIGHT / 4, 'framing', [7, undefined, 7], [7, undefined, 7], 0)
+            .setOrigin(0.5, 0.5)
+            .setDepth(1999)
+            .setScrollFactor(0)
+            .setVisible(true);
+
+        const msg = this.scene.add.bitmapText(WIDTH / 32, HEIGHT / 4 - 12, FONTS.MINIMAL, '', 22, 1)
+            .setOrigin(0, 0).setLetterSpacing(1).setAlpha(1).setDepth(2000).setScrollFactor(0, 0);
 
         const demonExplode = this.scene.time.addEvent({
             delay: 150,
@@ -674,9 +594,11 @@ export default class Demon extends Phaser.GameObjects.Sprite
                 {
                     return;
                 }
-                const X = Phaser.Math.Between(this.body.x, this.body.x + this.body.width);
-                const Y = Phaser.Math.Between(this.body.y, this.body.y + this.body.height);
+                const X = Phaser.Math.Between(this.body.x - 16, this.body.x + this.body.width + 16);
+                const Y = Phaser.Math.Between(this.body.y - 16, this.body.y + this.body.height + 24);
+
                 this.scene.enemyExplode(X, Y);
+
                 this.scene.sound.play('demonDyingFireSfx');
 
                 if (demonExplode.repeatCount === 1)
@@ -685,60 +607,111 @@ export default class Demon extends Phaser.GameObjects.Sprite
                 }
                 if (demonExplode.repeatCount > 25)
                 {
-                    this.deathMsg.setText(`
-          No
-          `);
+                    msg.setText(`No`);
                 }
                 if (demonExplode.repeatCount < 26)
                 {
-                    this.deathMsg.setText(`
-          NOooooo
-          `);
+                    msg.setText(`NOooooo`);
                 }
                 if (demonExplode.repeatCount < 16)
                 {
-                    this.deathMsg.setText(`
-          You got your revenge
-                  but
-          this is not the end`);
+                    msg.setText(`I can't believe it`);
                 }
                 if (demonExplode.repeatCount < 6)
                 {
-                    this.deathMsg.setText(`
-          Survive this castle
-            or i'll see you
-              in hell!`);
+                    msg.setText(`Be damned !!!`);
                 }
 
                 if (demonExplode.repeatCount === 0)
                 {
-                    this.scene.heart = this.scene.physics.add.sprite(this.body.center.x, this.body.center.y, 'heart');
-                    this.scene.heart.setDepth(105);
-                    // @ts-ignore
-                    this.scene.heart.health = 500;
-                    // @ts-ignore
-                    this.scene.heart.body.setSize(23, 21);
-                    this.scene.heart.anims.play('heart');
-                    this.scene.heartGroup.push(this.scene.heart);
-                    this.body.reset(-1000, -1000);
-                    // this.scene.player.inventory.escape = true;
-                    this.deathMsg.destroy();
+                    this.body.reset(-10000, -10000);
+
+                    this.anims.pause();
+
+                    this.scene.shakeCamera(1000);
+
+                    this.scene.flashCamera(3000);
+
+                    this.setAlpha(0);
+
+                    msg.destroy();
+                    ui.destroy();
+
+                    this.scene.time.addEvent({
+                        delay: 6000,
+                        callback: () =>
+                        {
+                            this.scene.cameras.main.fadeOut(2000, 0, 0, 0, (cam: Phaser.Cameras.Scene2D.Camera, progress: number) =>
+                            {
+                                if (progress === 1)
+                                {
+                                    this.scene.scene.start(SCENES_NAMES.ENDGAME);
+                                }
+                            });
+                        }
+                    });
                 }
             }
         });
     }
 
-    public looseLife (e: number)
+    public looseLife (damage: number, weapon: string)
     {
-        this.scene.sound.play('demonHitSfx');
-        this.enemyState.life = this.enemyState.life - e;
-    }
+        if (this.isHurt === true) return;
 
-    public explode ()
-    {
-        this.isDead = true;
-        this.body.setVelocity(0, 0);
-        this.unlockDoors();
+        this.isHurt = true;
+
+        this.scene.sound.play('demonHitSfx', { volume: 2, rate: 0.5 });
+
+        this.anims.play('demon-hurt', true);
+
+        this.enemyState.life -= damage;
+
+        this.healthUiText.setText(`${this.enemyState.life}/4000`);
+
+        const damageText = this.scene.add.bitmapText(this.body.center.x, this.body.top, FONTS.GALAXY, `-${damage}`, FONTS_SIZES.GALAXY, 1)
+            .setTintFill(COLORS.RED)
+            .setDropShadow(1, 1, 0xffffff)
+            .setDepth(2000);
+
+        this.scene.tweens.add({
+            targets: damageText,
+            duration: 1500,
+            y: {
+                from: this.body.top,
+                to: this.body.top - 32
+            },
+            alpha: 0,
+            onComplete: () => damageText.destroy()
+        });
+
+        this.setTintFill(0xDDDDDD);
+
+        if (this.enemyState.life <= 0)
+        {
+            this.kill();
+        }
+
+        this.scene.time.addEvent({
+            delay: 60,
+            callback: () =>
+            {
+                this.clearTint();
+            }
+        });
+
+        this.scene.time.addEvent({
+            delay: 500,
+            callback: () =>
+            {
+                this.isHurt = false;
+
+                if (weapon !== 'skullHeadDemon' && !this.isSkullRotates && !this.isSkullAttack)
+                {
+                    this.handleSkullHeads();
+                }
+            }
+        });
     }
 
     public blockDoors ()
@@ -749,10 +722,5 @@ export default class Demon extends Phaser.GameObjects.Sprite
     public unlockDoors ()
     {
         this.scene.battleWithBoss = false;
-    }
-
-    public checkCollision (d)
-    {
-        return;
     }
 }

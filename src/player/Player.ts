@@ -556,40 +556,6 @@ export default class Player extends Phaser.GameObjects.Sprite
         }
     }
 
-    // public bowKill (e, playSfxBool = true)
-    // {
-    //     const { blocked } = e.body;
-    //     const { body, texture, x, y } = e;
-    //     e.setVelocity(0, 0);
-    //     e.destroy();
-    //     const sideHit = Object.entries(blocked)
-    //         .filter((key) =>
-    //         {
-    //             return key[1] === true;
-    //         })[0][0];
-    //     const sideHitOffset = sideHit === 'right' ? body.width / 2 : -body.width / 2;
-        
-    //     // leave if hit enemy, or play sfx on wall
-    //     if (!playSfxBool)
-    //     {
-    //         return;
-    //     }
-
-    //     switch (e.name)
-    //     {
-    //         case 'knife':
-    //             this.scene.sound.play('knifeIcon', { volume: 0.4, rate: 1.5 });
-    //             break;
-    //         case 'sword':
-    //             this.scene.sound.play('knifeIcon', { volume: 0.4, rate: 1.2 });
-    //             break;
-    //         case 'axe':
-    //             this.scene.sound.play('knifeIcon', { volume: 0.4, rate: 0.5 });
-    //             break;
-    //     }
-
-    // }
-
     public addJumpBoots ()
     {
         const inventory = this.inventoryManager.getInventory();
@@ -686,6 +652,11 @@ export default class Player extends Phaser.GameObjects.Sprite
         {
             this.scene.sound.play('hellBeastFirstLaughSfx');
         }
+
+        // if (elm.name === 'skullHeadDemon')
+        // {
+        //     elm.destroy();
+        // }
 
         // if player is dead, launch deadth sequence
         if (inventory.life <= 0)

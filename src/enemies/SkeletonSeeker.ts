@@ -161,7 +161,10 @@ export default class SkeletonSeeker extends Enemy
             this.anims.play('skeleton-seeker-walk', true);
         });
 
-        this.scene.battleWithBoss = true;
+        if (this.scene.playerRoomName === 'map35')
+        {
+            this.scene.battleWithBoss = true;
+        }
 
         this.scene.time.addEvent({
             delay: 500,
@@ -176,7 +179,7 @@ export default class SkeletonSeeker extends Enemy
         const y: number = this.getBottomCenter().y - 24;
 
         this.scene.shakeCamera(100, 0.010);
-        
+
         const leftEarthBump = this.earthBumps.getFirst(false, true, x, y, 'fireBall', undefined, true);
         const rightEarthBump = this.earthBumps.getFirst(false, true, x, y, 'fireBall', undefined, true);
 
@@ -217,39 +220,56 @@ export default class SkeletonSeeker extends Enemy
 
     private startBattle ()
     {
-        if (this === undefined) return;
+        if (this === undefined || this.active === false) return;
 
-        const layer: Phaser.Tilemaps.TilemapLayer = LayerService.getGroundLayers(this.scene).filter(l => l.name === 'ground/ground')[0];
+        if (this.scene.playerRoomName === 'map35')
+        {
+            const layer: Phaser.Tilemaps.TilemapLayer = LayerService.getGroundLayers(this.scene).filter(l => l.name === 'ground/ground')[0];
 
-        layer.putTileAt(157 + 17, 30, 6);
-        layer.putTileAt(157 + 17, 30, 7);
-        layer.putTileAt(157 + 17, 30, 8);
-        layer.putTileAt(157 + 17, 30, 13);
-        layer.putTileAt(157 + 17, 30, 14);
-        layer.putTileAt(157 + 17, 30, 15);
+            layer.putTileAt(157 + 17, 30, 6);
+            layer.putTileAt(157 + 17, 30, 7);
+            layer.putTileAt(157 + 17, 30, 8);
+            layer.putTileAt(157 + 17, 30, 13);
+            layer.putTileAt(157 + 17, 30, 14);
+            layer.putTileAt(157 + 17, 30, 15);
 
-        this.scene.colliderLayer.putTileAt(1, 30, 6).setCollision(true, true, true, true, true);
-        this.scene.colliderLayer.putTileAt(1, 30, 7).setCollision(true, true, true, true, true);
-        this.scene.colliderLayer.putTileAt(1, 30, 8).setCollision(true, true, true, true, true);
-        this.scene.colliderLayer.putTileAt(1, 30, 13).setCollision(true, true, true, true, true);
-        this.scene.colliderLayer.putTileAt(1, 30, 14).setCollision(true, true, true, true, true);
-        this.scene.colliderLayer.putTileAt(1, 30, 15).setCollision(true, true, true, true, true);
+            this.scene.colliderLayer.putTileAt(1, 30, 6).setCollision(true, true, true, true, true);
+            this.scene.colliderLayer.putTileAt(1, 30, 7).setCollision(true, true, true, true, true);
+            this.scene.colliderLayer.putTileAt(1, 30, 8).setCollision(true, true, true, true, true);
+            this.scene.colliderLayer.putTileAt(1, 30, 13).setCollision(true, true, true, true, true);
+            this.scene.colliderLayer.putTileAt(1, 30, 14).setCollision(true, true, true, true, true);
+            this.scene.colliderLayer.putTileAt(1, 30, 15).setCollision(true, true, true, true, true);
 
-        this.scene.shakeCamera(250);
+            this.scene.shakeCamera(250);
 
-        this.scene.player.isPause = true;
-        this.scene.player.body.stop();
-        this.scene.player.anims.play('adventurer-idle');
+            this.scene.player.isPause = true;
+            this.scene.player.body.stop();
+            this.scene.player.anims.play('adventurer-idle');
 
-        this.scene.time.addEvent({
-            delay: 1000,
-            callback: () =>
-            {
-                this.anims.play('skeleton-seeker-spawn');
-                this.scene.shakeCamera(2500, 0.005, false);
-                this.scene.sound.play('impact', { rate: 0.4 });
-            }
-        });
+            this.scene.time.addEvent({
+                delay: 1000,
+                callback: () =>
+                {
+                    this.anims.play('skeleton-seeker-spawn');
+                    this.scene.shakeCamera(2500, 0.005, false);
+                    this.scene.sound.play('impact', { rate: 0.4 });
+                }
+            });
+        }
+        else
+        {
+            this.scene.player.anims.play('adventurer-idle');
+            this.scene.time.addEvent({
+                delay: 1000,
+                callback: () =>
+                {
+                    if (this === undefined || this.active === false) return;
+                    this.anims.play('skeleton-seeker-spawn');
+                    this.scene.shakeCamera(2500, 0.005, false);
+                    this.scene.sound.play('impact', { rate: 0.4 });
+                }
+            });
+        }
     }
 
     private playSound ()
@@ -439,46 +459,49 @@ export default class SkeletonSeeker extends Enemy
 
             this.giveLife(x, y);
 
-            const layer: Phaser.Tilemaps.TilemapLayer = LayerService.getGroundLayers(this.scene).filter(l => l.name === 'ground/ground')[0];
-
-            const tile = layer.getTileAt(30, 7);
-            const tile2 = layer.getTileAt(30, 14);
-
-            const smoke = this.scene.smokeGroup.getFirstDead(true, tile.getCenterX(), tile.getCenterY(), undefined, undefined, true);
-
-            if (smoke)
+            if (this.scene.playerRoomName === 'map35')
             {
-                smoke.setDepth(2000);
-                smoke.once(Phaser.Animations.Events.ANIMATION_COMPLETE, () => smoke.destroy());
-                smoke.anims.play('smoke1');
+                const layer: Phaser.Tilemaps.TilemapLayer = LayerService.getGroundLayers(this.scene).filter(l => l.name === 'ground/ground')[0];
 
-                this.scene.sound.play('impact', { rate: 0.5 });
+                const tile = layer.getTileAt(30, 7);
+                const tile2 = layer.getTileAt(30, 14);
+
+                const smoke = this.scene.smokeGroup.getFirstDead(true, tile.getCenterX(), tile.getCenterY(), undefined, undefined, true);
+
+                if (smoke)
+                {
+                    smoke.setDepth(2000);
+                    smoke.once(Phaser.Animations.Events.ANIMATION_COMPLETE, () => smoke.destroy());
+                    smoke.anims.play('smoke1');
+
+                    this.scene.sound.play('impact', { rate: 0.5 });
+                }
+                const smoke2 = this.scene.smokeGroup.getFirstDead(true, tile2.getCenterX(), tile2.getCenterY(), undefined, undefined, true);
+
+                if (smoke2)
+                {
+                    smoke2.setDepth(2000);
+                    smoke2.once(Phaser.Animations.Events.ANIMATION_COMPLETE, () => smoke.destroy());
+                    smoke2.anims.play('smoke1');
+
+                    this.scene.sound.play('impact', { rate: 0.2 });
+                }
+                layer.removeTileAt(30, 6);
+                layer.removeTileAt(30, 7);
+                layer.removeTileAt(30, 8);
+                layer.removeTileAt(30, 13);
+                layer.removeTileAt(30, 14);
+                layer.removeTileAt(30, 15);
+
+                this.scene.colliderLayer.removeTileAt(30, 6);
+                this.scene.colliderLayer.removeTileAt(30, 7);
+                this.scene.colliderLayer.removeTileAt(30, 8);
+                this.scene.colliderLayer.removeTileAt(30, 13);
+                this.scene.colliderLayer.removeTileAt(30, 14);
+                this.scene.colliderLayer.removeTileAt(30, 15);
+
+                this.scene.battleWithBoss = false;
             }
-            const smoke2 = this.scene.smokeGroup.getFirstDead(true, tile2.getCenterX(), tile2.getCenterY(), undefined, undefined, true);
-
-            if (smoke2)
-            {
-                smoke2.setDepth(2000);
-                smoke2.once(Phaser.Animations.Events.ANIMATION_COMPLETE, () => smoke.destroy());
-                smoke2.anims.play('smoke1');
-
-                this.scene.sound.play('impact', { rate: 0.2 });
-            }
-            layer.removeTileAt(30, 6);
-            layer.removeTileAt(30, 7);
-            layer.removeTileAt(30, 8);
-            layer.removeTileAt(30, 13);
-            layer.removeTileAt(30, 14);
-            layer.removeTileAt(30, 15);
-
-            this.scene.colliderLayer.removeTileAt(30, 6);
-            this.scene.colliderLayer.removeTileAt(30, 7);
-            this.scene.colliderLayer.removeTileAt(30, 8);
-            this.scene.colliderLayer.removeTileAt(30, 13);
-            this.scene.colliderLayer.removeTileAt(30, 14);
-            this.scene.colliderLayer.removeTileAt(30, 15);
-
-            this.scene.battleWithBoss = false;
 
             this.scene.tweens.add({
                 duration: 250,

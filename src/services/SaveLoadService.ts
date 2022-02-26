@@ -238,7 +238,7 @@ export default class SaveLoadService
         localStorage.setItem(`${GAMENAME}_enemiesDeathCount`, JSON.stringify(enemiesDeathCount));
     }
 
-    public static async getEnemiesDeathCount (): Promise<number>
+    public static getEnemiesDeathCount (): number
     {
 
         const enemiesDeathCount: string | null = localStorage.getItem(`${GAMENAME}_enemiesDeathCount`);

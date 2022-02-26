@@ -28,13 +28,10 @@ import SaveLoadService from '../services/SaveLoadService';
 import Cloud from '../props/Cloud';
 import { COLORS } from '../constant/colors';
 import Projectile from '../enemies/Projectile';
-import Viking from '../enemies/Viking';
 import Minotaur from '../enemies/Minotaur';
-import DEPTH from '../constant/depth.js';
 import SkeletonFlail from '../enemies/SkeletonFlail';
 import SkeletonSword from '../enemies/SkeletonSword';
 import Arrow from '../player/Arrow';
-import DarkKnight from '../enemies/DarkKnight';
 import Horse from '../enemies/Horse';
 import BodyExtended from '../enemies/BodyExtended';
 import FireSkull from '../enemies/FireSkull';
@@ -210,12 +207,6 @@ export default class GameScene extends Scene
 
         this.loadGame();
 
-        this.explodeSprite = this.add.group({
-            defaultKey: 'atlas',
-            defaultFrame: 'enemy-death-1',
-            maxSize: 30,
-        });
-
         // CAMERA
         // set bounds so the camera won't go outside the game world
         this.cameras.main.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
@@ -243,6 +234,12 @@ export default class GameScene extends Scene
 
     private createGroups (): void
     {
+        this.explodeSprite = this.add.group({
+            defaultKey: 'atlas',
+            defaultFrame: 'enemy-death-1',
+            maxSize: 30,
+        });
+
         this.lightTorchesGroup = this.add.group({
             classType: Phaser.GameObjects.PointLight,
             maxSize: 20,
@@ -261,7 +258,7 @@ export default class GameScene extends Scene
 
         this.smokeGroup = this.add.group({
             defaultKey: 'Smoke VFX B1',
-            maxSize: 1,
+            maxSize: 8,
         });
         // fireball
         this.fireballs = this.physics.add.group({
@@ -296,8 +293,8 @@ export default class GameScene extends Scene
         });
 
         this.skullHeads = this.physics.add.group({
-            defaultKey: 'finalBoss',
-            frame: ['fire-skull_1', 'fire-skull_2', 'fire-skull_3', 'fire-skull_4', 'fire-skull_5', 'fire-skull_6', 'fire-skull_7'],
+            defaultKey: 'atlas',
+            frame: ['fire-skull_0', 'fire-skull_1', 'fire-skull_2', 'fire-skull_3', 'fire-skull_4', 'fire-skull_5', 'fire-skull_6', 'fire-skull_7'],
             maxSize: 8,
             allowGravity: false
         });
@@ -364,6 +361,8 @@ export default class GameScene extends Scene
 
         this?.anims?.pauseAll();
 
+        this.time.paused = true;
+
         this.sound.pauseAll();
 
         if (!this.cameras.main)
@@ -382,6 +381,8 @@ export default class GameScene extends Scene
         }
 
         this.anims.resumeAll();
+
+        this.time.paused = false;
 
         this.sound.resumeAll();
     }
@@ -498,7 +499,7 @@ export default class GameScene extends Scene
             }
         }
 
-        if (_weapon.name === 'sword')
+        if (_weapon.name === 'sword' && enemy.name !== 'skullHeadDemon')
         {
             const str = Math.ceil(Math.sqrt(Math.pow(this.player.inventoryManager.getInventory().level, 3)) / 10);
 
@@ -506,7 +507,7 @@ export default class GameScene extends Scene
 
         }
 
-        if (_weapon.name === 'arrow')
+        if (_weapon.name === 'arrow' && enemy.name !== 'skullHeadDemon')
         {
             const weapon = _weapon as Arrow;
 
@@ -545,7 +546,7 @@ export default class GameScene extends Scene
 
     public enemyExplode (x: number, y: number)
     {
-        const exp = this.explodeSprite.getFirstDead(true, x, y - 8, 'enemyExplode', undefined, true);
+        const exp = this.explodeSprite.getFirstDead(true, x, y - 8, 'atlas', undefined, true);
         if (exp)
         {
             exp.setDepth(107);
@@ -1267,14 +1268,18 @@ DEF: ${props.defense}`;
                     break;
 
                 case 'bringerOfDeath':
-                    const bringer = new BringerOfDeath(this, element.x as unknown as number, element.y as unknown as number, {
-                        key: element.properties.key,
-                        name: element.name,
-                        life: element.properties.life,
-                        damage: element.properties.damage,
-                    });
-
-                    this.enemyGroup.push(bringer);
+                    if (this.callBringerOfDeath())
+                    {
+                        const bringer = new BringerOfDeath(this, element.x as unknown as number, element.y as unknown as number, {
+                            key: element.properties.key,
+                            name: element.name,
+                            life: element.properties.life,
+                            damage: element.properties.damage,
+                        });
+    
+                        this.enemyGroup.push(bringer);
+                    }
+                    
                     break;
 
                 case 'demon-axe':
@@ -1672,14 +1677,37 @@ DEF: ${props.defense}`;
         layer.setAlpha(0);
     }
 
-    public callWaterQueen ()
+    private callBringerOfDeath (): boolean
+    {
+        const swords = this.player.swordManager.getSwords().filter(swd => swd.id === 8);
+
+        if (swords.length)
+        {
+            LayerService.showSecretPath(this);
+
+            return false;
+        }
+
+        return true;
+    }
+
+    private callWaterQueen (): boolean
     {
         const inventory = this.player.inventoryManager.getInventory();
+        if (inventory.waterElement)
+        {
+            LayerService.showSecretPath(this);
 
-        if (inventory.waterElement) return false;
+            return false;
+        }
 
         const deadBosses = SaveLoadService.getDeadBoss(this);
-        if (deadBosses.includes(2)) return false;
+        if (deadBosses.includes(2))
+        {
+            LayerService.showSecretPath(this);
+
+            return false;
+        }
 
         return true;
     }
@@ -1703,9 +1731,14 @@ DEF: ${props.defense}`;
 
         const body = zone.body as Phaser.Physics.Arcade.Body;
         body.setAllowGravity(false);
+
         this.physics.add.overlap(this.player, zone, (_player, _zone) =>
         {
             const zonebody = _zone.body as Phaser.Physics.Arcade.Body;
+
+            this.player.body.reset(zonebody.center.x, zonebody.center.y);
+            this.player.anims.stop();
+            this.player.setFrame('adventurer-idle-00');
 
             const { x, y } = zonebody.center;
 
@@ -1744,6 +1777,7 @@ DEF: ${props.defense}`;
                     x: 39 * 16
                 });
             }
+
             // start the final boss
             if (inventory.fireElement && inventory.waterElement)
             {
@@ -1755,7 +1789,7 @@ DEF: ${props.defense}`;
                         fireElement.destroy();
                         waterElement.destroy();
                         this.callDemon();
-                        this.player.isPause = false;
+                        zone.destroy();
                     }
                 });
             }
@@ -1815,6 +1849,8 @@ DEF: ${props.defense}`;
 
     public addWaterElement ()
     {
+        if (this.player.inventoryManager.getInventory().waterElement === true) return;
+
         const waterElement = this.physics.add.sprite(18 * 16 + 8, 104 * 16, 'atlas', 'water-element_0').play('water-element').setDepth(2000);
 
         this.physics.world.enable(waterElement);

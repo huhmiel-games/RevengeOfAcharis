@@ -35,17 +35,17 @@ export default class LoadSavedGame extends Scene
             this.position = [74, 114, 154];
             this.position = [HEIGHT / 4, HEIGHT / 2, HEIGHT / 4 * 3];
 
-            this.add.bitmapText(WIDTH / 4, this.position[0], 'alagard', ' Load Game ', 18, 1).setTintFill(COLORS.RED).setDropShadow(0, 1, 0xFFFFFF);
+            this.add.bitmapText(WIDTH / 4, this.position[0], 'alagard', ' Load Game ', 18, 1).setDropShadow(0, 1, COLORS.ORANGE);
 
             this.add.bitmapText(WIDTH / 4 * 3 - 24, this.position[0] + 5, 'alagard', ` ${totalTime} `, 9, 2).setLetterSpacing(2).setDropShadow(0, 1, COLORS.RED);
 
-            this.add.bitmapText(WIDTH / 4, this.position[2], 'alagard', ' Delete Game ', 18, 1).setTintFill(COLORS.RED).setDropShadow(0, 1, 0xFFFFFF);
+            this.add.bitmapText(WIDTH / 4, this.position[2], 'alagard', ' Delete Game ', 18, 1).setDropShadow(0, 1, COLORS.ORANGE);
         }
         else
         {
             this.position = [74, 114];
 
-            this.add.bitmapText(WIDTH / 4, this.position[0], 'alagard', ' New Game ', 18, 1).setTintFill(COLORS.RED).setDropShadow(0, 1, 0xFFFFFF);
+            this.add.bitmapText(WIDTH / 4, this.position[0], 'alagard', ' New Game ', 18, 1).setDropShadow(0, 1, COLORS.ORANGE);
         }
 
         const keysOptions = SaveLoadService.getConfigKeys();
@@ -56,7 +56,7 @@ export default class LoadSavedGame extends Scene
             fire: Phaser.Input.Keyboard.KeyCodes[keysOptions[4]],
         });
 
-        this.add.bitmapText(WIDTH / 4, this.position[1], 'alagard', ' Options ', 18, 1).setTintFill(COLORS.RED).setDropShadow(0, 1, 0xFFFFFF);
+        this.add.bitmapText(WIDTH / 4, this.position[1], 'alagard', ' Options ', 18, 1).setDropShadow(0, 1, COLORS.ORANGE);
 
         this.head = this.add.image(WIDTH / 4 - 16, this.position[0] + 11, 'head')
             .setDisplaySize(16, 16);

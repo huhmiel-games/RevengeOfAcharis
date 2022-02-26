@@ -72,7 +72,7 @@ export default class FallState extends State
 
             const smoke = scene.smokeGroup.getFirstDead(true, body.center.x, body.bottom - 8, undefined, undefined, true);
 
-            smoke?.setDepth(2000);
+            smoke?.setDepth(player.depth - 1);
             smoke?.once(Phaser.Animations.Events.ANIMATION_COMPLETE, () => smoke.destroy());
             smoke?.anims.play('smoke3');
 

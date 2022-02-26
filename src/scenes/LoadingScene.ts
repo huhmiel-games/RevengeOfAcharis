@@ -1089,14 +1089,14 @@ export default class LoadingScreen extends Scene
         this.anims.create({
             key: 'demon-idle',
             frames: [
-                { key: 'atlas', frame: 'demon-idle_0' },
+                { key: 'atlas', frame: 'demon-idle_0', duration: 50 },
                 { key: 'atlas', frame: 'demon-idle_1' },
                 { key: 'atlas', frame: 'demon-idle_2' },
                 { key: 'atlas', frame: 'demon-idle_3' },
                 { key: 'atlas', frame: 'demon-idle_4' },
                 { key: 'atlas', frame: 'demon-idle_5' },
             ],
-            frameRate: 12,
+            frameRate: 10,
             repeat: 0,
         });
                 
@@ -1108,9 +1108,23 @@ export default class LoadingScreen extends Scene
                 { key: 'atlas', frame: 'demon-start-breath_2' },
                 { key: 'atlas', frame: 'demon-start-breath_3' },
                 { key: 'atlas', frame: 'demon-start-breath_4' },
-                { key: 'atlas', frame: 'demon-start-breath_5' },
+                { key: 'atlas', frame: 'demon-start-breath_5', duration: 500 },
             ],
             frameRate: 12,
+            repeat: 0,
+        });
+
+        this.anims.create({
+            key: 'demon-hurt',
+            frames: [
+                { key: 'atlas', frame: 'demon-start-breath_0' },
+                { key: 'atlas', frame: 'demon-start-breath_1' },
+                { key: 'atlas', frame: 'demon-start-breath_2' },
+                { key: 'atlas', frame: 'demon-start-breath_3' },
+                { key: 'atlas', frame: 'demon-start-breath_4' }
+            ],
+            frameRate: 12,
+            yoyo: true,
             repeat: 0,
         });
         //#endregion
@@ -4134,8 +4148,7 @@ export default class LoadingScreen extends Scene
         const loadingpercentage = this.add.bitmapText(WIDTH / 2, HEIGHT / 4 * 3 - 10, 'alagard', 'Loading:', 10, 1)
             .setOrigin(0.5, 0.5)
             .setAlpha(1)
-            .setTintFill(0xDDDDDD)
-            .setDropShadow(0, 1, COLORS.RED);
+            .setDropShadow(0, 1, COLORS.ORANGE);
 
         //  Crop the filler along its width, proportional to the amount of files loaded.
         this.load.on('progress', (v) =>

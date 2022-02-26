@@ -291,7 +291,14 @@ export default class WaterQueen extends Enemy
                 if (!blocked.down) this.body.setVelocityX(80);
             }
         }
-
+        if (this.active && this.isDead)
+        {
+            const { blocked } = this.body;
+            if (blocked.down)
+            {
+                this.body.stop().setEnable(false);
+            }
+        }
 
     }
 
@@ -353,8 +360,6 @@ export default class WaterQueen extends Enemy
                         this.healthUiText = this.scene.add.bitmapText(435, 9, FONTS.GALAXY, `${this.enemyState.life}/2000`, FONTS_SIZES.GALAXY, 1)
                             .setScrollFactor(0, 0).setDepth(2000).setTintFill(COLORS.STEEL_GRAY);
 
-                        // this.handleHellBeast();
-
                         const layer: Phaser.Tilemaps.TilemapLayer = LayerService.getGroundLayers(this.scene).filter(l => l.name === 'ground/ground')[0];
 
                         layer.putTileAt(734 + 17, 0, 30, true);
@@ -364,26 +369,6 @@ export default class WaterQueen extends Enemy
                 });
             }
         });
-
-        // this.scene.time.addEvent({
-        //     delay: 600,
-        //     callback: () =>
-        //     {
-        //         this.showMsg = this.scene.add.bitmapText(WIDTH / 2, HEIGHT / 2, FONTS.MINIMAL, msg, FONTS_SIZES.MINIMAL, 1)
-        //             .setOrigin(0.5, 0.5).setAlpha(1).setDepth(200).setScrollFactor(0, 0);
-        //         this.scene.sound.play('hellBeastFirstLaughSfx');
-        //     }
-        // });
-
-        // this.scene.time.addEvent({
-        //     delay: 2000,
-        //     callback: () =>
-        //     {
-        //         this.showMsg.destroy();
-        //         this.handleHellBeast();
-        //     }
-        // });
-
     }
 
     public looseLife (damage: number, weaponType: string, weapon?: Sword | Arrow): void
@@ -482,7 +467,7 @@ export default class WaterQueen extends Enemy
 
         this.isDead = true;
 
-        this.body.stop().setEnable(false);
+        // this.body.stop().setEnable(false);
 
         this.clearTint();
 
@@ -502,9 +487,6 @@ export default class WaterQueen extends Enemy
 
         this.once(Phaser.Animations.Events.ANIMATION_COMPLETE, () =>
         {
-            // this.burn();
-
-            // this.giveLife(x, y);
             this.setFrame('waterQueenDeath_15');
             
             this.flash(1000);
@@ -520,13 +502,6 @@ export default class WaterQueen extends Enemy
                 this.scene.setPause();
                 this.scene.player.isPause = true;
             }
-
-            // this.scene.tweens.add({
-            //     duration: 250,
-            //     targets: this,
-            //     alpha: 0,
-            //     onComplete: () => this.destroy()
-            // });
         });
     }
 

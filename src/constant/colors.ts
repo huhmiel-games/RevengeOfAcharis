@@ -5,5 +5,6 @@ export const enum COLORS
     GREEN = 0x99e550,
     DARK_GREEN = 0x4b692f,
     STEEL_GRAY = 0x222034,
-    EAST_BLUE = 0x3f3f74
+    EAST_BLUE = 0x3f3f74,
+    ORANGE = 0xdf7126
 }

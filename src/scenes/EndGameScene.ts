@@ -1,22 +1,19 @@
 import { Scene } from 'phaser';
-import { WIDTH, HEIGHT } from '../constant/config';
+import { COLORS } from '../constant/colors';
+import { WIDTH, HEIGHT, SCENES_NAMES, FONTS, FONTS_SIZES } from '../constant/config';
+import SaveLoadService from '../services/SaveLoadService';
 import GameScene from './GameScene';
 export default class EndGame extends Scene
 {
     private mainScene: GameScene;
-    private background: Phaser.GameObjects.Image;
     private trans: string;
     private cnt: number;
     private transDisplay: Phaser.GameObjects.BitmapText;
-    private twe: Phaser.Tweens.Tween;
     private congrat: Phaser.GameObjects.BitmapText;
     private enemiesKilled: Phaser.GameObjects.BitmapText;
     private death: Phaser.GameObjects.BitmapText;
     private items: Phaser.GameObjects.BitmapText;
     private timeGame: Phaser.GameObjects.BitmapText;
-    private twee: Phaser.Tweens.Tween;
-    private dinan: any;
-    private tweene: Phaser.Tweens.Tween;
     constructor ()
     {
         super('endGameScene');
@@ -24,28 +21,35 @@ export default class EndGame extends Scene
 
     public create ()
     {
-        this.mainScene = this.scene.get('GAMESCENE') as GameScene;
-        let en = localStorage.getItem('e') as string;
-        en = JSON.parse(en);
-        let d = localStorage.getItem('d') as string;
-        d = JSON.parse(d);
+        this.mainScene = this.scene.get(SCENES_NAMES.GAME) as GameScene;
 
-        const arr = this.mainScene.player.inventoryManager.getInventory().powerUp.filter(e => e === 1);
-        const percent = Math.floor(arr.length * 100 / 9);
+        const enemyDeathCount = SaveLoadService.getEnemiesDeathCount().toString();
 
-        let t = localStorage.getItem('time') as string;
-        t = JSON.parse(t);
-        const totalTime = new Date(t).toISOString().substr(11, 8);
+        const playerDeathCount = SaveLoadService.getPlayerDeathCount().toString();
+
+        const swordsCount = this.mainScene.player.swordManager.getSwords().length;
+        const bowsCount = this.mainScene.player.bowManager.getBows().length;
+        const shieldsCount = this.mainScene.player.shieldManager.getShields().length;
+        const powerUpsCount = this.mainScene.player.inventoryManager.getInventory().def / 2;
+
+        const totalPowerUpsCount = swordsCount + bowsCount + shieldsCount + powerUpsCount;
+
+        const percent = Math.floor(totalPowerUpsCount * 100 / 24);
+
+        SaveLoadService.setSavedGameTime(this.mainScene);
+
+        const totalTime = SaveLoadService.getSavedGameTimeToString();
+
         this.sound.play('EndingTheme');
 
-        this.background = this.add.image(0, 0, 'backgroundWithoutTitles')
+        this.add.image(0, 0, 'backgroundWithoutTitles')
             .setOrigin(0, 0)
             .setDisplaySize(WIDTH, HEIGHT);
 
         this.trans = 'The end';
         this.cnt = 0;
         this.transDisplay = this.add.bitmapText(WIDTH / 2, HEIGHT / 2, 'alagard', '', 20, 1)
-            .setOrigin(0.5, 0.5).setTintFill(0xDB4D35);
+            .setOrigin(0.5, 0.5).setDropShadow(0, 1, COLORS.ORANGE);
 
         this.time.addEvent({
             delay: 100,
@@ -70,7 +74,7 @@ export default class EndGame extends Scene
             delay: 5000,
             callback: () =>
             {
-                this.twe = this.tweens.add({
+                this.tweens.add({
                     targets: [this.transDisplay],
                     ease: 'Sine.easeInOut',
                     duration: 2000,
@@ -83,26 +87,24 @@ export default class EndGame extends Scene
                     },
                     onComplete: () =>
                     {
-                        // this.sound.play('melP', { volume: 0.5 });
                         this.congrat = this.add.bitmapText(WIDTH / 2, HEIGHT / 4, 'alagard', 'Congratulations !!', 20, 1)
                             .setOrigin(0.5, 0.5)
-                            .setAlpha(0).setTintFill(0xDB4D35);
+                            .setAlpha(0).setDropShadow(0, 1, COLORS.ORANGE);
 
-                        this.enemiesKilled = this.add.bitmapText(100, HEIGHT / 4 + 50, 'alagard', `Enemies killed: ${en}`, 12, 0)
-                            .setAlpha(0).setTintFill(0xDB4D35);
+                        this.enemiesKilled = this.add.bitmapText(72, HEIGHT / 4 + 50, 'alagard', `Enemies killed: ${enemyDeathCount}`, 12, 0)
+                            .setAlpha(0).setTintFill(COLORS.RED).setDropShadow(0, 1, COLORS.ORANGE);
 
-                        this.death = this.add.bitmapText(100, HEIGHT / 4 + 70, 'alagard', `Death: ${d}`, 12, 0)
-                            .setAlpha(0).setTintFill(0xDB4D35);
+                        this.death = this.add.bitmapText(72, HEIGHT / 4 + 70, 'alagard', `Death: ${playerDeathCount}`, 12, 0)
+                            .setAlpha(0).setDropShadow(0, 1, COLORS.ORANGE);
 
-                        this.items = this.add.bitmapText(100, HEIGHT / 4 + 90, 'alagard', `Collected items: ${percent}%`, 12, 0)
-                            .setAlpha(0).setTintFill(0xDB4D35);
+                        this.items = this.add.bitmapText(72, HEIGHT / 4 + 90, 'alagard', `Collected items: ${percent}%`, 12, 0)
+                            .setAlpha(0).setDropShadow(0, 1, COLORS.ORANGE);
 
-                        this.timeGame = this.add.bitmapText(100, HEIGHT / 4 + 110, 'alagard', `Total time: ${totalTime}`, 12, 0)
-                            .setAlpha(0).setTintFill(0xDB4D35);
+                        this.timeGame = this.add.bitmapText(72, HEIGHT / 4 + 110, 'alagard', `Total time: ${totalTime}`, 12, 0)
+                            .setAlpha(0).setDropShadow(0, 1, COLORS.ORANGE);
 
-
-                        this.twee = this.tweens.add({
-                            targets: [this.congrat, this.enemiesKilled, this.death, this.items, this.timeGame, this.dinan],
+                        this.tweens.add({
+                            targets: [this.congrat, this.enemiesKilled, this.death, this.items, this.timeGame],
                             ease: 'Sine.easeInOut',
                             duration: 2000,
                             delay: 1000,
@@ -122,7 +124,7 @@ export default class EndGame extends Scene
             delay: 16000,
             callback: () =>
             {
-                this.tweene = this.tweens.add({
+                this.tweens.add({
                     targets: [this.congrat, this.enemiesKilled, this.death, this.items, this.timeGame],
                     ease: 'Sine.easeInOut',
                     duration: 2000,
@@ -140,32 +142,72 @@ export default class EndGame extends Scene
                 });
             },
         });
+
         this.cameras.main.fadeIn(5000);
     }
 
     public credits ()
     {
-        this.trans = 'Credits---Designer:-Philippe Pereira---Graphics:-Luis Zuno-rvros---Music and SFX:-Sound a Head---Programming:-Philippe Pereira--- -- -- -- -- -- -- -- -- -- --Thanks for playing-- -- -- --';
-        this.cnt = 0;
-        this.transDisplay = this.add.bitmapText(WIDTH / 2, HEIGHT / 2 - 70, 'alagard', '', 20, 1)
-            .setOrigin(0.5, 0.8)
-            .setAlpha(1).setTintFill(0xDB4D35);
+        const credits = `
+CREDITS
 
-        this.time.addEvent({
-            delay: 90,
-            repeat: this.trans.length - 1,
-            callback: () =>
-            {
-                if (this.trans[this.cnt] === '-')
-                {
-                    this.transDisplay.text += '\n';
-                    this.cnt += 1;
-                } else
-                {
-                    this.transDisplay.text += this.trans[this.cnt];
-                    this.cnt += 1;
-                }
-            },
+
+DESIGNER:
+Philippe Pereira
+
+
+GRAPHICS:
+Clembod
+LuizMelo
+Sanctumpixel
+Anokolisa
+Calciumtrice
+Ansimuz
+Emcee flesher
+Creativekind
+Astrobob
+Oco
+Jam991
+David Garay
+Pimen
+Eddie's Workshop
+
+
+MUSIC and SFX:
+Sound a Head
+
+
+PROGRAMMING:
+Philippe Pereira
+
+
+SPECIAL THANKS
+Kilian for testing
+Richard Davey for Phaser 3
+
+
+
+
+
+
+
+
+
+
+
+Thanks for playing`;
+        
+        
+        const creditsDisplay = this.add.bitmapText(WIDTH / 2, HEIGHT + 10, FONTS.ALAGARD, credits, 18, 1)
+            .setOrigin(0.5, 0)
+            .setAlpha(1)
+            .setTintFill(COLORS.RED)
+            .setDropShadow(0, 1, COLORS.ORANGE);
+        
+        this.tweens.add({
+            targets: creditsDisplay,
+            y: -creditsDisplay.height + HEIGHT / 2 + 18,
+            duration: 50000
         });
     }
 }
