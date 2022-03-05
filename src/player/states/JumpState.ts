@@ -34,7 +34,7 @@ export default class JumpState extends State
         // Handle animations
         if (!player.isAttacking) player.anims.play(PlayerAnims.JUMP, true);
 
-        console.log('JUMP STATE from', this.stateMachine.prevState);
+        // console.log('JUMP STATE from', this.stateMachine.prevState);
     }
 
     public execute (scene: GameScene, player: Player)

@@ -592,7 +592,9 @@ export default class Player extends Phaser.GameObjects.Sprite
             this.HealthUiText.setText(`${inventory.life}/${inventory.maxLife}`);
         }
 
-        this.scene.sound.play('getLife', { volume: 2 });
+        this.scene.playSfx('getLife', { volume: 2 });
+
+        // this.scene.sound.play('getLife', { volume: 2 });
 
         // @ts-ignore
         l.setActive(false).setVisible(false);
