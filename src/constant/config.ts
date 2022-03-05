@@ -36,6 +36,12 @@ export const enum SCENES_NAMES
 
 }
 
+export const enum EWeaponType
+{
+    'SWORD' = 'sword',
+    'ARROW' = 'arrow'
+}
+
 
 
 // map default size to feet screen is 32x18 tiles

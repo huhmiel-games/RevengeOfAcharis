@@ -1,7 +1,7 @@
 import { GameObjects } from 'phaser';
 import GameScene from '../scenes/GameScene';
 import { COLORS } from '../constant/colors';
-import { FONTS, FONTS_SIZES } from '../constant/config';
+import { EWeaponType, FONTS, FONTS_SIZES } from '../constant/config';
 import SaveLoadService from '../services/SaveLoadService';
 import Projectile from './Projectile';
 import Arrow from '../player/Arrow';
@@ -51,7 +51,7 @@ export default class Enemy extends GameObjects.Sprite
         this.isDead = false;
     }
 
-    public looseLife (damage: number, weaponType: string, weapon?: Arrow): void
+    public looseLife (damage: number, weaponType: EWeaponType, weapon?: Arrow): void
     {
         if (this.isHit)
         {
@@ -167,7 +167,7 @@ export default class Enemy extends GameObjects.Sprite
         {
             flames.setDepth(DEPTH.EXPLOSION);
 
-            flames.anims.play('enemyExplode').on('animationcomplete', () =>
+            flames.anims.play('enemyExplode').on(Phaser.Animations.Events.ANIMATION_COMPLETE, () =>
             {
                 flames.destroy();
             });

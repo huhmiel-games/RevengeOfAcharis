@@ -95,7 +95,7 @@ export default class Dragon extends Phaser.GameObjects.Sprite
         });
 
 
-        this.on('animationupdate', () =>
+        this.on(Phaser.Animations.Events.ANIMATION_UPDATE, () =>
         {
             const runSpeedNow = Math.abs(this.body.velocity.x);
 

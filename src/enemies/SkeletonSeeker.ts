@@ -1,5 +1,5 @@
 import { COLORS } from '../constant/colors';
-import { FONTS, FONTS_SIZES } from '../constant/config';
+import { EWeaponType, FONTS, FONTS_SIZES } from '../constant/config';
 import DEPTH from '../constant/depth';
 import GameScene from '../scenes/GameScene';
 import LayerService from '../services/LayerService';
@@ -344,7 +344,7 @@ export default class SkeletonSeeker extends Enemy
         }
     }
 
-    public looseLife (damage: number, weaponType: string): void
+    public looseLife (damage: number, weaponType: EWeaponType): void
     {
         if (this.isHit)
         {
@@ -554,7 +554,7 @@ export default class SkeletonSeeker extends Enemy
         {
             flames.setDepth(DEPTH.EXPLOSION);
 
-            flames.anims.play('enemyExplode').on('animationcomplete', () =>
+            flames.anims.play('enemyExplode').on(Phaser.Animations.Events.ANIMATION_COMPLETE, () =>
             {
                 flames.destroy();
             });

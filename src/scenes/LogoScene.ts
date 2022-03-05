@@ -28,7 +28,7 @@ export default class LogoScene extends Scene
     private tween: Phaser.Tweens.Tween;
     constructor ()
     {
-        super('logoScene');
+        super(SCENES_NAMES.LOGO);
     }
 
     public init ()
@@ -90,7 +90,7 @@ export default class LogoScene extends Scene
             },
         });
 
-        this.input.keyboard.once('keydown', () =>
+        this.input.keyboard.once(Phaser.Input.Keyboard.Events.ANY_KEY_DOWN, () =>
         {
             this.tween.stop();
             this.scene.start(SCENES_NAMES.LOADING);

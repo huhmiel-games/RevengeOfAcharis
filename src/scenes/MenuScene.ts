@@ -12,7 +12,7 @@ export default class LoadSavedGame extends Scene
     private head: Phaser.GameObjects.Image;
     constructor ()
     {
-        super({ key: 'menuScene' });
+        super({ key: SCENES_NAMES.MENU });
     }
 
     public create ()
@@ -61,7 +61,7 @@ export default class LoadSavedGame extends Scene
         this.head = this.add.image(WIDTH / 4 - 16, this.position[0] + 11, 'head')
             .setDisplaySize(16, 16);
 
-        const menu = this.input.keyboard.on('keydown', (event: { key: string; }) =>
+        const menu = this.input.keyboard.on(Phaser.Input.Keyboard.Events.ANY_KEY_DOWN, (event: { key: string; }) =>
         {
             if (this.keys.down.isDown && event.key === this.keys.down.originalEvent.key)
             {

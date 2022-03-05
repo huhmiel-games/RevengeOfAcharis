@@ -1,5 +1,5 @@
 import { COLORS } from '../constant/colors';
-import { FONTS, FONTS_SIZES } from '../constant/config';
+import { EWeaponType, FONTS, FONTS_SIZES } from '../constant/config';
 import DEPTH from '../constant/depth';
 import Arrow from '../player/Arrow';
 import GameScene from '../scenes/GameScene';
@@ -167,7 +167,7 @@ export default class Wizard extends Enemy
 
         this.scene.sound.play('wizardFireLaugh', { volume: 1, rate: 1 });
 
-        this.once('animationcomplete', (wizard: any) =>
+        this.once(Phaser.Animations.Events.ANIMATION_COMPLETE, (wizard: any) =>
         {
             this.shootThePlayer();
             // const angle = Math.atan2(dy, dx);
@@ -245,7 +245,7 @@ export default class Wizard extends Enemy
         }
     }
 
-    public looseLife (damage: number, weaponType: string, weapon?: Arrow): void
+    public looseLife (damage: number, weaponType: EWeaponType, weapon?: Arrow): void
     {
         if (this.isHit)
         {

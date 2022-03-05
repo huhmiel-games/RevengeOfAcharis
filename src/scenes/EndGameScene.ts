@@ -16,7 +16,7 @@ export default class EndGame extends Scene
     private timeGame: Phaser.GameObjects.BitmapText;
     constructor ()
     {
-        super('endGameScene');
+        super(SCENES_NAMES.ENDGAME);
     }
 
     public create ()

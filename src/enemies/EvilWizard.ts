@@ -1,5 +1,5 @@
 import { COLORS } from '../constant/colors';
-import { FONTS, FONTS_SIZES } from '../constant/config';
+import { EWeaponType, FONTS, FONTS_SIZES } from '../constant/config';
 import DEPTH from '../constant/depth';
 import GameScene from '../scenes/GameScene';
 import SaveLoadService from '../services/SaveLoadService';
@@ -169,7 +169,7 @@ export default class EvilWizard extends Enemy
         }
     }
 
-    public looseLife (damage: number, weaponType: string): void
+    public looseLife (damage: number, weaponType: EWeaponType): void
     {
         if (this.isHit)
         {

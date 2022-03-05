@@ -1,4 +1,4 @@
-import { TILE_SIZE } from '../constant/config';
+import { EWeaponType, TILE_SIZE } from '../constant/config';
 import Arrow from '../player/Arrow';
 import GameScene from '../scenes/GameScene';
 import Enemy from './Enemy';
@@ -119,7 +119,7 @@ export default class Saw extends Enemy
         }
     }
 
-    public looseLife (damage: number, weaponType: string, weapon?: Arrow): void
+    public looseLife (damage: number, weaponType: EWeaponType, weapon?: Arrow): void
     {
         return;
     }

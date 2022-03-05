@@ -1,5 +1,5 @@
 import { COLORS } from '../constant/colors';
-import { FONTS, FONTS_SIZES } from '../constant/config';
+import { EWeaponType, FONTS, FONTS_SIZES } from '../constant/config';
 import DEPTH from '../constant/depth';
 import Arrow from '../player/Arrow';
 import GameScene from '../scenes/GameScene';
@@ -107,7 +107,7 @@ export default class Horse extends Enemy
     public preUpdate (time: number, delta: number)
     {
         super.preUpdate(time, delta);
-        if (this.active)
+        if (this.active && !this.isDead)
         {
             const { velocity } = this.body;
 
@@ -122,7 +122,7 @@ export default class Horse extends Enemy
             }
 
             // flip the sprite
-            if (velocity.x > 0)
+            if (velocity.x >= 0)
             {
                 this.setFlipX(true);
                 this.body.setOffset(63, 60);
@@ -150,7 +150,7 @@ export default class Horse extends Enemy
         this.scene.sound.play('hellhoundDeath', { volume: 1, rate: 0.3 });
     }
 
-    public looseLife (damage: number, weaponType: string, weapon?: Arrow): void
+    public looseLife (damage: number, weaponType: EWeaponType, weapon?: Arrow): void
     {
         if (this.isHit)
         {
@@ -158,7 +158,7 @@ export default class Horse extends Enemy
         }
 
         this.isHit = true;
-        
+
         this.setTintFill(0xDDDDDD);
 
         try
@@ -169,7 +169,7 @@ export default class Horse extends Enemy
         {
             console.log(error);
         }
-        
+
         const specialDamage = weaponType === 'sword' ? damage * 2 : damage;
 
         this.enemyState.life -= specialDamage;
@@ -184,7 +184,7 @@ export default class Horse extends Enemy
             duration: 1500,
             y: {
                 from: this.body.top,
-                to: this.body.top -32
+                to: this.body.top - 32
             },
             alpha: 0,
             onComplete: () => damageText.destroy()
@@ -221,21 +221,47 @@ export default class Horse extends Enemy
 
     public kill (): void
     {
+        if (this.isDead) return;
+
+        this.isDead = true;
         this.destroyHitbox();
         this.clearTint();
         this.playSfxDeath();
-        this.burn();
-        // kill the enemy
+        this.body.stop().setEnable(false);
+        this.anims.pause();
 
-        this.scene.player.addXp(this.xp);
+        const explodeTimer = this.scene.time.addEvent({
+            delay: 100,
+            repeat: 20,
+            callback: () =>
+            {
+                if (!this.active)
+                {
+                    return;
+                }
+                const X = Phaser.Math.Between(this.body.x - 8, this.body.x + this.body.width + 8);
+                const Y = Phaser.Math.Between(this.body.y - 8, this.body.y + this.body.height + 8);
 
-        const { x, y } = this.body.center;
+                this.scene.enemyExplode(X, Y);
 
-        this.giveLife(x, y);
+                this.setAlpha(1 - explodeTimer.getOverallProgress());
 
-        SaveLoadService.setEnemiesDeathCount();
+                if (explodeTimer.getOverallProgress() === 1)
+                {
+                    this.burn();
 
-        this.destroy();
+                    this.scene.player.addXp(this.xp);
+
+                    const { x, y } = this.body.center;
+
+                    this.giveLife(x, y);
+
+                    SaveLoadService.setEnemiesDeathCount();
+
+                    this.destroy();
+                }
+            },
+        });
     }
 
     private destroyHitbox (): void

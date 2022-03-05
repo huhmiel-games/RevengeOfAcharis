@@ -255,7 +255,7 @@ export default class Player extends Phaser.GameObjects.Sprite
             }
         });
 
-        this.on('isPause', (e) => this.isPause = e);
+        this.on('isPause', (e: boolean) => this.isPause = e);
     }
 
 

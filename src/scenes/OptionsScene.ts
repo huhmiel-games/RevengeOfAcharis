@@ -34,7 +34,7 @@ export default class OptionsScene extends Scene
     private head: Phaser.GameObjects.Image;
     constructor ()
     {
-        super('optionsScene');
+        super(SCENES_NAMES.OPTIONS);
     }
 
     public create ()
@@ -98,7 +98,7 @@ export default class OptionsScene extends Scene
             .setOrigin(0, 0.3)
             .setDisplaySize(12, 12);
 
-        this.input.keyboard.on('keydown', (event: { code: string; }) =>
+        this.input.keyboard.on(Phaser.Input.Keyboard.Events.ANY_KEY_DOWN, (event: { code: string; }) =>
         {
             if (event.code === 'ArrowDown')
             {
@@ -185,7 +185,7 @@ export default class OptionsScene extends Scene
 
         this[`selectedKey${pos}`].text = 'press a key';
 
-        this.input.keyboard.once('keydown', (e: { key: string; }) =>
+        this.input.keyboard.once(Phaser.Input.Keyboard.Events.ANY_KEY_DOWN, (e: { key: string; }) =>
         {
             let str = e.key.replace(keyRegex, '');
             str = str.replace(arrowRegex, '');

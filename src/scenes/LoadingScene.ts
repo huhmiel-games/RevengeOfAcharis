@@ -301,7 +301,7 @@ export default class LoadingScreen extends Scene
     constructor ()
     {
         super({
-            key: 'loadingScene',
+            key: SCENES_NAMES.LOADING,
 
             //  Splash screen and progress bar textures.
             pack: {
@@ -596,7 +596,7 @@ export default class LoadingScreen extends Scene
         //#endregion
 
         // PRELOAD SECTION //
-        
+
     }
 
     public create ()
@@ -958,7 +958,7 @@ export default class LoadingScreen extends Scene
             frameRate: 12,
             repeat: 0,
         });
-                
+
         this.anims.create({
             key: 'dragon-tail',
             frames: [
@@ -1074,7 +1074,7 @@ export default class LoadingScreen extends Scene
             frameRate: 10,
             repeat: 0,
         });
-                
+
         this.anims.create({
             key: 'demon-breath-ice',
             frames: [
@@ -1087,7 +1087,7 @@ export default class LoadingScreen extends Scene
             frameRate: 10,
             repeat: 0,
         });
-                
+
         this.anims.create({
             key: 'demon-idle',
             frames: [
@@ -1101,7 +1101,7 @@ export default class LoadingScreen extends Scene
             frameRate: 10,
             repeat: 0,
         });
-                
+
         this.anims.create({
             key: 'demon-start-breath',
             frames: [
@@ -1562,7 +1562,7 @@ export default class LoadingScreen extends Scene
             frameRate: 24,
             repeat: 0,
         });
-                
+
         this.anims.create({
             key: 'smoke2',
             frames: [
@@ -1579,7 +1579,7 @@ export default class LoadingScreen extends Scene
             frameRate: 18,
             repeat: 0,
         });
-                
+
         this.anims.create({
             key: 'smoke3',
             frames: [
@@ -1596,7 +1596,7 @@ export default class LoadingScreen extends Scene
             repeat: 0,
         });
         //#endregion
-                
+
         //#region skeleton sword
         this.anims.create({
             key: 'skeleton-sword-attack2',
@@ -1611,7 +1611,7 @@ export default class LoadingScreen extends Scene
             frameRate: 12,
             repeat: 0,
         });
-                
+
         this.anims.create({
             key: 'skeleton-sword-dead_far',
             frames: [
@@ -1625,7 +1625,7 @@ export default class LoadingScreen extends Scene
             frameRate: 12,
             repeat: 0,
         });
-                
+
         this.anims.create({
             key: 'skeleton-sword-dead_near',
             frames: [
@@ -1639,7 +1639,7 @@ export default class LoadingScreen extends Scene
             frameRate: 12,
             repeat: 0,
         });
-                
+
         this.anims.create({
             key: 'skeleton-sword-attack1',
             frames: [
@@ -1653,7 +1653,7 @@ export default class LoadingScreen extends Scene
             frameRate: 12,
             repeat: 0,
         });
-                
+
         this.anims.create({
             key: 'skeleton-sword-run',
             frames: [
@@ -1667,7 +1667,7 @@ export default class LoadingScreen extends Scene
             frameRate: 12,
             repeat: -1,
         });
-                
+
         this.anims.create({
             key: 'skeleton-sword-jump',
             frames: [
@@ -1680,7 +1680,7 @@ export default class LoadingScreen extends Scene
             frameRate: 10,
             repeat: 0,
         });
-                
+
         this.anims.create({
             key: 'skeleton-sword-walk',
             frames: [
@@ -1694,7 +1694,7 @@ export default class LoadingScreen extends Scene
             frameRate: 6,
             repeat: 0,
         });
-                
+
         this.anims.create({
             key: 'skeleton-sword-ready',
             frames: [
@@ -1705,7 +1705,7 @@ export default class LoadingScreen extends Scene
             frameRate: 6,
             repeat: 1,
         });
-                
+
         this.anims.create({
             key: 'skeleton-sword-hurt',
             frames: [
@@ -1716,7 +1716,7 @@ export default class LoadingScreen extends Scene
             frameRate: 6,
             repeat: 0,
         });
-                
+
         this.anims.create({
             key: 'skeleton-sword-reborn',
             frames: [
@@ -1727,7 +1727,7 @@ export default class LoadingScreen extends Scene
             frameRate: 3,
             repeat: 0,
         });
-                
+
         this.anims.create({
             key: 'skeleton-sword-corpse',
             frames: [
@@ -1738,7 +1738,7 @@ export default class LoadingScreen extends Scene
             repeat: -1,
         });
         //#endregion
-                
+
         //#region imp-red
         this.anims.create({
             key: 'imp-red-attack2',
@@ -1753,7 +1753,7 @@ export default class LoadingScreen extends Scene
             frameRate: 12,
             repeat: 0,
         });
-                
+
         this.anims.create({
             key: 'imp-red-attack1',
             frames: [
@@ -1767,7 +1767,7 @@ export default class LoadingScreen extends Scene
             frameRate: 12,
             repeat: 0,
         });
-                
+
         this.anims.create({
             key: 'imp-red-stand_up',
             frames: [
@@ -1780,7 +1780,7 @@ export default class LoadingScreen extends Scene
             frameRate: 10,
             repeat: 0,
         });
-                
+
         this.anims.create({
             key: 'imp-red-fall_back',
             frames: [
@@ -1793,7 +1793,7 @@ export default class LoadingScreen extends Scene
             frameRate: 10,
             repeat: 0,
         });
-                
+
         this.anims.create({
             key: 'imp-red-walk',
             frames: [
@@ -1807,7 +1807,7 @@ export default class LoadingScreen extends Scene
             frameRate: 8,
             repeat: 0,
         });
-                
+
         this.anims.create({
             key: 'imp-red-fall',
             frames: [
@@ -1825,7 +1825,7 @@ export default class LoadingScreen extends Scene
             frameRate: 5,
             repeat: 1,
         });
-                
+
         this.anims.create({
             key: 'imp-red-run',
             frames: [
@@ -1839,7 +1839,7 @@ export default class LoadingScreen extends Scene
             frameRate: 12,
             repeat: -1,
         });
-                
+
         this.anims.create({
             key: 'imp-red-ready',
             frames: [
@@ -1853,7 +1853,7 @@ export default class LoadingScreen extends Scene
             frameRate: 12,
             repeat: 0,
         });
-                
+
         this.anims.create({
             key: 'imp-red-hit',
             frames: [
@@ -1865,7 +1865,7 @@ export default class LoadingScreen extends Scene
             repeat: 0,
         });
         //#endregion
-                
+
         //#region demon-axe
         this.anims.create({
             key: 'demon-axe-red-attack1',
@@ -1880,7 +1880,7 @@ export default class LoadingScreen extends Scene
             frameRate: 12,
             repeat: 0,
         });
-                
+
         this.anims.create({
             key: 'demon-axe-red-attack2',
             frames: [
@@ -1894,7 +1894,7 @@ export default class LoadingScreen extends Scene
             frameRate: 6,
             repeat: 0,
         });
-                
+
         this.anims.create({
             key: 'demon-axe-red-stand_up',
             frames: [
@@ -1907,7 +1907,7 @@ export default class LoadingScreen extends Scene
             frameRate: 10,
             repeat: -1,
         });
-                
+
         this.anims.create({
             key: 'demon-axe-red-fall_back',
             frames: [
@@ -1919,7 +1919,7 @@ export default class LoadingScreen extends Scene
             frameRate: 8,
             repeat: -1,
         });
-                
+
         this.anims.create({
             key: 'demon-axe-red-dead',
             frames: [
@@ -1931,7 +1931,7 @@ export default class LoadingScreen extends Scene
             frameRate: 4,
             repeat: 0,
         });
-                
+
         this.anims.create({
             key: 'demon-axe-red-walk',
             frames: [
@@ -1945,7 +1945,7 @@ export default class LoadingScreen extends Scene
             frameRate: 5,
             repeat: 0,
         });
-                
+
         this.anims.create({
             key: 'demon-axe-red-jump',
             frames: [
@@ -1958,7 +1958,7 @@ export default class LoadingScreen extends Scene
             frameRate: 10,
             repeat: -1,
         });
-                
+
         this.anims.create({
             key: 'demon-axe-red-run',
             frames: [
@@ -1972,7 +1972,7 @@ export default class LoadingScreen extends Scene
             frameRate: 12,
             repeat: -1,
         });
-                
+
         this.anims.create({
             key: 'demon-axe-red-ready',
             frames: [
@@ -1986,7 +1986,7 @@ export default class LoadingScreen extends Scene
             frameRate: 12,
             repeat: -1,
         });
-                
+
         this.anims.create({
             key: 'demon-axe-red-hit',
             frames: [
@@ -2015,7 +2015,7 @@ export default class LoadingScreen extends Scene
             frameRate: 16,
             repeat: 0,
         });
-                
+
         this.anims.create({
             key: 'evil-wizard2-attack1',
             frames: [
@@ -2031,7 +2031,7 @@ export default class LoadingScreen extends Scene
             frameRate: 16,
             repeat: 0,
         });
-                
+
         this.anims.create({
             key: 'evil-wizard2-death',
             frames: [
@@ -2046,7 +2046,7 @@ export default class LoadingScreen extends Scene
             frameRate: 14,
             repeat: 0,
         });
-                
+
         this.anims.create({
             key: 'evil-wizard2-idle',
             frames: [
@@ -2062,7 +2062,7 @@ export default class LoadingScreen extends Scene
             frameRate: 16,
             repeat: -1,
         });
-                
+
         this.anims.create({
             key: 'evil-wizard2-fall',
             frames: [
@@ -2072,7 +2072,7 @@ export default class LoadingScreen extends Scene
             frameRate: 4,
             repeat: 0,
         });
-                
+
         this.anims.create({
             key: 'evil-wizard2-hurt',
             frames: [
@@ -2085,7 +2085,7 @@ export default class LoadingScreen extends Scene
             frameRate: 6,
             repeat: 0,
         });
-                
+
         this.anims.create({
             key: 'evil-wizard2-jump',
             frames: [
@@ -2095,7 +2095,7 @@ export default class LoadingScreen extends Scene
             frameRate: 4,
             repeat: 0,
         });
-                
+
         this.anims.create({
             key: 'evil-wizard2-run',
             frames: [
@@ -2112,7 +2112,7 @@ export default class LoadingScreen extends Scene
             repeat: 2,
         });
         //#endregion
-                
+
         //#region Bringer of death
         this.anims.create({
             key: 'Bringer-of-Death_Attack',
@@ -2131,7 +2131,7 @@ export default class LoadingScreen extends Scene
             frameRate: 12,
             repeat: 0,
         });
-                
+
         this.anims.create({
             key: 'Bringer-of-Death_Cast',
             frames: [
@@ -2148,7 +2148,7 @@ export default class LoadingScreen extends Scene
             frameRate: 8,
             repeat: 0,
         });
-                
+
         this.anims.create({
             key: 'Bringer-of-Death_Death',
             frames: [
@@ -2167,7 +2167,7 @@ export default class LoadingScreen extends Scene
             repeat: 0,
             hideOnComplete: true
         });
-                
+
         this.anims.create({
             key: 'Bringer-of-Death_Spell',
             frames: [
@@ -2191,7 +2191,7 @@ export default class LoadingScreen extends Scene
             frameRate: 16,
             repeat: 2,
         });
-                
+
         this.anims.create({
             key: 'Bringer-of-Death_Walk',
             frames: [
@@ -2207,7 +2207,7 @@ export default class LoadingScreen extends Scene
             frameRate: 16,
             repeat: -1,
         });
-                
+
         this.anims.create({
             key: 'Bringer-of-Death_Idle',
             frames: [
@@ -2223,7 +2223,7 @@ export default class LoadingScreen extends Scene
             frameRate: 8,
             repeat: 4,
         });
-                
+
         this.anims.create({
             key: 'Bringer-of-Death_Hurt',
             frames: [
@@ -2235,7 +2235,7 @@ export default class LoadingScreen extends Scene
             repeat: 0,
         });
         //#endregion
-                
+
         //#region horse
         this.anims.create({
             key: 'horse-galloping',
@@ -2279,7 +2279,7 @@ export default class LoadingScreen extends Scene
             repeat: 0,
         });
         //#endregion
-        
+
         //#region flying-dragon
         this.anims.create({
             key: 'flying-dragon',
@@ -2292,7 +2292,7 @@ export default class LoadingScreen extends Scene
             repeat: -1,
         });
         //#endregion
-                
+
         //#region samurai
         this.anims.create({
             key: 'samurai-attack2',
@@ -2307,7 +2307,7 @@ export default class LoadingScreen extends Scene
             frameRate: 12,
             repeat: 0,
         });
-                
+
         this.anims.create({
             key: 'samurai-attack1',
             frames: [
@@ -2322,7 +2322,7 @@ export default class LoadingScreen extends Scene
             repeat: 0,
         });
         //#endregion
-                
+
         //#region fire-skull
         this.anims.create({
             key: 'fire-skull',
@@ -2340,7 +2340,7 @@ export default class LoadingScreen extends Scene
             repeat: -1,
         });
         //#endregion
-        
+
         //#region knight
         this.anims.create({
             key: 'knight-roll',
@@ -2556,7 +2556,7 @@ export default class LoadingScreen extends Scene
             repeat: 0,
         });
         //#endregion
-        
+
         //#region shadow
         this.anims.create({
             key: 'shadow-attack',
@@ -2569,7 +2569,7 @@ export default class LoadingScreen extends Scene
             frameRate: 8,
             repeat: -1,
         });
-                
+
         this.anims.create({
             key: 'shadow-rise',
             frames: [
@@ -2619,7 +2619,7 @@ export default class LoadingScreen extends Scene
             frameRate: 12,
             repeat: -1,
         });
-                
+
         this.anims.create({
             key: 'night-borne-idle',
             frames: [
@@ -2686,7 +2686,7 @@ export default class LoadingScreen extends Scene
             repeat: -1,
         });
         //#endregion
-                
+
         //#region dark-knight
         this.anims.create({
             key: 'dark-knight-walk',
@@ -2733,7 +2733,7 @@ export default class LoadingScreen extends Scene
             repeat: 0,
         });
         //#endregion
-                
+
         //#region worm
         this.anims.create({
             key: 'worm-idle',
@@ -2829,7 +2829,7 @@ export default class LoadingScreen extends Scene
             frameRate: 12,
             repeat: 0,
         });
-                
+
         this.anims.create({
             key: 'worm-fireball-move',
             frames: [
@@ -2844,7 +2844,7 @@ export default class LoadingScreen extends Scene
             repeat: -1,
         });
         //#endregion
-                
+
         //#region skeleton-flail
         this.anims.create({
             key: 'skeleton-flail-idle',
@@ -2944,7 +2944,7 @@ export default class LoadingScreen extends Scene
             frameRate: 16,
             repeat: -1,
         });
-                
+
         this.anims.create({
             key: 'tiny-wizard-walk',
             frames: [
@@ -3096,7 +3096,7 @@ export default class LoadingScreen extends Scene
             frameRate: 8,
             repeat: 0,
         });
-                
+
         this.anims.create({
             key: 'samurai-hurt',
             frames: [
@@ -3108,7 +3108,7 @@ export default class LoadingScreen extends Scene
             frameRate: 8,
             repeat: 0,
         });
-                
+
         this.anims.create({
             key: 'samurai-jump',
             frames: [
@@ -3118,7 +3118,7 @@ export default class LoadingScreen extends Scene
             frameRate: 4,
             repeat: -1,
         });
-                
+
         this.anims.create({
             key: 'samurai-death',
             frames: [
@@ -3231,7 +3231,7 @@ export default class LoadingScreen extends Scene
             repeat: 0
         });
         //#endregion
-                
+
         //#region archer
         this.anims.create({
             key: 'archer-idle',
@@ -3260,7 +3260,7 @@ export default class LoadingScreen extends Scene
             frameRate: 2,
             repeat: -1,
         });
-                
+
         this.anims.create({
             key: 'archer-roll',
             frames: [
@@ -3362,7 +3362,7 @@ export default class LoadingScreen extends Scene
             frameRate: 20,
             repeat: 3,
         });
-                
+
         this.anims.create({
             key: 'minotaur-idle',
             frames: [
@@ -3432,7 +3432,7 @@ export default class LoadingScreen extends Scene
             repeat: 0,
         });
         //#endregion
-                
+
         //#region saw
         this.anims.create({
             key: 'saw',
@@ -3458,7 +3458,7 @@ export default class LoadingScreen extends Scene
             repeat: 0,
         });
         //#endregion
-                
+
         //#region viking
         this.anims.create({
             key: 'viking-run',
@@ -3473,7 +3473,7 @@ export default class LoadingScreen extends Scene
             frameRate: 4,
             repeat: 0,
         });
-                
+
         this.anims.create({
             key: 'viking-jump',
             frames: [
@@ -3486,7 +3486,7 @@ export default class LoadingScreen extends Scene
             frameRate: 10,
             repeat: -1,
         });
-                
+
         this.anims.create({
             key: 'viking-idle',
             frames: [
@@ -3518,7 +3518,7 @@ export default class LoadingScreen extends Scene
             repeat: 0,
             hideOnComplete: true
         });
-                
+
         this.anims.create({
             key: 'viking-attack',
             frames: [
@@ -3536,7 +3536,7 @@ export default class LoadingScreen extends Scene
             repeat: 0,
         });
         //#endregion
-        
+
         //#region dragon-head
         this.anims.create({
             key: 'dragon-head',
@@ -3552,7 +3552,7 @@ export default class LoadingScreen extends Scene
             repeat: 0,
         });
         //#endregion
-        
+
         //#region crow
         this.anims.create({
             key: 'crow-eat',
@@ -3564,7 +3564,7 @@ export default class LoadingScreen extends Scene
             frameRate: 6,
             repeat: -1,
         });
-                
+
         this.anims.create({
             key: 'crow-idle',
             frames: [
@@ -3657,7 +3657,7 @@ export default class LoadingScreen extends Scene
             frameRate: 14,
             repeat: 0,
         });
-                
+
         this.anims.create({
             key: 'waterQueenAttack2',
             frames: [
@@ -3686,7 +3686,7 @@ export default class LoadingScreen extends Scene
             frameRate: 14,
             repeat: 0,
         });
-                
+
         this.anims.create({
             key: 'waterQueenAttack3',
             frames: [
@@ -3721,7 +3721,7 @@ export default class LoadingScreen extends Scene
             frameRate: 14,
             repeat: 0,
         });
-                
+
         this.anims.create({
             key: 'waterQueenAttack4',
             frames: [
@@ -3761,7 +3761,7 @@ export default class LoadingScreen extends Scene
             frameRate: 14,
             repeat: 0,
         });
-                
+
         this.anims.create({
             key: 'waterQueenDeath',
             frames: [
@@ -3785,7 +3785,7 @@ export default class LoadingScreen extends Scene
             frameRate: 16,
             repeat: 0,
         });
-                
+
         this.anims.create({
             key: 'waterQueenDefend',
             frames: [
@@ -3805,7 +3805,7 @@ export default class LoadingScreen extends Scene
             frameRate: 24,
             repeat: 0,
         });
-                
+
         this.anims.create({
             key: 'waterQueenFall',
             frames: [
@@ -3816,7 +3816,7 @@ export default class LoadingScreen extends Scene
             frameRate: 6,
             repeat: 0,
         });
-                
+
         this.anims.create({
             key: 'waterQueenHeal',
             frames: [
@@ -3836,7 +3836,7 @@ export default class LoadingScreen extends Scene
             frameRate: 24,
             repeat: 3,
         });
-                
+
         this.anims.create({
             key: 'waterQueenHurt',
             frames: [
@@ -3851,7 +3851,7 @@ export default class LoadingScreen extends Scene
             frameRate: 14,
             repeat: 0,
         });
-                
+
         this.anims.create({
             key: 'waterQueenIdle',
             frames: [
@@ -3867,7 +3867,7 @@ export default class LoadingScreen extends Scene
             frameRate: 16,
             repeat: 3,
         });
-                
+
         this.anims.create({
             key: 'waterQueenJump',
             frames: [
@@ -3878,7 +3878,7 @@ export default class LoadingScreen extends Scene
             frameRate: 6,
             repeat: 0,
         });
-                
+
         this.anims.create({
             key: 'waterQueenSurf',
             frames: [
@@ -3894,7 +3894,7 @@ export default class LoadingScreen extends Scene
             frameRate: 25,
             repeat: 0,
         });
-                
+
         this.anims.create({
             key: 'waterQueenTumble',
             frames: [
@@ -3908,7 +3908,7 @@ export default class LoadingScreen extends Scene
             frameRate: 12,
             repeat: 0,
         });
-                
+
         this.anims.create({
             key: 'waterQueenWalk',
             frames: [
@@ -3942,7 +3942,7 @@ export default class LoadingScreen extends Scene
             frameRate: 12,
             repeat: 0,
         });
-                
+
         this.anims.create({
             key: 'viking-axe-hit',
             frames: [
@@ -3953,7 +3953,7 @@ export default class LoadingScreen extends Scene
             frameRate: 6,
             repeat: 0,
         });
-                
+
         this.anims.create({
             key: 'viking-axe-jump',
             frames: [
@@ -3966,7 +3966,7 @@ export default class LoadingScreen extends Scene
             frameRate: 10,
             repeat: 0,
         });
-                
+
         this.anims.create({
             key: 'viking-axe-ready',
             frames: [
@@ -3977,7 +3977,7 @@ export default class LoadingScreen extends Scene
             frameRate: 6,
             repeat: 0,
         });
-                
+
         this.anims.create({
             key: 'viking-axe-run',
             frames: [
@@ -3991,7 +3991,7 @@ export default class LoadingScreen extends Scene
             frameRate: 12,
             repeat: 0,
         });
-                
+
         this.anims.create({
             key: 'viking-axe-walk',
             frames: [
@@ -4025,7 +4025,7 @@ export default class LoadingScreen extends Scene
             frameRate: 20,
             repeat: 0,
         });
-                
+
         this.anims.create({
             key: 'skeleton-seeker-death',
             frames: [
@@ -4038,7 +4038,7 @@ export default class LoadingScreen extends Scene
             frameRate: 10,
             repeat: 0,
         });
-                
+
         this.anims.create({
             key: 'skeleton-seeker-hurt',
             frames: [
@@ -4050,7 +4050,7 @@ export default class LoadingScreen extends Scene
             frameRate: 8,
             repeat: 0,
         });
-                
+
         this.anims.create({
             key: 'skeleton-seeker-idle',
             frames: [
@@ -4064,7 +4064,7 @@ export default class LoadingScreen extends Scene
             frameRate: 6,
             repeat: 0,
         });
-                
+
         this.anims.create({
             key: 'skeleton-seeker-spawn',
             frames: [
@@ -4083,7 +4083,7 @@ export default class LoadingScreen extends Scene
             frameRate: 12,
             repeat: 0,
         });
-                
+
         this.anims.create({
             key: 'skeleton-seeker-walk',
             frames: [
@@ -4098,7 +4098,7 @@ export default class LoadingScreen extends Scene
             repeat: 0,
         });
         //#endregion
-        
+
         //#region earth-bound
         this.anims.create({
             key: 'earth-bump',
@@ -4133,7 +4133,7 @@ export default class LoadingScreen extends Scene
         this.add.image(0, 0, 'background')
             .setOrigin(0, 0)
             .setDisplaySize(WIDTH, HEIGHT);
-        
+
         this.add.image(WIDTH / 2, HEIGHT / 4 * 3 + 8, 'whitePixel')
             .setDisplaySize(242, 18);
     }
@@ -4153,13 +4153,15 @@ export default class LoadingScreen extends Scene
             .setDropShadow(0, 1, COLORS.ORANGE);
 
         //  Crop the filler along its width, proportional to the amount of files loaded.
-        this.load.on('progress', (v) =>
-        {
-            loadingpercentage.text = `Loading: ${Math.round(v * 100)}%`;
-            img.setCrop(0, 0, Math.ceil(v * w), h);
-        }).on('complete', (v) =>
-        {
-            this.scene.start(SCENES_NAMES.MENU);
-        });
+        this.load
+            .on(Phaser.Loader.Events.PROGRESS, (v: number) =>
+            {
+                loadingpercentage.text = `Loading: ${Math.round(v * 100)}%`;
+                img.setCrop(0, 0, Math.ceil(v * w), h);
+            })
+            .on(Phaser.Loader.Events.COMPLETE, () =>
+            {
+                this.scene.start(SCENES_NAMES.MENU);
+            });
     }
 }

@@ -1,5 +1,5 @@
 import { COLORS } from '../constant/colors';
-import { FONTS, FONTS_SIZES } from '../constant/config';
+import { EWeaponType, FONTS, FONTS_SIZES } from '../constant/config';
 import DEPTH from '../constant/depth';
 import GameScene from '../scenes/GameScene';
 import SaveLoadService from '../services/SaveLoadService';
@@ -166,7 +166,7 @@ export default class Minotaur extends Enemy
         }
     }
 
-    public looseLife (damage: number, weaponType: string): void
+    public looseLife (damage: number, weaponType: EWeaponType): void
     {
         if (this.isHit || weaponType === 'arrow')
         {
@@ -245,18 +245,13 @@ export default class Minotaur extends Enemy
 
         this.clearTint();
 
-        this.playSfxDeath();
-
-        // this.explode();
+        this.scene.playSfx('beardedSfx', { volume: 4, rate: 0.7 });
 
         this.destroyHitbox();
-        // kill the enemy
 
         this.scene.player.addXp(this.xp);
 
         const { x, y } = this.body.center;
-
-        
 
         SaveLoadService.setEnemiesDeathCount();
 

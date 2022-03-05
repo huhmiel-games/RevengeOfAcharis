@@ -15,7 +15,7 @@ export default class GameOver extends Scene
     private keys: any;
     constructor ()
     {
-        super('gameOverScene');
+        super(SCENES_NAMES.GAMEOVER);
     }
 
     public create ()
@@ -54,7 +54,7 @@ export default class GameOver extends Scene
             fire: Phaser.Input.Keyboard.KeyCodes[keysOptions[4]],
         });
 
-        this.input.keyboard.on('keydown', (event) =>
+        this.input.keyboard.on(Phaser.Input.Keyboard.Events.ANY_KEY_DOWN, (event) =>
         {
             if (this.keys.down.isDown && event.key === this.keys.down.originalEvent.key)
             {

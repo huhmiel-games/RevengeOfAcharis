@@ -1,5 +1,5 @@
 import { COLORS } from '../constant/colors';
-import { FONTS, FONTS_SIZES } from '../constant/config';
+import { EWeaponType, FONTS, FONTS_SIZES } from '../constant/config';
 import DEPTH from '../constant/depth';
 import GameScene from '../scenes/GameScene';
 import SaveLoadService from '../services/SaveLoadService';
@@ -203,7 +203,7 @@ export default class SkeletonFlail extends Enemy
         }
     }
 
-    public looseLife (damage: number, weaponType: string): void
+    public looseLife (damage: number, weaponType: EWeaponType): void
     {
         if (this.isHit)
         {
@@ -306,7 +306,7 @@ export default class SkeletonFlail extends Enemy
 
         this.clearTint();
 
-        this.playSfxDeath();
+        this.scene.playSfx('skeletonDeath', { volume: 0.6, rate: 0.7 });
 
         this.destroyHitbox();
 

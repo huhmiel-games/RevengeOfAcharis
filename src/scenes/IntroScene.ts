@@ -12,7 +12,7 @@ export default class Intro extends Scene
     private revengeTheme: Phaser.Sound.BaseSound;
     constructor ()
     {
-        super('introScene');
+        super(SCENES_NAMES.INTRO);
     }
 
     public create ()
@@ -51,7 +51,7 @@ export default class Intro extends Scene
             .setTintFill(0xFFFFFF)
             .setDropShadow(0, 1, COLORS.RED);
 
-        this.input.keyboard.once('keydown', () =>
+        this.input.keyboard.once(Phaser.Input.Keyboard.Events.ANY_KEY_DOWN, () =>
         {
             this.sound.play('swell', { volume: 0.8 });
 

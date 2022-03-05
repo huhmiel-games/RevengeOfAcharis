@@ -1,7 +1,7 @@
 //#region imports
 import { Scene } from 'phaser';
 import animatedTilesPlugin from '../plugins/AnimatedTiles.js';
-import { WIDTH, HEIGHT, FONTS, SCENES_NAMES, FONTS_SIZES, SWORDS, TILE_SIZE, SHIELDS, BOWS, EQUIPMENT } from '../constant/config';
+import { WIDTH, HEIGHT, FONTS, SCENES_NAMES, FONTS_SIZES, SWORDS, TILE_SIZE, SHIELDS, BOWS, EQUIPMENT, EWeaponType } from '../constant/config';
 import PowerUp from '../player/powerUp';
 import HellHound from '../enemies/HellHound';
 import Thing from '../enemies/Thing';
@@ -119,7 +119,7 @@ export default class GameScene extends Scene
 
     constructor ()
     {
-        super('gameScene');
+        super(SCENES_NAMES.GAME);
         this.state = {
             displayPowerUpMsg: false,
         };
@@ -305,9 +305,10 @@ export default class GameScene extends Scene
      */
     private watchWindowInactive (): void
     {
-        this.game.events.once('blur', () =>
+        this.game.events.once(Phaser.Core.Events.BLUR, () =>
         {
             this.isPause = true;
+            
 
             this.events.emit('isPause', this.isPause);
 
@@ -335,7 +336,7 @@ export default class GameScene extends Scene
      */
     private watchWindowActive ()
     {
-        this.game.events.once('focus', () =>
+        this.game.events.once(Phaser.Core.Events.FOCUS, () =>
         {
             this.isPause = false;
 
@@ -501,7 +502,7 @@ export default class GameScene extends Scene
             {
                 const str = Math.ceil(Math.sqrt(Math.pow(this.player.inventoryManager.getInventory().level, 3)) / 10);
 
-                boss.looseLife(Math.floor(this.player.swordManager.getCurrentSword().damage * str), 'sword', this.player.swordManager.getCurrentSword());
+                boss.looseLife(Math.floor(this.player.swordManager.getCurrentSword().damage * str), EWeaponType.SWORD, this.player.swordManager.getCurrentSword());
 
             }
 
@@ -511,7 +512,7 @@ export default class GameScene extends Scene
 
                 const str = Math.ceil(Math.sqrt(Math.pow(this.player.inventoryManager.getInventory().level, 3)) / 10);
 
-                boss.looseLife(Math.floor(this.player.bowManager.getCurrentBow().damage * str), 'arrow', _weapon as Arrow);
+                boss.looseLife(Math.floor(this.player.bowManager.getCurrentBow().damage * str), EWeaponType.ARROW, _weapon as Arrow);
 
                 if (!weapon.isDeflecting) weapon.kill();
             }
@@ -521,7 +522,7 @@ export default class GameScene extends Scene
         {
             const str = Math.ceil(Math.sqrt(Math.pow(this.player.inventoryManager.getInventory().level, 3)) / 10);
 
-            enemy.looseLife(Math.floor(this.player.swordManager.getCurrentSword().damage * str), 'sword');
+            enemy.looseLife(Math.floor(this.player.swordManager.getCurrentSword().damage * str), EWeaponType.SWORD);
 
         }
 
@@ -538,7 +539,7 @@ export default class GameScene extends Scene
 
             const str = Math.ceil(Math.sqrt(Math.pow(this.player.inventoryManager.getInventory().level, 3)) / 10);
 
-            enemy.looseLife(Math.floor(this.player.bowManager.getCurrentBow().damage * str), 'arrow', weapon);
+            enemy.looseLife(Math.floor(this.player.bowManager.getCurrentBow().damage * str), EWeaponType.ARROW, weapon);
 
             if (!weapon.isDeflecting) weapon.kill();
         }
@@ -547,15 +548,14 @@ export default class GameScene extends Scene
 
     public bossExplode (x, y)
     {
-        // this.bossMusic.stop();
         const exp = this.explodeSprite.getFirstDead(true, x, y, 'atlas', 'enemy-death-1', true).setDepth(DEPTH.EXPLOSION);
         this.sound.play('explo2', { volume: 0.3 });
         if (exp)
         {
-            exp.anims.play('bossExplode').on('animationrepeat', () =>
+            exp.anims.play('bossExplode').on(Phaser.Animations.Events.ANIMATION_REPEAT, () =>
             {
                 this.sound.play('explo2', { volume: 0.3 });
-            }).on('animationcomplete', () =>
+            }).on(Phaser.Animations.Events.ANIMATION_COMPLETE, () =>
             {
                 exp.destroy();
             });
@@ -568,7 +568,7 @@ export default class GameScene extends Scene
         if (exp)
         {
             exp.setDepth(DEPTH.EXPLOSION);
-            exp.anims.play('enemyExplode').on('animationcomplete', () =>
+            exp.anims.play('enemyExplode').on(Phaser.Animations.Events.ANIMATION_COMPLETE, () =>
             {
                 exp.destroy();
             });
@@ -1251,7 +1251,6 @@ DEF: ${props.defense}`;
 
     public addEnemies ()
     {
-        // the hellHound
         const layerArray = this.checkObjectsLayerIndex('objects');
 
         layerArray?.objects.forEach((element) =>
@@ -1312,7 +1311,7 @@ DEF: ${props.defense}`;
                             life: element.properties.life,
                             damage: element.properties.damage,
                         });
-    
+
                         this.enemyGroup.push(bringer);
                     }
                     
@@ -1465,19 +1464,6 @@ DEF: ${props.defense}`;
 
                     this.enemyGroup.push(knight2);
                     break;
-
-                // case 'dark-knight':
-                //     if (!element.y) return;
-
-                //     const darkKnight = new DarkKnight(this, element.x as unknown as number, element.y as unknown as number - 16, {
-                //         key: element.properties.key,
-                //         name: element.name,
-                //         life: element.properties.life,
-                //         damage: element.properties.damage,
-                //     });
-
-                //     this.enemyGroup.push(darkKnight);
-                //     break;
 
                 case 'horse':
                     if (!element.y) return;

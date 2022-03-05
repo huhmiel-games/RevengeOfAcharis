@@ -1,5 +1,5 @@
 import { COLORS } from '../constant/colors';
-import { FONTS, FONTS_SIZES, HEIGHT, WIDTH } from '../constant/config';
+import { EWeaponType, FONTS, FONTS_SIZES, HEIGHT, WIDTH } from '../constant/config';
 import DEPTH from '../constant/depth';
 import Arrow from '../player/Arrow';
 import Sword from '../player/Sword';
@@ -371,7 +371,7 @@ export default class WaterQueen extends Enemy
         });
     }
 
-    public looseLife (damage: number, weaponType: string, weapon?: Sword | Arrow): void
+    public looseLife (damage: number, weaponType: EWeaponType, weapon?: Sword | Arrow): void
     {
         if (this.isHit || this.isDead || this.isAttacking)
         {

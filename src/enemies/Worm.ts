@@ -1,5 +1,5 @@
 import { COLORS } from '../constant/colors';
-import { FONTS, FONTS_SIZES } from '../constant/config';
+import { EWeaponType, FONTS, FONTS_SIZES } from '../constant/config';
 import DEPTH from '../constant/depth';
 import Arrow from '../player/Arrow';
 import GameScene from '../scenes/GameScene';
@@ -232,7 +232,7 @@ export default class Worm extends Enemy
         }
     }
 
-    public looseLife (damage: number, weaponType: string, weapon: Arrow | undefined): void
+    public looseLife (damage: number, weaponType: EWeaponType, weapon: Arrow | undefined): void
     {
         if (this.isHit)
         {

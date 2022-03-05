@@ -1,5 +1,5 @@
 import { COLORS } from '../constant/colors';
-import { FONTS, FONTS_SIZES, HEIGHT, SWORDS, WIDTH } from '../constant/config';
+import { EWeaponType, FONTS, FONTS_SIZES, HEIGHT, SWORDS, WIDTH } from '../constant/config';
 import DEPTH from '../constant/depth';
 import PowerUp from '../player/powerUp';
 import GameScene from '../scenes/GameScene';
@@ -319,7 +319,7 @@ export default class BringerOfDeath extends Enemy
         }
     }
 
-    public looseLife (damage: number, weaponType: string): void
+    public looseLife (damage: number, weaponType: EWeaponType): void
     {
         if (this.isHit || this.anims.getName() !== 'Bringer-of-Death_Idle')
         {
