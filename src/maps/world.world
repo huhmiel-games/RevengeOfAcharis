@@ -16,10 +16,10 @@
         },
         {
             "fileName": "map2.json",
-            "height": 512,
+            "height": 288,
             "width": 800,
             "x": 576,
-            "y": 80
+            "y": 304
         },
         {
             "fileName": "map3.json",
@@ -286,6 +286,13 @@
             "width": 512,
             "x": 8112,
             "y": 688
+        },
+        {
+            "fileName": "map42.json",
+            "height": 288,
+            "width": 512,
+            "x": 10160,
+            "y": -560
         }
     ],
     "onlyShowAdjacentMaps": false,
