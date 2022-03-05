@@ -12,8 +12,6 @@ export default class BringerOfDeath extends Enemy
 {
     public enemyState: { life: number; damage: number; giveLife: number; };
     public speed: number = 30;
-    public walkplay: boolean;
-    public walkk: Phaser.Sound.BaseSound;
     public distance: number;
     private hitboxData: THitboxData;
     public hitbox: Projectile[] = [];
@@ -21,10 +19,6 @@ export default class BringerOfDeath extends Enemy
     private isBossMusic: boolean = true;
     private currentsong: Phaser.Sound.BaseSound;
     private isBattleMusic: boolean = false;
-    // private nextAction: string;
-    // private lastAction: string;
-    // private actionCount: number = 0;
-    // private actionList: string[] = ['idle', 'attack', 'cast', 'spell', 'spell', 'spell'];
     private xy: TCoord = { x: 0, y: 0 };
     private isSpelling: boolean = false;
 
@@ -65,9 +59,6 @@ export default class BringerOfDeath extends Enemy
             }
         }
 
-
-        this.walkplay = false;
-        this.walkk = this.scene.sound.add('townWalkSfx', { volume: 0.8 });
         this.anims.play('Bringer-of-Death_Idle');
 
         this.blockDoors();
@@ -207,17 +198,7 @@ export default class BringerOfDeath extends Enemy
         });
     }
 
-    private playSound ()
-    {
-        const { x, y } = this.body.center;
-
-        const volume = 1 / Phaser.Math.Distance.Between(this.scene.player.body.center.x, this.scene.player.body.center.y, this.body.center.x, this.body.center.y) * 20;
-
-        if (this.scene.cameras.main.worldView.contains(x, y))
-        {
-            this.walkk.play({ volume });
-        }
-    }
+    
 
     public preUpdate (time: number, delta: number)
     {

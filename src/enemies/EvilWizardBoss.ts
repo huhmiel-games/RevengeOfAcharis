@@ -463,7 +463,7 @@ export default class EvilWizardBoss extends Enemy
                         smoke.once(Phaser.Animations.Events.ANIMATION_COMPLETE, () => smoke.destroy());
                         smoke.anims.play('smoke1');
 
-                        this.scene.sound.play('impact', { rate: 0.5 });
+                        this.scene.playSfx('impact', { rate: 0.5 });
                     }
                 }
             });

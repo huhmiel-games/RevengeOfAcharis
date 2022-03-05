@@ -5,6 +5,7 @@ import { FONTS, FONTS_SIZES } from '../constant/config';
 import SaveLoadService from '../services/SaveLoadService';
 import Projectile from './Projectile';
 import Arrow from '../player/Arrow';
+import DEPTH from '../constant/depth';
 
 /**
  * @description The Enemy base class
@@ -41,7 +42,7 @@ export default class Enemy extends GameObjects.Sprite
 
         this.body.setCollideWorldBounds(true);
 
-        this.setDepth(101);
+        this.setDepth(DEPTH.ENEMY);
 
         this.scene.enemyGroup.push(this);
 
@@ -63,7 +64,8 @@ export default class Enemy extends GameObjects.Sprite
 
         try
         {
-            this.scene.sound.play(`${this.name}Hit`);
+            this.scene.playSfx(`${this.name}Hit`);
+            // this.scene.sound.play(`${this.name}Hit`);
         }
         catch (error)
         {
@@ -159,7 +161,7 @@ export default class Enemy extends GameObjects.Sprite
     {
         const { x, y } = this.body.center;
 
-        const flames = this.scene.explodeSprite.getFirstDead(true, x, y - 4, 'enemyExplode', undefined, true);
+        const flames = this.scene.explodeSprite.getFirstDead(true, x, y - 4, 'atlas', undefined, true);
 
         if (flames)
         {
@@ -176,7 +178,8 @@ export default class Enemy extends GameObjects.Sprite
     {
         try
         {
-            this.scene.sound.play(`${this.name}Death`, { volume: 1, rate: 1 });
+            this.scene.playSfx(`${this.name}Death`, { volume: 0.6, rate: 1 });
+            // this.scene.sound.play(`${this.name}Death`, { volume: 1, rate: 1 });
         }
         catch (error)
         {

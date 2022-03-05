@@ -271,7 +271,7 @@ export default class Knight2 extends Enemy
             console.log(error);
         }
 
-        const specialDamage = weaponType === 'arrow' ? damage / 2 : damage;
+        const specialDamage = weaponType === 'arrow' ? Math.floor(damage / 2) : damage;
 
         this.enemyState.life -= specialDamage;
 

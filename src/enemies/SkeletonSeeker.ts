@@ -509,8 +509,12 @@ export default class SkeletonSeeker extends Enemy
                 alpha: 0,
                 onComplete: () =>
                 {
-                    this.scene.stopMusic();
-                    this.currentsong.play();
+                    if (this.currentsong !== undefined)
+                    {
+                        this.scene.stopMusic();
+                        this.currentsong.play();
+                    }
+
                     this.destroy();
                 }
             });

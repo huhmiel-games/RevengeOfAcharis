@@ -8,7 +8,6 @@ import Projectile from './Projectile';
 export default class Archer extends Enemy
 {
     public enemyState: { life: number; damage: number; giveLife: number; };
-    public walkk: Phaser.Sound.BaseSound;
     public distance: number;
     private arrows: Phaser.Physics.Arcade.Group;
 
@@ -79,8 +78,6 @@ export default class Archer extends Enemy
 
             const { center } = this.body;
 
-            const anim = this.anims.getName();
-
             const playerX = this.scene.player.body.center.x;
 
             if (center.x < playerX)
@@ -108,19 +105,10 @@ export default class Archer extends Enemy
 
         if (this.active && this.body.blocked.down && !this.isDead)
         {
-            const { blocked, velocity } = this.body;
-            const { x, y } = this.scene.player.body.center;
+            const { x, y } = this.body.center;
+            const { x: playerPosX, y: playerPosY } = this.scene.player.body.center;
 
-            const distance = Phaser.Math.Distance.Between(x, y, this.body.center.x, this.body.center.y);
-
-            if (velocity.x < 0 && !this.flipX)
-            {
-                this.setFlipX(true);
-            }
-            else if (velocity.x > 0 && this.flipX)
-            {
-                this.setFlipX(false);
-            }
+            const distance = Phaser.Math.Distance.Between(playerPosX, playerPosY, x, y);
 
             if (distance <= 400 && !this.isAttacking)
             {
@@ -133,31 +121,6 @@ export default class Archer extends Enemy
             {
                 this.anims.play('archer-idle', true);
             }
-
-            // if (this.isAttacking)
-            // {
-            //     (x - this.body.center.x) > 0 ? this.setFlipX(false) : this.setFlipX(true);
-
-            //     this.body.setVelocityX(0);
-            // }
-            // else if (!this.isAttacking && velocity.x === 0)
-            // {
-            //     const speed = (x - this.body.center.x) > 0 ? this.speed : -this.speed;
-
-            //     this.body.setVelocityX(speed);
-            // }
-
-            // if (blocked.left && !this.isAttacking)
-            // {
-            //     this.body.setVelocityX(this.speed);
-            // }
-
-            // if (blocked.right && !this.isAttacking)
-            // {
-            //     this.body.setVelocityX(-this.speed);
-            // }
-
-            
         }
     }
 

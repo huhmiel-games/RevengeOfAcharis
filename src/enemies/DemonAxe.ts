@@ -10,8 +10,7 @@ export default class DemonAxe extends Enemy
 {
     public enemyState: { life: number; damage: number; giveLife: number; };
     public speed: number = 20;
-    public walkplay: boolean;
-    public walkk: Phaser.Sound.BaseSound;
+    public walkSfx: Phaser.Sound.BaseSound;
     public distance: number;
     private hitboxData: THitboxData;
     public hitbox: Projectile[] = [];
@@ -46,8 +45,7 @@ export default class DemonAxe extends Enemy
 
         this.hitboxData = JSON.parse('{"demon-axe-red-attack1_4":{"hitboxes":[{"frame":"demon-axe-red-attack1_4","type":"circle","x":51,"y":22,"width":44,"height":44}]},"demon-axe-red-attack2_4":{"hitboxes":[{"frame":"demon-axe-red-attack2_4","type":"circle","x":77,"y":40,"width":14,"height":14},{"frame":"demon-axe-red-attack2_4","type":"rectangle","x":23,"y":35,"width":23,"height":2},{"frame":"demon-axe-red-attack2_4","type":"rectangle","x":47,"y":37,"width":27,"height":6},{"frame":"demon-axe-red-attack2_4","type":"rectangle","x":57,"y":49,"width":23,"height":8}]},"demon-axe-red-attack2_6":{"hitboxes":[{"frame":"demon-axe-red-attack2_6","type":"rectangle","x":69,"y":57,"width":9,"height":5}]}}');
 
-        this.walkplay = false;
-        this.walkk = this.scene.sound.add('skeletonStep', { volume: 0.5 });
+        this.walkSfx = this.scene.sound.add('skeletonStep', { volume: 0.5, rate: 0.6 });
         this.anims.play('demon-axe-red-walk');
 
         this.on(Phaser.Animations.Events.ANIMATION_UPDATE, () =>
@@ -177,7 +175,7 @@ export default class DemonAxe extends Enemy
 
         if (this.scene.cameras.main.worldView.contains(x, y))
         {
-            this.walkk.play({ volume });
+            this.walkSfx.play({ volume, rate: 0.6 });
         }
     }
 
@@ -354,6 +352,26 @@ export default class DemonAxe extends Enemy
         SaveLoadService.setEnemiesDeathCount();
 
         this.anims.play('demon-axe-red-dead', true);
+
+        this.scene.playSfx('beardedSfx', { volume: 4, rate: 0.5 });
+
+        this.scene.time.addEvent({
+            delay: 100,
+            repeat: 10,
+            callback: () =>
+            {
+                if (!this.active)
+                {
+                    return;
+                }
+                const X = Phaser.Math.Between(this.body.x - 8, this.body.x + this.body.width + 8);
+                const Y = Phaser.Math.Between(this.body.y - 8, this.body.y + this.body.height + 8);
+
+                this.scene.enemyExplode(X, Y);
+                // this.scene.playSfx('explo2', { volume: 0.3 });
+            },
+            
+        });
 
         this.once(Phaser.Animations.Events.ANIMATION_COMPLETE, () =>
         {
