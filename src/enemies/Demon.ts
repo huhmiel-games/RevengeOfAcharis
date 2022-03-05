@@ -11,6 +11,9 @@ import LayerService from '../services/LayerService';
 import { THitboxData } from '../types/types';
 import Projectile from './Projectile';
 import { COLORS } from '../constant/colors';
+import SkeletonSword from './SkeletonSword';
+import SkeletonFlail from './SkeletonFlail';
+import Enemy from './Enemy';
 
 
 export default class Demon extends Phaser.GameObjects.Sprite
@@ -26,7 +29,7 @@ export default class Demon extends Phaser.GameObjects.Sprite
     private isSkullAttack: boolean = false;
     private isReleaseEnemy: boolean = false;
     private isDead: boolean = false;
-    private fireBallAttackCount: number = 0;
+    private skullAttackDelay: number = 0;
     // private phase: number = 0;
     private diameter: { x: number; };
     private deathMsg;
@@ -192,23 +195,13 @@ export default class Demon extends Phaser.GameObjects.Sprite
                 });
 
                 this.isSkullAttack = false;
+
+                this.skullAttackDelay = this.scene.time.now;
             }
         }, undefined, this.scene);
 
         this.startBattle();
     }
-
-
-
-
-
-    // availables anims
-    // demon-idle
-    // demon-attack
-    // breathBlue
-    // breathFire
-    // demon-hurt
-    // fire-skull
 
     // demonDeathSfx
     // demonHitSfx
@@ -233,7 +226,7 @@ export default class Demon extends Phaser.GameObjects.Sprite
         const distance = Phaser.Math.Distance.Between(playerPosX, playerPosY, x, y);
 
         // breath fire or ice attack
-        if (!this.isBreathFire && !this.isBreathIce && distance <= 120)
+        if (!this.isBreathFire && !this.isBreathIce && !this.isSkullRotates && !this.isSkullAttack && distance <= 120)
         {
             this.body.setVelocity(0, 0);
 
@@ -302,6 +295,8 @@ export default class Demon extends Phaser.GameObjects.Sprite
 
     private canChase (): boolean
     {
+        console.log(this.isSkullAttack, this.isSkullRotates, this.isBreathFire, this.isBreathIce);
+        
         if (this.isSkullAttack || this.isSkullRotates || this.isBreathFire || this.isBreathIce)
         {
             return false;
@@ -320,14 +315,9 @@ export default class Demon extends Phaser.GameObjects.Sprite
         });
     }
 
-    public handleSkullHeads ()
+    private handleSkullHeads ()
     {
-        if (!this.active || this.isDead)
-        {
-            return;
-        }
-
-        if (!this.active || this.isDead)
+        if (!this.active || this.isDead || this.skullAttackDelay + 10000 > this.scene.time.now)
         {
             return;
         }
@@ -367,7 +357,7 @@ export default class Demon extends Phaser.GameObjects.Sprite
         this.skullHeadsAppears();
     }
 
-    public skullHeadsAppears ()
+    private skullHeadsAppears ()
     {
         if (!this.active || this.isDead)
         {
@@ -391,7 +381,7 @@ export default class Demon extends Phaser.GameObjects.Sprite
         });
     }
 
-    public skullAttack ()
+    private skullAttack ()
     {
         if (this.isSkullAttack) return;
 
@@ -429,6 +419,8 @@ export default class Demon extends Phaser.GameObjects.Sprite
 
                                 skull.destroy();
 
+                                this.skullAttackDelay = this.scene.time.now;
+
                                 const deadSkulls = [this.skull0, this.skull1, this.skull2, this.skull3,
                                 this.skull4, this.skull5, this.skull6, this.skull7]
                                     .filter(e => e?.active).length;
@@ -445,6 +437,60 @@ export default class Demon extends Phaser.GameObjects.Sprite
         });
     }
 
+    private callSkeleton ()
+    {
+        if (this.isDead) return;
+
+        for (let i = 0; i < 3; i += 1)
+        {
+            const skeletonPosX = Phaser.Math.RND.between(10 * 16, 59 * 16);
+            const skeleton = new Skeleton(this.scene, skeletonPosX as unknown as number, 15 * 16 as unknown as number - 16, {
+                key: 'skeletonRise',
+                name: 'skeletonRise',
+                life: 10,
+                damage: 10,
+            });
+            skeleton.setPosition(skeletonPosX, 15 * 16 - 16);
+            this.scene.enemyGroup.push(skeleton);
+        }
+    }
+
+    private callSkeletonSword ()
+    {
+        if (this.isDead) return;
+
+        for (let i = 0; i < 3; i += 1)
+        {
+            const skeletonPosX = Phaser.Math.RND.between(10 * 16, 59 * 16);
+            const skeleton = new SkeletonSword(this.scene, skeletonPosX as unknown as number, 15 * 16 as unknown as number - 16, {
+                key: 'skeletonRise',
+                name: 'skeletonRise',
+                life: 10,
+                damage: 10,
+            });
+            skeleton.setPosition(skeletonPosX, 15 * 16 - 16);
+            this.scene.enemyGroup.push(skeleton);
+        }
+    }
+
+    private callSkeletonFlail ()
+    {
+        if (this.isDead) return;
+
+        for (let i = 0; i < 3; i += 1)
+        {
+            const skeletonPosX = Phaser.Math.RND.between(10 * 16, 59 * 16);
+            const skeleton = new SkeletonFlail(this.scene, skeletonPosX as unknown as number, 15 * 16 as unknown as number - 16, {
+                key: 'skeletonRise',
+                name: 'skeletonRise',
+                life: 10,
+                damage: 10,
+            });
+            skeleton.setPosition(skeletonPosX, 15 * 16 - 16);
+            this.scene.enemyGroup.push(skeleton);
+        }
+    }
+
     private checkMusic ()
     {
         if (!this.isBattleMusic && !this.isDead)
@@ -459,7 +505,7 @@ export default class Demon extends Phaser.GameObjects.Sprite
         }
     }
 
-    public startBattle ()
+    private startBattle ()
     {
         this.anims.play('demon-idle', true);
 
@@ -545,7 +591,7 @@ export default class Demon extends Phaser.GameObjects.Sprite
         });
     }
 
-    public kill ()
+    private kill ()
     {
         if (this.isDead)
         {
@@ -566,6 +612,14 @@ export default class Demon extends Phaser.GameObjects.Sprite
                     smoke.anims.play('smoke1');
                 }
                 skullHead.destroy();
+            }
+        });
+
+        this.scene.children.each(child =>
+        {
+            if (child.active && child instanceof Enemy)
+            {
+                child.kill();
             }
         });
 
@@ -665,6 +719,9 @@ export default class Demon extends Phaser.GameObjects.Sprite
 
         this.anims.play('demon-hurt', true);
 
+        if (this.isBreathFire) this.isBreathFire = false;
+        if (this.isBreathIce) this.isBreathIce = false;
+
         this.enemyState.life -= damage;
 
         this.healthUiText.setText(`${this.enemyState.life}/4000`);
@@ -709,6 +766,20 @@ export default class Demon extends Phaser.GameObjects.Sprite
                 if (weapon !== 'skullHeadDemon' && !this.isSkullRotates && !this.isSkullAttack)
                 {
                     this.handleSkullHeads();
+
+                    const randomNbr = Phaser.Math.RND.between(0, 10);
+                    if (randomNbr > 8)
+                    {
+                        this.callSkeleton();
+                    }
+                    if (randomNbr < 2)
+                    {
+                        this.callSkeletonSword();
+                    }
+                    if (randomNbr > 1 && randomNbr < 5)
+                    {
+                        this.callSkeletonFlail();
+                    }
                 }
             }
         });
