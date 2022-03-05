@@ -1,5 +1,6 @@
 import { COLORS } from '../constant/colors';
 import { WIDTH, FONTS, FONTS_SIZES } from '../constant/config';
+import DEPTH from '../constant/depth';
 import GameScene from '../scenes/GameScene';
 import { TInventory } from '../types/types';
 import Bow from './Bow';
@@ -82,7 +83,7 @@ export default class InventoryManager
         this.scene.backUi.setVisible(true);
 
         const GRID = this.scene.add.image(origin.x - 17, origin.y - 17, 'inventory-grid')
-            .setDepth(1999)
+            .setDepth(DEPTH.UI_BACK)
             .setScrollFactor(0, 0)
             .setOrigin(0, 0);
 
@@ -99,7 +100,7 @@ export default class InventoryManager
         items.forEach(item =>
         {
             const img = this.scene.add.image(-100, -100, 'stuff', item.key)
-                .setDepth(2000)
+                .setDepth(DEPTH.UI_TEXT)
                 .setScrollFactor(0, 0)
                 .setDataEnabled()
                 .setData('id', item.id);
@@ -111,7 +112,7 @@ export default class InventoryManager
         {
             if (this.inventory.powerUp.includes(i))
             {
-                const img = this.scene.add.image(-100, -100, 'stuff', i).setDepth(2000).setScrollFactor(0, 0);
+                const img = this.scene.add.image(-100, -100, 'stuff', i).setDepth(DEPTH.UI_TEXT).setScrollFactor(0, 0);
                 fixedItemsToDisplay.push(img);
             }
 
@@ -127,7 +128,7 @@ export default class InventoryManager
         });
 
         const selector = this.scene.add.image(origin.x, origin.y, 'framing32')
-            .setDepth(2010)
+            .setDepth(DEPTH.UI_TEXT + 10)
             .setScrollFactor(0, 0);
 
         const currentSwordId = this.player.swordManager.getCurrentSword().id;
@@ -147,7 +148,7 @@ export default class InventoryManager
 
         const LVL = this.scene.add.bitmapText(WIDTH / 8 * 4, origin.center.y - 86, FONTS.ULTIMA_BOLD, `LEVEL: ${this.inventory.level}`, FONTS_SIZES.ULTIMA_BOLD)
             .setOrigin(0, 0.5)
-            .setDepth(2000)
+            .setDepth(DEPTH.UI_TEXT)
             .setScrollFactor(0, 0)
             .setLetterSpacing(2)
             .setTintFill(COLORS.STEEL_GRAY);
@@ -156,13 +157,13 @@ export default class InventoryManager
 
         const XP = this.scene.add.bitmapText(WIDTH / 2, origin.center.y - 68, FONTS.GALAXY, `xp: ${Math.round(this.inventory.xp)}/${nextLevelXp}`, FONTS_SIZES.GALAXY)
             .setOrigin(0, 0.5)
-            .setDepth(2000)
+            .setDepth(DEPTH.UI_TEXT)
             .setScrollFactor(0, 0)
             .setTintFill(COLORS.STEEL_GRAY);
 
         const HP = this.scene.add.bitmapText(WIDTH / 2, origin.center.y - 58, FONTS.GALAXY, `hp: ${this.inventory.life}/${this.inventory.maxLife}`, FONTS_SIZES.GALAXY)
             .setOrigin(0, 0.5)
-            .setDepth(2000)
+            .setDepth(DEPTH.UI_TEXT)
             .setScrollFactor(0, 0)
             .setTintFill(COLORS.DARK_GREEN);
 
@@ -170,25 +171,25 @@ export default class InventoryManager
 
         const STR = this.scene.add.bitmapText(WIDTH / 2, origin.center.y - 48, FONTS.GALAXY, `str: ${strength}`, FONTS_SIZES.GALAXY)
             .setOrigin(0, 0.5)
-            .setDepth(2000)
+            .setDepth(DEPTH.UI_TEXT)
             .setScrollFactor(0, 0)
             .setTintFill(COLORS.RED);
 
         const DEF = this.scene.add.bitmapText(WIDTH / 5 * 3, origin.center.y - 48, FONTS.GALAXY, `def: ${this.inventory.def}`, FONTS_SIZES.GALAXY)
             .setOrigin(0, 0.5)
-            .setDepth(2000)
+            .setDepth(DEPTH.UI_TEXT)
             .setScrollFactor(0, 0)
             .setTintFill(COLORS.DARK_GREEN);
 
         const swordAttack = this.scene.add.bitmapText(WIDTH / 2, origin.center.y - 38, FONTS.GALAXY, `sword atk: ${this.player.swordManager.getCurrentSword().damage}`, FONTS_SIZES.GALAXY)
             .setOrigin(0, 0.5)
-            .setDepth(2000)
+            .setDepth(DEPTH.UI_TEXT)
             .setScrollFactor(0, 0)
             .setTintFill(COLORS.RED);
 
         const swordRate = this.scene.add.bitmapText(WIDTH / 2, origin.center.y - 28, FONTS.GALAXY, `sword rate: ${Math.round(this.player.swordManager.getCurrentSword().rate)}`, FONTS_SIZES.GALAXY)
             .setOrigin(0, 0.5)
-            .setDepth(2000)
+            .setDepth(DEPTH.UI_TEXT)
             .setScrollFactor(0, 0)
             .setTintFill(COLORS.EAST_BLUE);
 
@@ -200,13 +201,13 @@ export default class InventoryManager
         {
             bowAttack = this.scene.add.bitmapText(WIDTH / 2, origin.center.y - 8, FONTS.GALAXY, `bow atk: 5`, FONTS_SIZES.GALAXY)
                 .setOrigin(0, 0.5)
-                .setDepth(2000)
+                .setDepth(DEPTH.UI_TEXT)
                 .setScrollFactor(0, 0)
                 .setTintFill(COLORS.RED);
 
             bowRate = this.scene.add.bitmapText(WIDTH / 2, origin.center.y + 2, FONTS.GALAXY, `bow rate: 300`, FONTS_SIZES.GALAXY)
                 .setOrigin(0, 0.5)
-                .setDepth(2000)
+                .setDepth(DEPTH.UI_TEXT)
                 .setScrollFactor(0, 0)
                 .setTintFill(COLORS.EAST_BLUE);
         }
@@ -215,7 +216,7 @@ export default class InventoryManager
         {
             shieldDef = this.scene.add.bitmapText(WIDTH / 2, origin.center.y - 18, FONTS.GALAXY, `shield def: ${this.player.shieldManager.getCurrentShield()?.defense || 0}`, FONTS_SIZES.GALAXY)
                 .setOrigin(0, 0.5)
-                .setDepth(2000)
+                .setDepth(DEPTH.UI_TEXT)
                 .setScrollFactor(0, 0)
                 .setTintFill(COLORS.DARK_GREEN);
         }
@@ -223,7 +224,7 @@ export default class InventoryManager
         {
             shieldDef = this.scene.add.bitmapText(WIDTH / 2, origin.center.y - 18, FONTS.GALAXY, `shield def: no shield`, FONTS_SIZES.GALAXY)
                 .setOrigin(0, 0.5)
-                .setDepth(2000)
+                .setDepth(DEPTH.UI_TEXT)
                 .setScrollFactor(0, 0)
                 .setTintFill(COLORS.DARK_GREEN);
         }
@@ -234,14 +235,14 @@ export default class InventoryManager
 ${currentSword.desc}
 ATK: ${currentSword.damage}   RATE: ${currentSword.rate}`, FONTS_SIZES.ULTIMA_BOLD)
             .setOrigin(0, 0)
-            .setDepth(2000)
+            .setDepth(DEPTH.UI_TEXT)
             .setScrollFactor(0, 0)
             .setTintFill(COLORS.EAST_BLUE)
             .setMaxWidth(WIDTH / 3);
 
         const helperText = this.scene.add.bitmapText(origin.x - 18, origin.center.y + 52, FONTS.GALAXY, `press attack to select`, FONTS_SIZES.GALAXY)
             .setOrigin(0, 0.5)
-            .setDepth(2000)
+            .setDepth(DEPTH.UI_TEXT)
             .setScrollFactor(0, 0)
             .setTintFill(COLORS.STEEL_GRAY);
 

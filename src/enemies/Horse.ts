@@ -1,5 +1,6 @@
 import { COLORS } from '../constant/colors';
 import { FONTS, FONTS_SIZES } from '../constant/config';
+import DEPTH from '../constant/depth';
 import Arrow from '../player/Arrow';
 import GameScene from '../scenes/GameScene';
 import SaveLoadService from '../services/SaveLoadService';
@@ -55,7 +56,7 @@ export default class Horse extends Enemy
 
                     if (hitbox)
                     {
-                        hitbox.setActive(true).setVisible(true).setDepth(102).setSize(element.width, element.height).setOrigin(0, 0).setName('fireball').setAlpha(0);
+                        hitbox.setActive(true).setVisible(true).setSize(element.width, element.height).setOrigin(0, 0).setName('fireball').setAlpha(0);
                         // hitbox.enemyState = { damage: 10 };
                         hitbox.parent = this;
 
@@ -176,7 +177,7 @@ export default class Horse extends Enemy
         const damageText = this.scene.add.bitmapText(this.body.center.x, this.body.top, FONTS.GALAXY, `-${specialDamage}`, FONTS_SIZES.GALAXY, 1)
             .setTintFill(COLORS.RED)
             .setDropShadow(1, 1, 0xffffff)
-            .setDepth(2000);
+            .setDepth(DEPTH.UI_TEXT);
 
         this.scene.tweens.add({
             targets: damageText,

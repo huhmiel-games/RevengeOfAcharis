@@ -76,7 +76,7 @@ export default class WaterQueen extends Enemy
 
                     if (hitbox)
                     {
-                        hitbox.setActive(true).setVisible(true).setDepth(102).setSize(element.width, element.height).setOrigin(0, 0).setName('fireball').setAlpha(0);
+                        hitbox.setActive(true).setVisible(true).setSize(element.width, element.height).setOrigin(0, 0).setName('fireball').setAlpha(0);
                         hitbox.enemyState = { damage: 8 };
                         this.isAttacking = true;
 
@@ -161,7 +161,7 @@ export default class WaterQueen extends Enemy
                 const healText = this.scene.add.bitmapText(this.body.center.x, this.body.top, FONTS.GALAXY, `+ 10`, FONTS_SIZES.GALAXY, 1)
                     .setTintFill(COLORS.GREEN)
                     .setDropShadow(1, 1, 0xffffff)
-                    .setDepth(2000);
+                    .setDepth(DEPTH.UI_TEXT + 4);
 
                 this.enemyState.life += 10;
 
@@ -315,14 +315,14 @@ export default class WaterQueen extends Enemy
         // @ts-ignore
         const ui = this.scene.add.rexNinePatch(WIDTH / 2, HEIGHT / 4, WIDTH, HEIGHT / 4, 'framing', [7, undefined, 7], [7, undefined, 7], 0)
             .setOrigin(0.5, 0.5)
-            .setDepth(1999)
+            .setDepth(DEPTH.UI_BACK)
             .setScrollFactor(0)
             .setVisible(true);
 
         let index = 0;
 
         const msg = this.scene.add.bitmapText(WIDTH / 32, HEIGHT / 4 - 12, FONTS.MINIMAL, text[index], 22, 1)
-            .setOrigin(0, 0).setLetterSpacing(1).setAlpha(1).setDepth(2000).setScrollFactor(0, 0);
+            .setOrigin(0, 0).setLetterSpacing(1).setAlpha(1).setDepth(DEPTH.UI_TEXT).setScrollFactor(0, 0);
 
         const dialog = this.scene.input.keyboard.on(Phaser.Input.Keyboard.Events.ANY_KEY_DOWN, (event) =>
         {
@@ -355,10 +355,10 @@ export default class WaterQueen extends Enemy
 
                         this.checkMusic();
 
-                        this.healthUiBack = this.scene.add.image(425, 0, 'parchment').setScrollFactor(0, 0).setDepth(1900).setOrigin(0, 0).setFlipX(true);
+                        this.healthUiBack = this.scene.add.image(425, 0, 'parchment').setScrollFactor(0, 0).setDepth(DEPTH.UI_BACK).setOrigin(0, 0).setFlipX(true);
 
                         this.healthUiText = this.scene.add.bitmapText(435, 9, FONTS.GALAXY, `${this.enemyState.life}/2000`, FONTS_SIZES.GALAXY, 1)
-                            .setScrollFactor(0, 0).setDepth(2000).setTintFill(COLORS.STEEL_GRAY);
+                            .setScrollFactor(0, 0).setDepth(DEPTH.UI_TEXT).setTintFill(COLORS.STEEL_GRAY);
 
                         const layer: Phaser.Tilemaps.TilemapLayer = LayerService.getGroundLayers(this.scene).filter(l => l.name === 'ground/ground')[0];
 
@@ -418,7 +418,7 @@ export default class WaterQueen extends Enemy
         const damageText = this.scene.add.bitmapText(this.body.center.x, this.body.top, FONTS.GALAXY, `-${damage}`, FONTS_SIZES.GALAXY, 1)
             .setTintFill(COLORS.RED)
             .setDropShadow(1, 1, 0xffffff)
-            .setDepth(2000);
+            .setDepth(DEPTH.UI_TEXT);
 
         this.scene.tweens.add({
             targets: damageText,

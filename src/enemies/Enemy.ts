@@ -78,7 +78,7 @@ export default class Enemy extends GameObjects.Sprite
         const damageText = this.scene.add.bitmapText(this.body.center.x, this.body.top, FONTS.GALAXY, `-${damage}`, FONTS_SIZES.GALAXY, 1)
             .setTintFill(COLORS.RED)
             .setDropShadow(1, 1, 0xffffff)
-            .setDepth(2000);
+            .setDepth(DEPTH.UI_TEXT);
 
         this.scene.tweens.add({
             targets: damageText,
@@ -144,7 +144,7 @@ export default class Enemy extends GameObjects.Sprite
 
         if (heart)
         {
-            heart.setDepth(104)
+            heart.setDepth(DEPTH.LIFE)
                 .anims.play('heart')
                 .setActive(true)
                 .setVisible(true)
@@ -165,7 +165,7 @@ export default class Enemy extends GameObjects.Sprite
 
         if (flames)
         {
-            flames.setDepth(107);
+            flames.setDepth(DEPTH.EXPLOSION);
 
             flames.anims.play('enemyExplode').on('animationcomplete', () =>
             {

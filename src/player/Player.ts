@@ -21,6 +21,7 @@ import SaveLoadService from '../services/SaveLoadService';
 import BowManager from './BowManager';
 import Arrow from './Arrow';
 import WaterQueen from '../enemies/WaterQueen';
+import DEPTH from '../constant/depth';
 
 export default class Player extends Phaser.GameObjects.Sprite
 {
@@ -130,12 +131,12 @@ export default class Player extends Phaser.GameObjects.Sprite
             this.shieldManager.selectShield(inventory.selectedShield);
         }
 
-        const healthUiBack = this.scene.add.image(0, 0, 'parchment').setScrollFactor(0, 0).setDepth(1900).setOrigin(0, 0);
+        const healthUiBack = this.scene.add.image(0, 0, 'parchment').setScrollFactor(0, 0).setDepth(DEPTH.UI_BACK).setOrigin(0, 0);
 
         this.HealthUiText = this.scene.add.bitmapText(20, 9, FONTS.GALAXY, `${inventory.life}/${inventory.maxLife}`, FONTS_SIZES.GALAXY, 1)
-            .setScrollFactor(0, 0).setDepth(2000).setTintFill(COLORS.STEEL_GRAY);
+            .setScrollFactor(0, 0).setDepth(DEPTH.UI_TEXT).setTintFill(COLORS.STEEL_GRAY);
 
-        this.setDepth(105);
+        this.setDepth(DEPTH.PLAYER);
 
         this.scene.physics.world.enable(this);
 
@@ -279,7 +280,7 @@ export default class Player extends Phaser.GameObjects.Sprite
             levelUpText.setPosition(this.body.center.x - levelUpText.width / 2)
                 .setTintFill(0xfbf236)
                 .setDropShadow(0, 2, COLORS.RED)
-                .setDepth(2100);
+                .setDepth(DEPTH.UI_TEXT);
 
             this.scene.time.addEvent({
                 delay: 500,
@@ -304,7 +305,7 @@ export default class Player extends Phaser.GameObjects.Sprite
         xpText.setPosition(this.body.center.x - xpText.width / 2)
             .setTintFill(COLORS.GREEN)
             .setDropShadow(1, 1, 0xFFFFFF)
-            .setDepth(2000);
+            .setDepth(DEPTH.UI_TEXT);
 
         this.scene.tweens.add({
             targets: xpText,

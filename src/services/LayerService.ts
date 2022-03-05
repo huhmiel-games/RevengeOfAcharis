@@ -70,6 +70,7 @@ export default class LayerService
         scene.colliderLayer = scene.map.createLayer('collider', 'colliderTileset', 0, 0)
             .setAlpha(0);
         
+        // clean up active point lights
         scene.lightTorchesGroup.children.getArray().forEach(e =>
         {
             const torch = e as Phaser.GameObjects.PointLight;

@@ -51,10 +51,10 @@ export default class HellBeast extends Phaser.GameObjects.Sprite
 
         this.startBattle();
 
-        this.healthUiBack = this.scene.add.image(425, 0, 'parchment').setScrollFactor(0, 0).setDepth(1900).setOrigin(0, 0).setFlipX(true);
+        this.healthUiBack = this.scene.add.image(425, 0, 'parchment').setScrollFactor(0, 0).setDepth(DEPTH.UI_BACK).setOrigin(0, 0).setFlipX(true);
 
         this.healthUiText = this.scene.add.bitmapText(435, 9, FONTS.GALAXY, `${this.enemyState.life}/2000`, FONTS_SIZES.GALAXY, 1)
-            .setScrollFactor(0, 0).setDepth(2000).setTintFill(COLORS.STEEL_GRAY);
+            .setScrollFactor(0, 0).setDepth(DEPTH.UI_TEXT).setTintFill(COLORS.STEEL_GRAY);
 
         this.on(Phaser.Animations.Events.ANIMATION_COMPLETE, () =>
         {
@@ -148,14 +148,14 @@ export default class HellBeast extends Phaser.GameObjects.Sprite
         // @ts-ignore
         const ui = this.scene.add.rexNinePatch(WIDTH / 2, HEIGHT - HEIGHT / 8, WIDTH, HEIGHT / 4, 'framing', [7, undefined, 7], [7, undefined, 7], 0)
             .setOrigin(0.5, 0.5)
-            .setDepth(1999)
+            .setDepth(DEPTH.UI_BACK)
             .setScrollFactor(0)
             .setVisible(true);
 
         let index = 0;
 
         const msg = this.scene.add.bitmapText(WIDTH / 32, HEIGHT - 48, FONTS.MINIMAL, text[index], 22, 1)
-            .setOrigin(0, 0).setLetterSpacing(1).setAlpha(1).setDepth(2000).setScrollFactor(0, 0);
+            .setOrigin(0, 0).setLetterSpacing(1).setAlpha(1).setDepth(DEPTH.UI_TEXT).setScrollFactor(0, 0);
 
         const dialog = this.scene.input.keyboard.on(Phaser.Input.Keyboard.Events.ANY_KEY_DOWN, (event) =>
         {
@@ -199,26 +199,6 @@ export default class HellBeast extends Phaser.GameObjects.Sprite
                 });
             }
         });
-
-        // this.scene.time.addEvent({
-        //     delay: 600,
-        //     callback: () =>
-        //     {
-        //         this.showMsg = this.scene.add.bitmapText(WIDTH / 2, HEIGHT / 2, FONTS.MINIMAL, msg, FONTS_SIZES.MINIMAL, 1)
-        //             .setOrigin(0.5, 0.5).setAlpha(1).setDepth(200).setScrollFactor(0, 0);
-        //         this.scene.sound.play('hellBeastFirstLaughSfx');
-        //     }
-        // });
-
-        // this.scene.time.addEvent({
-        //     delay: 2000,
-        //     callback: () =>
-        //     {
-        //         this.showMsg.destroy();
-        //         this.handleHellBeast();
-        //     }
-        // });
-
     }
 
     public handleHellBeast ()
@@ -450,7 +430,7 @@ export default class HellBeast extends Phaser.GameObjects.Sprite
         {
             ball.visible = true;
             ball.anims.play('fireball', true);
-            ball.setDepth(102);
+            ball.setDepth(DEPTH.FLAME_BALL);
             ball.enemyState = { damage: 10 };
             ball.name = 'fireball';
             ball.body.setCircle(6);
@@ -506,7 +486,7 @@ export default class HellBeast extends Phaser.GameObjects.Sprite
         const damageText = this.scene.add.bitmapText(this.body.center.x, this.body.top, FONTS.GALAXY, `-${damage}`, FONTS_SIZES.GALAXY, 1)
             .setTintFill(COLORS.RED)
             .setDropShadow(1, 1, 0xffffff)
-            .setDepth(2000);
+            .setDepth(DEPTH.UI_TEXT);
 
         this.scene.tweens.add({
             targets: damageText,
@@ -606,7 +586,7 @@ export default class HellBeast extends Phaser.GameObjects.Sprite
 
                 const { x, y } = this.body.center;
 
-                const fireElement = this.scene.physics.add.sprite(x, y, 'atlas', 'fire-element_0').play('fire-element').setDepth(2000);
+                const fireElement = this.scene.physics.add.sprite(x, y, 'atlas', 'fire-element_0').play('fire-element').setDepth(DEPTH.FRONT_LAYER);
 
                 this.scene.physics.world.enable(fireElement);
 
@@ -625,14 +605,14 @@ export default class HellBeast extends Phaser.GameObjects.Sprite
                     // @ts-ignore
                     const ui = this.scene.add.rexNinePatch(WIDTH / 2, HEIGHT / 2, WIDTH / 4 * 3, HEIGHT / 2, 'framing', [7, undefined, 7], [7, undefined, 7], 0)
                         .setOrigin(0.5, 0.5)
-                        .setDepth(1999)
+                        .setDepth(DEPTH.UI_BACK)
                         .setScrollFactor(0, 0)
                         .setVisible(true);
 
                     const powerUpDesc = this.scene.add.bitmapText(WIDTH / 2, HEIGHT / 2, FONTS.ULTIMA_BOLD, 'you get the fire element', FONTS_SIZES.ULTIMA_BOLD, 1)
                         .setOrigin(0.5, 0.5)
                         .setAlpha(1)
-                        .setDepth(2000)
+                        .setDepth(DEPTH.UI_TEXT)
                         .setScrollFactor(0, 0);
 
                     const dialog = this.scene.input.keyboard.once(Phaser.Input.Keyboard.Events.ANY_KEY_DOWN, () =>
@@ -650,7 +630,7 @@ export default class HellBeast extends Phaser.GameObjects.Sprite
 
                         if (smoke)
                         {
-                            smoke.setDepth(2000);
+                            smoke.setDepth(DEPTH.SMOKE);
                             smoke.once(Phaser.Animations.Events.ANIMATION_COMPLETE, () => smoke.destroy());
                             smoke.anims.play('smoke1');
 

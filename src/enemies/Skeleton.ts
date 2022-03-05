@@ -1,5 +1,6 @@
 import { COLORS } from '../constant/colors';
 import { FONTS, FONTS_SIZES } from '../constant/config';
+import DEPTH from '../constant/depth';
 import GameScene from '../scenes/GameScene';
 import Enemy from './Enemy';
 
@@ -185,7 +186,7 @@ export default class Skeleton extends Enemy
 
         const damageText = this.scene.add.bitmapText(this.body.center.x, this.body.top, FONTS.GALAXY, `-${damage}`, FONTS_SIZES.GALAXY, 1)
             .setTintFill(COLORS.RED)
-            .setDepth(2000);
+            .setDepth(DEPTH.UI_TEXT);
 
         this.scene.tweens.add({
             targets: damageText,

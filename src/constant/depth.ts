@@ -3,32 +3,20 @@ const DEPTH =
     BACKGROUND_LAYER: 10,
     GROUND_LAYER: 100,
     FRONT_LAYER: 200,
-    PLAYER: 50,
-    PLAYER_GHOST: 49,
+    PLAYER: 105,
     WEAPON: 48,
     IMPACT: 48,
     EXPLOSION: 150,
-    FLAME_BALL: 25,
-    ENEMY: 40,
-    BUBBLES: 45,
-    ELEVATOR: 55,
+    FLAME_BALL: 102,
+    ENEMY: 101,
+    SMOKE: 210,
 
-
-    TOXIC_PLANT: 100,
-    ENEMY_PARTICLE: 110,
 
     POWERUP: 120,
     LIFE: 120,
-    // IMPACT: 125,
-    COCOON_BALL: 130,
 
-    LAVA: 130,
-    DOOR: 138,
-
-    BURN_PARTICLE: 160,
-    HEALTHCARE: 200,
-
-    TILE_PARTICLE: 250,
+    UI_BACK: 1999,
+    UI_TEXT: 2000
 };
 
 export default DEPTH;

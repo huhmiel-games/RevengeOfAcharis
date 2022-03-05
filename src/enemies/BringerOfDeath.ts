@@ -1,5 +1,6 @@
 import { COLORS } from '../constant/colors';
 import { FONTS, FONTS_SIZES, HEIGHT, SWORDS, WIDTH } from '../constant/config';
+import DEPTH from '../constant/depth';
 import PowerUp from '../player/powerUp';
 import GameScene from '../scenes/GameScene';
 import LayerService from '../services/LayerService';
@@ -88,7 +89,7 @@ export default class BringerOfDeath extends Enemy
 
                     if (hitbox)
                     {
-                        hitbox.setActive(true).setVisible(true).setDepth(102).setSize(element.width, element.height).setOrigin(0, 0).setName('fireball').setAlpha(0);
+                        hitbox.setActive(true).setVisible(true).setSize(element.width, element.height).setOrigin(0, 0).setName('fireball').setAlpha(0);
                         hitbox.enemyState = { damage: 15 };
 
                         if (element.type === 'rectangle')
@@ -238,14 +239,14 @@ export default class BringerOfDeath extends Enemy
         // @ts-ignore
         const ui = this.scene.add.rexNinePatch(WIDTH / 2, HEIGHT - HEIGHT / 8, WIDTH, HEIGHT / 4, 'framing', [7, undefined, 7], [7, undefined, 7], 0)
             .setOrigin(0.5, 0.5)
-            .setDepth(1999)
+            .setDepth(DEPTH.UI_BACK)
             .setScrollFactor(0)
             .setVisible(true);
 
         let index = 0;
 
         const msg = this.scene.add.bitmapText(WIDTH / 32, HEIGHT - 48, FONTS.MINIMAL, text[index], 22, 1)
-            .setOrigin(0, 0).setLetterSpacing(1).setAlpha(1).setDepth(2000).setScrollFactor(0, 0);
+            .setOrigin(0, 0).setLetterSpacing(1).setAlpha(1).setDepth(DEPTH.UI_TEXT).setScrollFactor(0, 0);
 
         const dialog = this.scene.input.keyboard.on(Phaser.Input.Keyboard.Events.ANY_KEY_DOWN, (event) =>
         {
@@ -350,7 +351,7 @@ export default class BringerOfDeath extends Enemy
         const damageText = this.scene.add.bitmapText(this.body.center.x, this.body.top, FONTS.GALAXY, `-${damage}`, FONTS_SIZES.GALAXY, 1)
             .setTintFill(COLORS.RED)
             .setDropShadow(1, 1, 0xffffff)
-            .setDepth(2000);
+            .setDepth(DEPTH.UI_TEXT);
 
         this.scene.tweens.add({
             targets: damageText,

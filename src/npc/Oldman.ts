@@ -1,3 +1,4 @@
+import DEPTH from '../constant/depth';
 import GameScene from '../scenes/GameScene';
 import DialogueService from '../services/DialogueService';
 import Npc from './Npc';
@@ -17,7 +18,7 @@ export default class Oldman extends Phaser.GameObjects.Sprite
 
         this.name = config.name;
 
-        this.setDepth(101);
+        this.setDepth(DEPTH.ENEMY);
 
         this.scene.add.existing(this);
 

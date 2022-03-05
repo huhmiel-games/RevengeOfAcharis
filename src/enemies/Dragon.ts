@@ -1,3 +1,4 @@
+import DEPTH from '../constant/depth';
 import GameScene from '../scenes/GameScene';
 
 export default class Dragon extends Phaser.GameObjects.Sprite
@@ -30,7 +31,7 @@ export default class Dragon extends Phaser.GameObjects.Sprite
             fireRate: 40,
         };
 
-        this.setDepth(104);
+        this.setDepth(DEPTH.ENEMY);
 
         this.scene.physics.world.enable(this);
         this.scene.add.existing(this);

@@ -1,3 +1,4 @@
+import DEPTH from '../constant/depth';
 import GameScene from '../scenes/GameScene';
 import DialogueService from '../services/DialogueService';
 
@@ -17,7 +18,7 @@ export default class Woman extends Phaser.GameObjects.Sprite
         // tslint:disable-next-line: no-eval
         this.msg = config.msg.split('#');
 
-        this.setDepth(101);
+        this.setDepth(DEPTH.ENEMY);
 
         this.scene.add.existing(this);
         

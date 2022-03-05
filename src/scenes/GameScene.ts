@@ -8,7 +8,6 @@ import Thing from '../enemies/Thing';
 import Skeleton from '../enemies/Skeleton';
 import Ghost from '../enemies/Ghost';
 import Wizard from '../enemies/Wizard';
-import BurningGhoul from '../enemies/BurningGhoul';
 import Flames from '../enemies/Flames';
 import Oldman from '../npc/Oldman';
 import Angel from '../enemies/Angel';
@@ -49,6 +48,7 @@ import EvilWizardBoss from '../enemies/EvilWizardBoss';
 import Worm from '../enemies/Worm';
 import BringerOfDeath from '../enemies/BringerOfDeath';
 import WaterQueen from '../enemies/WaterQueen';
+import DEPTH from '../constant/depth';
 //#endregion
 
 export default class GameScene extends Scene
@@ -149,7 +149,7 @@ export default class GameScene extends Scene
         // @ts-ignore
         this.backUi = this.add.rexNinePatch(WIDTH / 2, HEIGHT / 2, WIDTH / 4 * 3, HEIGHT / 4 * 3, 'framing', [7, undefined, 7], [7, undefined, 7], 0)
             .setOrigin(0.5, 0.5)
-            .setDepth(1999)
+            .setDepth(DEPTH.UI_BACK)
             .setScrollFactor(0)
             .setVisible(false);
 
@@ -317,12 +317,14 @@ export default class GameScene extends Scene
             }
 
             this.pauseText = this.add.bitmapText(WIDTH / 2, HEIGHT / 2, FONTS.GALAXY, 'pause', FONTS_SIZES.GALAXY, 1)
-                .setDepth(2000)
+                .setDepth(DEPTH.UI_TEXT)
                 .setOrigin(0.5, 0.5)
                 .setScrollFactor(0, 0)
                 .setTintFill(COLORS.RED);
 
             this.setPause();
+
+            this.time.paused = true;
 
             this.watchWindowActive();
         });
@@ -346,6 +348,8 @@ export default class GameScene extends Scene
 
             this.unPause();
 
+            this.time.paused = false;
+
             this.watchWindowInactive();
         });
     }
@@ -360,8 +364,6 @@ export default class GameScene extends Scene
         }
 
         this?.anims?.pauseAll();
-
-        this.time.paused = true;
 
         this.sound.pauseAll();
 
@@ -382,24 +384,24 @@ export default class GameScene extends Scene
 
         this.anims.resumeAll();
 
-        this.time.paused = false;
-
         this.sound.resumeAll();
     }
 
-    public playMusic (music)
+    public playMusic (music: string | undefined)
     {
+        if (!music) return;
+
         // tslint:disable-next-line: prefer-for-of
         for (let i = 0; i < this.musicGroup.length; i += 1)
         {
             if (this.musicGroup[i].isPlaying && this.musicGroup[i].key === music)
-            { //
+            {
                 return;
             }
         }
         this.stopMusic();
         this[music].play();
-        console.log(this[music].key + ' is playing');
+        // console.log(this[music].key + ' is playing');
     }
 
     public stopMusic ()
@@ -412,6 +414,22 @@ export default class GameScene extends Scene
                 this.musicGroup[i].stop();
                 console.log(this.musicGroup[i].key + ' is stopped');
             }
+        }
+    }
+
+    public playSfx (sfx: string, config: Phaser.Types.Sound.SoundConfig = { })
+    {
+        const audioSfx = this.sound.get(sfx);
+
+        if (!audioSfx) {
+            this.sound.add(sfx, config);
+
+            this.sound.play(sfx, config);
+        }
+
+        if (audioSfx && !audioSfx.isPlaying)
+        {
+            audioSfx.play(config);
         }
     }
 
@@ -529,8 +547,8 @@ export default class GameScene extends Scene
 
     public bossExplode (x, y)
     {
-        this.bossMusic.stop();
-        const exp = this.explodeSprite.getFirstDead(true, x, y, 'enemyExplode', undefined, true).setDepth(107);
+        // this.bossMusic.stop();
+        const exp = this.explodeSprite.getFirstDead(true, x, y, 'atlas', 'enemy-death-1', true).setDepth(DEPTH.EXPLOSION);
         this.sound.play('explo2', { volume: 0.3 });
         if (exp)
         {
@@ -546,10 +564,10 @@ export default class GameScene extends Scene
 
     public enemyExplode (x: number, y: number)
     {
-        const exp = this.explodeSprite.getFirstDead(true, x, y - 8, 'atlas', undefined, true);
+        const exp = this.explodeSprite.getFirstDead(true, x, y - 8, 'atlas', 'enemy-death-1', true);
         if (exp)
         {
-            exp.setDepth(107);
+            exp.setDepth(DEPTH.EXPLOSION);
             exp.anims.play('enemyExplode').on('animationcomplete', () =>
             {
                 exp.destroy();
@@ -575,12 +593,12 @@ export default class GameScene extends Scene
         // @ts-ignore
         const ui = this.add.rexNinePatch(WIDTH / 2, HEIGHT - HEIGHT / 16, WIDTH / 2, HEIGHT / 8, 'framing', [7, undefined, 7], [7, undefined, 7], 0)
             .setOrigin(0.5, 0.5)
-            .setDepth(1999)
+            .setDepth(DEPTH.UI_BACK)
             .setScrollFactor(0)
             .setVisible(true);
 
         const label = this.add.bitmapText(WIDTH / 2, HEIGHT - 24, FONTS.ULTIMA_BOLD, 'Press fire to save', FONTS_SIZES.ULTIMA, 1)
-            .setOrigin(0.5, 0).setLetterSpacing(1).setAlpha(1).setDepth(2000).setScrollFactor(0, 0);
+            .setOrigin(0.5, 0).setLetterSpacing(1).setAlpha(1).setDepth(DEPTH.UI_TEXT).setScrollFactor(0, 0);
 
         const check = this.input.keyboard.on(Phaser.Input.Keyboard.Events.ANY_KEY_DOWN, (event: { key: string; }) =>
         {
@@ -622,22 +640,22 @@ export default class GameScene extends Scene
         // @ts-ignore
         const ui = this.add.rexNinePatch(WIDTH / 2, HEIGHT - HEIGHT / 8, WIDTH / 2, HEIGHT / 4, 'framing', [7, undefined, 7], [7, undefined, 7], 0)
             .setOrigin(0.5, 0.5)
-            .setDepth(1999)
+            .setDepth(DEPTH.UI_BACK)
             .setScrollFactor(0)
             .setVisible(true);
 
         let index = 0;
 
         const label = this.add.bitmapText(WIDTH / 2, HEIGHT - 64, FONTS.ULTIMA_BOLD, 'Save the game?', FONTS_SIZES.ULTIMA, 1)
-            .setOrigin(0.5, 0).setLetterSpacing(1).setAlpha(1).setDepth(2000).setScrollFactor(0, 0);
+            .setOrigin(0.5, 0).setLetterSpacing(1).setAlpha(1).setDepth(DEPTH.UI_TEXT).setScrollFactor(0, 0);
 
         const yes = this.add.bitmapText(WIDTH / 2 - 64, HEIGHT - 48, FONTS.MINIMAL, 'yes', 22, 1)
-            .setOrigin(0.5, 0).setLetterSpacing(1).setAlpha(1).setDepth(2000).setScrollFactor(0, 0).setTintFill(COLORS.STEEL_GRAY);
+            .setOrigin(0.5, 0).setLetterSpacing(1).setAlpha(1).setDepth(DEPTH.UI_TEXT).setScrollFactor(0, 0).setTintFill(COLORS.STEEL_GRAY);
 
         const no = this.add.bitmapText(WIDTH / 2 + 64, HEIGHT - 48, FONTS.MINIMAL, 'no', 22, 1)
-            .setOrigin(0.5, 0).setLetterSpacing(1).setAlpha(1).setDepth(2000).setScrollFactor(0, 0).setTintFill(COLORS.DARK_GREEN);
+            .setOrigin(0.5, 0).setLetterSpacing(1).setAlpha(1).setDepth(DEPTH.UI_TEXT).setScrollFactor(0, 0).setTintFill(COLORS.DARK_GREEN);
 
-        const dialog = this.input.keyboard.on(Phaser.Input.Keyboard.Events.ANY_KEY_DOWN, (event: { key: string; }) =>
+        const dialog = this.input.keyboard.on(Phaser.Input.Keyboard.Events.ANY_KEY_DOWN, (event) =>
         {
             if (event.key === this.player.keys.right.originalEvent.key)
             {
@@ -761,6 +779,20 @@ export default class GameScene extends Scene
         this.physics.world.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
 
         this.cameras.main.startFollow(this.player, true, 0.4, 0.4).fadeIn(50);
+        
+        this.debugColliders();
+    }
+
+    private debugColliders ()
+    {
+        this.time.addEvent({
+            delay: 2000,
+            callback: () =>
+            {
+                // @ts-ignore
+                console.log('ACTIVE COLLIDERS', this.physics.world.colliders._active);
+            }
+        });
     }
 
     public changeRoom (player: Player, door: TDoor)
@@ -799,7 +831,7 @@ export default class GameScene extends Scene
 
         LayerService.addLayers(this);
 
-        ColliderService.addColliders(this);
+        // ColliderService.addColliders(this);
 
         switch (door.side)
         {
@@ -807,7 +839,7 @@ export default class GameScene extends Scene
                 player.body.reset(door.door.x - 20, door.door.y + 15);
                 break;
             case 'right':
-                player.body.reset(door.door.x + 20, door.door.y + 15);
+                player.body.reset(door.door.x + 36, door.door.y + 15);
                 break;
             case 'top':
                 player.body.reset(door.door.x + player.body.halfWidth, door.door.y - 48);
@@ -852,6 +884,7 @@ export default class GameScene extends Scene
         this.playerIsPassingDoor = false;
 
         this.isChangingRoom = false;
+        this.debugColliders();
     }
 
     private destroyRoom (): void
@@ -885,6 +918,9 @@ export default class GameScene extends Scene
             e.destroy();
         });
         this.enemyGroup = [];
+
+        const element = this.children.list.filter(e => e.name === 'waterElement')[0];
+        element?.destroy();
 
         this.npcGroup.forEach(e => e.destroy());
         this.npcGroup = [];
@@ -1113,7 +1149,7 @@ export default class GameScene extends Scene
         // @ts-ignore
         const ui = this.add.rexNinePatch(WIDTH / 2, HEIGHT / 2, WIDTH / 4 * 3, HEIGHT / 2, 'framing', [7, undefined, 7], [7, undefined, 7], 0)
             .setOrigin(0.5, 0.5)
-            .setDepth(1999)
+            .setDepth(DEPTH.UI_BACK)
             .setScrollFactor(0, 0)
             .setVisible(true);
 
@@ -1159,7 +1195,7 @@ DEF: ${props.defense}`;
         const powerUpDesc = this.add.bitmapText(WIDTH / 2, HEIGHT / 2, FONTS.ULTIMA_BOLD, txt, FONTS_SIZES.ULTIMA_BOLD, 1)
             .setOrigin(0.5, 0.5)
             .setAlpha(1)
-            .setDepth(2000)
+            .setDepth(DEPTH.UI_TEXT)
             .setScrollFactor(0, 0);
 
         elm.destroy();
@@ -1558,19 +1594,6 @@ DEF: ${props.defense}`;
                     this.enemyGroup.push(wiz);
                     break;
 
-                case 'burningGhoul':
-                    if (!element.y) return;
-
-                    const ghoul = new BurningGhoul(this, element.x as unknown as number, element.y as unknown as number - 16, {
-                        key: element.properties.key,
-                        name: element.name,
-                        life: element.properties.life,
-                        damage: element.properties.damage,
-                    });
-
-                    this.enemyGroup.push(ghoul);
-                    break;
-
                 case 'platformSpike':
                     if (!element.y) return;
 
@@ -1755,7 +1778,7 @@ DEF: ${props.defense}`;
                 this.player.body.stop();
                 this.player.isPause = true;
 
-                fireElement = this.add.sprite(x, y, 'atlas', 'fire-element_0').play('fire-element').setDepth(2000);
+                fireElement = this.add.sprite(x, y, 'atlas', 'fire-element_0').play('fire-element').setDepth(DEPTH.FRONT_LAYER + 1);
 
                 this.tweens.add({
                     targets: fireElement,
@@ -1769,7 +1792,7 @@ DEF: ${props.defense}`;
                 this.player.body.stop();
                 this.player.isPause = true;
 
-                waterElement = this.add.sprite(x, y, 'atlas', 'water-element_0').play('water-element').setDepth(2000);
+                waterElement = this.add.sprite(x, y, 'atlas', 'water-element_0').play('water-element').setDepth(DEPTH.FRONT_LAYER + 1);
 
                 this.tweens.add({
                     targets: waterElement,
@@ -1849,9 +1872,15 @@ DEF: ${props.defense}`;
 
     public addWaterElement ()
     {
-        if (this.player.inventoryManager.getInventory().waterElement === true) return;
+        if (this.player.inventoryManager.getInventory().waterElement === true)
+        {
+            return;
+        }
 
-        const waterElement = this.physics.add.sprite(18 * 16 + 8, 104 * 16, 'atlas', 'water-element_0').play('water-element').setDepth(2000);
+        const waterElement = this.physics.add.sprite(18 * 16 + 8, 104 * 16, 'atlas', 'water-element_0')
+            .play('water-element')
+            .setDepth(DEPTH.FRONT_LAYER + 10)
+            .setName('waterElement');
 
         this.physics.world.enable(waterElement);
 
@@ -1870,14 +1899,14 @@ DEF: ${props.defense}`;
             // @ts-ignore
             const ui = this.add.rexNinePatch(WIDTH / 2, HEIGHT / 2, WIDTH / 4 * 3, HEIGHT / 2, 'framing', [7, undefined, 7], [7, undefined, 7], 0)
                 .setOrigin(0.5, 0.5)
-                .setDepth(1999)
+                .setDepth(DEPTH.UI_BACK)
                 .setScrollFactor(0, 0)
                 .setVisible(true);
 
             const powerUpDesc = this.add.bitmapText(WIDTH / 2, HEIGHT / 2, FONTS.ULTIMA_BOLD, 'you get the water element', FONTS_SIZES.ULTIMA_BOLD, 1)
                 .setOrigin(0.5, 0.5)
                 .setAlpha(1)
-                .setDepth(2000)
+                .setDepth(DEPTH.UI_TEXT)
                 .setScrollFactor(0, 0);
 
             const dialog = this.input.keyboard.once(Phaser.Input.Keyboard.Events.ANY_KEY_DOWN, () =>

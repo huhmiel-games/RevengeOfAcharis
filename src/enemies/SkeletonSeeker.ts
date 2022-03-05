@@ -1,5 +1,6 @@
 import { COLORS } from '../constant/colors';
 import { FONTS, FONTS_SIZES } from '../constant/config';
+import DEPTH from '../constant/depth';
 import GameScene from '../scenes/GameScene';
 import LayerService from '../services/LayerService';
 import SaveLoadService from '../services/SaveLoadService';
@@ -87,7 +88,7 @@ export default class SkeletonSeeker extends Enemy
 
                     if (hitbox)
                     {
-                        hitbox.setActive(true).setVisible(true).setDepth(102).setSize(element.width, element.height).setOrigin(0, 0).setName('fireball').setAlpha(0);
+                        hitbox.setActive(true).setVisible(true).setSize(element.width, element.height).setOrigin(0, 0).setName('fireball').setAlpha(0);
                         hitbox.enemyState = { damage: 10 };
 
                         if (element.type === 'rectangle')
@@ -185,7 +186,7 @@ export default class SkeletonSeeker extends Enemy
 
         if (leftEarthBump)
         {
-            leftEarthBump.setActive(true).setVisible(true).setDepth(2002).setName('eartBump').setAlpha(1).setFlipX(true);
+            leftEarthBump.setActive(true).setVisible(true).setDepth(DEPTH.UI_TEXT + 2).setName('earthBump').setAlpha(1).setFlipX(true);
             leftEarthBump.enemyState = { damage: 5 };
             leftEarthBump.body.setSize(34, 14).setVelocityX(-250);
             leftEarthBump.anims.play('earth-bump');
@@ -193,7 +194,7 @@ export default class SkeletonSeeker extends Enemy
 
         if (rightEarthBump)
         {
-            rightEarthBump.setActive(true).setVisible(true).setDepth(2002).setName('earthBump').setAlpha(1).setFlipX(false);
+            rightEarthBump.setActive(true).setVisible(true).setDepth(DEPTH.UI_TEXT + 2).setName('earthBump').setAlpha(1).setFlipX(false);
             rightEarthBump.enemyState = { damage: 5 };
             rightEarthBump.body.setSize(34, 14).setVelocityX(250);
             rightEarthBump.anims.play('earth-bump');
@@ -368,7 +369,7 @@ export default class SkeletonSeeker extends Enemy
         const damageText = this.scene.add.bitmapText(this.body.center.x, this.body.top, FONTS.GALAXY, `-${damage}`, FONTS_SIZES.GALAXY, 1)
             .setTintFill(COLORS.RED)
             .setDropShadow(1, 1, 0xffffff)
-            .setDepth(2000);
+            .setDepth(DEPTH.UI_TEXT);
 
         this.scene.tweens.add({
             targets: damageText,
@@ -470,7 +471,7 @@ export default class SkeletonSeeker extends Enemy
 
                 if (smoke)
                 {
-                    smoke.setDepth(2000);
+                    smoke.setDepth(DEPTH.SMOKE);
                     smoke.once(Phaser.Animations.Events.ANIMATION_COMPLETE, () => smoke.destroy());
                     smoke.anims.play('smoke1');
 
@@ -480,7 +481,7 @@ export default class SkeletonSeeker extends Enemy
 
                 if (smoke2)
                 {
-                    smoke2.setDepth(2000);
+                    smoke2.setDepth(DEPTH.SMOKE);
                     smoke2.once(Phaser.Animations.Events.ANIMATION_COMPLETE, () => smoke.destroy());
                     smoke2.anims.play('smoke1');
 
@@ -551,7 +552,7 @@ export default class SkeletonSeeker extends Enemy
 
         if (flames)
         {
-            flames.setDepth(107);
+            flames.setDepth(DEPTH.EXPLOSION);
 
             flames.anims.play('enemyExplode').on('animationcomplete', () =>
             {
@@ -566,7 +567,7 @@ export default class SkeletonSeeker extends Enemy
 
         if (heart)
         {
-            heart.setDepth(104)
+            heart.setDepth(DEPTH.LIFE)
                 .anims.play('heart')
                 .setActive(true)
                 .setVisible(true)

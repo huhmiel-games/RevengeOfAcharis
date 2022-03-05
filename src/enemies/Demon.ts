@@ -1,10 +1,4 @@
-import HellHound from './HellHound';
-import Thing from './Thing';
 import Skeleton from './Skeleton';
-import Ghost from './Ghost';
-import Wizard from './Wizard';
-import BurningGhoul from './BurningGhoul';
-import Angel from './Angel';
 import GameScene from '../scenes/GameScene';
 import { FONTS, FONTS_SIZES, HEIGHT, SCENES_NAMES, WIDTH } from '../constant/config';
 import LayerService from '../services/LayerService';
@@ -14,6 +8,7 @@ import { COLORS } from '../constant/colors';
 import SkeletonSword from './SkeletonSword';
 import SkeletonFlail from './SkeletonFlail';
 import Enemy from './Enemy';
+import DEPTH from '../constant/depth';
 
 
 export default class Demon extends Phaser.GameObjects.Sprite
@@ -30,11 +25,8 @@ export default class Demon extends Phaser.GameObjects.Sprite
     private isReleaseEnemy: boolean = false;
     private isDead: boolean = false;
     private skullAttackDelay: number = 0;
-    // private phase: number = 0;
     private diameter: { x: number; };
     private deathMsg;
-    private twee: Phaser.Tweens.Tween;
-    private skullTimer: Phaser.Time.TimerEvent;
     private skullTimer2: Phaser.Time.TimerEvent;
     private skullTimer3: Phaser.Time.TimerEvent;
     private isBattleMusic: boolean = false;
@@ -71,7 +63,7 @@ export default class Demon extends Phaser.GameObjects.Sprite
             speed: 120,
         };
 
-        this.setDepth(104).setOrigin(0, 0);
+        this.setDepth(DEPTH.ENEMY + 3).setOrigin(0, 0);
 
         this.hitboxData = JSON.parse('{"demon-breath-fire_0":{"hitboxes":[{"frame":"demon-breath-fire_0","type":"circle","x":82,"y":127,"width":18,"height":18}]},"demon-breath-fire_1":{"hitboxes":[{"frame":"demon-breath-fire_1","type":"rectangle","x":45,"y":138,"width":59,"height":35},{"frame":"demon-breath-fire_1","type":"circle","x":24,"y":157,"width":16,"height":16}]},"demon-breath-fire_2":{"hitboxes":[{"frame":"demon-breath-fire_2","type":"circle","x":17,"y":152,"width":23,"height":23},{"frame":"demon-breath-fire_2","type":"rectangle","x":48,"y":131,"width":67,"height":44}]},"demon-breath-fire_3":{"hitboxes":[{"frame":"demon-breath-fire_3","type":"circle","x":32,"y":128,"width":18,"height":18},{"frame":"demon-breath-fire_3","type":"rectangle","x":47,"y":123,"width":55,"height":53}]},"demon-breath-ice_0":{"hitboxes":[{"frame":"demon-breath-ice_0","type":"circle","x":82,"y":127,"width":18,"height":18}]},"demon-breath-ice_1":{"hitboxes":[{"frame":"demon-breath-ice_1","type":"rectangle","x":45,"y":138,"width":59,"height":35},{"frame":"demon-breath-ice_1","type":"circle","x":24,"y":157,"width":16,"height":16}]},"demon-breath-ice_2":{"hitboxes":[{"frame":"demon-breath-ice_2","type":"circle","x":17,"y":152,"width":23,"height":23},{"frame":"demon-breath-ice_2","type":"rectangle","x":48,"y":131,"width":67,"height":44}]},"demon-breath-ice_3":{"hitboxes":[{"frame":"demon-breath-ice_3","type":"circle","x":32,"y":128,"width":18,"height":18},{"frame":"demon-breath-ice_3","type":"rectangle","x":47,"y":123,"width":55,"height":53}]}}');
 
@@ -102,7 +94,7 @@ export default class Demon extends Phaser.GameObjects.Sprite
 
                     if (hitbox)
                     {
-                        hitbox.setActive(true).setVisible(true).setDepth(102).setSize(element.width, element.height).setOrigin(0, 0).setName('fireball').setAlpha(0);
+                        hitbox.setActive(true).setVisible(true).setSize(element.width, element.height).setOrigin(0, 0).setName('fireball').setAlpha(0);
                         hitbox.enemyState = { damage: 8 };
 
                         if (element.type === 'rectangle')
@@ -141,7 +133,7 @@ export default class Demon extends Phaser.GameObjects.Sprite
             }
         });
 
-        this.on('animationcomplete', () =>
+        this.on(Phaser.Animations.Events.ANIMATION_COMPLETE, () =>
         {
             const anim = this.anims.getName();
 
@@ -186,7 +178,7 @@ export default class Demon extends Phaser.GameObjects.Sprite
 
                         if (smoke)
                         {
-                            smoke.setDepth(200);
+                            smoke.setDepth(DEPTH.ENEMY + 5);
                             smoke.once(Phaser.Animations.Events.ANIMATION_COMPLETE, () => smoke.destroy());
                             smoke.anims.play('smoke1');
                         }
@@ -295,8 +287,6 @@ export default class Demon extends Phaser.GameObjects.Sprite
 
     private canChase (): boolean
     {
-        console.log(this.isSkullAttack, this.isSkullRotates, this.isBreathFire, this.isBreathIce);
-        
         if (this.isSkullAttack || this.isSkullRotates || this.isBreathFire || this.isBreathIce)
         {
             return false;
@@ -338,7 +328,7 @@ export default class Demon extends Phaser.GameObjects.Sprite
             {
                 this[`skull${i}`].visible = true;
                 this[`skull${i}`].anims.play('fire-skull', true);
-                this[`skull${i}`].setDepth(103);
+                this[`skull${i}`].setDepth(DEPTH.ENEMY + 2);
                 this[`skull${i}`].enemyState = { damage: 5 };
                 this[`skull${i}`].setDataEnabled().data.set('counterAttack', false);
                 this[`skull${i}`].name = 'skullHeadDemon';
@@ -520,14 +510,14 @@ export default class Demon extends Phaser.GameObjects.Sprite
         // @ts-ignore
         const ui = this.scene.add.rexNinePatch(WIDTH / 2, HEIGHT - HEIGHT / 8, WIDTH, HEIGHT / 4, 'framing', [7, undefined, 7], [7, undefined, 7], 0)
             .setOrigin(0.5, 0.5)
-            .setDepth(1999)
+            .setDepth(DEPTH.UI_BACK)
             .setScrollFactor(0)
             .setVisible(true);
 
         let index = 0;
 
         const msg = this.scene.add.bitmapText(WIDTH / 32, HEIGHT - 48, FONTS.MINIMAL, text[index], 22, 1)
-            .setOrigin(0, 0).setLetterSpacing(1).setAlpha(1).setDepth(2000).setScrollFactor(0, 0);
+            .setOrigin(0, 0).setLetterSpacing(1).setAlpha(1).setDepth(DEPTH.UI_TEXT).setScrollFactor(0, 0);
 
         const dialog = this.scene.input.keyboard.on(Phaser.Input.Keyboard.Events.ANY_KEY_DOWN, (event) =>
         {
@@ -575,10 +565,10 @@ export default class Demon extends Phaser.GameObjects.Sprite
                         this.scene.colliderLayer.putTileAt(1, 61, 15).setCollision(true, true, true, true, true);
                         this.scene.colliderLayer.putTileAt(1, 61, 16).setCollision(true, true, true, true, true);
 
-                        this.healthUiBack = this.scene.add.image(425, 0, 'parchment').setScrollFactor(0, 0).setDepth(1900).setOrigin(0, 0).setFlipX(true);
+                        this.healthUiBack = this.scene.add.image(425, 0, 'parchment').setScrollFactor(0, 0).setDepth(DEPTH.UI_BACK).setOrigin(0, 0).setFlipX(true);
 
                         this.healthUiText = this.scene.add.bitmapText(435, 9, FONTS.GALAXY, `${this.enemyState.life}/4000`, FONTS_SIZES.GALAXY, 1)
-                            .setScrollFactor(0, 0).setDepth(2000).setTintFill(COLORS.STEEL_GRAY);
+                            .setScrollFactor(0, 0).setDepth(DEPTH.UI_TEXT).setTintFill(COLORS.STEEL_GRAY);
 
                         this.isBattleStarted = true;
 
@@ -607,7 +597,7 @@ export default class Demon extends Phaser.GameObjects.Sprite
 
                 if (smoke)
                 {
-                    smoke.setDepth(200);
+                    smoke.setDepth(DEPTH.SMOKE);
                     smoke.once(Phaser.Animations.Events.ANIMATION_COMPLETE, () => smoke.destroy());
                     smoke.anims.play('smoke1');
                 }
@@ -632,12 +622,12 @@ export default class Demon extends Phaser.GameObjects.Sprite
         // @ts-ignore
         const ui = this.scene.add.rexNinePatch(WIDTH / 2, HEIGHT / 4, WIDTH, HEIGHT / 4, 'framing', [7, undefined, 7], [7, undefined, 7], 0)
             .setOrigin(0.5, 0.5)
-            .setDepth(1999)
+            .setDepth(DEPTH.UI_BACK)
             .setScrollFactor(0)
             .setVisible(true);
 
         const msg = this.scene.add.bitmapText(WIDTH / 32, HEIGHT / 4 - 12, FONTS.MINIMAL, '', 22, 1)
-            .setOrigin(0, 0).setLetterSpacing(1).setAlpha(1).setDepth(2000).setScrollFactor(0, 0);
+            .setOrigin(0, 0).setLetterSpacing(1).setAlpha(1).setDepth(DEPTH.UI_TEXT).setScrollFactor(0, 0);
 
         const demonExplode = this.scene.time.addEvent({
             delay: 150,
@@ -729,7 +719,7 @@ export default class Demon extends Phaser.GameObjects.Sprite
         const damageText = this.scene.add.bitmapText(this.body.center.x, this.body.top, FONTS.GALAXY, `-${damage}`, FONTS_SIZES.GALAXY, 1)
             .setTintFill(COLORS.RED)
             .setDropShadow(1, 1, 0xffffff)
-            .setDepth(2000);
+            .setDepth(DEPTH.UI_TEXT);
 
         this.scene.tweens.add({
             targets: damageText,

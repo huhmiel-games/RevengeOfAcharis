@@ -1,5 +1,6 @@
 import { COLORS } from '../constant/colors';
 import { FONTS, FONTS_SIZES } from '../constant/config';
+import DEPTH from '../constant/depth';
 import Arrow from '../player/Arrow';
 import GameScene from '../scenes/GameScene';
 import Enemy from './Enemy';
@@ -36,7 +37,7 @@ export default class Wizard extends Enemy
             delay: config.delay,
         };
 
-        this.setDepth(101);
+        this.setDepth(DEPTH.ENEMY);
 
         this.scene.physics.world.enable(this);
         this.scene.add.existing(this);
@@ -215,7 +216,7 @@ export default class Wizard extends Enemy
 
         if (ball)
         {
-            ball.setVisible(true).setDepth(102).setName('fireball').setAlpha(1);
+            ball.setVisible(true).setDepth(DEPTH.FLAME_BALL).setName('fireball').setAlpha(1);
             ball.anims.play('fireball', true);
 
             ball.enemyState = { damage: 5 };
@@ -271,7 +272,7 @@ export default class Wizard extends Enemy
         const damageText = this.scene.add.bitmapText(this.body.center.x, this.body.top, FONTS.GALAXY, `-${specialDamage}`, FONTS_SIZES.GALAXY, 1)
             .setTintFill(COLORS.RED)
             .setDropShadow(1, 1, 0xffffff)
-            .setDepth(2000);
+            .setDepth(DEPTH.UI_TEXT);
 
         this.scene.tweens.add({
             targets: damageText,

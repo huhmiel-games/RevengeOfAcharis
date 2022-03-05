@@ -1,3 +1,4 @@
+import DEPTH from '../constant/depth';
 import BodyExtended from '../enemies/BodyExtended';
 import BringerOfDeath from '../enemies/BringerOfDeath';
 import DragonHead from '../enemies/DragonHead';
@@ -119,7 +120,7 @@ export default class ColliderService
 
                 if (smoke)
                 {
-                    smoke.setDepth(2000);
+                    smoke.setDepth(DEPTH.SMOKE);
                     smoke.once(Phaser.Animations.Events.ANIMATION_COMPLETE, () => smoke.destroy());
                     smoke.anims.play('smoke1');
 
