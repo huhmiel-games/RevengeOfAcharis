@@ -30,7 +30,7 @@ export default class EndGame extends Scene
         const swordsCount = this.mainScene.player.swordManager.getSwords().length;
         const bowsCount = this.mainScene.player.bowManager.getBows().length;
         const shieldsCount = this.mainScene.player.shieldManager.getShields().length;
-        const powerUpsCount = this.mainScene.player.inventoryManager.getInventory().def / 2;
+        const powerUpsCount = this.mainScene.player.inventoryManager.getInventory().def / 2 + 1;
 
         const totalPowerUpsCount = swordsCount + bowsCount + shieldsCount + powerUpsCount;
 
@@ -91,16 +91,16 @@ export default class EndGame extends Scene
                             .setOrigin(0.5, 0.5)
                             .setAlpha(0).setDropShadow(0, 1, COLORS.ORANGE);
 
-                        this.enemiesKilled = this.add.bitmapText(72, HEIGHT / 4 + 50, 'alagard', `Enemies killed: ${enemyDeathCount}`, 12, 0)
+                        this.enemiesKilled = this.add.bitmapText(42, HEIGHT / 4 + 50, 'alagard', `Killed Enemies: ${enemyDeathCount}`, 12, 0)
                             .setAlpha(0).setTintFill(COLORS.RED).setDropShadow(0, 1, COLORS.ORANGE);
 
-                        this.death = this.add.bitmapText(72, HEIGHT / 4 + 70, 'alagard', `Death: ${playerDeathCount}`, 12, 0)
+                        this.death = this.add.bitmapText(42, HEIGHT / 4 + 70, 'alagard', `Player Death: ${playerDeathCount}`, 12, 0)
                             .setAlpha(0).setDropShadow(0, 1, COLORS.ORANGE);
 
-                        this.items = this.add.bitmapText(72, HEIGHT / 4 + 90, 'alagard', `Collected items: ${percent}%`, 12, 0)
+                        this.items = this.add.bitmapText(42, HEIGHT / 4 + 90, 'alagard', `Collected items: ${percent}%`, 12, 0)
                             .setAlpha(0).setDropShadow(0, 1, COLORS.ORANGE);
 
-                        this.timeGame = this.add.bitmapText(72, HEIGHT / 4 + 110, 'alagard', `Total time: ${totalTime}`, 12, 0)
+                        this.timeGame = this.add.bitmapText(42, HEIGHT / 4 + 110, 'alagard', `Total time: ${totalTime}`, 12, 0)
                             .setAlpha(0).setDropShadow(0, 1, COLORS.ORANGE);
 
                         this.tweens.add({
