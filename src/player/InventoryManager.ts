@@ -119,7 +119,7 @@ export default class InventoryManager
 
         Phaser.Actions.GridAlign(selectableItemsToDisplay, {
             width: 5,
-            height: 3,
+            height: 4,
             cellWidth: 32,
             cellHeight: 32,
             x: origin.x,
@@ -137,11 +137,11 @@ export default class InventoryManager
         selector.setPosition(selectedItem.x, selectedItem.y);
 
         Phaser.Actions.GridAlign(fixedItemsToDisplay, {
-            width: 5,
+            width: 4,
             height: 1,
             cellWidth: 32,
             cellHeight: 32,
-            x: origin.x,
+            x: origin.x + 15,
             y: origin.y + 160
         });
 
