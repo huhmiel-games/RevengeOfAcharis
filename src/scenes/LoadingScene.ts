@@ -282,6 +282,7 @@ import map38 from '../maps/map38.json';
 import map39 from '../maps/map39.json';
 import map40 from '../maps/map40.json';
 import map41 from '../maps/map41.json';
+import map42 from '../maps/map42.json';
 import mapWorld from '../maps/world.world';
 import world from '../maps/world.json';
 //#endregion
@@ -426,6 +427,7 @@ export default class LoadingScreen extends Scene
         this.load.tilemapTiledJSON('map39', map39);
         this.load.tilemapTiledJSON('map40', map40);
         this.load.tilemapTiledJSON('map41', map41);
+        this.load.tilemapTiledJSON('map42', map42);
         //#endregion
 
         //#region load atlas
@@ -1926,7 +1928,7 @@ export default class LoadingScreen extends Scene
                 { key: 'atlas', frame: 'demon-axe-red-dead_3' },
                 { key: 'atlas', frame: 'demon-axe-red-dead_4' },
             ],
-            frameRate: 8,
+            frameRate: 4,
             repeat: 0,
         });
                 
