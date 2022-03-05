@@ -9,8 +9,7 @@ export default class Skeleton extends Enemy
     public enemyState: { life: number; damage: number; directionX: number; directionY: number; hited: boolean; giveLife: number; };
     public speed: number = 40;
     public isAttacking: boolean = false;
-    public walkplay: boolean = false;
-    public walkk: Phaser.Sound.BaseSound;
+    public walkSfx: Phaser.Sound.BaseSound;
     public distance: number;
     constructor (scene: GameScene, x: number, y: number, config: any)
     {
@@ -40,7 +39,7 @@ export default class Skeleton extends Enemy
 
         this.setVisible(false);
 
-        this.walkk = this.scene.sound.add('skeletonStep', { volume: 1 });
+        this.walkSfx = this.scene.sound.add('skeletonStep', { volume: 1 });
 
         this.on(Phaser.Animations.Events.ANIMATION_UPDATE, this.playSound, this);
 
@@ -55,7 +54,7 @@ export default class Skeleton extends Enemy
 
         const volume = 60 / Phaser.Math.Distance.Between(this.scene.player.body.center.x, this.scene.player.body.center.y, this.body.center.x, this.body.center.y);
 
-        this.scene.sound.play('skeletonRising', { volume: Phaser.Math.Clamp(volume, 0, 1) });
+        this.scene.playSfx('skeletonRising', { volume: Phaser.Math.Clamp(volume, 0, 1) });
     }
 
     private handleRise ()
@@ -95,7 +94,8 @@ export default class Skeleton extends Enemy
 
         if (frame === 'skeleton-4' || frame === 'skeleton-8')
         {
-            this.walkk.play({ volume: Phaser.Math.Clamp(volume, 0, 1) });
+            // this.scene.playSfx('skeletonStep', { volume: Phaser.Math.Clamp(volume, 0, 1) });
+            this.walkSfx.play({ volume: Phaser.Math.Clamp(volume, 0, 1) });
         }
     }
 
@@ -178,7 +178,8 @@ export default class Skeleton extends Enemy
 
         this.setTintFill(0xDDDDDD);
 
-        this.scene.sound.play('skeletonHit', { volume: 1, rate: 1 });
+        // this.scene.sound.play('skeletonHit', { volume: 1, rate: 1 });
+        this.scene.playSfx('skeletonHit', { volume: 1, rate: 1 });
 
         this.enemyState.life = this.enemyState.life - damage;
 

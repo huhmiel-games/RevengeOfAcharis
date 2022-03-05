@@ -31,8 +31,8 @@ export default class Angel extends Enemy
 
             if (this.scene.cameras.main.worldView.contains(center.x, center.y))
             {
-                this.scene.sound.play('angelWing', { volume: 0.3 });
-
+                this.scene.playSfx('angelWing', { volume: 0.3 });
+                // this.scene.sound.play('angelWing', { volume: 0.3 });
             }
         });
     }

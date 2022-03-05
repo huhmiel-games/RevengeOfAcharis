@@ -146,7 +146,7 @@ export default class Horse extends Enemy
 
     public playSfxDeath ()
     {
-        this.scene.sound.play('hellhoundDeath', { volume: 1, rate: 1 });
+        this.scene.sound.play('hellhoundDeath', { volume: 1, rate: 0.3 });
     }
 
     public looseLife (damage: number, weaponType: string, weapon?: Arrow): void

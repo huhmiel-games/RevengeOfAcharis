@@ -27,9 +27,10 @@ export default class DragonHead extends Enemy
 
         this.flipX = config.flipX;
 
-        this.setTexture('atlas').setFrame('dragon-head_0');
-
-        this.setOrigin(0, 0);
+        this.setTexture('atlas')
+            .setFrame('dragon-head_0')
+            .setOrigin(0, 0)
+            .setDepth(DEPTH.ENEMY - 1);
 
         this.body
             .setAllowGravity(true)
@@ -137,7 +138,7 @@ export default class DragonHead extends Enemy
             }
             
 
-            this.scene.sound.play('wizardFire', { volume: 1 });
+            this.scene.playSfx('wizardFire', { volume: 1, rate: 1.5 });
 
             this.scene.time.addEvent({
                 delay: 3500,
