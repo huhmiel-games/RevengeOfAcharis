@@ -84,7 +84,7 @@ export const SWORDS: TSwordConfig[] = [
         key: 6
     },
     {
-        id: 4,
+        id: 4, // done
         name: 'dark-sword',
         desc: 'a strange dark sword in a unknown matter',
         damage: 7,
@@ -92,7 +92,7 @@ export const SWORDS: TSwordConfig[] = [
         key: 4
     },
     {
-        id: 5,
+        id: 5, // done
         name: 'Ashanti',
         desc: 'a old Ashanti sword',
         damage: 10,
@@ -100,10 +100,10 @@ export const SWORDS: TSwordConfig[] = [
         key: 5
     },
     {
-        id: 7,
+        id: 7, // done
         name: 'fire-sword',
         desc: 'a flaming sword',
-        damage: 12,
+        damage: 14,
         rate: 240,
         key: 7
     },
@@ -111,7 +111,7 @@ export const SWORDS: TSwordConfig[] = [
         id: 8,
         name: 'hammer-sword',
         desc: 'a huge sword that can break walls',
-        damage: 20,
+        damage: 12,
         rate: 440,
         key: 8
     },
@@ -119,7 +119,7 @@ export const SWORDS: TSwordConfig[] = [
         id: 9,
         name: 'demonic-sword',
         desc: 'a demonic sword with a strange eye on the pommel',
-        damage: 30,
+        damage: 20,
         rate: 270,
         key: 9
     }
@@ -147,7 +147,7 @@ export const BOWS: TBowConfig[] = [
     {
         id: 12, // done
         name: 'dark-bow',
-        desc: 'a strange dark sword in a unknown matter',
+        desc: 'a strange dark bow in a unknown matter',
         damage: 4,
         rate: 270,
         speed: 500,
@@ -155,7 +155,7 @@ export const BOWS: TBowConfig[] = [
     },
     {
         id: 13,
-        name: 'hammer-bow',
+        name: 'hammer-bow', // done
         desc: 'throws heavy arrows',
         damage: 5,
         rate: 440,
@@ -221,7 +221,7 @@ export const EQUIPMENT: TEquipmentConfig[] = [
     },
     {
         id: 21,
-        name: 'cuirass',
+        name: 'cuirass', // done
         desc: 'protect your torso',
         defense: 2,
         key: 21
