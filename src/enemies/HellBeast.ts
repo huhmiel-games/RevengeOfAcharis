@@ -468,7 +468,7 @@ export default class HellBeast extends Phaser.GameObjects.Sprite
 
         this.enemyState.hited = true;
 
-        this.setTintFill(0xFFFFFF);
+        this.setTintFill(COLORS.WHITE);
 
         this.scene.time.addEvent({
             delay: 250,
@@ -485,7 +485,7 @@ export default class HellBeast extends Phaser.GameObjects.Sprite
 
         const damageText = this.scene.add.bitmapText(this.body.center.x, this.body.top, FONTS.GALAXY, `-${damage}`, FONTS_SIZES.GALAXY, 1)
             .setTintFill(COLORS.RED)
-            .setDropShadow(1, 1, 0xffffff)
+            .setDropShadow(1, 1, COLORS.WHITE)
             .setDepth(DEPTH.UI_TEXT);
 
         this.scene.tweens.add({

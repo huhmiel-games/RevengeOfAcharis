@@ -14,7 +14,7 @@ export default class Thing extends Enemy
         this.enemyState = {
             life: config.life,
             damage: config.damage,
-            giveLife: config.life / 3,
+            giveLife: Math.round(config.life / 3),
         };
 
         this.body

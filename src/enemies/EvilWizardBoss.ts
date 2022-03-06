@@ -378,7 +378,7 @@ export default class EvilWizardBoss extends Enemy
 
         const damageText = this.scene.add.bitmapText(this.body.center.x, this.body.top, FONTS.GALAXY, `-${damage}`, FONTS_SIZES.GALAXY, 1)
             .setTintFill(COLORS.RED)
-            .setDropShadow(1, 1, 0xffffff)
+            .setDropShadow(1, 1, COLORS.WHITE)
             .setDepth(DEPTH.UI_TEXT);
 
         this.scene.tweens.add({
@@ -431,7 +431,7 @@ export default class EvilWizardBoss extends Enemy
 
         this.clearTint();
 
-        this.playSfxDeath();
+        this.scene.playSfx('wizardDeath', { rate: 0.5 });
 
         this.destroyHitbox();
 
@@ -463,11 +463,10 @@ export default class EvilWizardBoss extends Enemy
                         smoke.setDepth(DEPTH.FRONT_LAYER + 10);
                         smoke.once(Phaser.Animations.Events.ANIMATION_COMPLETE, () => smoke.destroy());
                         smoke.anims.play('smoke1');
-
-                        this.scene.playSfx('impact', { rate: 0.5 });
                     }
                 }
             });
+            this.scene.playSfx('impact', { volume: 0.5, rate: 0.3 });
             bossDoorLayer.setAlpha(0);
 
             this.scene.shakeCamera(250);

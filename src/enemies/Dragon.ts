@@ -5,7 +5,7 @@ export default class Dragon extends Phaser.GameObjects.Sprite
 {
     public scene: GameScene;
     public body: Phaser.Physics.Arcade.Body;
-    public enemyState: { life: number; damage: number; directionX: number; directionY: number; hited: boolean; lastFired: number; fireRate: number; };
+    public enemyState: { giveLife: number, life: number; damage: number; directionX: number; directionY: number; hited: boolean; lastFired: number; fireRate: number; };
     private getFired: boolean;
     private lastAnim: string;
     private isFireAttacking: boolean;
@@ -29,6 +29,7 @@ export default class Dragon extends Phaser.GameObjects.Sprite
             hited: false,
             lastFired: 0,
             fireRate: 40,
+            giveLife: Math.round(config.life / 3),
         };
 
         this.setDepth(DEPTH.ENEMY);

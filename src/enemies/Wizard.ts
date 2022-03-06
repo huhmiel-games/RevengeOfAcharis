@@ -33,7 +33,7 @@ export default class Wizard extends Enemy
             directionX: 20,
             directionY: 0,
             hited: false,
-            giveLife: config.life / 2,
+            giveLife: Math.round(config.life / 2),
             delay: config.delay,
         };
 
@@ -271,7 +271,7 @@ export default class Wizard extends Enemy
 
         const damageText = this.scene.add.bitmapText(this.body.center.x, this.body.top, FONTS.GALAXY, `-${specialDamage}`, FONTS_SIZES.GALAXY, 1)
             .setTintFill(COLORS.RED)
-            .setDropShadow(1, 1, 0xffffff)
+            .setDropShadow(1, 1, COLORS.WHITE)
             .setDepth(DEPTH.UI_TEXT);
 
         this.scene.tweens.add({

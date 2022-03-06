@@ -10,8 +10,7 @@ export default class VikingAxe extends Enemy
 {
     public enemyState: { life: number; damage: number; giveLife: number; };
     public speed: number = 30;
-    public walkplay: boolean;
-    public walkk: Phaser.Sound.BaseSound;
+    public walkSfx: Phaser.Sound.BaseSound;
     public distance: number;
     private hitboxData: THitboxData;
     public hitbox: Projectile[] = [];
@@ -42,8 +41,7 @@ export default class VikingAxe extends Enemy
 
         this.hitboxData = JSON.parse('{"viking-axe-attack2_4":{"hitboxes":[{"frame":"viking-axe-attack2_4","type":"rectangle","x":36,"y":13,"width":42,"height":3},{"frame":"viking-axe-attack2_4","type":"rectangle","x":78,"y":15,"width":11,"height":4},{"frame":"viking-axe-attack2_4","type":"circle","x":89,"y":17,"width":10,"height":10},{"frame":"viking-axe-attack2_4","type":"rectangle","x":79,"y":24,"width":11,"height":4},{"frame":"viking-axe-attack2_4","type":"rectangle","x":68,"y":27,"width":11,"height":3}]}}');
 
-        this.walkplay = false;
-        this.walkk = this.scene.sound.add('townWalkSfx', { volume: 0.8 });
+        this.walkSfx = this.scene.sound.add('townWalkSfx', { volume: 0.8 });
         this.anims.play('viking-axe-walk');
 
         this.on(Phaser.Animations.Events.ANIMATION_UPDATE, () =>
@@ -142,7 +140,7 @@ export default class VikingAxe extends Enemy
 
         if (this.scene.cameras.main.worldView.contains(x, y))
         {
-            this.walkk.play({ volume });
+            this.walkSfx.play({ volume });
         }
     }
 
@@ -234,7 +232,7 @@ export default class VikingAxe extends Enemy
 
         const damageText = this.scene.add.bitmapText(this.body.center.x, this.body.top, FONTS.GALAXY, `-${damage}`, FONTS_SIZES.GALAXY, 1)
             .setTintFill(COLORS.RED)
-            .setDropShadow(1, 1, 0xffffff)
+            .setDropShadow(1, 1, COLORS.WHITE)
             .setDepth(DEPTH.UI_TEXT);
 
         this.scene.tweens.add({
@@ -272,6 +270,7 @@ export default class VikingAxe extends Enemy
         {
             this.destroyHitbox();
 
+            this.scene.playSfx('oldmanDoubtSfx', { volume: 1,  rate: 0.7 });
             this.kill();
 
             return;

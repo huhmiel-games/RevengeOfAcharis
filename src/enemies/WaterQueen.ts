@@ -52,7 +52,7 @@ export default class WaterQueen extends Enemy
         this.body.setAllowGravity(true).setSize(12, 35).setOffset(107, 76);
 
         this.enemyState = {
-            life: 200,
+            life: 2000,
             damage: 5,
             hited: false,
             giveLife: 30
@@ -160,7 +160,7 @@ export default class WaterQueen extends Enemy
             {
                 const healText = this.scene.add.bitmapText(this.body.center.x, this.body.top, FONTS.GALAXY, `+ 10`, FONTS_SIZES.GALAXY, 1)
                     .setTintFill(COLORS.GREEN)
-                    .setDropShadow(1, 1, 0xffffff)
+                    .setDropShadow(1, 1, COLORS.WHITE)
                     .setDepth(DEPTH.UI_TEXT + 4);
 
                 this.enemyState.life += 10;
@@ -417,7 +417,7 @@ export default class WaterQueen extends Enemy
 
         const damageText = this.scene.add.bitmapText(this.body.center.x, this.body.top, FONTS.GALAXY, `-${damage}`, FONTS_SIZES.GALAXY, 1)
             .setTintFill(COLORS.RED)
-            .setDropShadow(1, 1, 0xffffff)
+            .setDropShadow(1, 1, COLORS.WHITE)
             .setDepth(DEPTH.UI_TEXT);
 
         this.scene.tweens.add({

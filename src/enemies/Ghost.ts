@@ -16,7 +16,7 @@ export default class Ghost extends Enemy
             directionX: -10,
             directionY: 0,
             hited: false,
-            giveLife: config.life / 2,
+            giveLife: Math.round(config.life / 2),
         };
 
         this.body.setCollideWorldBounds(true)
