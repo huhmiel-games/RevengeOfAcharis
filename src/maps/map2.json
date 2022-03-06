@@ -234,6 +234,11 @@
                          "value":"oldman-walk"
                         }, 
                         {
+                         "name":"msg",
+                         "type":"string",
+                         "value":"Hey Acharis !!#You are back.#I will try to help you.#Press ${keysOptions[7]}, to watch your inventory#And ${keysOptions[4].toLowerCase()} to select a weapon#Good luck"
+                        }, 
+                        {
                          "name":"name",
                          "type":"string",
                          "value":"oldman"
@@ -259,7 +264,7 @@
                         {
                          "name":"msg",
                          "type":"string",
-                         "value":"Be careful Acharis#Our town has been regularly attacked by monsters#it's a nightmare...#I fear for my children every day."
+                         "value":"Be careful Acharis#Our town has been attacked by monsters#it's a nightmare...#I fear for my children every day.#Watch out for enemies with weapons#Try to dodge their attacks"
                         }, 
                         {
                          "name":"name",
@@ -287,7 +292,7 @@
                         {
                          "name":"msg",
                          "type":"string",
-                         "value":"Where are you going ??#It's full of monsters here !!#Go back home!!"
+                         "value":"Where are you going ??#It's full of monsters here !!#Go back home!!#Hmm you look stubborn#Ok, here is some advices,#try to find better equipment.#I know there are hidden place in the castle,#look closely."
                         }, 
                         {
                          "name":"name",
