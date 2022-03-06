@@ -8,18 +8,17 @@ export type TPlayerState = {
     selectedSword?: number;
 };
 
-export type TKeys =
-    {
-        left: Phaser.Input.Keyboard.Key;
-        right: Phaser.Input.Keyboard.Key;
-        up: Phaser.Input.Keyboard.Key;
-        down: Phaser.Input.Keyboard.Key;
-        fire: Phaser.Input.Keyboard.Key;
-        bow: Phaser.Input.Keyboard.Key;
-        jump: Phaser.Input.Keyboard.Key;
-        select: Phaser.Input.Keyboard.Key;
-        pause: Phaser.Input.Keyboard.Key;
-    };
+export type TKeys = {
+    left: Phaser.Input.Keyboard.Key;
+    right: Phaser.Input.Keyboard.Key;
+    up: Phaser.Input.Keyboard.Key;
+    down: Phaser.Input.Keyboard.Key;
+    fire: Phaser.Input.Keyboard.Key;
+    bow: Phaser.Input.Keyboard.Key;
+    jump: Phaser.Input.Keyboard.Key;
+    select: Phaser.Input.Keyboard.Key;
+    pause: Phaser.Input.Keyboard.Key;
+};
 
 export type TInventory = {
     xp: number
