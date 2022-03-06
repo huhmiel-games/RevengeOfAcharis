@@ -1,12 +1,3 @@
-import Angel from '../enemies/Angel';
-import Bearded from '../npc/Bearded';
-import Hatman from '../npc/Hatman';
-import Npc from '../npc/Npc';
-import Oldman from '../npc/Oldman';
-import Woman from '../npc/Woman';
-
-export type TNpc = Angel | Bearded | Hatman | Oldman | Woman | Npc;
-
 export type TPlayerState = {
     isDead: boolean;
     blockedDownTimestamp: number;
