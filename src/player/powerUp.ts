@@ -12,7 +12,7 @@ export default class PowerUp extends Phaser.GameObjects.Sprite
         super(scene, x, y, config.key);
 
         this.setFrame(config.id);
-        this.scene = scene;
+        
         this.id = config.id;
         this.category = config.category;
         this.properties = config.properties;

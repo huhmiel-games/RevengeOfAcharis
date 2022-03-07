@@ -14,7 +14,7 @@ export default class Arrow extends GameObjects.Sprite
     {
         super(scene, x, y, config);
 
-        this.scene = scene;
+        
 
         this.setName('arrow').setDepth(DEPTH.GROUND_LAYER - 1);
 

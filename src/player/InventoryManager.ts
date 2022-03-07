@@ -10,10 +10,8 @@ import Sword from './Sword';
 
 export default class InventoryManager
 {
-    public inventory: TInventory;
-
     public scene: GameScene;
-
+    public inventory: TInventory;
     public player: Player;
 
     constructor (scene: GameScene, player: Player)

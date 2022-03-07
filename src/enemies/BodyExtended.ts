@@ -12,7 +12,7 @@ export default class BodyExtended extends GameObjects.Sprite
     {
         super(scene, x, y, config);
 
-        this.scene = scene;
+        
 
         this.scene.physics.world.enable(this);
     }
