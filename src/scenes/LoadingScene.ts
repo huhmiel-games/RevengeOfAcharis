@@ -1,5 +1,5 @@
 import { Scene } from 'phaser';
-import { WIDTH, HEIGHT, SCENES_NAMES } from '../constant/config';
+import { WIDTH, HEIGHT, SCENES_NAMES, FONTS, FONTS_SIZES } from '../constant/config';
 import { COLORS } from '../constant/colors';
 // IMPORT SECTION //
 
@@ -524,7 +524,7 @@ export default class LoadingScreen extends Scene
         this.load.audio('hatmanSfx', hatmanSfx);
         this.load.audio('beardedSfx', beardedSfx);
         this.load.audio('oldmanDoubtSfx', oldmanDoubtSfx);
-        this.load.audio('oldmanHeySfx', oldmanHeySfx);
+        this.load.audio('oldmanSfx', oldmanHeySfx);
         this.load.audio('oldmanSadSfx', oldmanSadSfx);
 
         // dragon
@@ -4147,16 +4147,17 @@ export default class LoadingScreen extends Scene
         const img = this.add.sprite(WIDTH / 2, HEIGHT / 4 * 3, 'progressBar').setOrigin(0.5, 0);
 
         // Add percentage text
-        const loadingpercentage = this.add.bitmapText(WIDTH / 2, HEIGHT / 4 * 3 - 10, 'alagard', 'Loading:', 10, 1)
+        const loadingpercentage = this.add.bitmapText(WIDTH / 2, HEIGHT / 4 * 3 - 10, FONTS.GALAXY, 'loading:', FONTS_SIZES.GALAXY, 1)
             .setOrigin(0.5, 0.5)
             .setAlpha(1)
-            .setDropShadow(0, 1, COLORS.ORANGE);
+            // .setTintFill(COLORS.RED)
+            //.setDropShadow(0, 1, COLORS.ORANGE, 1);
 
         //  Crop the filler along its width, proportional to the amount of files loaded.
         this.load
             .on(Phaser.Loader.Events.PROGRESS, (v: number) =>
             {
-                loadingpercentage.text = `Loading: ${Math.round(v * 100)}%`;
+                loadingpercentage.text = `loading: ${Math.round(v * 100)}%`;
                 img.setCrop(0, 0, Math.ceil(v * w), h);
             })
             .on(Phaser.Loader.Events.COMPLETE, () =>

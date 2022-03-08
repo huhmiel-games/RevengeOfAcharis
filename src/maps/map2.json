@@ -231,7 +231,7 @@
                         {
                          "name":"key",
                          "type":"string",
-                         "value":"oldman-walk"
+                         "value":"oldman-idle"
                         }, 
                         {
                          "name":"msg",
@@ -247,8 +247,8 @@
                  "type":"",
                  "visible":true,
                  "width":16,
-                 "x":340,
-                 "y":232
+                 "x":368,
+                 "y":229
                 }, 
                 {
                  "gid":4,
@@ -275,8 +275,8 @@
                  "type":"",
                  "visible":true,
                  "width":16,
-                 "x":144,
-                 "y":232
+                 "x":149,
+                 "y":229
                 }, 
                 {
                  "gid":4,

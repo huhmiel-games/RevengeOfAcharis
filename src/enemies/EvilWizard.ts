@@ -86,10 +86,7 @@ export default class EvilWizard extends Enemy
                         this.scene.projectileGroup.push(hitbox);
                         this.hitbox.push(hitbox);
 
-                        if (!this.swordSfx.isPlaying)
-                        {
-                            this.swordSfx.play();
-                        }
+                        this.scene.playSfx('bullet', { volume: 0.7, rate: 0.8 });
                     }
                 });
 
@@ -198,21 +195,7 @@ export default class EvilWizard extends Enemy
 
         this.enemyState.life -= damage;
 
-        const damageText = this.scene.add.bitmapText(this.body.center.x, this.body.top, FONTS.GALAXY, `-${damage}`, FONTS_SIZES.GALAXY, 1)
-            .setTintFill(COLORS.RED)
-            .setDropShadow(1, 1, COLORS.WHITE)
-            .setDepth(DEPTH.UI_TEXT);
-
-        this.scene.tweens.add({
-            targets: damageText,
-            duration: 1500,
-            y: {
-                from: this.body.top,
-                to: this.body.top - 32
-            },
-            alpha: 0,
-            onComplete: () => damageText.destroy()
-        });
+        this.scene.showEnemyDamage(this, damage);
 
         if (this.isAttacking === false && weaponType !== 'arrow')
         {

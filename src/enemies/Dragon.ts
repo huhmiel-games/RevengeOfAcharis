@@ -19,7 +19,7 @@ export default class Dragon extends Phaser.GameObjects.Sprite
     {
         super(scene, x, y, config.key);
 
-        this.scene = scene;
+        
         this.name = config.name;
         this.enemyState = {
             life: 100,

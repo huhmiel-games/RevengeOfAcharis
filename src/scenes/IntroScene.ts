@@ -1,14 +1,14 @@
 import { Scene } from 'phaser';
 import { COLORS } from '../constant/colors';
-import { WIDTH, HEIGHT, SCENES_NAMES } from '../constant/config';
+import { WIDTH, HEIGHT, SCENES_NAMES, FONTS, FONTS_SIZES } from '../constant/config';
 
 
 export default class Intro extends Scene
 {
     private text: string;
     private count: number;
-    private chief: Phaser.GameObjects.BitmapText;
-    private start: Phaser.GameObjects.BitmapText;
+    private storyText: Phaser.GameObjects.BitmapText;
+    private skiptext: Phaser.GameObjects.BitmapText;
     private revengeTheme: Phaser.Sound.BaseSound;
     constructor ()
     {
@@ -21,12 +21,14 @@ export default class Intro extends Scene
             .setOrigin(0, 0)
             .setDisplaySize(WIDTH, HEIGHT);
 
-        this.text = 'My name is Acharis.-My parents were murdered-by a demon when i was young.-Since then, i have been training-all my life in combat.-Now It\'s time to take revenge!!';
+        this.text = 'My name is Acharis.-And i came here to free up the -castle from monsters.-But for this I need help, -are you the one who will -take this challenge ??';
         
         this.count = 0;
         
-        this.chief = this.add.bitmapText(WIDTH / 2, HEIGHT / 2, 'alagard', '', 12, 1)
-            .setOrigin(0.5, 0.5).setTintFill(COLORS.RED).setDropShadow(0, 1, 0xFFFFFF);
+        this.storyText = this.add.bitmapText(WIDTH / 2, HEIGHT / 2, 'alagard', '', 12, 1)
+            .setOrigin(0.5, 0.5)
+            .setTintFill(COLORS.RED)
+            .setDropShadow(0, 1, COLORS.ORANGE, 1);
 
         this.time.addEvent({
             delay: 100,
@@ -35,21 +37,19 @@ export default class Intro extends Scene
             {
                 if (this.text[this.count] === '-')
                 {
-                    this.chief.text += '\n';
+                    this.storyText.text += '\n';
                     this.count += 1;
                 } else
                 {
-                    this.chief.text += this.text[this.count];
+                    this.storyText.text += this.text[this.count];
                     this.count += 1;
                 }
             },
         });
 
 
-        this.start = this.add.bitmapText(WIDTH / 2, HEIGHT - 48, 'alagard', 'press any key to skip', 14, 1)
-            .setOrigin(0.5, 0.5)
-            .setTintFill(0xFFFFFF)
-            .setDropShadow(0, 1, COLORS.RED);
+        this.skiptext = this.add.bitmapText(WIDTH / 2, HEIGHT - 48, FONTS.GALAXY, 'press any key to skip', FONTS_SIZES.GALAXY, 1)
+            .setOrigin(0.5, 0.5);
 
         this.input.keyboard.once(Phaser.Input.Keyboard.Events.ANY_KEY_DOWN, () =>
         {
@@ -61,7 +61,7 @@ export default class Intro extends Scene
         });
 
         this.tweens.add({
-            targets: this.start,
+            targets: this.skiptext,
             ease: 'Sine.easeInOut',
             duration: 1500,
             delay: 0,

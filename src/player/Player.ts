@@ -22,6 +22,7 @@ import BowManager from './BowManager';
 import Arrow from './Arrow';
 import WaterQueen from '../enemies/WaterQueen';
 import DEPTH from '../constant/depth';
+import TopHeadText from '../utils/TopHeadText';
 
 export default class Player extends Phaser.GameObjects.Sprite
 {
@@ -53,6 +54,7 @@ export default class Player extends Phaser.GameObjects.Sprite
     public isOnSpike: boolean = false;
     public isPause: boolean = false;
     public isBendBow: boolean = false;
+    public keysOptions: string[];
 
     // The state machine managing the player
     public stateMachine: StateMachine = new StateMachine('idle', {
@@ -64,6 +66,7 @@ export default class Player extends Phaser.GameObjects.Sprite
         move: new MoveState() as MoveState,
     }, [this.scene, this]);
 
+
     /**
      * @param {Phaser.Scene} scene
      * @param {number} x
@@ -74,7 +77,7 @@ export default class Player extends Phaser.GameObjects.Sprite
     {
         super(scene, x, y, config.key);
 
-        this.scene = scene;
+
 
         this.jumpTime = 0;
 
@@ -167,6 +170,7 @@ export default class Player extends Phaser.GameObjects.Sprite
             .setEnable(false);
 
         const keysOptions = SaveLoadService.getConfigKeys();
+        this.keysOptions = keysOptions;
 
         this.keys = this.scene.input.keyboard.addKeys({
             left: Phaser.Input.Keyboard.KeyCodes[keysOptions[0]],
@@ -270,52 +274,70 @@ export default class Player extends Phaser.GameObjects.Sprite
 
         if (nextLevelXp <= inventory.xp)
         {
-            this.scene.setPause();
+            this.scene.setPause(true, true, false);
 
             inventory.level += 1;
 
             inventory.maxLife = 30 + inventory.level * 3;
 
-            const levelUpText: Phaser.GameObjects.BitmapText = this.scene.add.bitmapText(this.body.center.x, this.body.top, FONTS.ULTIMA_BOLD, `level up ${inventory.level}`, FONTS_SIZES.ULTIMA_BOLD, 1);
-            levelUpText.setPosition(this.body.center.x - levelUpText.width / 2)
-                .setTintFill(0xfbf236)
-                .setDropShadow(0, 2, COLORS.RED)
-                .setDepth(DEPTH.UI_TEXT);
-
-            this.scene.time.addEvent({
-                delay: 500,
-                callback: () => this.scene.unPause()
-            });
-
-            this.scene.tweens.add({
-                targets: levelUpText,
-                duration: 1000,
-                y: {
-                    from: this.body.top,
-                    to: this.body.top - 32
-                },
-                alpha: 0,
-                onComplete: () => levelUpText.destroy()
-            });
+            this.showNextLevelText(inventory);
 
             return;
         }
 
-        const xpText = this.scene.add.bitmapText(this.body.center.x, this.body.top, FONTS.GALAXY, `xp ${Math.round(xp)}`, FONTS_SIZES.GALAXY, 1);
-        xpText.setPosition(this.body.center.x - xpText.width / 2)
-            .setTintFill(COLORS.GREEN)
-            .setDropShadow(1, 1, 0xFFFFFF)
+        this.showXpText(xp);
+    }
+
+    private showNextLevelText (inventory)
+    {
+        const levelUpText: Phaser.GameObjects.BitmapText = this.scene.add.bitmapText(this.body.center.x, this.body.top, FONTS.ULTIMA_BOLD, `level up ${inventory.level}`, FONTS_SIZES.ULTIMA_BOLD, 1);
+        levelUpText.setPosition(this.body.center.x - levelUpText.width / 2)
+            .setTintFill(0xfbf236)
+            .setDropShadow(0, 2, COLORS.RED, 1)
             .setDepth(DEPTH.UI_TEXT);
 
+        this.scene.time.addEvent({
+            delay: 500,
+            callback: () => this.scene.unPause()
+        });
+
         this.scene.tweens.add({
-            targets: xpText,
-            duration: 1500,
+            targets: levelUpText,
+            duration: 1000,
             y: {
                 from: this.body.top,
                 to: this.body.top - 32
             },
             alpha: 0,
-            onComplete: () => xpText.destroy()
+            onComplete: () => levelUpText.destroy()
+        });
+    }
+
+    private showXpText (xp: number)
+    {
+        const xpText = this.scene.topHeadTextGroup.getFirstDead(true, this.body.center.x, this.body.top, FONTS.GALAXY, undefined, true);
+        if (!xpText) return;
+        xpText.setAlpha(1).setActive(true).setVisible(true);
+        xpText.showXpText(this, xp);
+    }
+
+    private showDamageText (damage: number)
+    {
+        this.scene.time.addEvent({
+            delay: 590,
+            callback: () =>
+            {
+                const damageText: TopHeadText = this.scene.topHeadTextGroup.getFirstDead(true, this.body.center.x, this.body.top, FONTS.GALAXY, undefined, true);
+
+                if (!damageText)
+                {
+                    console.log('damagetext limit reached');
+
+                    return;
+                }
+                damageText.setAlpha(1).setActive(true).setVisible(true);
+                damageText.showDamageText(this, damage);
+            }
         });
     }
 
@@ -403,7 +425,7 @@ export default class Player extends Phaser.GameObjects.Sprite
         {
             this.body.setMaxVelocity(this.playerState.speed, this.playerState.speed * 4);
         }
-        
+
     }
 
     public playerOnPlatform (platform)
@@ -584,18 +606,16 @@ export default class Player extends Phaser.GameObjects.Sprite
         {
             inventory.life += life;
 
-            this.HealthUiText.setText(`${inventory.life}/${inventory.maxLife}`);
+            this.HealthUiText.setText(`${Math.floor(inventory.life)}/${inventory.maxLife}`);
         }
         else
         {
             inventory.life = inventory.maxLife;
 
-            this.HealthUiText.setText(`${inventory.life}/${inventory.maxLife}`);
+            this.HealthUiText.setText(`${Math.floor(inventory.life)}/${inventory.maxLife}`);
         }
 
         this.scene.playSfx('getLife', { volume: 2 });
-
-        // this.scene.sound.play('getLife', { volume: 2 });
 
         // @ts-ignore
         l.setActive(false).setVisible(false);
@@ -642,9 +662,13 @@ export default class Player extends Phaser.GameObjects.Sprite
 
         if (shieldDef > 0) currentDef += shieldDef;
 
-        inventory.life -= Math.trunc(elm.enemyState.damage - elm.enemyState.damage * (shieldDef / 100));
+        const damage = Math.trunc(elm.enemyState.damage - elm.enemyState.damage * (shieldDef / 100));
 
-        this.HealthUiText.setText(`${inventory.life}/${inventory.maxLife}`);
+        inventory.life -= damage;
+
+        this.showDamageText(damage);
+
+        this.HealthUiText.setText(`${Math.floor(inventory.life)}/${inventory.maxLife}`);
 
         if (inventory.life <= Math.floor(inventory.maxLife / 10))
         {
@@ -655,11 +679,6 @@ export default class Player extends Phaser.GameObjects.Sprite
         {
             this.scene.sound.play('hellBeastFirstLaughSfx');
         }
-
-        // if (elm.name === 'skullHeadDemon')
-        // {
-        //     elm.destroy();
-        // }
 
         // if player is dead, launch deadth sequence
         if (inventory.life <= 0)

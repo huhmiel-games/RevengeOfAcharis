@@ -2,15 +2,10 @@
 import { Scene } from 'phaser';
 import animatedTilesPlugin from '../plugins/AnimatedTiles.js';
 import { WIDTH, HEIGHT, FONTS, SCENES_NAMES, FONTS_SIZES, SWORDS, TILE_SIZE, SHIELDS, BOWS, EQUIPMENT, EWeaponType } from '../constant/config';
+import { COLORS } from '../constant/colors';
+import { TBowConfig, TDoor, TEquipmentConfig, TShieldConfig, TSwordConfig } from '../types/types';
+import DEPTH from '../constant/depth';
 import PowerUp from '../player/powerUp';
-import HellHound from '../enemies/HellHound';
-import Thing from '../enemies/Thing';
-import Skeleton from '../enemies/Skeleton';
-import Ghost from '../enemies/Ghost';
-import Wizard from '../enemies/Wizard';
-import Flames from '../enemies/Flames';
-import Oldman from '../npc/Oldman';
-import Angel from '../enemies/Angel';
 import Dragon from '../enemies/Dragon';
 import HellBeast from '../enemies/HellBeast';
 import Demon from '../enemies/Demon';
@@ -20,35 +15,16 @@ import ColliderService from '../services/ColliderService';
 import LayerService from '../services/LayerService';
 import GenerateWorldRoom from '../utils/GenerateWorldRoom';
 import Player from '../player/Player';
-import { TBowConfig, TDoor, TEquipmentConfig, TNpc, TShieldConfig, TSwordConfig } from '../types/types';
 import Npc from '../npc/Npc';
 import Enemy from '../enemies/Enemy';
 import SaveLoadService from '../services/SaveLoadService';
-import Cloud from '../props/Cloud';
-import { COLORS } from '../constant/colors';
 import Projectile from '../enemies/Projectile';
-import Minotaur from '../enemies/Minotaur';
-import SkeletonFlail from '../enemies/SkeletonFlail';
-import SkeletonSword from '../enemies/SkeletonSword';
 import Arrow from '../player/Arrow';
-import Horse from '../enemies/Horse';
 import BodyExtended from '../enemies/BodyExtended';
-import FireSkull from '../enemies/FireSkull';
-import Samurai from '../enemies/Samurai';
-import Knight2 from '../enemies/Knight2';
-import EvilWizard from '../enemies/EvilWizard';
-import DragonHead from '../enemies/DragonHead';
-import Saw from '../enemies/Saw';
-import VikingAxe from '../enemies/VikingAxe';
-import Archer from '../enemies/Archer';
-import DemonAxe from '../enemies/DemonAxe';
-import Imp from '../enemies/Imp';
-import SkeletonSeeker from '../enemies/SkeletonSeeker';
-import EvilWizardBoss from '../enemies/EvilWizardBoss';
-import Worm from '../enemies/Worm';
 import BringerOfDeath from '../enemies/BringerOfDeath';
 import WaterQueen from '../enemies/WaterQueen';
-import DEPTH from '../constant/depth';
+import addEnemies from '../utils/addEnemies';
+import TopHeadText from '../utils/TopHeadText';
 //#endregion
 
 export default class GameScene extends Scene
@@ -63,7 +39,7 @@ export default class GameScene extends Scene
     public platformGroup: Platform[];
     public projectileGroup: Projectile[] = [];
     public bodiesGroup: BodyExtended[] = [];
-    public npcGroup: TNpc[];
+    public npcGroup: Npc[];
     public platformSpikeGroup: PlatformSpike[];
     public musicGroup: Phaser.Sound.BaseSound[];
     public hauntedForest: Phaser.Sound.BaseSound;
@@ -115,6 +91,7 @@ export default class GameScene extends Scene
     public smokeGroup: Phaser.GameObjects.Group;
     public hearts: Phaser.GameObjects.Group;
     public archerArrows: Phaser.Physics.Arcade.Group;
+    public topHeadTextGroup: Phaser.GameObjects.Group;
     //#endregion
 
     constructor ()
@@ -198,7 +175,7 @@ export default class GameScene extends Scene
         );
 
         // PLAYER SECTION
-        this.player = new Player(this, 80, 170, { key: 'playerAtlas' }); // 458, 122 4 * 16, 6 * 16
+        this.player = new Player(this, 20, 220, { key: 'atlas' }); // 458, 122 4 * 16, 6 * 16
 
         // create groups
         this.createGroups();
@@ -230,6 +207,17 @@ export default class GameScene extends Scene
         {
             this.player.setPosition(this.map.widthInPixels / 2, this.map.heightInPixels / 2);
         }
+
+        if (this.pauseText)
+        {
+            this.modalText.setText(`${this.children.list.length}`)
+            .setPosition(WIDTH / 2, 16)
+                .setDepth(DEPTH.UI_TEXT)
+                .setOrigin(0.5, 0.5)
+                .setScrollFactor(0, 0)
+                .setTintFill(COLORS.RED);
+        }
+            
     }
 
     private createGroups (): void
@@ -298,6 +286,12 @@ export default class GameScene extends Scene
             maxSize: 8,
             allowGravity: false
         });
+
+        this.topHeadTextGroup = this.add.group({
+            classType: TopHeadText,
+            maxSize: 10,
+            defaultFrame: FONTS.GALAXY
+        });
     }
 
     /**
@@ -308,7 +302,7 @@ export default class GameScene extends Scene
         this.game.events.once(Phaser.Core.Events.BLUR, () =>
         {
             this.isPause = true;
-            
+
 
             this.events.emit('isPause', this.isPause);
 
@@ -317,11 +311,20 @@ export default class GameScene extends Scene
                 return;
             }
 
+            this.modalText = this.add.bitmapText(WIDTH / 2, HEIGHT / 2, FONTS.GALAXY, 'pause', FONTS_SIZES.GALAXY, 1)
+            .setDepth(DEPTH.UI_TEXT)
+            .setOrigin(0.5, 0.5)
+            .setScrollFactor(0, 0)
+            .setTintFill(COLORS.RED);
+
             this.pauseText = this.add.bitmapText(WIDTH / 2, HEIGHT / 2, FONTS.GALAXY, 'pause', FONTS_SIZES.GALAXY, 1)
                 .setDepth(DEPTH.UI_TEXT)
                 .setOrigin(0.5, 0.5)
                 .setScrollFactor(0, 0)
                 .setTintFill(COLORS.RED);
+            
+            console.log(this.children.list);
+            
 
             this.setPause();
 
@@ -355,18 +358,29 @@ export default class GameScene extends Scene
         });
     }
 
-    public setPause ()
+    public setPause (withPhysics = true, withAnims = true, withSounds = true, withTime = false)
     {
         this.isPause = true;
 
-        if (this.physics.world)
+        if (this.physics.world && withPhysics)
         {
             this.physics.pause();
         }
 
-        this?.anims?.pauseAll();
+        if (withAnims)
+        {
+            this?.anims?.pauseAll();
+        }
 
-        this.sound.pauseAll();
+        if (withSounds)
+        {
+            this.sound.pauseAll();
+        }
+
+        if (withTime)
+        {
+            this.time.paused = true;
+        }
 
         if (!this.cameras.main)
         {
@@ -386,6 +400,8 @@ export default class GameScene extends Scene
         this.anims.resumeAll();
 
         this.sound.resumeAll();
+
+        this.time.paused = false;
     }
 
     public playMusic (music: string | undefined)
@@ -422,7 +438,8 @@ export default class GameScene extends Scene
     {
         const audioSfx = this.sound.get(sfx);
 
-        if (!audioSfx) {
+        if (!audioSfx)
+        {
             this.sound.add(sfx, config);
 
             this.sound.play(sfx, config);
@@ -464,7 +481,6 @@ export default class GameScene extends Scene
         {
             elm.kill();
         }
-        // if (elm.name === 'arrow') elm.setVisible(false).setActive(false);
     }
 
     public playerIsDead ()
@@ -520,10 +536,14 @@ export default class GameScene extends Scene
 
         if (_weapon.name === 'sword' && enemy.name !== 'skullHeadDemon')
         {
-            const str = Math.ceil(Math.sqrt(Math.pow(this.player.inventoryManager.getInventory().level, 3)) / 10);
+            let str = Math.ceil(Math.sqrt(Math.pow(this.player.inventoryManager.getInventory().level, 3)) / 10);
+
+            if (this.player.anims.getName() === 'adventurer-special-air-attack')
+            {
+                str *= 2;
+            }
 
             enemy.looseLife(Math.floor(this.player.swordManager.getCurrentSword().damage * str), EWeaponType.SWORD);
-
         }
 
         if (_weapon.name === 'arrow' && enemy.name !== 'skullHeadDemon')
@@ -546,7 +566,7 @@ export default class GameScene extends Scene
 
     }
 
-    public bossExplode (x, y)
+    public bossExplode (x: number | undefined, y: number | undefined)
     {
         const exp = this.explodeSprite.getFirstDead(true, x, y, 'atlas', 'enemy-death-1', true).setDepth(DEPTH.EXPLOSION);
         this.sound.play('explo2', { volume: 0.3 });
@@ -597,7 +617,7 @@ export default class GameScene extends Scene
             .setScrollFactor(0)
             .setVisible(true);
 
-        const label = this.add.bitmapText(WIDTH / 2, HEIGHT - 24, FONTS.ULTIMA_BOLD, 'Press fire to save', FONTS_SIZES.ULTIMA, 1)
+        const label = this.add.bitmapText(WIDTH / 2, HEIGHT - 24, FONTS.ULTIMA_BOLD, `Press ${this.player.keysOptions[4].toLowerCase()} to save`, FONTS_SIZES.ULTIMA, 1)
             .setOrigin(0.5, 0).setLetterSpacing(1).setAlpha(1).setDepth(DEPTH.UI_TEXT).setScrollFactor(0, 0);
 
         const check = this.input.keyboard.on(Phaser.Input.Keyboard.Events.ANY_KEY_DOWN, (event: { key: string; }) =>
@@ -779,7 +799,7 @@ export default class GameScene extends Scene
         this.physics.world.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
 
         this.cameras.main.startFollow(this.player, true, 0.4, 0.4).fadeIn(50);
-        
+
         this.debugColliders();
     }
 
@@ -1067,30 +1087,14 @@ export default class GameScene extends Scene
 
                     this.powerUpGroup.push(equipment);
                 }
-
-                // if (element.properties.id === 23)
-                // {
-                //     const jumpBoots = new PowerUp(this, element.x as unknown as number + TILE_SIZE / 2, element.y as unknown as number - TILE_SIZE, {
-                //         key: 'stuff',
-                //         id: element.properties.id,
-                //         properties: {
-                //             id: element.properties.id,
-                //             name: 'jump boots',
-                //             desc: 'jump higher with this boots',
-                //             defense: 0,
-                //             key: 23
-                //         },
-                //         category: 'equipment'
-                //     });
-
-                //     this.powerUpGroup.push(jumpBoots);
-                // }
             }
         });
     }
 
     public getPowerUp (elm: PowerUp)
     {
+        this.playSfx('powerUp');
+
         this.state.displayPowerUpMsg = true;
 
         const inventory = this.player.inventoryManager.getInventory();
@@ -1140,11 +1144,9 @@ export default class GameScene extends Scene
             }
         }
 
-        this.sound.play('powerUp');
-
         inventory.powerUp.push(elm.id);
 
-        this.setPause();
+        this.setPause(true, true, false, false);
 
         // @ts-ignore
         const ui = this.add.rexNinePatch(WIDTH / 2, HEIGHT / 2, WIDTH / 4 * 3, HEIGHT / 2, 'framing', [7, undefined, 7], [7, undefined, 7], 0)
@@ -1226,7 +1228,7 @@ DEF: ${props.defense}`;
      * Convert a Tiled Object Properties from array to an object
      * @param properties 
      */
-    public convertTiledObjectProperties (properties)
+    public convertTiledObjectProperties (properties: any)
     {
         const props = {
             callFunction: '',
@@ -1251,427 +1253,17 @@ DEF: ${props.defense}`;
 
     public addEnemies ()
     {
-        const layerArray = this.checkObjectsLayerIndex('objects');
-
-        layerArray?.objects.forEach((element) =>
-        {
-            element.properties = this.convertTiledObjectProperties(element.properties);
-
-            switch (element.name)
-            {
-                case 'cloud':
-                    const cloud = new Cloud(this, element.x as unknown as number, element.y as unknown as number, {
-                        name: 'to-remove-net-room',
-                        key: element.properties.key,
-                        speed: element.properties.speed
-                    });
-                    break;
-
-                case 'minotaur':
-                    if (!element.y) return;
-
-                    const minotaur = new Minotaur(this, element.x as unknown as number, element.y as unknown as number - 16, {
-                        key: element.properties.key,
-                        name: element.name,
-                        life: element.properties.life,
-                        damage: element.properties.damage,
-                    });
-
-                    this.enemyGroup.push(minotaur);
-                    break;
-
-                case 'skeleton-seeker':
-                    const skelSeek = new SkeletonSeeker(this, element.x as unknown as number, element.y as unknown as number - 23, {
-                        key: element.properties.key,
-                        name: element.name,
-                        life: element.properties.life,
-                        damage: element.properties.damage,
-                    });
-
-                    this.enemyGroup.push(skelSeek);
-                    break;
-
-                case 'wizardBoss':
-                    const wizardBoss = new EvilWizardBoss(this, element.x as unknown as number, element.y as unknown as number, {
-                        key: element.properties.key,
-                        name: element.name,
-                        life: element.properties.life,
-                        damage: element.properties.damage,
-                    });
-
-                    this.enemyGroup.push(wizardBoss);
-                    break;
-
-                case 'bringerOfDeath':
-                    if (this.callBringerOfDeath())
-                    {
-                        const bringer = new BringerOfDeath(this, element.x as unknown as number, element.y as unknown as number, {
-                            key: element.properties.key,
-                            name: element.name,
-                            life: element.properties.life,
-                            damage: element.properties.damage,
-                        });
-
-                        this.enemyGroup.push(bringer);
-                    }
-                    
-                    break;
-
-                case 'demon-axe':
-                    if (!element.y) return;
-
-                    const demonAxe = new DemonAxe(this, element.x as unknown as number, element.y - 16 as unknown as number - 16, {
-                        key: element.properties.key,
-                        name: element.name,
-                        life: element.properties.life,
-                        damage: element.properties.damage,
-                        isBossMusic: element.properties.isBossMusic ? true : false
-                    });
-
-                    this.enemyGroup.push(demonAxe);
-                    break;
-
-                case 'worm':
-                    if (!element.y) return;
-
-                    const worm = new Worm(this, element.x as unknown as number, element.y - 16 as unknown as number - 16, {
-                        key: element.properties.key,
-                        name: element.name,
-                        life: element.properties.life,
-                        damage: element.properties.damage,
-                        isBossMusic: element.properties.isBossMusic ? true : false
-                    });
-
-                    this.enemyGroup.push(worm);
-                    break;
-
-                case 'imp':
-                    if (!element.y) return;
-
-                    const imp = new Imp(this, element.x as unknown as number, element.y as unknown as number - 16, {
-                        key: element.properties.key,
-                        name: element.name,
-                        life: element.properties.life,
-                        damage: element.properties.damage,
-                    });
-
-                    this.enemyGroup.push(imp);
-                    break;
-
-                case 'viking':
-                    if (!element.y) return;
-
-                    const viking = new VikingAxe(this, element.x as unknown as number - 58, element.y as unknown as number - 16, {
-                        key: element.properties.key,
-                        name: element.name,
-                        life: element.properties.life,
-                        damage: element.properties.damage,
-                    });
-
-                    this.enemyGroup.push(viking);
-                    break;
-
-                case 'angel':
-                    if (!element.y) return;
-
-                    const angel = new Angel(this, element.x as unknown as number - 58, element.y as unknown as number - 16, {
-                        key: element.properties.key,
-                        name: element.name,
-                        life: element.properties.life,
-                        damage: element.properties.damage,
-                    });
-
-                    this.enemyGroup.push(angel);
-                    break;
-
-                case 'archer':
-                    if (!element.y) return;
-
-                    const archer = new Archer(this, element.x as unknown as number - 25, element.y as unknown as number - 16, {
-                        key: element.properties.key,
-                        name: element.name,
-                        life: element.properties.life,
-                        damage: element.properties.damage,
-                    });
-
-                    this.enemyGroup.push(archer);
-                    break;
-
-                case 'samurai':
-                    if (!element.y) return;
-
-                    const samurai = new Samurai(this, element.x as unknown as number - 64, element.y as unknown as number - 64, {
-                        key: element.properties.key,
-                        name: element.name,
-                        life: element.properties.life,
-                        damage: element.properties.damage,
-                    });
-
-                    this.enemyGroup.push(samurai);
-                    break;
-
-                case 'saw':
-                    if (!element.y) return;
-
-                    const saw = new Saw(this, element.x as unknown as number + 8, element.y - 12 as unknown as number, {
-                        key: 'atlas',
-                        name: 'saw',
-                        life: 0,
-                        damage: 15,
-                        amplitude: element.properties.amplitude,
-                        duration: element.properties.duration ? element.properties.duration : 2000
-                    });
-
-                    this.enemyGroup.push(saw);
-                    break;
-
-                case 'dragon-head':
-                    if (!element.y) return;
-
-                    const dragonHead = new DragonHead(this, element.x as unknown as number, element.y as unknown as number - 16, {
-                        key: element.properties.key,
-                        name: element.name,
-                        life: element.properties.life,
-                        damage: element.properties.damage,
-                        flipX: element.properties.flipX
-                    });
-
-                    this.enemyGroup.push(dragonHead);
-                    break;
-
-                case 'evil-wizard':
-                    if (!element.y) return;
-
-                    const evilWizard = new EvilWizard(this, element.x as unknown as number - 64, element.y as unknown as number - 64, {
-                        key: element.properties.key,
-                        name: element.name,
-                        life: element.properties.life,
-                        damage: element.properties.damage,
-                    });
-
-                    this.enemyGroup.push(evilWizard);
-                    break;
-
-                case 'knight2':
-                    if (!element.y) return;
-
-                    const knight2 = new Knight2(this, element.x as unknown as number - 64, element.y as unknown as number - 64, {
-                        key: element.properties.key,
-                        name: element.name,
-                        life: element.properties.life,
-                        damage: element.properties.damage,
-                    });
-
-                    this.enemyGroup.push(knight2);
-                    break;
-
-                case 'horse':
-                    if (!element.y) return;
-
-                    const horse = new Horse(this, element.x as unknown as number, element.y as unknown as number - 16, {
-                        key: 'horse-galloping_0',
-                        name: element.name,
-                        life: element.properties.life,
-                        damage: element.properties.damage,
-                    });
-
-                    this.enemyGroup.push(horse);
-                    break;
-
-                case 'skeleton-flail':
-                    if (!element.y) return;
-
-                    const skeletonFlail = new SkeletonFlail(this, element.x as unknown as number, element.y as unknown as number - 16, {
-                        key: element.properties.key,
-                        name: element.name,
-                        life: element.properties.life,
-                        damage: element.properties.damage,
-                    });
-
-                    this.enemyGroup.push(skeletonFlail);
-                    break;
-
-                case 'skeleton-sword':
-                    if (!element.y) return;
-
-                    const skeletonSword = new SkeletonSword(this, element.x as unknown as number, element.y as unknown as number - 16, {
-                        key: element.properties.key,
-                        name: element.name,
-                        life: element.properties.life,
-                        damage: element.properties.damage,
-                    });
-
-                    this.enemyGroup.push(skeletonSword);
-                    break;
-
-                case 'hellhound':
-                    if (!element.y) return;
-
-                    const hellhound = new HellHound(this, element.x as unknown as number, element.y - 16 as unknown as number - 16, {
-                        key: 'hellHound',
-                        name: element.name,
-                        life: element.properties.life,
-                        damage: element.properties.damage,
-                    });
-
-                    this.enemyGroup.push(hellhound);
-                    break;
-
-                case 'fireskull':
-                    if (!element.y) return;
-
-                    const fireskull = new FireSkull(this, element.x as unknown as number, element.y - 16 as unknown as number - 16, {
-                        key: 'fire-skull',
-                        name: element.name,
-                        life: element.properties.life,
-                        damage: element.properties.damage,
-                    });
-
-                    this.enemyGroup.push(fireskull);
-                    break;
-
-                case 'thing':
-                    if (!element.y) return;
-
-                    const thing = new Thing(this, element.x as unknown as number, element.y as unknown as number - 16, {
-                        key: element.properties.key,
-                        name: element.name,
-                        life: element.properties.life,
-                        damage: element.properties.damage,
-                    });
-                    this.enemyGroup.push(thing);
-                    break;
-
-                case 'skeleton':
-                    if (!element.y) return;
-
-                    const skeleton = new Skeleton(this, element.x as unknown as number, element.y as unknown as number - 16, {
-                        key: element.properties.key,
-                        name: element.name,
-                        life: element.properties.life,
-                        damage: element.properties.damage,
-                    });
-                    skeleton.setPosition(element.x, element.y - 16);
-                    this.enemyGroup.push(skeleton);
-                    break;
-
-                case 'ghost':
-                    if (!element.y) return;
-
-                    const ghost = new Ghost(this, element.x as unknown as number, element.y as unknown as number - 16, {
-                        key: element.properties.key,
-                        name: element.name,
-                        life: element.properties.life,
-                        damage: element.properties.damage,
-                    });
-                    this.enemyGroup.push(ghost);
-                    break;
-
-                case 'wizard':
-                    if (!element.y) return;
-
-                    const wiz = new Wizard(this, element.x as unknown as number, element.y as unknown as number - 16, {
-                        key: element.properties.key,
-                        name: element.name,
-                        life: element.properties.life,
-                        damage: element.properties.damage,
-                        delay: element.properties.delay || 0,
-                    });
-                    this.enemyGroup.push(wiz);
-                    break;
-
-                case 'platformSpike':
-                    if (!element.y) return;
-
-                    const platformSpike = new PlatformSpike(this, element.x as unknown as number, element.y as unknown as number - 16, {
-                        key: 'platformSpike',
-                        name: element.name,
-                        directionType: element.properties.vertical,
-                        duration: element.properties.duration,
-                        damage: element.properties.damage,
-                    });
-                    this.platformSpikeGroup.push(platformSpike);
-                    break;
-
-                case 'flames':
-                    if (!element.y) return;
-
-                    const flame = new Flames(this, element.x as unknown as number, element.y as unknown as number - 16, {
-                        key: 'flames',
-                        name: 'flame',
-                    });
-
-                    this.enemyGroup.push(flame);
-                    break;
-
-                case 'oldman':
-                    if (!element.y) return;
-
-                    const oldman = new Oldman(this, element.x as unknown as number, element.y as unknown as number - 16, {
-                        key: element.properties.key,
-                        name: element.name,
-                    });
-
-                    this.npcGroup.push(oldman);
-                    break;
-
-                case 'woman':
-                    if (!element.y) return;
-
-                    const woman = new Npc(this, element.x as unknown as number, element.y as unknown as number - 16, {
-                        key: element.properties.key,
-                        name: element.name,
-                        msg: element.properties.msg
-                    });
-
-                    this.npcGroup.push(woman);
-                    break;
-
-                case 'bearded':
-                    if (!element.y) return;
-
-                    const bearded = new Npc(this, element.x as unknown as number, element.y as unknown as number - 16, {
-                        key: element.properties.key,
-                        name: element.name,
-                        msg: element.properties.msg
-                    });
-
-                    this.npcGroup.push(bearded);
-                    break;
-
-                case 'hatman':
-                    if (!element.y) return;
-
-                    const hatman = new Npc(this, element.x as unknown as number, element.y as unknown as number - 16, {
-                        key: element.properties.key,
-                        name: element.name,
-                        msg: element.properties.msg
-                    });
-
-                    this.npcGroup.push(hatman);
-                    break;
-
-                case 'waterQueen':
-                    if (!element.y) return;
-
-                    if (this.callWaterQueen())
-                    {
-                        const waterQueen = new WaterQueen(this, element.x as unknown as number, element.y as unknown as number - 16, {
-                            key: element.properties.key,
-                            name: element.name,
-                            life: element.properties.life,
-                            damage: element.properties.damage,
-                        });
-    
-                        this.enemyGroup.push(waterQueen);
-                        break;
-                    }
-                    
-
-                default:
-                    break;
-            }
-        });
+        addEnemies(this);
+    }
+
+    public showEnemyDamage (enemy: Enemy | Demon | HellBeast, damage: number)
+    {
+        const damageText: TopHeadText = this.topHeadTextGroup.getFirstDead(true, enemy.body.center.x, enemy.body.top, FONTS.GALAXY, undefined, true);
+        
+        if (!damageText) return;
+
+        damageText.setAlpha(1).setActive(true).setVisible(true);
+        damageText.showDamageText(enemy, damage);
     }
 
     // HANDLE ROOM ELEMENTS
@@ -1686,7 +1278,7 @@ DEF: ${props.defense}`;
         layer.setAlpha(0);
     }
 
-    private callBringerOfDeath (): boolean
+    public callBringerOfDeath (): boolean
     {
         const swords = this.player.swordManager.getSwords().filter(swd => swd.id === 8);
 
@@ -1700,7 +1292,7 @@ DEF: ${props.defense}`;
         return true;
     }
 
-    private callWaterQueen (): boolean
+    public callWaterQueen (): boolean
     {
         const inventory = this.player.inventoryManager.getInventory();
         if (inventory.waterElement)

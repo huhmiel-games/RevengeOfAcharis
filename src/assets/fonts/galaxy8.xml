@@ -45,5 +45,7 @@
     <char id="47" x="313" y="2" width="9" height="5" xoffset="0" yoffset="0" xadvance="10" page="0" chnl="15"/>
     <char id="58" x="324" y="2" width="1" height="5" xoffset="0" yoffset="0" xadvance="2" page="0" chnl="15"/>
     <char id="32" x="0" y="0" width="0" height="0" xoffset="0" yoffset="0" xadvance="6" page="0" chnl="15"/>
+    <char id="45" x="340" y="4" width="4" height="1" xoffset="0" yoffset="2" xadvance="6" page="0" chnl="15"/>
+    <char id="37" x="348" y="2" width="5" height="5" xoffset="0" yoffset="0" xadvance="10" page="0" chnl="15"/>
   </chars>
 </font>

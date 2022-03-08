@@ -5,8 +5,7 @@ export default class Thing extends Enemy
 {
     public enemyState: { life: number; damage: number; giveLife: number; };
     public speed: number = 10;
-    public walkSfx: Phaser.Sound.BaseSound;
-    public distance: number;
+
     constructor (scene: GameScene, x: number, y: number, config: any)
     {
         super(scene, x, y, config);
@@ -25,7 +24,6 @@ export default class Thing extends Enemy
             .setVelocityX(-this.speed)
             .setMaxVelocityX(this.speed);
 
-        this.walkSfx = this.scene.sound.add('thingStep', { volume: 0.5 });
         this.anims.play('thing');
 
         this.on(Phaser.Animations.Events.ANIMATION_COMPLETE, this.playSound, this);
@@ -37,8 +35,7 @@ export default class Thing extends Enemy
 
         if (this.scene.cameras.main.worldView.contains(this.x, this.y))
         {
-            this.walkSfx.play();
-            
+            this.scene.playSfx('thingStep', { volume: 0.5 });
         }
     }
 

@@ -1,6 +1,6 @@
 import { Scene } from 'phaser';
 import { COLORS } from '../constant/colors';
-import { WIDTH, HEIGHT, FONTS, FONTS_SIZES, SCENES_NAMES, GAMENAME } from '../constant/config';
+import { WIDTH, FONTS, FONTS_SIZES, SCENES_NAMES, GAMENAME } from '../constant/config';
 import SaveLoadService from '../services/SaveLoadService';
 
 export default class OptionsScene extends Scene
@@ -64,7 +64,8 @@ export default class OptionsScene extends Scene
 
         this.title = this.add.bitmapText(WIDTH / 2, 15, FONTS.MINIMAL, 'Options', FONTS_SIZES.MINIMAL, 1)
             .setOrigin(0.5, 0.5)
-            .setTintFill(COLORS.RED);
+            .setTintFill(COLORS.RED)
+            .setDropShadow(0, 1, COLORS.ORANGE, 1);
 
         this.info = this.add.bitmapText(WIDTH / 2, 38, FONTS.GALAXY, 'available keys: a to z, cursors, space, ctrl, shift', FONTS_SIZES.GALAXY, 1)
             .setOrigin(0.5, 0.5)

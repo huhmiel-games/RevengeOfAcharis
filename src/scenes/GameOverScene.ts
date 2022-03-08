@@ -29,18 +29,18 @@ export default class GameOver extends Scene
             .setOrigin(0, 0)
             .setDisplaySize(WIDTH, HEIGHT);
 
-        this.title = this.add.bitmapText(WIDTH / 2, HEIGHT / 2 - 40, 'alagard', ' No revenge today... ')
+        this.title = this.add.bitmapText(WIDTH / 2, HEIGHT / 2, 'alagard', ' GAME OVER')
             .setFontSize(20)
             .setOrigin(0.5, 0.5)
-            .setDropShadow(0, 1, COLORS.ORANGE);
+            .setDropShadow(0, 1, COLORS.ORANGE, 1);
 
         this.retry = this.add.bitmapText(WIDTH / 4, this.position[0], 'alagard', ' Try again ')
             .setFontSize(18)
-            .setDropShadow(0, 1, COLORS.ORANGE);
+            .setDropShadow(0, 1, COLORS.ORANGE, 1);
 
         this.quit = this.add.bitmapText(WIDTH / 4, this.position[1], 'alagard', ' Quit ')
             .setFontSize(18)
-            .setDropShadow(0, 1, COLORS.ORANGE);
+            .setDropShadow(0, 1, COLORS.ORANGE, 1);
 
         this.head = this.add.image(WIDTH / 4 - 16, this.position[0], 'head')
             .setOrigin(0, 0)

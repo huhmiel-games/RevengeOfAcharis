@@ -174,21 +174,7 @@ export default class Horse extends Enemy
 
         this.enemyState.life -= specialDamage;
 
-        const damageText = this.scene.add.bitmapText(this.body.center.x, this.body.top, FONTS.GALAXY, `-${specialDamage}`, FONTS_SIZES.GALAXY, 1)
-            .setTintFill(COLORS.RED)
-            .setDropShadow(1, 1, COLORS.WHITE)
-            .setDepth(DEPTH.UI_TEXT);
-
-        this.scene.tweens.add({
-            targets: damageText,
-            duration: 1500,
-            y: {
-                from: this.body.top,
-                to: this.body.top - 32
-            },
-            alpha: 0,
-            onComplete: () => damageText.destroy()
-        });
+        this.scene.showEnemyDamage(this, specialDamage);
 
         if (this.isAttacking === false)
         {

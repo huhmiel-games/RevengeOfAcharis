@@ -13,8 +13,6 @@ export default class Worm extends Enemy
     public enemyState: { life: number; damage: number; giveLife: number; };
     public speed: number = 20;
     private lastSpeed: number = 20;
-    public walkSound: Phaser.Sound.BaseSound;
-    public distance: number;
     public hitbox: Projectile[] = [];
     private isFiring: boolean = false;
 
@@ -38,8 +36,6 @@ export default class Worm extends Enemy
             .setOffset(43, 30)
             .setVelocityX(this.speed)
             .setMaxVelocityX(this.speed);
-
-        this.walkSound = this.scene.sound.add('thingStep', { volume: 0.8, rate: 0.6 });
 
         this.anims.play('worm-walk');
 
@@ -125,7 +121,7 @@ export default class Worm extends Enemy
 
         if (this.scene.cameras.main.worldView.contains(x, y))
         {
-            this.walkSound.play({ volume });
+            this.scene.playSfx('thingStep', { volume: 0.8, rate: 0.6 });
         }
     }
 
@@ -219,8 +215,7 @@ export default class Worm extends Enemy
                 ball.body.setVelocity(100, 0);
             }
 
-
-            this.scene.sound.play('wizardFire', { volume: 1, rate: 0.7 });
+            this.scene.playSfx('wizardFire', { volume: 1, rate: 0.7 });
 
             this.scene.time.addEvent({
                 delay: 3500,
@@ -265,21 +260,7 @@ export default class Worm extends Enemy
         {
             this.enemyState.life -= damage;
 
-            const damageText = this.scene.add.bitmapText(this.body.center.x, this.body.top, FONTS.GALAXY, `-${damage}`, FONTS_SIZES.GALAXY, 1)
-                .setTintFill(COLORS.RED)
-                .setDropShadow(1, 1, COLORS.WHITE)
-                .setDepth(DEPTH.UI_TEXT);
-
-            this.scene.tweens.add({
-                targets: damageText,
-                duration: 1500,
-                y: {
-                    from: this.body.top,
-                    to: this.body.top - 32
-                },
-                alpha: 0,
-                onComplete: () => damageText.destroy()
-            });
+            this.scene.showEnemyDamage(this, damage);
         }
 
         if (this.isAttacking === false && weaponType !== 'arrow')

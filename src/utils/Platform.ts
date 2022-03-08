@@ -8,7 +8,7 @@ export default class Platform extends Phaser.GameObjects.Sprite
     constructor (scene, x, y, config)
     {
         super(scene, x, y, config.key);
-        this.scene = scene;
+        
         this.name = config.name;
         this.duration = config.duration;
         this.directionType = config.directionType;

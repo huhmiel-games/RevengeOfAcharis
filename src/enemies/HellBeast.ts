@@ -25,7 +25,7 @@ export default class HellBeast extends Phaser.GameObjects.Sprite
     {
         super(scene, x, y, config.key);
 
-        this.scene = scene;
+        
 
         this.name = config.name;
 
@@ -483,21 +483,7 @@ export default class HellBeast extends Phaser.GameObjects.Sprite
 
         this.healthUiText.setText(`${this.enemyState.life}/2000`);
 
-        const damageText = this.scene.add.bitmapText(this.body.center.x, this.body.top, FONTS.GALAXY, `-${damage}`, FONTS_SIZES.GALAXY, 1)
-            .setTintFill(COLORS.RED)
-            .setDropShadow(1, 1, COLORS.WHITE)
-            .setDepth(DEPTH.UI_TEXT);
-
-        this.scene.tweens.add({
-            targets: damageText,
-            duration: 1500,
-            y: {
-                from: this.body.top,
-                to: this.body.top - 32
-            },
-            alpha: 0,
-            onComplete: () => damageText.destroy()
-        });
+        this.scene.showEnemyDamage(this, damage);
 
         this.scene.sound.play('hellBeastHitSfx', { volume: 1, rate: 1 });
 

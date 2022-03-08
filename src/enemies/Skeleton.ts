@@ -16,7 +16,7 @@ export default class Skeleton extends Enemy
     {
         super(scene, x, y, config);
 
-        this.scene = scene;
+        
         this.name = 'skeleton';
         this.damage = config.damage;
         this.enemyState = {
@@ -184,20 +184,22 @@ export default class Skeleton extends Enemy
 
         this.enemyState.life = this.enemyState.life - damage;
 
-        const damageText = this.scene.add.bitmapText(this.body.center.x, this.body.top, FONTS.GALAXY, `-${damage}`, FONTS_SIZES.GALAXY, 1)
-            .setTintFill(COLORS.RED)
-            .setDepth(DEPTH.UI_TEXT);
+        this.scene.showEnemyDamage(this, damage);
 
-        this.scene.tweens.add({
-            targets: damageText,
-            duration: 1500,
-            y: {
-                from: this.body.top,
-                to: this.body.top - 32
-            },
-            alpha: 0,
-            onComplete: () => damageText.destroy()
-        });
+        // const damageText = this.scene.add.bitmapText(this.body.center.x, this.body.top, FONTS.GALAXY, `-${damage}`, FONTS_SIZES.GALAXY, 1)
+        //     .setTintFill(COLORS.RED)
+        //     .setDepth(DEPTH.UI_TEXT);
+
+        // this.scene.tweens.add({
+        //     targets: damageText,
+        //     duration: 1500,
+        //     y: {
+        //         from: this.body.top,
+        //         to: this.body.top - 32
+        //     },
+        //     alpha: 0,
+        //     onComplete: () => damageText.destroy()
+        // });
 
         if (this.enemyState.life <= 0)
         {

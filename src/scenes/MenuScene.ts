@@ -1,6 +1,6 @@
 import { Scene } from 'phaser';
 import { COLORS } from '../constant/colors';
-import { WIDTH, HEIGHT, SCENES_NAMES } from '../constant/config';
+import { WIDTH, HEIGHT, SCENES_NAMES, FONTS, FONTS_SIZES } from '../constant/config';
 import SaveLoadService from '../services/SaveLoadService';
 
 export default class LoadSavedGame extends Scene
@@ -26,26 +26,33 @@ export default class LoadSavedGame extends Scene
         this.titleTheme = this.sound.add('titleMenu');
         this.titleTheme.play({ loop: true });
 
-        this.add.image(0, 0, 'backgroundWithoutTitles')
+        this.add.image(0, 0, 'background')
             .setOrigin(0, 0)
             .setDisplaySize(WIDTH, HEIGHT);
 
         if (SaveLoadService.loadGameData())
         {
-            this.position = [74, 114, 154];
-            this.position = [HEIGHT / 4, HEIGHT / 2, HEIGHT / 4 * 3];
+            // this.position = [74, 114, 154];
+            this.position = [HEIGHT / 8 * 5, HEIGHT / 8 * 6, HEIGHT / 8 * 7];
 
-            this.add.bitmapText(WIDTH / 4, this.position[0], 'alagard', ' Load Game ', 18, 1).setDropShadow(0, 1, COLORS.ORANGE);
+            this.add.bitmapText(WIDTH / 6, this.position[0], FONTS.ULTIMA_BOLD, 'Load Game', FONTS_SIZES.ULTIMA_BOLD, 1)
+                .setTintFill(COLORS.RED)
+                .setDropShadow(0, 1, COLORS.ORANGE, 1);
 
-            this.add.bitmapText(WIDTH / 4 * 3 - 24, this.position[0] + 5, 'alagard', ` ${totalTime} `, 9, 2).setLetterSpacing(2).setDropShadow(0, 1, COLORS.RED);
+            this.add.bitmapText(WIDTH / 6 * 2, this.position[0] + 7, FONTS.GALAXY, ` ${totalTime} `, FONTS_SIZES.GALAXY, 2)
+                .setTintFill(COLORS.RED);
 
-            this.add.bitmapText(WIDTH / 4, this.position[2], 'alagard', ' Delete Game ', 18, 1).setDropShadow(0, 1, COLORS.ORANGE);
+            this.add.bitmapText(WIDTH / 6, this.position[2], FONTS.ULTIMA_BOLD, 'Delete Game', FONTS_SIZES.ULTIMA_BOLD, 1)
+                .setTintFill(COLORS.RED)
+                .setDropShadow(0, 1, COLORS.ORANGE, 1);
         }
         else
         {
-            this.position = [74, 114];
+            this.position = [HEIGHT / 8 * 5, HEIGHT / 8 * 6];
 
-            this.add.bitmapText(WIDTH / 4, this.position[0], 'alagard', ' New Game ', 18, 1).setDropShadow(0, 1, COLORS.ORANGE);
+            this.add.bitmapText(WIDTH / 6, this.position[0], FONTS.ULTIMA_BOLD, 'New Game', FONTS_SIZES.ULTIMA_BOLD, 1)
+                .setTintFill(COLORS.RED)
+                .setDropShadow(0, 1, COLORS.ORANGE, 1);
         }
 
         const keysOptions = SaveLoadService.getConfigKeys();
@@ -56,9 +63,11 @@ export default class LoadSavedGame extends Scene
             fire: Phaser.Input.Keyboard.KeyCodes[keysOptions[4]],
         });
 
-        this.add.bitmapText(WIDTH / 4, this.position[1], 'alagard', ' Options ', 18, 1).setDropShadow(0, 1, COLORS.ORANGE);
+        this.add.bitmapText(WIDTH / 6, this.position[1], FONTS.ULTIMA_BOLD, 'Options', FONTS_SIZES.ULTIMA_BOLD, 1)
+            .setTintFill(COLORS.RED)
+            .setDropShadow(0, 1, COLORS.ORANGE, 1);
 
-        this.head = this.add.image(WIDTH / 4 - 16, this.position[0] + 11, 'head')
+        this.head = this.add.image(WIDTH / 6 - 16, this.position[0] + 8, 'head')
             .setDisplaySize(16, 16);
 
         const menu = this.input.keyboard.on(Phaser.Input.Keyboard.Events.ANY_KEY_DOWN, (event: { key: string; }) =>
@@ -81,10 +90,6 @@ export default class LoadSavedGame extends Scene
                 this.launch();
             }
         });
-
-        // fading the scene from black
-        this.cameras.main.setBackgroundColor('#0C1D1C');
-        this.cameras.main.fadeIn(500);
     }
 
     public choose (count: number)
@@ -102,7 +107,7 @@ export default class LoadSavedGame extends Scene
             this.lastPosition += count;
         }
 
-        this.head.y = this.position[this.lastPosition] + 11;
+        this.head.y = this.position[this.lastPosition] + 8;
     }
 
     public launch ()

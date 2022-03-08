@@ -190,6 +190,7 @@ export default class SkeletonSeeker extends Enemy
             leftEarthBump.enemyState = { damage: 5 };
             leftEarthBump.body.setSize(34, 14).setVelocityX(-250);
             leftEarthBump.anims.play('earth-bump');
+            leftEarthBump.looseLife = () => { return; };
         }
 
         if (rightEarthBump)
@@ -198,6 +199,7 @@ export default class SkeletonSeeker extends Enemy
             rightEarthBump.enemyState = { damage: 5 };
             rightEarthBump.body.setSize(34, 14).setVelocityX(250);
             rightEarthBump.anims.play('earth-bump');
+            rightEarthBump.looseLife = () => { return; };
         }
 
         this.scene.enemyGroup.push(leftEarthBump, rightEarthBump);
@@ -366,21 +368,7 @@ export default class SkeletonSeeker extends Enemy
 
         this.enemyState.life -= damage;
 
-        const damageText = this.scene.add.bitmapText(this.body.center.x, this.body.top, FONTS.GALAXY, `-${damage}`, FONTS_SIZES.GALAXY, 1)
-            .setTintFill(COLORS.RED)
-            .setDropShadow(1, 1, COLORS.WHITE)
-            .setDepth(DEPTH.UI_TEXT);
-
-        this.scene.tweens.add({
-            targets: damageText,
-            duration: 1500,
-            y: {
-                from: this.body.top,
-                to: this.body.top - 32
-            },
-            alpha: 0,
-            onComplete: () => damageText.destroy()
-        });
+        this.scene.showEnemyDamage(this, damage);
 
         if (this.isAttacking === false && weaponType !== 'arrow')
         {

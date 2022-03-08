@@ -1,3 +1,4 @@
+import { COLORS } from '../constant/colors';
 import { FONTS, HEIGHT, WIDTH } from '../constant/config';
 import DEPTH from '../constant/depth';
 import GameScene from '../scenes/GameScene';
@@ -6,9 +7,9 @@ export default class DialogueService
 {
     public static npcTalk (scene: GameScene, text: string[])
     {
-        scene.setPause();
-
         scene.player.isPause = true;
+
+        scene.setPause(true, false, false);
 
         // @ts-ignore
         const ui = scene.add.rexNinePatch(WIDTH / 2, HEIGHT - HEIGHT / 8, WIDTH, HEIGHT / 4, 'framing', [7, undefined, 7], [7, undefined, 7], 0)
@@ -20,7 +21,7 @@ export default class DialogueService
         let index = 0;
 
         const msg = scene.add.bitmapText(WIDTH / 32, HEIGHT - 48, FONTS.MINIMAL, text[index], 22, 1)
-            .setOrigin(0, 0).setLetterSpacing(1).setAlpha(1).setDepth(DEPTH.UI_TEXT).setScrollFactor(0, 0);
+            .setOrigin(0, 0).setLetterSpacing(1).setAlpha(1).setDepth(DEPTH.UI_TEXT).setScrollFactor(0, 0).setTintFill(COLORS.STEEL_GRAY);
 
         const dialog = scene.input.keyboard.on(Phaser.Input.Keyboard.Events.ANY_KEY_DOWN, (event) =>
         {

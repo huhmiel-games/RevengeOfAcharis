@@ -8,7 +8,7 @@ export default class Elevators extends Phaser.GameObjects.Sprite
     {
         super(scene, x, y, config.key);
 
-        this.scene = scene;
+        
         this.elevatorState = {
             up: config.up * 16,
             down: config.down * 16,
