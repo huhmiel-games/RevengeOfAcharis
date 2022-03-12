@@ -13,7 +13,6 @@ import Horse from '../enemies/Horse';
 import Imp from '../enemies/Imp';
 import Knight2 from '../enemies/Knight2';
 import Minotaur from '../enemies/Minotaur';
-import PlatformSpike from '../enemies/PlatformSpike';
 import Samurai from '../enemies/Samurai';
 import Saw from '../enemies/Saw';
 import Skeleton from '../enemies/Skeleton';
@@ -287,19 +286,6 @@ export default function addEnemies (scene: GameScene)
                     delay: element.properties.delay || 0,
                 });
                 scene.enemyGroup.push(wiz);
-                break;
-
-            case 'platformSpike':
-                if (!element.y) return;
-
-                const platformSpike = new PlatformSpike(scene, element.x as unknown as number, element.y as unknown as number - 16, {
-                    key: 'platformSpike',
-                    name: element.name,
-                    directionType: element.properties.vertical,
-                    duration: element.properties.duration,
-                    damage: element.properties.damage,
-                });
-                scene.platformSpikeGroup.push(platformSpike);
                 break;
 
             case 'flames':
