@@ -3,7 +3,6 @@ import GameScene from '../scenes/GameScene';
 import { TKeys, TPlayerState } from '../types/types';
 import SwordManager from './SwordManager';
 import { COLORS } from '../constant/colors';
-import PlatformSpike from '../enemies/PlatformSpike';
 import StateMachine from '../utils/StateMachine';
 import IdleState from './states/IdleState';
 import FallState from './states/FallState';
@@ -76,8 +75,6 @@ export default class Player extends Phaser.GameObjects.Sprite
     constructor (scene: GameScene, x: number, y: number, config: { key: string | Phaser.Textures.Texture; })
     {
         super(scene, x, y, config.key);
-
-
 
         this.jumpTime = 0;
 
@@ -315,10 +312,14 @@ export default class Player extends Phaser.GameObjects.Sprite
 
     private showXpText (xp: number)
     {
-        const xpText = this.scene.topHeadTextGroup.getFirstDead(true, this.body.center.x, this.body.top, FONTS.GALAXY, undefined, true);
+        const xpText: TopHeadText = this.scene.topHeadTextGroup.getFirstDead(true, this.body.center.x, this.body.top, FONTS.GALAXY, undefined, true);
+
         if (!xpText) return;
-        xpText.setAlpha(1).setActive(true).setVisible(true);
-        xpText.showXpText(this, xp);
+
+        xpText.setAlpha(1)
+            .setActive(true)
+            .setVisible(true)
+            .showXpText(this, xp);
     }
 
     private showDamageText (damage: number)
@@ -625,17 +626,6 @@ export default class Player extends Phaser.GameObjects.Sprite
     {
         const inventory = this.inventoryManager.getInventory();
 
-        if (elm instanceof PlatformSpike && elm.body.touching.down)
-        {
-            inventory.life = 0;
-
-            this.HealthUiText.setText(`${inventory.life}/${inventory.maxLife}`);
-
-            this.playerDeathSequence();
-
-            return;
-        }
-
         if (elm instanceof WaterQueen)
         {
             const { x, y } = this.body.center;
@@ -765,5 +755,12 @@ export default class Player extends Phaser.GameObjects.Sprite
                 }
             });
         });
+    }
+
+    public getFireKey (): string
+    {
+        console.log(`${Phaser.Input.Keyboard.Events.KEY_DOWN}${this.keys.fire.originalEvent.key.toUpperCase()}`);
+        
+        return `${Phaser.Input.Keyboard.Events.KEY_DOWN}${this.keys.fire.originalEvent.key.toUpperCase()}`;
     }
 }

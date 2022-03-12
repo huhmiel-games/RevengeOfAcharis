@@ -25,8 +25,6 @@ export default class HellBeast extends Phaser.GameObjects.Sprite
     {
         super(scene, x, y, config.key);
 
-        
-
         this.name = config.name;
 
         this.enemyState = {
@@ -154,8 +152,8 @@ export default class HellBeast extends Phaser.GameObjects.Sprite
 
         let index = 0;
 
-        const msg = this.scene.add.bitmapText(WIDTH / 32, HEIGHT - 48, FONTS.MINIMAL, text[index], 22, 1)
-            .setOrigin(0, 0).setLetterSpacing(1).setAlpha(1).setDepth(DEPTH.UI_TEXT).setScrollFactor(0, 0);
+        const msg = this.scene.add.bitmapText(WIDTH / 32, HEIGHT - 48, FONTS.MINIMAL, text[index], FONTS_SIZES.MINIMAL, 1)
+            .setOrigin(0, 0).setLetterSpacing(1).setAlpha(1).setDepth(DEPTH.UI_TEXT).setScrollFactor(0, 0).setTintFill(COLORS.STEEL_GRAY);
 
         const dialog = this.scene.input.keyboard.on(Phaser.Input.Keyboard.Events.ANY_KEY_DOWN, (event) =>
         {
@@ -580,13 +578,13 @@ export default class HellBeast extends Phaser.GameObjects.Sprite
 
                 const overlap = this.scene.physics.add.overlap(this.scene.player, fireElement, () =>
                 {
+                    this.scene.playSfx('powerUp');
+
                     const inventory = this.scene.player.inventoryManager.getInventory();
 
                     inventory.fireElement = true;
 
-                    fireElement.destroy();
-
-                    this.scene.setPause();
+                    this.scene.setPause(true, false, false);
 
                     // @ts-ignore
                     const ui = this.scene.add.rexNinePatch(WIDTH / 2, HEIGHT / 2, WIDTH / 4 * 3, HEIGHT / 2, 'framing', [7, undefined, 7], [7, undefined, 7], 0)
@@ -598,11 +596,17 @@ export default class HellBeast extends Phaser.GameObjects.Sprite
                     const powerUpDesc = this.scene.add.bitmapText(WIDTH / 2, HEIGHT / 2, FONTS.ULTIMA_BOLD, 'you get the fire element', FONTS_SIZES.ULTIMA_BOLD, 1)
                         .setOrigin(0.5, 0.5)
                         .setAlpha(1)
+                        .setTint(COLORS.RED, COLORS.RED, COLORS.ORANGE, COLORS.ORANGE)
                         .setDepth(DEPTH.UI_TEXT)
                         .setScrollFactor(0, 0);
+                    
+                    fireElement.setDepth(DEPTH.UI_TEXT).setScrollFactor(0, 0)
+                        .setOrigin(0.5, 0.5)
+                        .setPosition(WIDTH / 2, HEIGHT / 3 + fireElement.height / 4);
 
-                    const dialog = this.scene.input.keyboard.once(Phaser.Input.Keyboard.Events.ANY_KEY_DOWN, () =>
+                    const dialog = this.scene.input.keyboard.once(this.scene.player.getFireKey(), (event) =>
                     {
+                        fireElement.destroy();
                         powerUpDesc.destroy();
                         ui.destroy();
                         dialog.removeAllListeners();

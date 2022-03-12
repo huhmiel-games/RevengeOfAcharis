@@ -245,8 +245,13 @@ export default class BringerOfDeath extends Enemy
 
         let index = 0;
 
-        const msg = this.scene.add.bitmapText(WIDTH / 32, HEIGHT - 48, FONTS.MINIMAL, text[index], 22, 1)
-            .setOrigin(0, 0).setLetterSpacing(1).setAlpha(1).setDepth(DEPTH.UI_TEXT).setScrollFactor(0, 0);
+        const msg = this.scene.add.bitmapText(WIDTH / 32, HEIGHT - 48, FONTS.MINIMAL, text[index], FONTS_SIZES.MINIMAL, 1)
+            .setOrigin(0, 0)
+            .setLetterSpacing(1)
+            .setAlpha(1)
+            .setDepth(DEPTH.UI_TEXT)
+            .setTintFill(COLORS.STEEL_GRAY)
+            .setScrollFactor(0, 0);
 
         const dialog = this.scene.input.keyboard.on(Phaser.Input.Keyboard.Events.ANY_KEY_DOWN, (event) =>
         {
