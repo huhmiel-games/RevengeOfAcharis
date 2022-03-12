@@ -148,9 +148,6 @@ export default class ColliderService
             }
         }, scene);
 
-        // scene.physics.add.collider(scene.platformGroup, scene.player, (platform) => scene.player.playerOnPlatform(platform), undefined, scene);
-        // scene.physics.add.collider(scene.platformSpikeGroup, scene.colliderLayer, undefined);
-        // scene.physics.add.collider(scene.platformSpikeGroup, scene.player, (platform) => scene.playerIsHit(platform), undefined, scene);
         scene.physics.add.collider(scene.enemyGroup, scene.colliderLayer, undefined, (enemy, tile) =>
         {
             if (enemy.name !== 'demon' && enemy.name !== 'skullHeadDemon') return true;
