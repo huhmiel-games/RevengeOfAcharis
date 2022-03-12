@@ -604,7 +604,7 @@ export default class HellBeast extends Phaser.GameObjects.Sprite
                         .setOrigin(0.5, 0.5)
                         .setPosition(WIDTH / 2, HEIGHT / 3 + fireElement.height / 4);
 
-                    const dialog = this.scene.input.keyboard.once(this.scene.player.getFireKey(), (event) =>
+                    const dialog = this.scene.input.keyboard.once(this.scene.player.getFireKeyEventName(), (event) =>
                     {
                         fireElement.destroy();
                         powerUpDesc.destroy();
