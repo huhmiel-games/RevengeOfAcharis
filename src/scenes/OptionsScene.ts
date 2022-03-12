@@ -62,14 +62,18 @@ export default class OptionsScene extends Scene
         // select: 7,
         // pause: 8,
 
-        this.title = this.add.bitmapText(WIDTH / 2, 15, FONTS.MINIMAL, 'Options', FONTS_SIZES.MINIMAL, 1)
+        this.title = this.add.bitmapText(WIDTH / 2, 15, FONTS.ALAGARD, 'Options', FONTS_SIZES.ALAGARD, 1)
             .setOrigin(0.5, 0.5)
-            .setTintFill(COLORS.RED)
+            .setLetterSpacing(2)
+            .setTint(COLORS.RED, COLORS.RED, COLORS.ORANGE, COLORS.ORANGE)
             .setDropShadow(0, 1, COLORS.ORANGE, 1);
 
-        this.info = this.add.bitmapText(WIDTH / 2, 38, FONTS.GALAXY, 'available keys: a to z, cursors, space, ctrl, shift', FONTS_SIZES.GALAXY, 1)
+        this.info = this.add.bitmapText(WIDTH / 2, 48, FONTS.GALAXY, 'available keys: a to z, cursors, space, ctrl, shift', FONTS_SIZES.GALAXY, 1)
             .setOrigin(0.5, 0.5)
-            .setTintFill(COLORS.RED);
+            .setTintFill(COLORS.GREEN)
+            .setWordTint('available', 1, true, COLORS.RED, COLORS.RED, COLORS.RED, COLORS.RED)
+            .setWordTint('keys:', 1, true, COLORS.RED, COLORS.RED, COLORS.RED, COLORS.RED)
+            .setWordTint('to', 1, true, COLORS.RED);
 
         this.keyLeft = this.add.bitmapText(WIDTH / 4 - 80, this.position[0], FONTS.GALAXY, 'left', FONTS_SIZES.GALAXY, 1);
         this.keyRight = this.add.bitmapText(WIDTH / 4 - 80, this.position[1], FONTS.GALAXY, 'right', FONTS_SIZES.GALAXY, 1);

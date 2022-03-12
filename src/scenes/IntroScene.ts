@@ -25,7 +25,7 @@ export default class Intro extends Scene
         
         this.count = 0;
         
-        this.storyText = this.add.bitmapText(WIDTH / 2, HEIGHT / 2, 'alagard', '', 12, 1)
+        this.storyText = this.add.bitmapText(WIDTH / 2, HEIGHT / 2, FONTS.ALAGARD, '', 12, 1)
             .setOrigin(0.5, 0.5)
             .setTintFill(COLORS.RED)
             .setDropShadow(0, 1, COLORS.ORANGE, 1);

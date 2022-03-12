@@ -1,6 +1,6 @@
 import { Scene } from 'phaser';
 import { COLORS } from '../constant/colors';
-import { WIDTH, HEIGHT, SCENES_NAMES } from '../constant/config';
+import { WIDTH, HEIGHT, SCENES_NAMES, FONTS, FONTS_SIZES } from '../constant/config';
 import SaveLoadService from '../services/SaveLoadService';
 
 export default class GameOver extends Scene
@@ -20,7 +20,7 @@ export default class GameOver extends Scene
 
     public create ()
     {
-        this.position = [128, 158];
+        this.position = [HEIGHT / 8 * 5, HEIGHT / 8 * 6];
         this.lastPosition = 0;
 
         this.scene.stop('dashBoard');
@@ -29,20 +29,23 @@ export default class GameOver extends Scene
             .setOrigin(0, 0)
             .setDisplaySize(WIDTH, HEIGHT);
 
-        this.title = this.add.bitmapText(WIDTH / 2, HEIGHT / 2, 'alagard', ' GAME OVER')
-            .setFontSize(20)
+        this.title = this.add.bitmapText(WIDTH / 2, HEIGHT / 2, FONTS.ALAGARD, 'G A M E  O V E R', 20, 1)
             .setOrigin(0.5, 0.5)
+            .setLetterSpacing(8)
+            .setTint(COLORS.RED, COLORS.RED, COLORS.ORANGE, COLORS.ORANGE)
             .setDropShadow(0, 1, COLORS.ORANGE, 1);
 
-        this.retry = this.add.bitmapText(WIDTH / 4, this.position[0], 'alagard', ' Try again ')
-            .setFontSize(18)
+        this.retry = this.add.bitmapText(WIDTH / 6, this.position[0], FONTS.ULTIMA_BOLD, 'Try again', FONTS_SIZES.ULTIMA_BOLD, 0)
+            .setLetterSpacing(1)
+            .setTint(COLORS.RED, COLORS.RED, COLORS.ORANGE, COLORS.ORANGE)
             .setDropShadow(0, 1, COLORS.ORANGE, 1);
 
-        this.quit = this.add.bitmapText(WIDTH / 4, this.position[1], 'alagard', ' Quit ')
-            .setFontSize(18)
+        this.quit = this.add.bitmapText(WIDTH / 6, this.position[1], FONTS.ULTIMA_BOLD, 'Quit', FONTS_SIZES.ULTIMA_BOLD, 0)
+            .setLetterSpacing(1)
+            .setTint(COLORS.RED, COLORS.RED, COLORS.ORANGE, COLORS.ORANGE)
             .setDropShadow(0, 1, COLORS.ORANGE, 1);
 
-        this.head = this.add.image(WIDTH / 4 - 16, this.position[0], 'head')
+        this.head = this.add.image(WIDTH / 6 - 24, this.position[0], 'head')
             .setOrigin(0, 0)
             .setDisplaySize(16, 16);
 

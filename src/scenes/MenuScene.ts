@@ -32,18 +32,19 @@ export default class LoadSavedGame extends Scene
 
         if (SaveLoadService.loadGameData())
         {
-            // this.position = [74, 114, 154];
             this.position = [HEIGHT / 8 * 5, HEIGHT / 8 * 6, HEIGHT / 8 * 7];
 
             this.add.bitmapText(WIDTH / 6, this.position[0], FONTS.ULTIMA_BOLD, 'Load Game', FONTS_SIZES.ULTIMA_BOLD, 1)
-                .setTintFill(COLORS.RED)
+                .setTint(COLORS.RED, COLORS.RED, COLORS.ORANGE, COLORS.ORANGE)
+                .setLetterSpacing(1)
                 .setDropShadow(0, 1, COLORS.ORANGE, 1);
 
-            this.add.bitmapText(WIDTH / 6 * 2, this.position[0] + 7, FONTS.GALAXY, ` ${totalTime} `, FONTS_SIZES.GALAXY, 2)
-                .setTintFill(COLORS.RED);
+            this.add.bitmapText(WIDTH / 6 * 2 + 12, this.position[0] + 7, FONTS.GALAXY, `${totalTime}`, FONTS_SIZES.GALAXY, 2)
+                .setTintFill(0xEEC39A);
 
             this.add.bitmapText(WIDTH / 6, this.position[2], FONTS.ULTIMA_BOLD, 'Delete Game', FONTS_SIZES.ULTIMA_BOLD, 1)
-                .setTintFill(COLORS.RED)
+                .setLetterSpacing(1)
+                .setTint(COLORS.RED, COLORS.RED, COLORS.ORANGE, COLORS.ORANGE)
                 .setDropShadow(0, 1, COLORS.ORANGE, 1);
         }
         else
@@ -51,7 +52,8 @@ export default class LoadSavedGame extends Scene
             this.position = [HEIGHT / 8 * 5, HEIGHT / 8 * 6];
 
             this.add.bitmapText(WIDTH / 6, this.position[0], FONTS.ULTIMA_BOLD, 'New Game', FONTS_SIZES.ULTIMA_BOLD, 1)
-                .setTintFill(COLORS.RED)
+                .setLetterSpacing(1)
+                .setTint(COLORS.RED, COLORS.RED, COLORS.ORANGE, COLORS.ORANGE)
                 .setDropShadow(0, 1, COLORS.ORANGE, 1);
         }
 
@@ -64,7 +66,8 @@ export default class LoadSavedGame extends Scene
         });
 
         this.add.bitmapText(WIDTH / 6, this.position[1], FONTS.ULTIMA_BOLD, 'Options', FONTS_SIZES.ULTIMA_BOLD, 1)
-            .setTintFill(COLORS.RED)
+            .setLetterSpacing(1)
+            .setTint(COLORS.RED, COLORS.RED, COLORS.ORANGE, COLORS.ORANGE)
             .setDropShadow(0, 1, COLORS.ORANGE, 1);
 
         this.head = this.add.image(WIDTH / 6 - 16, this.position[0] + 8, 'head')

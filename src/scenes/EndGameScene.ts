@@ -48,7 +48,7 @@ export default class EndGame extends Scene
 
         this.trans = 'The end';
         this.cnt = 0;
-        this.transDisplay = this.add.bitmapText(WIDTH / 2, HEIGHT / 2, 'alagard', '', 20, 1)
+        this.transDisplay = this.add.bitmapText(WIDTH / 2, HEIGHT / 2, FONTS.ALAGARD, '', 20, 1)
             .setOrigin(0.5, 0.5).setDropShadow(0, 1, COLORS.ORANGE, 1);
 
         this.time.addEvent({
@@ -87,20 +87,20 @@ export default class EndGame extends Scene
                     },
                     onComplete: () =>
                     {
-                        this.congrat = this.add.bitmapText(WIDTH / 2, HEIGHT / 4, 'alagard', 'Congratulations !!', 20, 1)
+                        this.congrat = this.add.bitmapText(WIDTH / 2, HEIGHT / 4, FONTS.ALAGARD, 'Congratulations !!', 20, 1)
                             .setOrigin(0.5, 0.5)
                             .setAlpha(0).setDropShadow(0, 1, COLORS.ORANGE, 1);
 
-                        this.enemiesKilled = this.add.bitmapText(42, HEIGHT / 4 + 50, 'alagard', `Killed Enemies: ${enemyDeathCount}`, 12, 0)
+                        this.enemiesKilled = this.add.bitmapText(42, HEIGHT / 4 + 50, FONTS.ALAGARD, `Killed Enemies: ${enemyDeathCount}`, 12, 0)
                             .setAlpha(0).setTintFill(COLORS.RED).setDropShadow(0, 1, COLORS.ORANGE, 1);
 
-                        this.death = this.add.bitmapText(42, HEIGHT / 4 + 70, 'alagard', `Player Death: ${playerDeathCount}`, 12, 0)
+                        this.death = this.add.bitmapText(42, HEIGHT / 4 + 70, FONTS.ALAGARD, `Player Death: ${playerDeathCount}`, 12, 0)
                             .setAlpha(0).setDropShadow(0, 1, COLORS.ORANGE, 1);
 
-                        this.items = this.add.bitmapText(42, HEIGHT / 4 + 90, 'alagard', `Collected items: ${percent}%`, 12, 0)
+                        this.items = this.add.bitmapText(42, HEIGHT / 4 + 90, FONTS.ALAGARD, `Collected items: ${percent}%`, 12, 0)
                             .setAlpha(0).setDropShadow(0, 1, COLORS.ORANGE, 1);
 
-                        this.timeGame = this.add.bitmapText(42, HEIGHT / 4 + 110, 'alagard', `Total time: ${totalTime}`, 12, 0)
+                        this.timeGame = this.add.bitmapText(42, HEIGHT / 4 + 110, FONTS.ALAGARD, `Total time: ${totalTime}`, 12, 0)
                             .setAlpha(0).setDropShadow(0, 1, COLORS.ORANGE, 1);
 
                         this.tweens.add({

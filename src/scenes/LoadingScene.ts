@@ -4149,9 +4149,7 @@ export default class LoadingScreen extends Scene
         // Add percentage text
         const loadingpercentage = this.add.bitmapText(WIDTH / 2, HEIGHT / 4 * 3 - 10, FONTS.GALAXY, 'loading:', FONTS_SIZES.GALAXY, 1)
             .setOrigin(0.5, 0.5)
-            .setAlpha(1)
-            // .setTintFill(COLORS.RED)
-            //.setDropShadow(0, 1, COLORS.ORANGE, 1);
+            .setAlpha(1);
 
         //  Crop the filler along its width, proportional to the amount of files loaded.
         this.load

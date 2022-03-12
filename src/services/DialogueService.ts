@@ -1,5 +1,5 @@
 import { COLORS } from '../constant/colors';
-import { FONTS, HEIGHT, WIDTH } from '../constant/config';
+import { FONTS, FONTS_SIZES, HEIGHT, WIDTH } from '../constant/config';
 import DEPTH from '../constant/depth';
 import GameScene from '../scenes/GameScene';
 
@@ -20,7 +20,7 @@ export default class DialogueService
 
         let index = 0;
 
-        const msg = scene.add.bitmapText(WIDTH / 32, HEIGHT - 48, FONTS.MINIMAL, text[index], 22, 1)
+        const msg = scene.add.bitmapText(WIDTH / 32, HEIGHT - 48, FONTS.MINIMAL, text[index], FONTS_SIZES.MINIMAL, 1)
             .setOrigin(0, 0).setLetterSpacing(1).setAlpha(1).setDepth(DEPTH.UI_TEXT).setScrollFactor(0, 0).setTintFill(COLORS.STEEL_GRAY);
 
         const dialog = scene.input.keyboard.on(Phaser.Input.Keyboard.Events.ANY_KEY_DOWN, (event) =>
