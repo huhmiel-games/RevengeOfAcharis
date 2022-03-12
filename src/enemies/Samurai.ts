@@ -326,4 +326,9 @@ export default class Samurai extends Enemy
             h.body.setEnable(false);
         });
     }
+
+    public playSfxDeath ()
+    {
+        this.scene.playSfx(`oldmanSadSfx`, { volume: 2, rate: 0.5 });
+    }
 }

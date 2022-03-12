@@ -352,4 +352,9 @@ export default class Knight2 extends Enemy
             h.body.setEnable(false);
         });
     }
+
+    public playSfxDeath ()
+    {
+        this.scene.playSfx(`beardedSfx`, { volume: 2, rate: 1.6 });
+    }
 }

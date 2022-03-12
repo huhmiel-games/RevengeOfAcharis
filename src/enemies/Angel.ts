@@ -85,4 +85,9 @@ export default class Angel extends Enemy
             }
         }
     }
+
+    public playSfxDeath ()
+    {
+        this.scene.playSfx(`womanSfx`, { volume: 2, rate: 0.8 });
+    }
 }

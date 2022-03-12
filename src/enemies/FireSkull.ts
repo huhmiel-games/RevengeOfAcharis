@@ -109,4 +109,9 @@ export default class FireSkull extends Enemy
             }
         }
     }
+
+    public playSfxDeath ()
+    {
+        this.scene.playSfx(`skeletonDeath`, { volume: 0.6, rate: 0.6 });
+    }
 }

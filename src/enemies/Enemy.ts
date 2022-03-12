@@ -57,19 +57,10 @@ export default class Enemy extends GameObjects.Sprite
         }
 
         this.isHit = true;
-        
+
         this.setTintFill(0xDDDDDD);
 
-        try
-        {
-            this.scene.playSfx(`${this.name}Hit`);
-            // this.scene.sound.play(`${this.name}Hit`);
-        }
-        catch (error)
-        {
-            console.log(error);
-        }
-        
+        this.playSfxHit();
 
         this.enemyState.life -= damage;
 
@@ -134,9 +125,9 @@ export default class Enemy extends GameObjects.Sprite
                 .setVisible(true)
                 .setDataEnabled()
                 .data.set('health', this.enemyState.giveLife);
-            
+
             heart.body.setEnable(true);
-            
+
             this.scene.heartGroup.push(heart);
         }
     }
@@ -158,16 +149,52 @@ export default class Enemy extends GameObjects.Sprite
         }
     }
 
+    public playSfxHit ()
+    {
+        try
+        {
+            this.scene.playSfx(`${this.name}Hit`);
+        }
+        catch (error)
+        {
+            switch (this.name)
+            {
+                case 'fireskull':
+                    this.scene.playSfx('skeletonHit', { volume: 1.2, rate: 0.8 });
+                    break;
+
+                case 'dragon-head':
+                    this.scene.playSfx('skeletonHit', { volume: 0.8, rate: 1.4 });
+                    break;
+
+                default:
+                    console.log(error);
+                    break;
+            }
+        }
+    }
+
     public playSfxDeath ()
     {
         try
         {
             this.scene.playSfx(`${this.name}Death`, { volume: 0.6, rate: 1 });
-            // this.scene.sound.play(`${this.name}Death`, { volume: 1, rate: 1 });
         }
         catch (error)
         {
-            console.log(error);
+            switch (this.name)
+            {
+                case 'worm':
+                    this.scene.playSfx('thingDeath', { volume: 1, rate: 0.7 });
+                    break;
+
+                default:
+                    console.log(error);
+                    const rate = Phaser.Math.RND.realInRange(0.8, 1);
+
+                    this.scene.playSfx(`skeletonDeath`, { volume: 0.6, rate });
+                    break;
+            }
         }
     }
 }
