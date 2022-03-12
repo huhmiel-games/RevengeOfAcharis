@@ -20,7 +20,8 @@ export const enum FONTS_SIZES
     MINIMAL = 22,
     GALAXY = 8,
     ULTIMA = 16,
-    ULTIMA_BOLD = 16
+    ULTIMA_BOLD = 16,
+    ALAGARD = 20
 }
 
 export const enum SCENES_NAMES
@@ -182,35 +183,35 @@ export const BOWS: TBowConfig[] = [
 export const SHIELDS: TShieldConfig[] = [
     {
         id: 15, // done
-        name: 'wood shield',
+        name: 'wood-shield',
         desc: 'a simple shield made with wood',
         defense: 4,
         key: 15
     },
     {
         id: 16, // done
-        name: 'iron shield',
+        name: 'iron-shield',
         desc: 'a full iron shield ',
         defense: 6,
         key: 16
     },
     {
         id: 17, // done
-        name: 'knight shield',
+        name: 'knight-shield',
         desc: 'a good knight shield',
         defense: 8,
         key: 17
     },
     {
         id: 18, // done
-        name: 'royal guard shield',
+        name: 'royal-guard-shield',
         desc: 'perhaps the best ever made shield',
         defense: 10,
         key: 18
     },
     {
         id: 19, // done
-        name: 'dark shield',
+        name: 'dark-shield',
         desc: 'a strange dark shield in a unknown matter',
         defense: 15,
         key: 19
@@ -241,7 +242,7 @@ export const EQUIPMENT: TEquipmentConfig[] = [
     },
     {
         id: 23, // done
-        name: 'jump boots',
+        name: 'jump-boots',
         desc: 'jump higher with this boots',
         defense: 0,
         key: 23
