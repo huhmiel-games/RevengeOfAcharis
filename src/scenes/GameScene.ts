@@ -10,7 +10,6 @@ import Dragon from '../enemies/Dragon';
 import HellBeast from '../enemies/HellBeast';
 import Demon from '../enemies/Demon';
 import Platform from '../utils/Platform';
-import PlatformSpike from '../enemies/PlatformSpike';
 import ColliderService from '../services/ColliderService';
 import LayerService from '../services/LayerService';
 import GenerateWorldRoom from '../utils/GenerateWorldRoom';
@@ -30,7 +29,7 @@ import TopHeadText from '../utils/TopHeadText';
 export default class GameScene extends Scene
 {
     //#region properties
-    public state: { displayPowerUpMsg: boolean; };
+    // public state: { displayPowerUpMsg: boolean; };
     public map: Phaser.Tilemaps.Tilemap;
     public firstTimestamp: number;
     public heartGroup: Phaser.GameObjects.Sprite[];
@@ -40,7 +39,6 @@ export default class GameScene extends Scene
     public projectileGroup: Projectile[] = [];
     public bodiesGroup: BodyExtended[] = [];
     public npcGroup: Npc[];
-    public platformSpikeGroup: PlatformSpike[];
     public musicGroup: Phaser.Sound.BaseSound[];
     public hauntedForest: Phaser.Sound.BaseSound;
     public angelCalling: Phaser.Sound.BaseSound;
@@ -92,14 +90,15 @@ export default class GameScene extends Scene
     public hearts: Phaser.GameObjects.Group;
     public archerArrows: Phaser.Physics.Arcade.Group;
     public topHeadTextGroup: Phaser.GameObjects.Group;
+    private isSaved: boolean = true;
     //#endregion
 
     constructor ()
     {
         super(SCENES_NAMES.GAME);
-        this.state = {
-            displayPowerUpMsg: false,
-        };
+        // this.state = {
+        //     displayPowerUpMsg: false,
+        // };
     }
 
     public preload ()
@@ -137,7 +136,6 @@ export default class GameScene extends Scene
         this.platformGroup = [];
         this.projectileGroup = [];
         this.npcGroup = [];
-        this.platformSpikeGroup = [];
 
         // AMBIENT MUSIC
         this.musicGroup = [];
@@ -211,13 +209,13 @@ export default class GameScene extends Scene
         if (this.pauseText)
         {
             this.modalText.setText(`${this.children.list.length}`)
-            .setPosition(WIDTH / 2, 16)
+                .setPosition(WIDTH / 2, 16)
                 .setDepth(DEPTH.UI_TEXT)
                 .setOrigin(0.5, 0.5)
                 .setScrollFactor(0, 0)
                 .setTintFill(COLORS.RED);
         }
-            
+
     }
 
     private createGroups (): void
@@ -312,19 +310,19 @@ export default class GameScene extends Scene
             }
 
             this.modalText = this.add.bitmapText(WIDTH / 2, HEIGHT / 2, FONTS.GALAXY, 'pause', FONTS_SIZES.GALAXY, 1)
-            .setDepth(DEPTH.UI_TEXT)
-            .setOrigin(0.5, 0.5)
-            .setScrollFactor(0, 0)
-            .setTintFill(COLORS.RED);
+                .setDepth(DEPTH.UI_TEXT)
+                .setOrigin(0.5, 0.5)
+                .setScrollFactor(0, 0)
+                .setTintFill(COLORS.RED);
 
             this.pauseText = this.add.bitmapText(WIDTH / 2, HEIGHT / 2, FONTS.GALAXY, 'pause', FONTS_SIZES.GALAXY, 1)
                 .setDepth(DEPTH.UI_TEXT)
                 .setOrigin(0.5, 0.5)
                 .setScrollFactor(0, 0)
                 .setTintFill(COLORS.RED);
-            
+
             console.log(this.children.list);
-            
+
 
             this.setPause();
 
@@ -358,6 +356,13 @@ export default class GameScene extends Scene
         });
     }
 
+    /**
+     * Pause the game
+     * @param withPhysics default to true
+     * @param withAnims default to true
+     * @param withSounds default to true
+     * @param withTime default to false
+     */
     public setPause (withPhysics = true, withAnims = true, withSounds = true, withTime = false)
     {
         this.isPause = true;
@@ -434,7 +439,7 @@ export default class GameScene extends Scene
         }
     }
 
-    public playSfx (sfx: string, config: Phaser.Types.Sound.SoundConfig = { })
+    public playSfx (sfx: string, config: Phaser.Types.Sound.SoundConfig = {})
     {
         const audioSfx = this.sound.get(sfx);
 
@@ -606,27 +611,35 @@ export default class GameScene extends Scene
 
     public askForGameSave (player: Player, tile: Phaser.Tilemaps.Tile)
     {
-        if (this.isCheckSaving || this.isSaving) return;
+        if (this.isCheckSaving || this.isSaving || this.isSaved) return;
 
         this.isCheckSaving = true;
 
         // @ts-ignore
-        const ui = this.add.rexNinePatch(WIDTH / 2, HEIGHT - HEIGHT / 16, WIDTH / 2, HEIGHT / 8, 'framing', [7, undefined, 7], [7, undefined, 7], 0)
+        const ui = this.children.getByName('smallUi') || this.add.rexNinePatch(WIDTH / 2, HEIGHT - HEIGHT / 16, WIDTH / 2, HEIGHT / 8, 'framing', [7, undefined, 7], [7, undefined, 7], 0)
             .setOrigin(0.5, 0.5)
+            .setName('smallUi')
             .setDepth(DEPTH.UI_BACK)
-            .setScrollFactor(0)
-            .setVisible(true);
+            .setScrollFactor(0);
+        ui.setActive(true).setVisible(true);
 
-        const label = this.add.bitmapText(WIDTH / 2, HEIGHT - 24, FONTS.ULTIMA_BOLD, `Press ${this.player.keysOptions[4].toLowerCase()} to save`, FONTS_SIZES.ULTIMA, 1)
-            .setOrigin(0.5, 0).setLetterSpacing(1).setAlpha(1).setDepth(DEPTH.UI_TEXT).setScrollFactor(0, 0);
+        const label = this.children.getByName('pressToSaveLabel') as Phaser.GameObjects.BitmapText  || this.add.bitmapText(WIDTH / 2, HEIGHT - 24, FONTS.ULTIMA_BOLD, `Press ${this.player.keysOptions[4].toLowerCase()} to save`, FONTS_SIZES.ULTIMA, 1)
+            .setOrigin(0.5, 0)
+            .setName('pressToSaveLabel')
+            .setLetterSpacing(1)
+            .setAlpha(1)
+            .setTintFill(COLORS.STEEL_GRAY)
+            .setDepth(DEPTH.UI_TEXT)
+            .setScrollFactor(0, 0);
+        label.setActive(true).setVisible(true);
 
         const check = this.input.keyboard.on(Phaser.Input.Keyboard.Events.ANY_KEY_DOWN, (event: { key: string; }) =>
         {
             if (event.key === this.player.keys.fire.originalEvent.key)
             {
-                label?.destroy();
+                label?.setActive(false).setVisible(false);
 
-                ui?.destroy();
+                ui?.setActive(false).setVisible(false);
 
                 this.saveGame();
             }
@@ -636,9 +649,9 @@ export default class GameScene extends Scene
             delay: 500,
             callback: () =>
             {
-                label?.destroy();
+                label?.setActive(false).setVisible(false);
 
-                ui?.destroy();
+                ui?.setActive(false).setVisible(false);
 
                 this.isCheckSaving = false;
 
@@ -658,37 +671,57 @@ export default class GameScene extends Scene
         this.isSaving = true;
 
         // @ts-ignore
-        const ui = this.add.rexNinePatch(WIDTH / 2, HEIGHT - HEIGHT / 8, WIDTH / 2, HEIGHT / 4, 'framing', [7, undefined, 7], [7, undefined, 7], 0)
+        const ui = this.children.getByName('saveBack') || this.add.rexNinePatch(WIDTH / 2, HEIGHT - HEIGHT / 8, WIDTH / 2, HEIGHT / 4, 'framing', [7, undefined, 7], [7, undefined, 7], 0)
             .setOrigin(0.5, 0.5)
+            .setName('saveBack')
             .setDepth(DEPTH.UI_BACK)
-            .setScrollFactor(0)
-            .setVisible(true);
+            .setScrollFactor(0);
+        ui.setActive(true).setVisible(true);
 
         let index = 0;
 
-        const label = this.add.bitmapText(WIDTH / 2, HEIGHT - 64, FONTS.ULTIMA_BOLD, 'Save the game?', FONTS_SIZES.ULTIMA, 1)
-            .setOrigin(0.5, 0).setLetterSpacing(1).setAlpha(1).setDepth(DEPTH.UI_TEXT).setScrollFactor(0, 0);
+        const label = this.children.getByName('saveLabel') as Phaser.GameObjects.BitmapText || this.add.bitmapText(WIDTH / 2, HEIGHT - 64, FONTS.ULTIMA_BOLD, 'Save the game?', FONTS_SIZES.ULTIMA, 1)
+            .setOrigin(0.5, 0)
+            .setName('saveLabel')
+            .setTintFill(COLORS.STEEL_GRAY)
+            .setLetterSpacing(1)
+            .setAlpha(1)
+            .setDepth(DEPTH.UI_TEXT)
+            .setScrollFactor(0, 0);
+        label.setActive(true).setText('Save the game ?').setPosition(WIDTH / 2, HEIGHT - 64).setVisible(true);
 
-        const yes = this.add.bitmapText(WIDTH / 2 - 64, HEIGHT - 48, FONTS.MINIMAL, 'yes', 22, 1)
-            .setOrigin(0.5, 0).setLetterSpacing(1).setAlpha(1).setDepth(DEPTH.UI_TEXT).setScrollFactor(0, 0).setTintFill(COLORS.STEEL_GRAY);
+        const yes = this.children.getByName('yes') as Phaser.GameObjects.BitmapText || this.add.bitmapText(WIDTH / 2 - 64, HEIGHT - 48, FONTS.MINIMAL, 'yes', FONTS_SIZES.MINIMAL, 1)
+            .setOrigin(0.5, 0)
+            .setName('yes')
+            .setLetterSpacing(1)
+            .setAlpha(1)
+            .setDepth(DEPTH.UI_TEXT)
+            .setScrollFactor(0, 0);
+        yes.setActive(true).setTintFill(COLORS.EAST_BLUE).setVisible(true);
 
-        const no = this.add.bitmapText(WIDTH / 2 + 64, HEIGHT - 48, FONTS.MINIMAL, 'no', 22, 1)
-            .setOrigin(0.5, 0).setLetterSpacing(1).setAlpha(1).setDepth(DEPTH.UI_TEXT).setScrollFactor(0, 0).setTintFill(COLORS.DARK_GREEN);
+        const no = this.children.getByName('no') as Phaser.GameObjects.BitmapText || this.add.bitmapText(WIDTH / 2 + 64, HEIGHT - 48, FONTS.MINIMAL, 'no', FONTS_SIZES.MINIMAL, 1)
+            .setOrigin(0.5, 0)
+            .setName('no')
+            .setLetterSpacing(1)
+            .setAlpha(1)
+            .setDepth(DEPTH.UI_TEXT)
+            .setScrollFactor(0, 0);
+        no.setActive(true).setTintFill(COLORS.RED).setVisible(true);
 
-        const dialog = this.input.keyboard.on(Phaser.Input.Keyboard.Events.ANY_KEY_DOWN, (event) =>
+        const dialog = this.input.keyboard.on(Phaser.Input.Keyboard.Events.ANY_KEY_DOWN, (event: { key: string; }) =>
         {
-            if (event.key === this.player.keys.right.originalEvent.key)
+            if (event.key === this.player.keys.right.originalEvent?.key)
             {
                 index = 1;
-                no.setTintFill(COLORS.STEEL_GRAY);
-                yes.setTintFill(COLORS.DARK_GREEN);
+                no.setTintFill(COLORS.EAST_BLUE);
+                yes.setTintFill(COLORS.RED);
             }
 
-            if (event.key === this.player.keys.left.originalEvent.key)
+            if (event.key === this.player.keys.left.originalEvent?.key)
             {
                 index = 0;
-                yes.setTintFill(COLORS.STEEL_GRAY);
-                no.setTintFill(COLORS.DARK_GREEN);
+                yes.setTintFill(COLORS.EAST_BLUE);
+                no.setTintFill(COLORS.RED);
             }
 
             if (event.key === this.player.keys.fire.originalEvent.key && index === 0)
@@ -699,18 +732,22 @@ export default class GameScene extends Scene
 
                 this.sound.play('melo');
 
-                yes.destroy();
-                no.destroy();
+                this.isSaved = true;
 
-                label.setText('').setPosition(WIDTH / 2, HEIGHT - 48).setText('Game Saved');
+                yes.setActive(false).setVisible(false);
+                no.setActive(false).setVisible(false);
+
+                label?.setText('')
+                    .setPosition(WIDTH / 2, HEIGHT - 48)
+                    .setText('Game Saved');
 
                 this.time.addEvent({
                     delay: 1000,
                     callback: () =>
                     {
                         this.unPause();
-                        label.destroy();
-                        ui.destroy();
+                        label?.setActive(false).setVisible(false);
+                        ui?.setActive(false).setVisible(false);
                         this.isSaving = false;
                         dialog.removeAllListeners();
                     },
@@ -719,15 +756,15 @@ export default class GameScene extends Scene
 
             if (event.key === this.player.keys.fire.originalEvent.key && index === 1)
             {
-                yes.destroy();
+                yes?.setActive(false).setVisible(false);
 
-                no.destroy();
+                no?.setActive(false).setVisible(false);
 
                 this.unPause();
 
-                label.destroy();
+                label?.setActive(false).setVisible(false);
 
-                ui.destroy();
+                ui?.setActive(false).setVisible(false);
 
                 this.isSaving = false;
 
@@ -904,6 +941,9 @@ export default class GameScene extends Scene
         this.playerIsPassingDoor = false;
 
         this.isChangingRoom = false;
+
+        this.isSaved = false;
+
         this.debugColliders();
     }
 
@@ -920,9 +960,6 @@ export default class GameScene extends Scene
 
         this.platformGroup.forEach(e => e.destroy());
         this.platformGroup = [];
-
-        this.platformSpikeGroup.forEach(e => e.destroy());
-        this.platformSpikeGroup = [];
 
         this.enemyGroup.forEach(e =>
         {
@@ -1095,9 +1132,9 @@ export default class GameScene extends Scene
     {
         this.playSfx('powerUp');
 
-        this.state.displayPowerUpMsg = true;
-
         const inventory = this.player.inventoryManager.getInventory();
+
+        let title = '';
 
         if (elm.category === 'sword')
         {
@@ -1156,40 +1193,52 @@ export default class GameScene extends Scene
             .setVisible(true);
 
         let txt = '';
-
+        // sword power up
         if (elm.category === 'sword')
         {
             const props: TSwordConfig = elm.properties as TSwordConfig;
+            title = `${props.name.toUpperCase()}`;
 
             txt = `${props.name.toUpperCase()}
+
 ${props.desc}
+
 ATK: ${props.damage}  RATE: ${props.rate}`;
         }
-
+        // shield power up
         if (elm.category === 'shield')
         {
             const props: TShieldConfig = elm.properties as TShieldConfig;
+            title = `${props.name.toUpperCase()}`;
 
             txt = `${props.name.toUpperCase()}
+
 ${props.desc}
+
 DEF: ${props.defense}`;
         }
-
+        // bow power up
         if (elm.category === 'bow')
         {
             const props: TBowConfig = elm.properties as TBowConfig;
+            title = `${props.name.toUpperCase()}`;
 
             txt = `${props.name.toUpperCase()}
+
 ${props.desc}
+
 ATK: ${props.damage}  RATE: ${props.rate}  SPEED: ${props.speed}`;
         }
-
+        // equipment power up
         if (elm.category === 'equipment')
         {
             const props: TEquipmentConfig = elm.properties as TEquipmentConfig;
+            title = `${props.name.toUpperCase()}`;
 
             txt = `${props.name.toUpperCase()}
+
 ${props.desc}
+
 DEF: ${props.defense}`;
         }
 
@@ -1197,13 +1246,19 @@ DEF: ${props.defense}`;
         const powerUpDesc = this.add.bitmapText(WIDTH / 2, HEIGHT / 2, FONTS.ULTIMA_BOLD, txt, FONTS_SIZES.ULTIMA_BOLD, 1)
             .setOrigin(0.5, 0.5)
             .setAlpha(1)
+            .setTintFill(COLORS.STEEL_GRAY)
+            .setWordTint(title, 1, true, COLORS.RED, COLORS.RED, COLORS.ORANGE, COLORS.ORANGE)
             .setDepth(DEPTH.UI_TEXT)
             .setScrollFactor(0, 0);
 
-        elm.destroy();
+        console.log(ui);
 
-        const dialog = this.input.keyboard.once(Phaser.Input.Keyboard.Events.ANY_KEY_DOWN, () =>
+        elm.body.setEnable(false);
+        elm.setDepth(DEPTH.UI_TEXT).setOrigin(0.5, 0.5).setScrollFactor(0, 0).setPosition(ui.x + ui.width / 2 - elm.width, ui.y - ui.height / 2 + elm.height);
+
+        const dialog = this.input.keyboard.once(this.player.getFireKeyEventName(), () =>
         {
+            elm.destroy();
             powerUpDesc.destroy();
             ui.destroy();
             dialog.removeAllListeners();
@@ -1259,7 +1314,7 @@ DEF: ${props.defense}`;
     public showEnemyDamage (enemy: Enemy | Demon | HellBeast, damage: number)
     {
         const damageText: TopHeadText = this.topHeadTextGroup.getFirstDead(true, enemy.body.center.x, enemy.body.top, FONTS.GALAXY, undefined, true);
-        
+
         if (!damageText) return;
 
         damageText.setAlpha(1).setActive(true).setVisible(true);
@@ -1487,7 +1542,7 @@ DEF: ${props.defense}`;
                 .setDepth(DEPTH.UI_TEXT)
                 .setScrollFactor(0, 0);
 
-            const dialog = this.input.keyboard.once(Phaser.Input.Keyboard.Events.ANY_KEY_DOWN, () =>
+            const dialog = this.input.keyboard.once(this.player.getFireKeyEventName(), () =>
             {
                 powerUpDesc.destroy();
                 ui.destroy();
