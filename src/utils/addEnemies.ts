@@ -425,8 +425,9 @@ export default function addEnemies (scene: GameScene)
                     });
 
                     scene.enemyGroup.push(waterQueen);
-                    break;
+                    
                 }
+                break;
 
             case 'minotaur':
                 if (!element.y) return;
