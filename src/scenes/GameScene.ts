@@ -927,7 +927,12 @@ export default class GameScene extends Scene
 
         this.map.destroy();
 
-        this.heartGroup.forEach(e => e.setActive(false).setVisible(false));
+        this.heartGroup.forEach(e =>
+        {
+            const body = e.body as Phaser.Physics.Arcade.Body;
+            body.setEnable(false);
+            e.setActive(false).setVisible(false);
+        });
 
         this.powerUpGroup.forEach(e => e.destroy());
         this.powerUpGroup = [];
@@ -1202,16 +1207,16 @@ export default class GameScene extends Scene
     }
     //#endregion
 
-    public checkObjectsLayerIndex (layerName)
+    public checkObjectsLayerIndex (layerName: string): Phaser.Tilemaps.ObjectLayer | null
     {
-        const arr = this.map.objects.filter((elm) => elm.name === layerName);
+        const arr = this.map.objects.find((elm) => elm.name === layerName);
 
-        if (!arr || !arr.length)
+        if (!arr)
         {
             return null;
         }
 
-        return arr[0];
+        return arr;
     }
 
     /**
