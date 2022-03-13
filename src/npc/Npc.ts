@@ -1,3 +1,4 @@
+import { COLORS } from '../constant/colors';
 import { FONTS, FONTS_SIZES, HEIGHT, WIDTH } from '../constant/config';
 import DEPTH from '../constant/depth';
 import GameScene from '../scenes/GameScene';
@@ -111,6 +112,7 @@ export default class Woman extends Phaser.GameObjects.Sprite
             .setName('actionText')
             .setLetterSpacing(1)
             .setDataEnabled()
+            .setTintFill(COLORS.STEEL_GRAY)
             .setDepth(DEPTH.UI_TEXT)
             .setScrollFactor(0, 0);
         this.label.setActive(true).setData({ name: this.name }).setText(`Press ${this.keysOptions[4].toLowerCase()} to talk`).setVisible(true);
