@@ -29,18 +29,19 @@ export default class WaterQueen extends Enemy
     private animsStackCount = 0;
     private healthUiBack: Phaser.GameObjects.Image;
     private healthUiText: Phaser.GameObjects.BitmapText;
+    laughSfx: Phaser.Sound.BaseSound;
 
     constructor (scene: GameScene, x: number, y: number, config: any)
     {
         super(scene, x, y, config.key);
 
-        
+
 
         this.name = config.name;
 
         this.hitboxData = JSON.parse('{"waterQueenAttack1_2":{"hitboxes":[{"frame":"waterQueenAttack1_2","type":"rectangle","x":142,"y":86,"width":26,"height":2}]},"waterQueenAttack1_3":{"hitboxes":[{"frame":"waterQueenAttack1_3","type":"rectangle","x":143,"y":86,"width":27,"height":2}]},"waterQueenAttack2_2":{"hitboxes":[{"frame":"waterQueenAttack2_2","type":"rectangle","x":143,"y":86,"width":27,"height":2}]},"waterQueenAttack2_3":{"hitboxes":[{"frame":"waterQueenAttack2_3","type":"rectangle","x":143,"y":86,"width":27,"height":2}]},"waterQueenAttack2_7":{"hitboxes":[{"frame":"waterQueenAttack2_7","type":"circle","x":101,"y":67,"width":40,"height":40}]},"waterQueenAttack2_8":{"hitboxes":[{"frame":"waterQueenAttack2_8","type":"circle","x":101,"y":67,"width":40,"height":40}]},"waterQueenAttack2_14":{"hitboxes":[{"frame":"waterQueenAttack2_14","type":"rectangle","x":141,"y":84,"width":53,"height":5}]},"waterQueenAttack2_15":{"hitboxes":[{"frame":"waterQueenAttack2_15","type":"rectangle","x":142,"y":86,"width":26,"height":2},{"frame":"waterQueenAttack2_15","type":"circle","x":175,"y":81,"width":13,"height":13}]},"waterQueenAttack2_16":{"hitboxes":[{"frame":"waterQueenAttack2_16","type":"rectangle","x":143,"y":86,"width":27,"height":2}]},"waterQueenAttack2_17":{"hitboxes":[{"frame":"waterQueenAttack2_17","type":"rectangle","x":143,"y":86,"width":27,"height":2}]},"waterQueenAttack3_2":{"hitboxes":[{"frame":"waterQueenAttack3_2","type":"rectangle","x":142,"y":86,"width":26,"height":2}]},"waterQueenAttack3_3":{"hitboxes":[{"frame":"waterQueenAttack3_3","type":"rectangle","x":143,"y":86,"width":27,"height":2}]},"waterQueenAttack3_7":{"hitboxes":[{"frame":"waterQueenAttack3_7","type":"circle","x":101,"y":67,"width":41,"height":41}]},"waterQueenAttack3_8":{"hitboxes":[{"frame":"waterQueenAttack3_8","type":"circle","x":100,"y":67,"width":41,"height":41}]},"waterQueenAttack3_14":{"hitboxes":[{"frame":"waterQueenAttack3_14","type":"rectangle","x":141,"y":84,"width":53,"height":5}]},"waterQueenAttack3_15":{"hitboxes":[{"frame":"waterQueenAttack3_15","type":"rectangle","x":142,"y":86,"width":26,"height":1},{"frame":"waterQueenAttack3_15","type":"circle","x":175,"y":81,"width":13,"height":13}]},"waterQueenAttack3_16":{"hitboxes":[{"frame":"waterQueenAttack3_16","type":"rectangle","x":149,"y":57,"width":10,"height":54}]},"waterQueenAttack3_17":{"hitboxes":[{"frame":"waterQueenAttack3_17","type":"circle","x":101,"y":53,"width":55,"height":55}]},"waterQueenAttack3_18":{"hitboxes":[{"frame":"waterQueenAttack3_18","type":"circle","x":105,"y":58,"width":45,"height":45},{"frame":"waterQueenAttack3_18","type":"circle","x":106,"y":98,"width":12,"height":12}]},"waterQueenAttack3_19":{"hitboxes":[{"frame":"waterQueenAttack3_19","type":"rectangle","x":136,"y":99,"width":24,"height":12}]},"waterQueenAttack3_20":{"hitboxes":[{"frame":"waterQueenAttack3_20","type":"circle","x":151,"y":74,"width":33,"height":33}]},"waterQueenAttack3_21":{"hitboxes":[{"frame":"waterQueenAttack3_21","type":"circle","x":168,"y":66,"width":44,"height":44}]},"waterQueenAttack3_22":{"hitboxes":[{"frame":"waterQueenAttack3_22","type":"circle","x":168,"y":66,"width":44,"height":44}]},"waterQueenAttack3_23":{"hitboxes":[{"frame":"waterQueenAttack3_23","type":"rectangle","x":193,"y":65,"width":11,"height":46}]},"waterQueenAttack4_1":{"hitboxes":[{"frame":"waterQueenAttack4_1","type":"circle","x":162,"y":84,"width":13,"height":13}]},"waterQueenAttack4_2":{"hitboxes":[{"frame":"waterQueenAttack4_2","type":"circle","x":161,"y":65,"width":18,"height":18}]},"waterQueenAttack4_3":{"hitboxes":[{"frame":"waterQueenAttack4_3","type":"circle","x":154,"y":51,"width":23,"height":23},{"frame":"waterQueenAttack4_3","type":"circle","x":165,"y":59,"width":18,"height":18}]},"waterQueenAttack4_4":{"hitboxes":[{"frame":"waterQueenAttack4_4","type":"circle","x":146,"y":37,"width":33,"height":33},{"frame":"waterQueenAttack4_4","type":"circle","x":165,"y":45,"width":22,"height":22}]},"waterQueenAttack4_5":{"hitboxes":[{"frame":"waterQueenAttack4_5","type":"circle","x":157,"y":32,"width":33,"height":33},{"frame":"waterQueenAttack4_5","type":"circle","x":147,"y":48,"width":21,"height":21}]},"waterQueenAttack4_6":{"hitboxes":[{"frame":"waterQueenAttack4_6","type":"circle","x":148,"y":29,"width":28,"height":28},{"frame":"waterQueenAttack4_6","type":"circle","x":160,"y":42,"width":27,"height":27}]},"waterQueenAttack4_7":{"hitboxes":[{"frame":"waterQueenAttack4_7","type":"circle","x":148,"y":25,"width":41,"height":41}]},"waterQueenAttack4_8":{"hitboxes":[{"frame":"waterQueenAttack4_8","type":"circle","x":150,"y":25,"width":38,"height":38}]},"waterQueenAttack4_9":{"hitboxes":[{"frame":"waterQueenAttack4_9","type":"circle","x":150,"y":25,"width":37,"height":37}]},"waterQueenAttack4_10":{"hitboxes":[{"frame":"waterQueenAttack4_10","type":"circle","x":151,"y":24,"width":37,"height":37}]},"waterQueenAttack4_11":{"hitboxes":[{"frame":"waterQueenAttack4_11","type":"rectangle","x":161,"y":33,"width":17,"height":56}]},"waterQueenAttack4_12":{"hitboxes":[{"frame":"waterQueenAttack4_12","type":"rectangle","x":137,"y":89,"width":62,"height":22}]},"waterQueenAttack4_13":{"hitboxes":[{"frame":"waterQueenAttack4_13","type":"rectangle","x":143,"y":77,"width":59,"height":33}]},"waterQueenAttack4_14":{"hitboxes":[{"frame":"waterQueenAttack4_14","type":"rectangle","x":142,"y":75,"width":61,"height":35}]},"waterQueenAttack4_15":{"hitboxes":[{"frame":"waterQueenAttack4_15","type":"rectangle","x":133,"y":93,"width":66,"height":17}]},"waterQueenAttack4_22":{"hitboxes":[{"frame":"waterQueenAttack4_22","type":"rectangle","x":129,"y":102,"width":81,"height":9}]},"waterQueenAttack4_23":{"hitboxes":[{"frame":"waterQueenAttack4_23","type":"rectangle","x":129,"y":101,"width":81,"height":9}]},"waterQueenAttack4_24":{"hitboxes":[{"frame":"waterQueenAttack4_24","type":"rectangle","x":129,"y":102,"width":81,"height":9}]},"waterQueenAttack4_25":{"hitboxes":[{"frame":"waterQueenAttack4_25","type":"rectangle","x":129,"y":101,"width":81,"height":9}]},"waterQueenAttack4_26":{"hitboxes":[{"frame":"waterQueenAttack4_26","type":"rectangle","x":129,"y":101,"width":81,"height":9}]},"waterQueenAttack4_27":{"hitboxes":[{"frame":"waterQueenAttack4_27","type":"rectangle","x":129,"y":102,"width":81,"height":9}]},"waterQueenAttack4_28":{"hitboxes":[{"frame":"waterQueenAttack4_28","type":"rectangle","x":128,"y":104,"width":81,"height":6}]},"waterQueenAttack4_29":{"hitboxes":[{"frame":"waterQueenAttack4_29","type":"rectangle","x":127,"y":108,"width":83,"height":3},{"frame":"waterQueenAttack4_29","type":"rectangle","x":202,"y":102,"width":7,"height":4}]},"waterQueenAttack4_30":{"hitboxes":[{"frame":"waterQueenAttack4_30","type":"rectangle","x":199,"y":106,"width":11,"height":4}]},"waterQueenDefend_1":{"hitboxes":[{"frame":"waterQueenDefend_1","type":"rectangle","x":126,"y":71,"width":26,"height":38}]},"waterQueenDefend_2":{"hitboxes":[{"frame":"waterQueenDefend_2","type":"rectangle","x":121,"y":67,"width":25,"height":43}]},"waterQueenDefend_3":{"hitboxes":[{"frame":"waterQueenDefend_3","type":"rectangle","x":121,"y":67,"width":25,"height":43}]},"waterQueenDefend_4":{"hitboxes":[{"frame":"waterQueenDefend_4","type":"rectangle","x":121,"y":67,"width":26,"height":43}]},"waterQueenDefend_5":{"hitboxes":[{"frame":"waterQueenDefend_5","type":"rectangle","x":121,"y":68,"width":25,"height":43}]},"waterQueenDefend_6":{"hitboxes":[{"frame":"waterQueenDefend_6","type":"rectangle","x":126,"y":72,"width":19,"height":38}]},"waterQueenDefend_7":{"hitboxes":[{"frame":"waterQueenDefend_7","type":"rectangle","x":130,"y":95,"width":12,"height":15}]}}');
 
-        this.setTexture('atlas').setFrame('waterQueenIdle_0').setDepth(DEPTH.ENEMY);
+        this.setTexture('atlas').setFrame('waterQueenIdle_0').setDepth(DEPTH.GROUND_LAYER - 1);
 
         this.anims.play('waterQueenIdle');
 
@@ -321,8 +322,8 @@ export default class WaterQueen extends Enemy
 
         let index = 0;
 
-        const msg = this.scene.add.bitmapText(WIDTH / 32, HEIGHT / 4 - 12, FONTS.MINIMAL, text[index], 22, 1)
-            .setOrigin(0, 0).setLetterSpacing(1).setAlpha(1).setDepth(DEPTH.UI_TEXT).setScrollFactor(0, 0);
+        const msg = this.scene.add.bitmapText(WIDTH / 32, HEIGHT / 4 - 12, FONTS.MINIMAL, text[index], FONTS_SIZES.MINIMAL, 1)
+            .setOrigin(0, 0).setLetterSpacing(1).setAlpha(1).setDepth(DEPTH.UI_TEXT).setScrollFactor(0, 0).setTintFill(COLORS.STEEL_GRAY);
 
         const dialog = this.scene.input.keyboard.on(Phaser.Input.Keyboard.Events.ANY_KEY_DOWN, (event) =>
         {
@@ -345,6 +346,27 @@ export default class WaterQueen extends Enemy
                 ui.destroy();
 
                 this.scene.unPause();
+
+                this.laughSfx = this.scene.sound.add('womanSfx', { volume: 1.4, rate: 1.5, detune: 400 });
+                this.laughSfx.play();
+                this.scene.time.addEvent({
+                    delay: 150,
+                    repeat: 2,
+                    callback: () =>
+                    {
+                        this.laughSfx.play();
+                    }
+                });
+                // this.laughSfx.once(Phaser.Sound.Events.COMPLETE, () =>
+                // {
+                //     this.laughSfx.play();
+                //     this.laughSfx.once(Phaser.Sound.Events.COMPLETE, () =>
+                //     {
+                //         this.laughSfx.play();
+                //     });
+                // });
+
+                this.scene.sound.play('womanSfx', { volume: 1.4, rate: 0.6, });
 
                 this.scene.time.addEvent({
                     delay: 150,
@@ -396,6 +418,7 @@ export default class WaterQueen extends Enemy
         if (!this.isAttacking)
         {
             this.anims.play('waterQueenHurt', true);
+            this.scene.playSfx('womanSfx', { volume: 1.4, rate: 0.6 });
         }
         else
         {
@@ -474,7 +497,7 @@ export default class WaterQueen extends Enemy
         this.once(Phaser.Animations.Events.ANIMATION_COMPLETE, () =>
         {
             this.setFrame('waterQueenDeath_15');
-            
+
             this.flash(1000);
 
             this.healthUiText.destroy();
