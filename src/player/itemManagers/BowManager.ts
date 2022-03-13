@@ -1,6 +1,6 @@
-import { BOWS } from '../constant/config';
-import { TBowConfig } from '../types/types';
-import Bow from './Bow';
+import { BOWS } from '../../constant/config';
+import { TBowConfig } from '../../types/types';
+import Bow from '../items/Bow';
 
 export default class BowManager
 {

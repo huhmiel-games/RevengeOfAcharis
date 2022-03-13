@@ -1,7 +1,7 @@
 import { COLORS } from '../constant/colors';
 import { EWeaponType, FONTS, FONTS_SIZES, HEIGHT, SWORDS, WIDTH } from '../constant/config';
 import DEPTH from '../constant/depth';
-import PowerUp from '../player/powerUp';
+import PowerUp from '../player/items/powerUp';
 import GameScene from '../scenes/GameScene';
 import LayerService from '../services/LayerService';
 import SaveLoadService from '../services/SaveLoadService';

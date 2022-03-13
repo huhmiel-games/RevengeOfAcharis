@@ -1,6 +1,6 @@
 import { GameObjects } from 'phaser';
-import DEPTH from '../constant/depth';
-import GameScene from '../scenes/GameScene';
+import DEPTH from '../../constant/depth';
+import GameScene from '../../scenes/GameScene';
 
 export default class Arrow extends GameObjects.Sprite
 {

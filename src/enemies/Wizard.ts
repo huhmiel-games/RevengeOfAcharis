@@ -1,7 +1,7 @@
 import { COLORS } from '../constant/colors';
 import { EWeaponType, FONTS, FONTS_SIZES } from '../constant/config';
 import DEPTH from '../constant/depth';
-import Arrow from '../player/Arrow';
+import Arrow from '../player/items/Arrow';
 import GameScene from '../scenes/GameScene';
 import Enemy from './Enemy';
 import Projectile from './Projectile';

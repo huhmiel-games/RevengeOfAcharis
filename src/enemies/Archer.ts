@@ -1,4 +1,4 @@
-import Arrow from '../player/Arrow';
+import Arrow from '../player/items/Arrow';
 import GameScene from '../scenes/GameScene';
 import SaveLoadService from '../services/SaveLoadService';
 import { THitboxData } from '../types/types';

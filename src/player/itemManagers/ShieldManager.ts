@@ -1,6 +1,6 @@
-import { SHIELDS } from '../constant/config';
-import { TShieldConfig } from '../types/types';
-import Shield from './Shield';
+import { SHIELDS } from '../../constant/config';
+import { TShieldConfig } from '../../types/types';
+import Shield from '../items/Shield';
 
 export default class ShieldManager
 {

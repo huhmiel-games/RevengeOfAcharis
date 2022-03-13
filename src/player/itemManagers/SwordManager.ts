@@ -1,6 +1,6 @@
-import { SWORDS } from '../constant/config';
-import { TSwordConfig } from '../types/types';
-import Sword from './Sword';
+import { SWORDS } from '../../constant/config';
+import { TSwordConfig } from '../../types/types';
+import Sword from '../items/Sword';
 
 export default class SwordManager
 {

@@ -1,5 +1,5 @@
-import GameScene from '../scenes/GameScene';
-import { TEquipmentConfig, TShieldConfig, TSwordConfig } from '../types/types';
+import GameScene from '../../scenes/GameScene';
+import { TEquipmentConfig, TShieldConfig, TSwordConfig } from '../../types/types';
 
 export default class PowerUp extends Phaser.GameObjects.Sprite
 {

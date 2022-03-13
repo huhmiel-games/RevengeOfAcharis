@@ -1,4 +1,4 @@
-import { TBowConfig } from '../types/types';
+import { TBowConfig } from '../../types/types';
 
 export default class Bow
 {

@@ -4,7 +4,7 @@ import { COLORS } from '../constant/colors';
 import { EWeaponType, FONTS, FONTS_SIZES } from '../constant/config';
 import SaveLoadService from '../services/SaveLoadService';
 import Projectile from './Projectile';
-import Arrow from '../player/Arrow';
+import Arrow from '../player/items/Arrow';
 import DEPTH from '../constant/depth';
 
 /**

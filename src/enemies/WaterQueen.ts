@@ -1,8 +1,8 @@
 import { COLORS } from '../constant/colors';
 import { EWeaponType, FONTS, FONTS_SIZES, HEIGHT, WIDTH } from '../constant/config';
 import DEPTH from '../constant/depth';
-import Arrow from '../player/Arrow';
-import Sword from '../player/Sword';
+import Arrow from '../player/items/Arrow';
+import Sword from '../player/items/Sword';
 import GameScene from '../scenes/GameScene';
 import LayerService from '../services/LayerService';
 import SaveLoadService from '../services/SaveLoadService';

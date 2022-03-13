@@ -1,12 +1,12 @@
-import { COLORS } from '../constant/colors';
-import { WIDTH, FONTS, FONTS_SIZES } from '../constant/config';
-import DEPTH from '../constant/depth';
-import GameScene from '../scenes/GameScene';
-import { TInventory } from '../types/types';
-import Bow from './Bow';
-import Player from './Player';
-import Shield from './Shield';
-import Sword from './Sword';
+import { COLORS } from '../../constant/colors';
+import { WIDTH, FONTS, FONTS_SIZES } from '../../constant/config';
+import DEPTH from '../../constant/depth';
+import GameScene from '../../scenes/GameScene';
+import { TInventory } from '../../types/types';
+import Bow from '../items/Bow';
+import Player from '../Player';
+import Shield from '../items/Shield';
+import Sword from '../items/Sword';
 
 export default class InventoryManager
 {

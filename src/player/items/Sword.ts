@@ -1,19 +1,21 @@
-import { TShieldConfig } from '../types/types';
+import { TSwordConfig } from '../../types/types';
 
-export default class Shield
+export default class Sword
 {
     public id: number;
     public name: string;
     public desc: string;
-    public defense: number;
+    public damage: number;
+    public rate: number;
     public key: number;
 
-    constructor (config: TShieldConfig)
+    constructor (config: TSwordConfig)
     {
         this.id = config.id;
         this.name = config.name;
         this.desc = config.desc;
-        this.defense = config.defense;
+        this.damage = config.damage;
+        this.rate = config.rate;
         this.key = config.key;
     }
 }
