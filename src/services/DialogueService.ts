@@ -12,16 +12,23 @@ export default class DialogueService
         scene.setPause(true, false, false);
 
         // @ts-ignore
-        const ui = scene.add.rexNinePatch(WIDTH / 2, HEIGHT - HEIGHT / 8, WIDTH, HEIGHT / 4, 'framing', [7, undefined, 7], [7, undefined, 7], 0)
+        const ui = scene.children.getByName('bigDialogBox') || scene.add.rexNinePatch(WIDTH / 2, HEIGHT - HEIGHT / 8, WIDTH, HEIGHT / 4, 'framing', [7, undefined, 7], [7, undefined, 7], 0)
             .setOrigin(0.5, 0.5)
+            .setName('bigDialogBox')
             .setDepth(DEPTH.UI_BACK)
-            .setScrollFactor(0)
-            .setVisible(true);
+            .setScrollFactor(0);
+            ui.setActive(true).setVisible(true);
 
         let index = 0;
 
-        const msg = scene.add.bitmapText(WIDTH / 32, HEIGHT - 48, FONTS.MINIMAL, text[index], FONTS_SIZES.MINIMAL, 1)
-            .setOrigin(0, 0).setLetterSpacing(1).setAlpha(1).setDepth(DEPTH.UI_TEXT).setScrollFactor(0, 0).setTintFill(COLORS.STEEL_GRAY);
+        const msg = scene.children.getByName('npcText') as Phaser.GameObjects.BitmapText || scene.add.bitmapText(WIDTH / 32, HEIGHT - 48, FONTS.MINIMAL, '', FONTS_SIZES.MINIMAL, 1)
+            .setOrigin(0, 0)
+            .setName('npcText')
+            .setLetterSpacing(1)
+            .setDepth(DEPTH.UI_TEXT)
+            .setScrollFactor(0, 0)
+            .setTintFill(COLORS.STEEL_GRAY);
+        msg.setActive(true).setText(text[index]).setVisible(true);
 
         const dialog = scene.input.keyboard.on(Phaser.Input.Keyboard.Events.ANY_KEY_DOWN, (event) =>
         {
@@ -39,9 +46,9 @@ export default class DialogueService
 
             if (event.key === scene.player.keys.fire.originalEvent.key && index === text.length)
             {
-                msg.destroy();
+                msg.setActive(false).setVisible(false);
                 
-                ui.destroy();
+                ui.setActive(false).setVisible(false);
                 
                 scene.unPause();
             
