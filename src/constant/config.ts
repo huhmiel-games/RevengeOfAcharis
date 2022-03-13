@@ -39,8 +39,8 @@ export const enum SCENES_NAMES
 
 export const enum EWeaponType
 {
-    'SWORD' = 'sword',
-    'ARROW' = 'arrow'
+    SWORD = 'sword',
+    ARROW = 'arrow'
 }
 
 
@@ -243,7 +243,7 @@ export const EQUIPMENT: TEquipmentConfig[] = [
     {
         id: 23, // done
         name: 'jump-boots',
-        desc: 'jump higher with this boots',
+        desc: 'make double jumps with this boots',
         defense: 0,
         key: 23
     }
