@@ -16,13 +16,18 @@ export default class HitState extends State
 {
     private hitTime: number;
     private stateMachine: StateMachine;
+
     public enter (scene: GameScene, player: Player)
     {
-        player.stateTimestamp.setNameAndTime(this.stateMachine.state, scene.time.now);
+        const { now } = scene.time;
+
+        player.stateTimestamp.setNameAndTime(this.stateMachine.state, now);
 
         player.stopSwordAttack();
 
         player.isJumping = false;
+
+        player.canDoubleJump = false;
 
         if (player.playerState.isDead)
         {
@@ -32,7 +37,7 @@ export default class HitState extends State
         // Stop player
         player.body.setDragX(0);
 
-        this.hitTime = scene.time.now;
+        this.hitTime = now;
 
         player.body.setAcceleration(0, 0);
 
@@ -50,7 +55,7 @@ export default class HitState extends State
 
         player.hitSfx.play();
 
-        // console.log('HIT STATE from', this.stateMachine.prevState);
+        console.log('HIT STATE from', this.stateMachine.prevState);
     }
 
     public execute (scene: GameScene, player: Player)

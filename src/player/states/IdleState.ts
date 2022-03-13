@@ -18,7 +18,9 @@ export default class IdleState extends State
     private stateMachine: StateMachine;
     public enter (scene: GameScene, player: Player)
     {
-        player.stateTimestamp.setNameAndTime(this.stateMachine.state, scene.time.now);
+        const { now } = scene.time;
+
+        player.stateTimestamp.setNameAndTime(this.stateMachine.state, now);
 
         player.body.setOffset(21, 10);
 
@@ -35,12 +37,12 @@ export default class IdleState extends State
             player.anims.play('adventurer-idle', true);
         }
 
-        // console.log('IDLE STATE from', this.stateMachine.prevState);
+        console.log('IDLE STATE from', this.stateMachine.prevState);
     }
 
     public execute (scene: GameScene, player: Player)
     {
-        const { left, right, up, down, fire, bow, jump, select, pause } = player.keys;
+        const { left, right, fire, bow, jump } = player.keys;
 
         const { blocked, touching } = player.body;
 
@@ -102,7 +104,7 @@ export default class IdleState extends State
         }
 
         // Transition to fall if not touching ground
-        if (!player.body.blocked.down)
+        if (!blocked.down)
         {
             this.stateMachine.transition(PlayerState.FALL, this.stateMachine.state);
 

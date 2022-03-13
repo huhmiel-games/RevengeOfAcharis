@@ -4,6 +4,7 @@ const enum PlayerState
     HIT = 'hit',
     IDLE = 'idle',
     JUMP = 'jump',
+    DOUBLEJUMP = 'doubleJump',
     JUMP_MOMENTUM = 'momentum',
     MOVE = 'move',
 }

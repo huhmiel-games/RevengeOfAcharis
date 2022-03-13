@@ -8,9 +8,10 @@ import IdleState from './states/IdleState';
 import FallState from './states/FallState';
 import HitState from './states/HitState';
 import JumpState from './states/JumpState';
+import DoubleJumpState from './states/DoubleJumpState';
+import JumpMomentumState from './states/JumpMomentumState';
 import MoveState from './states/MoveState';
 import StateTimestamp from '../utils/StateTimestamp';
-import JumpMomentumState from './states/JumpMomentumState';
 import Enemy from '../enemies/Enemy';
 import Projectile from '../enemies/Projectile';
 import PlayerState from '../constant/playerState';
@@ -54,6 +55,7 @@ export default class Player extends Phaser.GameObjects.Sprite
     public isPause: boolean = false;
     public isBendBow: boolean = false;
     public keysOptions: string[];
+    public canDoubleJump: boolean = false;
 
     // The state machine managing the player
     public stateMachine: StateMachine = new StateMachine('idle', {
@@ -61,6 +63,7 @@ export default class Player extends Phaser.GameObjects.Sprite
         hit: new HitState() as HitState,
         idle: new IdleState() as IdleState,
         jump: new JumpState() as JumpState,
+        doubleJump: new DoubleJumpState() as DoubleJumpState,
         momentum: new JumpMomentumState() as JumpMomentumState,
         move: new MoveState() as MoveState,
     }, [this.scene, this]);
@@ -757,10 +760,22 @@ export default class Player extends Phaser.GameObjects.Sprite
         });
     }
 
-    public getFireKey (): string
+    public getFireKeyEventName (): string
     {
         console.log(`${Phaser.Input.Keyboard.Events.KEY_DOWN}${this.keys.fire.originalEvent.key.toUpperCase()}`);
-        
+
         return `${Phaser.Input.Keyboard.Events.KEY_DOWN}${this.keys.fire.originalEvent.key.toUpperCase()}`;
+    }
+
+    public getPlayerKey (str: string): string
+    {
+        try
+        {
+            return this.keys[str].originalEvent.key;
+        }
+        catch (error)
+        {
+            return '';
+        }
     }
 }

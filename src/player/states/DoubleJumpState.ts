@@ -12,7 +12,7 @@ import PlayerState from '../../constant/playerState';
  * @class JumpState
  * @extends {State}
  */
-export default class JumpState extends State
+export default class DoubleJumpState extends State
 {
     private stateMachine: StateMachine;
 
@@ -22,19 +22,19 @@ export default class JumpState extends State
 
         player.stateTimestamp.setNameAndTime(this.stateMachine.state, now);
 
-        player.inventoryManager.inventory.jumpBoots ? player.canDoubleJump = true : player.canDoubleJump = false;
-
         // Initialize the jump
         player.jumpTime = now;
 
         player.isJumping = true;
+
+        player.canDoubleJump = false;
 
         player.body.setVelocityY(-400);
 
         // Handle animations
         if (!player.isAttacking) player.anims.play(PlayerAnims.JUMP, true);
 
-        console.log('JUMP STATE from', this.stateMachine.prevState);
+        console.log('DOUBLE JUMP STATE from', this.stateMachine.prevState);
     }
 
     public execute (scene: GameScene, player: Player)

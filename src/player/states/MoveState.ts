@@ -15,14 +15,12 @@ import PlayerAnims from '../../constant/playerAnims';
 export default class MoveState extends State
 {
     private stateMachine: StateMachine;
-    constructor ()
-    {
-        super();
-    }
 
     public enter (scene: GameScene, player: Player)
     {
-        player.stateTimestamp.setNameAndTime(this.stateMachine.state, scene.time.now);
+        const { now } = scene.time;
+
+        player.stateTimestamp.setNameAndTime(this.stateMachine.state, now);
 
         const currentAnim = player.anims.getName();
 
@@ -43,12 +41,12 @@ export default class MoveState extends State
             player.anims.play('adventurer-walk', true);
         }
 
-        // console.log('MOVE STATE from', this.stateMachine.prevState);
+        console.log('MOVE STATE from', this.stateMachine.prevState);
     }
 
     public execute (scene: GameScene, player: Player)
     {
-        const { left, right, up, down, fire, jump } = player.keys;
+        const { left, right, fire, jump } = player.keys;
 
         const { blocked, velocity } = player.body;
 

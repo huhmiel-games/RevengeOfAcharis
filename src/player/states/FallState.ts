@@ -15,11 +15,7 @@ import PlayerAnims from '../../constant/playerAnims';
 export default class FallState extends State
 {
     private stateMachine: StateMachine;
-    private fallTimestamp: number = 0; // future double jump ??
-    constructor ()
-    {
-        super();
-    }
+
     public enter (scene: GameScene, player: Player)
     {
         const { now } = scene.time;
@@ -27,12 +23,12 @@ export default class FallState extends State
 
         player.body.setGravityY(1000);
 
-        // console.log('FALL STATE from', this.stateMachine.prevState);
+        console.log('FALL STATE from', this.stateMachine.prevState);
     }
 
     public execute (scene: GameScene, player: Player)
     {
-        const { left, right, up, down, fire, jump, select, pause } = player.keys;
+        const { left, right, fire, jump } = player.keys;
 
         const { playerState, body } = player;
 
@@ -58,9 +54,21 @@ export default class FallState extends State
         }
 
         // Ghost Jumping
-        if (jump.isDown && jump.getDuration() < 250 && playerState.blockedDownTimestamp + 125 > now)
+        if (jump.isDown && jump.getDuration() < 250 && playerState.blockedDownTimestamp + 225 > now)
         {
             this.stateMachine.transition(PlayerState.JUMP, this.stateMachine.state);
+
+            return;
+        }
+
+        // Transition to double jump if pressing jump        
+        if (jump.isDown && jump.getDuration() < 250 && player.canDoubleJump && this.stateMachine.prevState !== PlayerState.MOVE)
+        {
+            player.isBendBow = false;
+
+            player.body.setGravityY(1000);
+
+            this.stateMachine.transition(PlayerState.DOUBLEJUMP, this.stateMachine.state);
 
             return;
         }

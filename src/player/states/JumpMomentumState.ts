@@ -15,10 +15,7 @@ import PlayerState from '../../constant/playerState';
 export default class JumpMomentumState extends State
 {
     private stateMachine: StateMachine;
-    constructor ()
-    {
-        super();
-    }
+
     public enter (scene: GameScene, player: Player)
     {
         player.body.setGravityY(0);
@@ -41,12 +38,12 @@ export default class JumpMomentumState extends State
             player.anims.play(PlayerAnims.JUMP_MOMENTUM, true);
         }
 
-        // console.log('JUMP MOMENTUM STATE from', this.stateMachine.prevState);
+        console.log('JUMP MOMENTUM STATE from', this.stateMachine.prevState);
     }
 
     public execute (scene: GameScene, player: Player)
     {
-        const { left, right, up, down, fire, jump } = player.keys;
+        const { fire } = player.keys;
 
         const { blocked } = player.body;
 
@@ -72,8 +69,6 @@ export default class JumpMomentumState extends State
         // If touching the ceiling
         if (blocked.up)
         {
-            player.isJumping = false;
-
             this.stateMachine.transition(PlayerState.FALL, this.stateMachine.state);
 
             return;
