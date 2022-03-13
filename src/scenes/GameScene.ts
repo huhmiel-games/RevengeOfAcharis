@@ -35,7 +35,6 @@ export default class GameScene extends Scene
     public heartGroup: Phaser.GameObjects.Sprite[];
     public powerUpGroup: PowerUp[];
     public enemyGroup: (Enemy | Dragon | HellBeast | Demon | WaterQueen | Arrow)[];
-    public platformGroup: Platform[];
     public projectileGroup: Projectile[] = [];
     public bodiesGroup: BodyExtended[] = [];
     public npcGroup: Npc[];
@@ -55,7 +54,6 @@ export default class GameScene extends Scene
     public escapeTheme: Phaser.Sound.BaseSound;
     public revengeTheme: Phaser.Sound.BaseSound;
     public EndingTheme: Phaser.Sound.BaseSound;
-    public thunderGateSfx: Phaser.Sound.BaseSound;
     public fireballs: Phaser.Physics.Arcade.Group;
     public skullHeads: Phaser.Physics.Arcade.Group;
     public explodeSprite: Phaser.GameObjects.Group;
@@ -70,7 +68,6 @@ export default class GameScene extends Scene
     public bossMusic: Phaser.Sound.BaseSound;
     public playerRoomName: string;
     public demon: Demon;
-    public escapeTimer: Phaser.Time.TimerEvent | null;
     public isChangingRoom: boolean;
     public colliderLayer: Phaser.Tilemaps.TilemapLayer;
     public hellBeast: HellBeast;
@@ -133,7 +130,6 @@ export default class GameScene extends Scene
         this.heartGroup = [];
         this.powerUpGroup = [];
         this.enemyGroup = [];
-        this.platformGroup = [];
         this.projectileGroup = [];
         this.npcGroup = [];
 
@@ -155,7 +151,6 @@ export default class GameScene extends Scene
         this.revengeTheme = this.sound.add('revengeTheme', { volume: 1, loop: true });
         this.EndingTheme = this.sound.add('EndingTheme', { volume: 1, loop: true });
 
-        this.thunderGateSfx = this.sound.add('thunderGateSfx', { volume: 0.6, loop: true });
         this.musicGroup.push(
             this.hauntedForest,
             this.angelCalling,
@@ -499,7 +494,6 @@ export default class GameScene extends Scene
         this.demonFight1.stop();
         this.demonFight2.stop();
         this.demonLighting.stop();
-        this.thunderGateSfx.stop();
         this.scene.start(SCENES_NAMES.GAMEOVER);
     }
 
@@ -616,9 +610,9 @@ export default class GameScene extends Scene
         this.isCheckSaving = true;
 
         // @ts-ignore
-        const ui = this.children.getByName('smallUi') || this.add.rexNinePatch(WIDTH / 2, HEIGHT - HEIGHT / 16, WIDTH / 2, HEIGHT / 8, 'framing', [7, undefined, 7], [7, undefined, 7], 0)
+        const ui = this.children.getByName('smallDialogBox') || this.add.rexNinePatch(WIDTH / 2, HEIGHT - HEIGHT / 16, WIDTH / 2, HEIGHT / 8, 'framing', [7, undefined, 7], [7, undefined, 7], 0)
             .setOrigin(0.5, 0.5)
-            .setName('smallUi')
+            .setName('smallDialogBox')
             .setDepth(DEPTH.UI_BACK)
             .setScrollFactor(0);
         ui.setActive(true).setVisible(true);
@@ -671,9 +665,9 @@ export default class GameScene extends Scene
         this.isSaving = true;
 
         // @ts-ignore
-        const ui = this.children.getByName('saveBack') || this.add.rexNinePatch(WIDTH / 2, HEIGHT - HEIGHT / 8, WIDTH / 2, HEIGHT / 4, 'framing', [7, undefined, 7], [7, undefined, 7], 0)
+        const ui = this.children.getByName('mediumDialogBox') || this.add.rexNinePatch(WIDTH / 2, HEIGHT - HEIGHT / 8, WIDTH / 2, HEIGHT / 4, 'framing', [7, undefined, 7], [7, undefined, 7], 0)
             .setOrigin(0.5, 0.5)
-            .setName('saveBack')
+            .setName('mediumDialogBox')
             .setDepth(DEPTH.UI_BACK)
             .setScrollFactor(0);
         ui.setActive(true).setVisible(true);
@@ -782,17 +776,6 @@ export default class GameScene extends Scene
         this.physics.world.colliders.destroy();
 
         this.map.destroy();
-
-        this.heartGroup.forEach(e => e.destroy());
-
-        this.powerUpGroup.forEach(e => e.destroy());
-
-        this.enemyGroup.forEach(e => e.destroy());
-
-        if (this.thunderGateSfx.isPlaying)
-        {
-            this.thunderGateSfx.stop();
-        }
 
         this.stopMusic();
 
@@ -906,8 +889,6 @@ export default class GameScene extends Scene
                 break;
         }
 
-        this.addMovingPlatform();
-
         this.addEnemies();
 
         ColliderService.addColliders(this);
@@ -953,13 +934,10 @@ export default class GameScene extends Scene
 
         this.map.destroy();
 
-        this.heartGroup.forEach(e => e.destroy());
+        this.heartGroup.forEach(e => e.setActive(false).setVisible(false));
 
         this.powerUpGroup.forEach(e => e.destroy());
         this.powerUpGroup = [];
-
-        this.platformGroup.forEach(e => e.destroy());
-        this.platformGroup = [];
 
         this.enemyGroup.forEach(e =>
         {
@@ -972,19 +950,19 @@ export default class GameScene extends Scene
             {
                 // console.log(error);
             }
-            e.destroy();
+            e.setActive(false).setVisible(false);
         });
         this.enemyGroup = [];
 
-        const element = this.children.list.filter(e => e.name === 'waterElement')[0];
+        this.projectileGroup.forEach(projectile => projectile.setActive(false).setVisible(false));
+
+        const element = this.children.list.find(e => e.name === 'waterElement');
         element?.destroy();
 
         this.npcGroup.forEach(e => e.destroy());
         this.npcGroup = [];
 
-        if (this.demon) this.demon.destroy();
-
-        if (this.escapeTimer) this.escapeTimer = null;
+        // if (this.demon) this.demon.destroy();
     }
 
     // ADD ROOM STUFF
@@ -1026,27 +1004,6 @@ export default class GameScene extends Scene
         }
         const walkSound = properties?.walkSfx as string;
         this.player.walkStepSfx = this.sound.add(walkSound, { volume: 0.6, rate: 1 });
-    }
-
-    public addMovingPlatform ()
-    {
-        const layerArray = this.checkObjectsLayerIndex('path');
-        if (!layerArray || layerArray.objects.length === 0)
-        {
-            return;
-        }
-        layerArray.objects.forEach((element: Phaser.Types.Tilemaps.TiledObject) =>
-        {
-            element.properties = this.convertTiledObjectProperties(element.properties);
-            if (!element.y) return;
-            const platform = new Platform(this, element.x, element.y - 16, {
-                key: 'movingPlatform',
-                name: element.name,
-                duration: element.properties.duration,
-                directionType: element.properties.vertical,
-            });
-            this.platformGroup.push(platform);
-        });
     }
 
     //#region handle powerUps
@@ -1186,11 +1143,12 @@ export default class GameScene extends Scene
         this.setPause(true, true, false, false);
 
         // @ts-ignore
-        const ui = this.add.rexNinePatch(WIDTH / 2, HEIGHT / 2, WIDTH / 4 * 3, HEIGHT / 2, 'framing', [7, undefined, 7], [7, undefined, 7], 0)
+        const ui = this.children.getByName('powerUpDialogBox') || this.add.rexNinePatch(WIDTH / 2, HEIGHT / 2, WIDTH / 4 * 3, HEIGHT / 2, 'framing', [7, undefined, 7], [7, undefined, 7], 0)
             .setOrigin(0.5, 0.5)
+            .setName('powerUpDialogBox')
             .setDepth(DEPTH.UI_BACK)
-            .setScrollFactor(0, 0)
-            .setVisible(true);
+            .setScrollFactor(0, 0);
+            ui.setActive(true).setVisible(true);
 
         let txt = '';
         // sword power up
@@ -1199,11 +1157,7 @@ export default class GameScene extends Scene
             const props: TSwordConfig = elm.properties as TSwordConfig;
             title = `${props.name.toUpperCase()}`;
 
-            txt = `${props.name.toUpperCase()}
-
-${props.desc}
-
-ATK: ${props.damage}  RATE: ${props.rate}`;
+            txt = `${props.name.toUpperCase()} \n\n ${props.desc} \n\n ATK: ${props.damage}  RATE: ${props.rate}`;
         }
         // shield power up
         if (elm.category === 'shield')
@@ -1211,11 +1165,7 @@ ATK: ${props.damage}  RATE: ${props.rate}`;
             const props: TShieldConfig = elm.properties as TShieldConfig;
             title = `${props.name.toUpperCase()}`;
 
-            txt = `${props.name.toUpperCase()}
-
-${props.desc}
-
-DEF: ${props.defense}`;
+            txt = `${props.name.toUpperCase()} \n\n ${props.desc} \n\n DEF: ${props.defense}`;
         }
         // bow power up
         if (elm.category === 'bow')
@@ -1223,11 +1173,7 @@ DEF: ${props.defense}`;
             const props: TBowConfig = elm.properties as TBowConfig;
             title = `${props.name.toUpperCase()}`;
 
-            txt = `${props.name.toUpperCase()}
-
-${props.desc}
-
-ATK: ${props.damage}  RATE: ${props.rate}  SPEED: ${props.speed}`;
+            txt = `${props.name.toUpperCase()} \n\n ${props.desc} \n\n ATK: ${props.damage}  RATE: ${props.rate}  SPEED: ${props.speed}`;
         }
         // equipment power up
         if (elm.category === 'equipment')
@@ -1235,11 +1181,7 @@ ATK: ${props.damage}  RATE: ${props.rate}  SPEED: ${props.speed}`;
             const props: TEquipmentConfig = elm.properties as TEquipmentConfig;
             title = `${props.name.toUpperCase()}`;
 
-            txt = `${props.name.toUpperCase()}
-
-${props.desc}
-
-DEF: ${props.defense}`;
+            txt = `${props.name.toUpperCase()} \n\n ${props.desc} \n\n DEF: ${props.defense}`;
         }
 
 
@@ -1260,7 +1202,7 @@ DEF: ${props.defense}`;
         {
             elm.destroy();
             powerUpDesc.destroy();
-            ui.destroy();
+            ui.setActive(false).setVisible(false);
             dialog.removeAllListeners();
             this.unPause();
         });
