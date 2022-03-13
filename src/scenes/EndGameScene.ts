@@ -50,7 +50,7 @@ export default class EndGame extends Scene
         this.cnt = 0;
         this.transDisplay = this.add.bitmapText(WIDTH / 2, HEIGHT / 2, FONTS.ALAGARD, '', 20, 1)
             .setOrigin(0.5, 0.5)
-            .setTintFill(COLORS.RED)
+            .setTint(COLORS.RED, COLORS.RED, COLORS.ORANGE, COLORS.ORANGE)
             .setDropShadow(0, 1, COLORS.ORANGE, 1);
 
         this.time.addEvent({
@@ -89,21 +89,35 @@ export default class EndGame extends Scene
                     },
                     onComplete: () =>
                     {
-                        this.congrat = this.add.bitmapText(WIDTH / 2, HEIGHT / 4, FONTS.ALAGARD, 'Congratulations !!', 20, 1)
+                        this.congrat = this.add.bitmapText(WIDTH / 2, HEIGHT / 2, FONTS.ALAGARD, 'Congratulations !!', 20, 1)
                             .setOrigin(0.5, 0.5)
-                            .setAlpha(0).setDropShadow(0, 1, COLORS.ORANGE, 1);
+                            .setAlpha(0)
+                            .setTint(COLORS.RED, COLORS.RED, COLORS.ORANGE, COLORS.ORANGE)
+                            .setDropShadow(0, 1, COLORS.ORANGE, 1);
 
-                        this.enemiesKilled = this.add.bitmapText(42, HEIGHT / 4 + 50, FONTS.ALAGARD, `Killed Enemies: ${enemyDeathCount}`, 12, 0)
-                            .setAlpha(0).setTintFill(COLORS.RED).setDropShadow(0, 1, COLORS.ORANGE, 1);
+                        this.enemiesKilled = this.add.bitmapText(WIDTH / 12, HEIGHT / 4 * 2 + 30, FONTS.ULTIMA_BOLD, `Killed Enemies: ${enemyDeathCount}`, FONTS_SIZES.ULTIMA_BOLD, 0)
+                            .setAlpha(0)
+                            .setLetterSpacing(2)
+                            .setTint(COLORS.RED, COLORS.RED, COLORS.ORANGE, COLORS.ORANGE)
+                            .setDropShadow(0, 1, COLORS.ORANGE, 1);
 
-                        this.death = this.add.bitmapText(42, HEIGHT / 4 + 70, FONTS.ALAGARD, `Player Death: ${playerDeathCount}`, 12, 0)
-                            .setAlpha(0).setTintFill(COLORS.RED).setDropShadow(0, 1, COLORS.ORANGE, 1);
+                        this.death = this.add.bitmapText(WIDTH / 12, HEIGHT / 4 * 2 + 50, FONTS.ULTIMA_BOLD, `Player Death: ${playerDeathCount}`, FONTS_SIZES.ULTIMA_BOLD, 0)
+                            .setAlpha(0)
+                            .setLetterSpacing(2)
+                            .setTint(COLORS.RED, COLORS.RED, COLORS.ORANGE, COLORS.ORANGE)
+                            .setDropShadow(0, 1, COLORS.ORANGE, 1);
 
-                        this.items = this.add.bitmapText(42, HEIGHT / 4 + 90, FONTS.ALAGARD, `Collected items: ${percent}%`, 12, 0)
-                            .setAlpha(0).setTintFill(COLORS.RED).setDropShadow(0, 1, COLORS.ORANGE, 1);
+                        this.items = this.add.bitmapText(WIDTH / 12, HEIGHT / 4 * 2 + 70, FONTS.ULTIMA_BOLD, `Collected items: ${percent}%`, FONTS_SIZES.ULTIMA_BOLD, 0)
+                            .setAlpha(0)
+                            .setLetterSpacing(2)
+                            .setTint(COLORS.RED, COLORS.RED, COLORS.ORANGE, COLORS.ORANGE)
+                            .setDropShadow(0, 1, COLORS.ORANGE, 1);
 
-                        this.timeGame = this.add.bitmapText(42, HEIGHT / 4 + 110, FONTS.ALAGARD, `Total time: ${totalTime}`, 12, 0)
-                            .setAlpha(0).setTintFill(COLORS.RED).setDropShadow(0, 1, COLORS.ORANGE, 1);
+                        this.timeGame = this.add.bitmapText(WIDTH / 12, HEIGHT / 4 * 2 + 90, FONTS.ULTIMA_BOLD, `Total time: ${totalTime}`, FONTS_SIZES.ULTIMA_BOLD, 0)
+                            .setAlpha(0)
+                            .setLetterSpacing(2)
+                            .setTint(COLORS.RED, COLORS.RED, COLORS.ORANGE, COLORS.ORANGE)
+                            .setDropShadow(0, 1, COLORS.ORANGE, 1);
 
                         this.tweens.add({
                             targets: [this.congrat, this.enemiesKilled, this.death, this.items, this.timeGame],
@@ -203,7 +217,7 @@ Thanks for playing`;
         const creditsDisplay = this.add.bitmapText(WIDTH / 2, HEIGHT + 10, FONTS.ALAGARD, credits, 18, 1)
             .setOrigin(0.5, 0)
             .setAlpha(1)
-            .setTintFill(COLORS.RED)
+            .setTint(COLORS.RED, COLORS.RED, COLORS.ORANGE, COLORS.ORANGE)
             .setDropShadow(0, 1, COLORS.ORANGE, 1);
         
         this.tweens.add({

@@ -428,7 +428,7 @@ export default class GameScene extends Scene
         }
     }
 
-    public playSfx (sfx: string, config: Phaser.Types.Sound.SoundConfig = {})
+    public playSfx (sfx: string, config: Phaser.Types.Sound.SoundConfig = { })
     {
         const audioSfx = this.sound.get(sfx);
 
@@ -442,24 +442,6 @@ export default class GameScene extends Scene
         if (audioSfx && !audioSfx.isPlaying)
         {
             audioSfx.play(config);
-        }
-    }
-
-    public sismicActivity ()
-    {
-        if (!this.onSismic)
-        {
-            this.onSismic = true;
-            const rdm = Phaser.Math.Between(2000, 5000);
-            this.shakeCamera(1000);
-            this.sound.play('shake', { volume: 0.5 });
-            this.time.addEvent({
-                delay: rdm,
-                callback: () =>
-                {
-                    this.onSismic = false;
-                },
-            });
         }
     }
 
@@ -485,9 +467,6 @@ export default class GameScene extends Scene
 
         this.player.playerState.isDead = false;
 
-        // this.demonFight1.stop();
-        // this.demonFight2.stop();
-        // this.demonLighting.stop();
         this.scene.start(SCENES_NAMES.GAMEOVER);
     }
 
@@ -796,7 +775,7 @@ export default class GameScene extends Scene
 
         this.addPlayerSfx();
 
-        this.addEnemies();
+        addEnemies(this);
 
         this.playMusic(properties?.music);
 
@@ -882,7 +861,7 @@ export default class GameScene extends Scene
                 break;
         }
 
-        this.addEnemies();
+        addEnemies(this);
 
         ColliderService.addColliders(this);
 
@@ -1244,11 +1223,6 @@ export default class GameScene extends Scene
         });
 
         return props;
-    }
-
-    public addEnemies ()
-    {
-        addEnemies(this);
     }
 
     public showEnemyDamage (enemy: Enemy | Demon | HellBeast, damage: number)

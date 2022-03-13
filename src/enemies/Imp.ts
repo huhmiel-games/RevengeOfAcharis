@@ -11,8 +11,7 @@ export default class Imp extends Enemy
 {
     public enemyState: { life: number; damage: number; giveLife: number; };
     public speed: number = 20;
-    public walkplay: boolean;
-    public walkk: Phaser.Sound.BaseSound;
+    public walkSfx: Phaser.Sound.BaseSound;
     public distance: number;
     private hitboxData: THitboxData;
     public hitbox: Projectile[] = [];
@@ -45,8 +44,7 @@ export default class Imp extends Enemy
 
         this.hitboxData = JSON.parse('{"imp-red-attack1_4":{"hitboxes":[{"frame":"imp-red-attack1_4","type":"circle","x":42,"y":6,"width":30,"height":30}]},"imp-red-attack2_4":{"hitboxes":[{"frame":"imp-red-attack2_4","type":"circle","x":56,"y":12,"width":21,"height":21}]}}');
 
-        this.walkplay = false;
-        this.walkk = this.scene.sound.add('skeletonStep', { volume: 0.5 });
+        this.walkSfx = this.scene.sound.add('skeletonStep', { volume: 0.5 });
         this.anims.play('imp-red-walk');
 
         this.on(Phaser.Animations.Events.ANIMATION_UPDATE, () =>
@@ -177,7 +175,7 @@ export default class Imp extends Enemy
 
         if (this.scene.cameras.main.worldView.contains(x, y))
         {
-            this.walkk.play({ volume });
+            this.walkSfx.play({ volume });
         }
     }
 
