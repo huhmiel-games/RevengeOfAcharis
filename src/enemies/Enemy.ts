@@ -144,7 +144,7 @@ export default class Enemy extends GameObjects.Sprite
 
             flames.anims.play('enemyExplode').on(Phaser.Animations.Events.ANIMATION_COMPLETE, () =>
             {
-                flames.destroy();
+                flames.setActive(false).setVisible(false);
             });
         }
     }
