@@ -28,7 +28,6 @@ import TopHeadText from '../utils/TopHeadText';
 export default class GameScene extends Scene
 {
     //#region properties
-    // public state: { displayPowerUpMsg: boolean; };
     public map: Phaser.Tilemaps.Tilemap;
     public firstTimestamp: number;
     public heartGroup: Phaser.GameObjects.Sprite[];
@@ -62,15 +61,14 @@ export default class GameScene extends Scene
     public battleWithBoss: boolean = false;
     public cameraIsShaking: boolean;
     public modalText: Phaser.GameObjects.BitmapText;
-    public lifeText: Phaser.GameObjects.BitmapText;
-    public heart: Phaser.GameObjects.Sprite;
-    public bossMusic: Phaser.Sound.BaseSound;
+    // public lifeText: Phaser.GameObjects.BitmapText;
+    // public heart: Phaser.GameObjects.Sprite;
+    // public bossMusic: Phaser.Sound.BaseSound;
     public playerRoomName: string;
     public demon: Demon;
     public isChangingRoom: boolean;
     public colliderLayer: Phaser.Tilemaps.TilemapLayer;
     public hellBeast: HellBeast;
-    public showMsg: Phaser.GameObjects.BitmapText;
     public player: Player;
     public backUi: Phaser.GameObjects.Image;
     public isCheckSaving: boolean = false;
@@ -92,9 +90,6 @@ export default class GameScene extends Scene
     constructor ()
     {
         super(SCENES_NAMES.GAME);
-        // this.state = {
-        //     displayPowerUpMsg: false,
-        // };
     }
 
     public preload ()
@@ -167,7 +162,7 @@ export default class GameScene extends Scene
         );
 
         // PLAYER SECTION
-        this.player = new Player(this, 20, 220, { key: 'atlas' }); // 458, 122 4 * 16, 6 * 16
+        this.player = new Player(this, 20, 220, { key: 'atlas' });
 
         // create groups
         this.createGroups();
@@ -490,9 +485,9 @@ export default class GameScene extends Scene
 
         this.player.playerState.isDead = false;
 
-        this.demonFight1.stop();
-        this.demonFight2.stop();
-        this.demonLighting.stop();
+        // this.demonFight1.stop();
+        // this.demonFight2.stop();
+        // this.demonLighting.stop();
         this.scene.start(SCENES_NAMES.GAMEOVER);
     }
 
@@ -764,7 +759,6 @@ export default class GameScene extends Scene
                 dialog.removeAllListeners();
             }
         });
-
     }
 
     public startRoom (room: string)
@@ -1023,7 +1017,7 @@ export default class GameScene extends Scene
 
                 if (element.properties.id < 10)
                 {
-                    const props = SWORDS.filter(e => e.id === element.properties.id)[0];
+                    const props = SWORDS.find(e => e.id === element.properties.id) as TSwordConfig;
 
                     const sword = new PowerUp(this, element.x as unknown as number + TILE_SIZE / 2, element.y as unknown as number - TILE_SIZE, {
                         key: 'stuff',
@@ -1039,7 +1033,7 @@ export default class GameScene extends Scene
 
                 if (element.properties.id < 15)
                 {
-                    const props = BOWS.filter(e => e.id === element.properties.id)[0];
+                    const props = BOWS.find(e => e.id === element.properties.id) as TBowConfig;
 
                     const bow = new PowerUp(this, element.x as unknown as number + TILE_SIZE / 2, element.y as unknown as number - TILE_SIZE, {
                         key: 'stuff',
@@ -1055,7 +1049,7 @@ export default class GameScene extends Scene
 
                 if (element.properties.id < 20)
                 {
-                    const props = SHIELDS.filter(e => e.id === element.properties.id)[0];
+                    const props = SHIELDS.find(e => e.id === element.properties.id) as TShieldConfig;
 
                     const shield = new PowerUp(this, element.x as unknown as number + TILE_SIZE / 2, element.y as unknown as number - TILE_SIZE, {
                         key: 'stuff',
@@ -1069,7 +1063,7 @@ export default class GameScene extends Scene
 
                 if (element.properties.id >= 20)
                 {
-                    const props = EQUIPMENT.filter(e => e.id === element.properties.id)[0];
+                    const props = EQUIPMENT.find(e => e.id === element.properties.id) as TEquipmentConfig;
 
                     const equipment = new PowerUp(this, element.x as unknown as number + TILE_SIZE / 2, element.y as unknown as number - TILE_SIZE, {
                         key: 'stuff',
@@ -1270,7 +1264,7 @@ export default class GameScene extends Scene
 
     public hideBossDoor ()
     {
-        const layer: Phaser.Tilemaps.TilemapLayer = LayerService.getForegroundLayers(this).filter(l => l.name === 'foreground/bossDoor')[0];
+        const layer: Phaser.Tilemaps.TilemapLayer = LayerService.getForegroundLayers(this).find(l => l.name === 'foreground/bossDoor') as Phaser.Tilemaps.TilemapLayer;
         layer.setAlpha(0);
     }
 

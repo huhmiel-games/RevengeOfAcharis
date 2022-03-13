@@ -10,7 +10,7 @@ export default class DoorService
         const world = scene.cache.json.get('world');
 
         // get the current room
-        const currentRoom = world.maps.filter(room => room.fileName === scene.playerRoomName)[0];
+        const currentRoom = world.maps.find(room => room.fileName === scene.playerRoomName);
 
         // create an empty nextRoom object
         const nextRoom: TDoor = {

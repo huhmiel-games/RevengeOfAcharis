@@ -11,7 +11,7 @@ export default class SwordManager
     {
         swordsIds.forEach(id =>
         {
-            const swordConfig = SWORDS.filter(e => e.id === id)[0];
+            const swordConfig = SWORDS.find(e => e.id === id) as TSwordConfig;
 
             const sword = new Sword(swordConfig);
 
@@ -42,7 +42,7 @@ export default class SwordManager
 
     public getCurrentSword (): Sword
     {
-        return this.swords.filter(sword => sword.id === this.currentSwordId)[0];
+        return this.swords.find(sword => sword.id === this.currentSwordId) as Sword;
     }
 
     public selectSword (id: number)

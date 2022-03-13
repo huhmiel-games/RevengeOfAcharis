@@ -160,7 +160,7 @@ export default class DemonAxe extends Enemy
                 return;
             }
             
-            this.currentsong = this.scene.musicGroup.filter(elm => elm.isPlaying)[0];
+            this.currentsong = this.scene.musicGroup.find(elm => elm.isPlaying) as Phaser.Sound.BaseSound;
             this.isBattleMusic = true;
             this.scene.stopMusic();
             this.scene.bossBattleMusic.play();

@@ -485,7 +485,7 @@ export default class Demon extends Phaser.GameObjects.Sprite
     {
         if (!this.isBattleMusic && !this.isDead)
         {
-            this.currentsong = this.scene.musicGroup.filter(elm => elm.isPlaying)[0];
+            this.currentsong = this.scene.musicGroup.find(elm => elm.isPlaying) as Phaser.Sound.BaseSound;
 
             this.isBattleMusic = true;
 
@@ -549,7 +549,7 @@ export default class Demon extends Phaser.GameObjects.Sprite
 
                         this.checkMusic();
 
-                        const layer: Phaser.Tilemaps.TilemapLayer = LayerService.getGroundLayers(this.scene).filter(l => l.name === 'ground/ground')[0];
+                        const layer: Phaser.Tilemaps.TilemapLayer = LayerService.getGroundLayers(this.scene).find(l => l.name === 'ground/ground') as Phaser.Tilemaps.TilemapLayer;
 
                         layer.putTileAt(734 + 17, 8, 14, true);
                         layer.putTileAt(797 + 17, 8, 15);

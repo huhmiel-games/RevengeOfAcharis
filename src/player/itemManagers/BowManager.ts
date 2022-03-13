@@ -11,7 +11,7 @@ export default class BowManager
     {
         bowsIds.forEach(id =>
         {
-            const swordConfig = BOWS.filter(e => e.id === id)[0];
+            const swordConfig = BOWS.find(e => e.id === id) as TBowConfig;
 
             const sword = new Bow(swordConfig);
 
@@ -48,7 +48,7 @@ export default class BowManager
 
     public getCurrentBow (): Bow
     {
-        return this.bows.filter(bow => bow.id === this.currentBowId)[0];
+        return this.bows.find(bow => bow.id === this.currentBowId) as Bow;
     }
 
     public selectBow (id: number)

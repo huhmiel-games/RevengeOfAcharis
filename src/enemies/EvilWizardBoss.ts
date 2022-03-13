@@ -204,7 +204,7 @@ export default class EvilWizardBoss extends Enemy
 
         this.isBattleStarted = true;
 
-        const bossDoorLayer: Phaser.Tilemaps.TilemapLayer = LayerService.getForegroundLayers(this.scene).filter(l => l.name === 'foreground/bossDoor')[0];
+        const bossDoorLayer: Phaser.Tilemaps.TilemapLayer = LayerService.getForegroundLayers(this.scene).find(l => l.name === 'foreground/bossDoor') as Phaser.Tilemaps.TilemapLayer;
         bossDoorLayer.setAlpha(1);
         bossDoorLayer.forEachTile(tile =>
         {
@@ -344,7 +344,7 @@ export default class EvilWizardBoss extends Enemy
     {
         if (!this.isBattleMusic && !this.isDead)
         {
-            this.currentsong = this.scene.musicGroup.filter(elm => elm.isPlaying)[0];
+            this.currentsong = this.scene.musicGroup.find(elm => elm.isPlaying) as Phaser.Sound.BaseSound;
 
             this.isBattleMusic = true;
 
@@ -435,7 +435,7 @@ export default class EvilWizardBoss extends Enemy
 
             this.giveLife(x, y);
 
-            const bossDoorLayer: Phaser.Tilemaps.TilemapLayer = LayerService.getForegroundLayers(this.scene).filter(l => l.name === 'foreground/bossDoor')[0];
+            const bossDoorLayer: Phaser.Tilemaps.TilemapLayer = LayerService.getForegroundLayers(this.scene).find(l => l.name === 'foreground/bossDoor') as Phaser.Tilemaps.TilemapLayer;
             bossDoorLayer.forEachTile(tile =>
             {
                 if (tile.index !== -1)

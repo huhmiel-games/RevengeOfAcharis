@@ -42,7 +42,7 @@ export default class GenerateWorldRoom
             const roomTilemap = scene.make.tilemap({ key: roomName, tileWidth: 8, tileHeight: 8 });
 
             // get the collider layer
-            const collideLayer = roomTilemap.layers.filter(layer => layer.name === 'collider')[0];
+            const collideLayer = roomTilemap.layers.find(layer => layer.name === 'collider') as Phaser.Tilemaps.LayerData;
 
             if (!collideLayer)
             {

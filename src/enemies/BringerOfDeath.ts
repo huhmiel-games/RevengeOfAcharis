@@ -284,7 +284,7 @@ export default class BringerOfDeath extends Enemy
 
                         this.checkMusic();
 
-                        const layer: Phaser.Tilemaps.TilemapLayer = LayerService.getGroundLayers(this.scene).filter(l => l.name === 'ground/ground')[0];
+                        // const layer: Phaser.Tilemaps.TilemapLayer = LayerService.getGroundLayers(this.scene).find(l => l.name === 'ground/ground');
 
                         // layer.putTileAt(734 + 17, 0, 30, true);
                         // layer.putTileAt(797 + 17, 0, 31);
@@ -316,7 +316,7 @@ export default class BringerOfDeath extends Enemy
                 return;
             }
 
-            this.currentsong = this.scene.musicGroup.filter(elm => elm.isPlaying)[0];
+            this.currentsong = this.scene.musicGroup.find(elm => elm.isPlaying) as Phaser.Sound.BaseSound;
             this.isBattleMusic = true;
             this.scene.stopMusic();
             this.scene.bossBattleMusic.play();
@@ -458,7 +458,7 @@ export default class BringerOfDeath extends Enemy
                                     delay: 2000,
                                     callback: () =>
                                     {
-                                        const layer: Phaser.Tilemaps.TilemapLayer = LayerService.getForegroundLayers(this.scene).filter(l => l.name === 'foreground/secret')[0];
+                                        const layer: Phaser.Tilemaps.TilemapLayer = LayerService.getForegroundLayers(this.scene).find(l => l.name === 'foreground/secret') as Phaser.Tilemaps.TilemapLayer;
                                         layer.setAlpha(0);
         
                                         this.unlockDoors();
@@ -475,7 +475,7 @@ export default class BringerOfDeath extends Enemy
                             delay: 2000,
                             callback: () =>
                             {
-                                const layer: Phaser.Tilemaps.TilemapLayer = LayerService.getForegroundLayers(this.scene).filter(l => l.name === 'foreground/secret')[0];
+                                const layer: Phaser.Tilemaps.TilemapLayer = LayerService.getForegroundLayers(this.scene).find(l => l.name === 'foreground/secret') as Phaser.Tilemaps.TilemapLayer;
                                 layer.setAlpha(0);
 
                                 this.unlockDoors();

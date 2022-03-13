@@ -197,7 +197,8 @@ export default class LayerService
      */
     public static showSecretPath (scene: GameScene)
     {
-        const secretLayer = scene.map.layers.filter(layer => layer.name.startsWith('foreground/secret'))[0].tilemapLayer;
+        const secretLayerData = scene.map.layers.find(layer => layer.name.startsWith('foreground/secret')) as Phaser.Tilemaps.LayerData;
+        const secretLayer = secretLayerData.tilemapLayer;
 
         if (secretLayer.alpha === 0)
         {

@@ -227,7 +227,7 @@ export default class SkeletonSeeker extends Enemy
 
         if (this.scene.playerRoomName === 'map35')
         {
-            const layer: Phaser.Tilemaps.TilemapLayer = LayerService.getGroundLayers(this.scene).filter(l => l.name === 'ground/ground')[0];
+            const layer: Phaser.Tilemaps.TilemapLayer = LayerService.getGroundLayers(this.scene).find(l => l.name === 'ground/ground') as Phaser.Tilemaps.TilemapLayer;
 
             layer.putTileAt(157 + 17, 30, 6);
             layer.putTileAt(157 + 17, 30, 7);
@@ -284,7 +284,7 @@ export default class SkeletonSeeker extends Enemy
     {
         if (!this.isBattleMusic && !this.isDead)
         {
-            this.currentsong = this.scene.musicGroup.filter(elm => elm.isPlaying)[0];
+            this.currentsong = this.scene.musicGroup.find(elm => elm.isPlaying) as Phaser.Sound.BaseSound;
 
             this.isBattleMusic = true;
 
@@ -450,7 +450,7 @@ export default class SkeletonSeeker extends Enemy
 
             if (this.scene.playerRoomName === 'map35')
             {
-                const layer: Phaser.Tilemaps.TilemapLayer = LayerService.getGroundLayers(this.scene).filter(l => l.name === 'ground/ground')[0];
+                const layer: Phaser.Tilemaps.TilemapLayer = LayerService.getGroundLayers(this.scene).find(l => l.name === 'ground/ground') as Phaser.Tilemaps.TilemapLayer;
 
                 const tile = layer.getTileAt(30, 7);
                 const tile2 = layer.getTileAt(30, 14);

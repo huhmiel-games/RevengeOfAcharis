@@ -11,7 +11,7 @@ export default class ShieldManager
     {
         shieldsIds.forEach(id =>
         {
-            const shieldConfig = SHIELDS.filter(e => e.id === id)[0];
+            const shieldConfig = SHIELDS.find(e => e.id === id) as TShieldConfig;
 
             const shield = new Shield(shieldConfig);
 
@@ -46,7 +46,7 @@ export default class ShieldManager
 
     public getCurrentShield (): Shield
     {
-        return this.shields.filter(shield => shield.id === this.currentShieldId)[0];
+        return this.shields.find(shield => shield.id === this.currentShieldId) as Shield;
     }
 
     public selectShield (id: number)

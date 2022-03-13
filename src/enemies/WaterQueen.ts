@@ -382,7 +382,7 @@ export default class WaterQueen extends Enemy
                         this.healthUiText = this.scene.add.bitmapText(435, 9, FONTS.GALAXY, `${this.enemyState.life}/2000`, FONTS_SIZES.GALAXY, 1)
                             .setScrollFactor(0, 0).setDepth(DEPTH.UI_TEXT).setTintFill(COLORS.STEEL_GRAY);
 
-                        const layer: Phaser.Tilemaps.TilemapLayer = LayerService.getGroundLayers(this.scene).filter(l => l.name === 'ground/ground')[0];
+                        const layer: Phaser.Tilemaps.TilemapLayer = LayerService.getGroundLayers(this.scene).find(l => l.name === 'ground/ground') as Phaser.Tilemaps.TilemapLayer;
 
                         layer.putTileAt(734 + 17, 0, 30, true);
                         layer.putTileAt(797 + 17, 0, 31);
@@ -574,7 +574,7 @@ export default class WaterQueen extends Enemy
     {
         if (!this.isBattleMusic && !this.isDead)
         {
-            this.currentsong = this.scene.musicGroup.filter(elm => elm.isPlaying)[0];
+            this.currentsong = this.scene.musicGroup.find(elm => elm.isPlaying) as Phaser.Sound.BaseSound;
 
             this.isBattleMusic = true;
 

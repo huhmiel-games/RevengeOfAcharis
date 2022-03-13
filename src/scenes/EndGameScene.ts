@@ -49,7 +49,9 @@ export default class EndGame extends Scene
         this.trans = 'The end';
         this.cnt = 0;
         this.transDisplay = this.add.bitmapText(WIDTH / 2, HEIGHT / 2, FONTS.ALAGARD, '', 20, 1)
-            .setOrigin(0.5, 0.5).setDropShadow(0, 1, COLORS.ORANGE, 1);
+            .setOrigin(0.5, 0.5)
+            .setTintFill(COLORS.RED)
+            .setDropShadow(0, 1, COLORS.ORANGE, 1);
 
         this.time.addEvent({
             delay: 100,
@@ -95,13 +97,13 @@ export default class EndGame extends Scene
                             .setAlpha(0).setTintFill(COLORS.RED).setDropShadow(0, 1, COLORS.ORANGE, 1);
 
                         this.death = this.add.bitmapText(42, HEIGHT / 4 + 70, FONTS.ALAGARD, `Player Death: ${playerDeathCount}`, 12, 0)
-                            .setAlpha(0).setDropShadow(0, 1, COLORS.ORANGE, 1);
+                            .setAlpha(0).setTintFill(COLORS.RED).setDropShadow(0, 1, COLORS.ORANGE, 1);
 
                         this.items = this.add.bitmapText(42, HEIGHT / 4 + 90, FONTS.ALAGARD, `Collected items: ${percent}%`, 12, 0)
-                            .setAlpha(0).setDropShadow(0, 1, COLORS.ORANGE, 1);
+                            .setAlpha(0).setTintFill(COLORS.RED).setDropShadow(0, 1, COLORS.ORANGE, 1);
 
                         this.timeGame = this.add.bitmapText(42, HEIGHT / 4 + 110, FONTS.ALAGARD, `Total time: ${totalTime}`, 12, 0)
-                            .setAlpha(0).setDropShadow(0, 1, COLORS.ORANGE, 1);
+                            .setAlpha(0).setTintFill(COLORS.RED).setDropShadow(0, 1, COLORS.ORANGE, 1);
 
                         this.tweens.add({
                             targets: [this.congrat, this.enemiesKilled, this.death, this.items, this.timeGame],
