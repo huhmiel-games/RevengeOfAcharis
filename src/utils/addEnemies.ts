@@ -6,7 +6,6 @@ import DragonHead from '../enemies/DragonHead';
 import EvilWizard from '../enemies/EvilWizard';
 import EvilWizardBoss from '../enemies/EvilWizardBoss';
 import FireSkull from '../enemies/FireSkull';
-import Flames from '../enemies/Flames';
 import Ghost from '../enemies/Ghost';
 import HellHound from '../enemies/HellHound';
 import Horse from '../enemies/Horse';
@@ -286,17 +285,6 @@ export default function addEnemies (scene: GameScene)
                     delay: element.properties.delay || 0,
                 });
                 scene.enemyGroup.push(wiz);
-                break;
-
-            case 'flames':
-                if (!element.y) return;
-
-                const flame = new Flames(scene, element.x as unknown as number, element.y as unknown as number - 16, {
-                    key: 'flames',
-                    name: 'flame',
-                });
-
-                scene.enemyGroup.push(flame);
                 break;
 
             case 'oldman':
