@@ -216,13 +216,11 @@ export default class Wizard extends Enemy
 
         if (ball)
         {
-            ball.setVisible(true).setDepth(DEPTH.FLAME_BALL).setName('fireball').setAlpha(1);
+            ball.setActive(true).setVisible(true).setDepth(DEPTH.FLAME_BALL).setName('fireball').setAlpha(1);
             ball.anims.play('fireball', true);
 
             ball.enemyState = { damage: 5 };
-            ball.body.setCircle(6);
-
-            this.scene.projectileGroup.push(ball);
+            ball.body.setCircle(6).setEnable(true);
 
             const dx = this.scene.player.x - this.x;
             const dy = this.scene.player.y - this.y;
@@ -239,7 +237,9 @@ export default class Wizard extends Enemy
                 callback: () =>
                 {
                     this.isFiring = false;
-                    ball.destroy();
+
+                    ball.body.setEnable(false);
+                    ball.setActive(false).setVisible(false);
                 },
             });
         }

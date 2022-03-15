@@ -349,24 +349,6 @@
                 {
                  "gid":2,
                  "height":16,
-                 "id":6,
-                 "name":"",
-                 "properties":[
-                        {
-                         "name":"id",
-                         "type":"int",
-                         "value":6
-                        }],
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":16,
-                 "x":888,
-                 "y":228
-                }, 
-                {
-                 "gid":2,
-                 "height":16,
                  "id":7,
                  "name":"",
                  "properties":[

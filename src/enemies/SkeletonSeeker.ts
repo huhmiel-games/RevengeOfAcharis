@@ -88,7 +88,7 @@ export default class SkeletonSeeker extends Enemy
 
                     if (hitbox)
                     {
-                        hitbox.setActive(true).setVisible(true).setSize(element.width, element.height).setOrigin(0, 0).setName('fireball').setAlpha(0);
+                        hitbox.setActive(true).setVisible(true).setSize(element.width, element.height).setOrigin(0, 0).setName('fireball').setAlpha(0);hitbox.body.setEnable(true);
                         hitbox.enemyState = { damage: 10 };
 
                         if (element.type === 'rectangle')
@@ -110,7 +110,6 @@ export default class SkeletonSeeker extends Enemy
                             hitbox.body.reset(this.x + element.x, this.y + element.y);
                         }
 
-                        this.scene.projectileGroup.push(hitbox);
                         this.hitbox.push(hitbox);
 
                         if (!this.swordSfx.isPlaying)
@@ -459,8 +458,8 @@ export default class SkeletonSeeker extends Enemy
 
                 if (smoke)
                 {
-                    smoke.setDepth(DEPTH.SMOKE);
-                    smoke.once(Phaser.Animations.Events.ANIMATION_COMPLETE, () => smoke.destroy());
+                    smoke.setDepth(DEPTH.SMOKE).setActive(true).setVisible(true);
+                    smoke.once(Phaser.Animations.Events.ANIMATION_COMPLETE, () => smoke.setActive(false).setVisible(false));
                     smoke.anims.play('smoke1');
 
                     this.scene.sound.play('impact', { rate: 0.5 });
@@ -469,9 +468,9 @@ export default class SkeletonSeeker extends Enemy
 
                 if (smoke2)
                 {
-                    smoke2.setDepth(DEPTH.SMOKE);
-                    smoke2.once(Phaser.Animations.Events.ANIMATION_COMPLETE, () => smoke.destroy());
-                    smoke2.anims.play('smoke1');
+                    smoke.setDepth(DEPTH.SMOKE).setActive(true).setVisible(true);
+                    smoke.once(Phaser.Animations.Events.ANIMATION_COMPLETE, () => smoke.setActive(false).setVisible(false));
+                    smoke.anims.play('smoke1');
 
                     this.scene.sound.play('impact', { rate: 0.2 });
                 }
@@ -515,7 +514,7 @@ export default class SkeletonSeeker extends Enemy
         this.hitbox?.forEach(h =>
         {
             h.explode();
-            h.setActive(false);
+            h.setActive(false).setVisible(false);
             h.body.setEnable(false);
         });
     }
@@ -563,8 +562,6 @@ export default class SkeletonSeeker extends Enemy
                 .data.set('health', this.enemyState.giveLife);
 
             heart.body.setEnable(true);
-
-            this.scene.heartGroup.push(heart);
         }
     }
 }

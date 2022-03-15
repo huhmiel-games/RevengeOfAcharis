@@ -63,7 +63,7 @@ export default class Imp extends Enemy
 
                     if (hitbox)
                     {
-                        hitbox.setActive(true).setVisible(true).setSize(element.width, element.height).setOrigin(0, 0).setName('fireball').setAlpha(0);
+                        hitbox.setActive(true).setVisible(true).setSize(element.width, element.height).setOrigin(0, 0).setName('fireball').setAlpha(0);hitbox.body.setEnable(true);
                         hitbox.enemyState = { damage: 10 };
 
                         if (element.type === 'rectangle')
@@ -85,7 +85,6 @@ export default class Imp extends Enemy
                             hitbox.body.reset(this.x + element.x, this.y + element.y);
                         }
 
-                        this.scene.projectileGroup.push(hitbox);
                         this.hitbox.push(hitbox);
 
                         if (!this.swordSfx.isPlaying)
@@ -413,7 +412,7 @@ export default class Imp extends Enemy
         this.hitbox?.forEach(h =>
         {
             h.explode();
-            h.setActive(false);
+            h.setActive(false).setVisible(false);
             h.body.setEnable(false);
         });
     }

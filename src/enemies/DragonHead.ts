@@ -110,13 +110,11 @@ export default class DragonHead extends Enemy
 
         if (ball)
         {
-            ball.setScale(0.3).setVisible(true).setDepth(DEPTH.ENEMY - 1).setName('fireball').setAlpha(1);
+            ball.setScale(0.3).setActive(true).setVisible(true).setDepth(DEPTH.ENEMY - 1).setName('fireball').setAlpha(1);
             ball.anims.play('fireball', true);
 
             ball.enemyState = { damage: 5 };
-            ball.body.setCircle(6);
-
-            this.scene.projectileGroup.push(ball);
+            ball.body.setEnable(true).setCircle(6);
 
             this.scene.tweens.add({
                 targets: ball,
@@ -144,7 +142,8 @@ export default class DragonHead extends Enemy
                 delay: 3500,
                 callback: () =>
                 {
-                    ball.destroy();
+                    ball.body.setEnable(false);
+                    ball.setActive(false).setVisible(false);
                 },
             });
         }

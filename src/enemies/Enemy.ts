@@ -127,8 +127,6 @@ export default class Enemy extends GameObjects.Sprite
                 .data.set('health', this.enemyState.giveLife);
 
             heart.body.setEnable(true);
-
-            this.scene.heartGroup.push(heart);
         }
     }
 
@@ -140,9 +138,9 @@ export default class Enemy extends GameObjects.Sprite
 
         if (flames)
         {
-            flames.setDepth(DEPTH.EXPLOSION);
+            flames.setDepth(DEPTH.EXPLOSION).setActive(true).setVisible(true);
 
-            flames.anims.play('enemyExplode').on(Phaser.Animations.Events.ANIMATION_COMPLETE, () =>
+            flames.anims.play('enemyExplode').once(Phaser.Animations.Events.ANIMATION_COMPLETE, () =>
             {
                 flames.setActive(false).setVisible(false);
             });

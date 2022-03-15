@@ -2,7 +2,7 @@ import { COLORS } from '../constant/colors';
 import { FONTS, FONTS_SIZES, HEIGHT, WIDTH } from '../constant/config';
 import DEPTH from '../constant/depth';
 import GameScene from '../scenes/GameScene';
-import DialogueService from '../services/DialogueService';
+import DialogService from '../services/DialogService';
 import SaveLoadService from '../services/SaveLoadService';
 
 export default class Woman extends Phaser.GameObjects.Sprite
@@ -84,7 +84,7 @@ export default class Woman extends Phaser.GameObjects.Sprite
 
         this.scene.sound.play(`${this.name}Sfx`);
 
-        DialogueService.npcTalk(this.scene, this.msg);
+        DialogService.npcTalk(this.scene, this.msg);
 
         if (this.label?.getData('name') === this.name)
         {

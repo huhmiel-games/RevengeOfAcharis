@@ -56,7 +56,7 @@ export default class Horse extends Enemy
 
                     if (hitbox)
                     {
-                        hitbox.setActive(true).setVisible(true).setSize(element.width, element.height).setOrigin(0, 0).setName('fireball').setAlpha(0);
+                        hitbox.setActive(true).setVisible(true).setSize(element.width, element.height).setOrigin(0, 0).setName('fireball').setAlpha(0);hitbox.body.setEnable(true);
                         // hitbox.enemyState = { damage: 10 };
                         hitbox.parent = this;
 
@@ -79,7 +79,6 @@ export default class Horse extends Enemy
                             hitbox.body.reset(this.getTopLeft().x + element.x, this.getTopRight().y + element.y);
                         }
 
-                        this.scene.bodiesGroup.push(hitbox);
                         this.hitbox.push(hitbox);
                     }
                 });
@@ -137,11 +136,10 @@ export default class Horse extends Enemy
 
     public playAttackSfx ()
     {
-        if (this.isAttacking)
-        {
-            return;
-        }
+        if (this.isAttacking) return;
+
         this.isAttacking = true;
+        
         this.attackSfx.play();
     }
 

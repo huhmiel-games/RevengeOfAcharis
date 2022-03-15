@@ -120,8 +120,8 @@ export default class ColliderService
 
                 if (smoke)
                 {
-                    smoke.setDepth(DEPTH.SMOKE);
-                    smoke.once(Phaser.Animations.Events.ANIMATION_COMPLETE, () => smoke.destroy());
+                    smoke.setDepth(DEPTH.SMOKE).setActive(true).setVisible(true);
+                    smoke.once(Phaser.Animations.Events.ANIMATION_COMPLETE, () => smoke.setActive(false).setVisible(false));
                     smoke.anims.play('smoke1');
 
                     if (!tile.properties.hit)
@@ -148,7 +148,7 @@ export default class ColliderService
             }
         }, scene);
 
-        scene.physics.add.collider(scene.enemyGroup, scene.colliderLayer, undefined, (enemy, tile) =>
+        scene.physics.add.collider(scene.enemyGroup, scene.colliderLayer, undefined, (enemy) =>
         {
             if (enemy.name !== 'demon' && enemy.name !== 'skullHeadDemon') return true;
         });
@@ -160,14 +160,14 @@ export default class ColliderService
             return false;
         });
 
-        scene.physics.add.overlap(scene.heartGroup, scene.player, elm => scene.player.getLife(elm), undefined, scene.player);
+        scene.physics.add.overlap(scene.hearts, scene.player, (player, heart) => scene.player.getLife(heart as Phaser.GameObjects.Sprite), undefined, scene.player);
 
         scene.physics.add.overlap(scene.powerUpGroup, scene.player, elm => scene.getPowerUp(elm as PowerUp), undefined, scene);
 
         scene.physics.add.overlap(scene.player, scene.enemyGroup, (player, enemy) => scene.playerIsHit(enemy as Enemy), undefined, scene);
-        scene.physics.add.overlap(scene.player, scene.projectileGroup, (player, projectile) => scene.playerIsHit(projectile as Projectile), undefined, scene);
+        scene.physics.add.overlap(scene.player, [scene.fireballs, scene.projectiles, scene.dragonHeadBalls], (player, projectile) => scene.playerIsHit(projectile as Projectile), undefined, scene);
 
-        scene.physics.add.overlap(scene.player, scene.bodiesGroup, (player, _body) =>
+        scene.physics.add.overlap(scene.player, scene.bodyExtended, (player, _body) =>
         {
             const body = _body as BodyExtended;
             const enemy = body.parent;
@@ -240,7 +240,7 @@ export default class ColliderService
                 return true;
             }, scene);
 
-        scene.physics.add.overlap([scene.player.swords, scene.player.arrows], scene.bodiesGroup, (_body, _weapon) =>
+        scene.physics.add.overlap([scene.player.swords, scene.player.arrows], scene.bodyExtended, (_body, _weapon) =>
         {
             const enemyBody = _body as BodyExtended;
             enemyBody.looseLife(_weapon);

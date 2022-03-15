@@ -97,8 +97,6 @@ export default class Minotaur extends Enemy
                             this.scene.shakeCamera(25, 0.010);
                         }
 
-                        this.scene.projectileGroup.push(hitbox);
-
                         this.hitbox.push(hitbox);
 
                         if (!this.swordSfx.isPlaying)

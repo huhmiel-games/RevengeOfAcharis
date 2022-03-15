@@ -94,7 +94,7 @@ export default class Demon extends Phaser.GameObjects.Sprite
 
                     if (hitbox)
                     {
-                        hitbox.setActive(true).setVisible(true).setSize(element.width, element.height).setOrigin(0, 0).setName('fireball').setAlpha(0);
+                        hitbox.setActive(true).setVisible(true).setSize(element.width, element.height).setOrigin(0, 0).setName('fireball').setAlpha(0);hitbox.body.setEnable(true);
                         hitbox.enemyState = { damage: 8 };
 
                         if (element.type === 'rectangle')
@@ -116,7 +116,6 @@ export default class Demon extends Phaser.GameObjects.Sprite
                             hitbox.body.reset(this.getTopLeft().x + element.x, this.y + element.y);
                         }
 
-                        this.scene.projectileGroup.push(hitbox);
                         this.hitbox.push(hitbox);
 
                         // if (!this.swordSfx.isPlaying)
@@ -178,8 +177,9 @@ export default class Demon extends Phaser.GameObjects.Sprite
 
                         if (smoke)
                         {
+                            smoke.setActive(true).setVisible(true);
                             smoke.setDepth(DEPTH.ENEMY + 5);
-                            smoke.once(Phaser.Animations.Events.ANIMATION_COMPLETE, () => smoke.destroy());
+                            smoke.once(Phaser.Animations.Events.ANIMATION_COMPLETE, () => smoke.setActive(false).setVisible(false));
                             smoke.anims.play('smoke1');
                         }
                         skullHead.destroy();
@@ -300,7 +300,7 @@ export default class Demon extends Phaser.GameObjects.Sprite
         this.hitbox?.forEach(h =>
         {
             h.explode();
-            h.setActive(false);
+            h.setActive(false).setVisible(false);
             h.body.setEnable(false);
         });
     }
@@ -508,16 +508,22 @@ export default class Demon extends Phaser.GameObjects.Sprite
         this.scene.sound.play('demonScreamSfx');
 
         // @ts-ignore
-        const ui = this.scene.add.rexNinePatch(WIDTH / 2, HEIGHT - HEIGHT / 8, WIDTH, HEIGHT / 4, 'framing', [7, undefined, 7], [7, undefined, 7], 0)
+        const ui = this.scene.children.getByName('bigDialogBox') || this.scene.add.rexNinePatch(WIDTH / 2, HEIGHT - HEIGHT / 8, WIDTH, HEIGHT / 4, 'framing', [7, undefined, 7], [7, undefined, 7], 0)
             .setOrigin(0.5, 0.5)
             .setDepth(DEPTH.UI_BACK)
-            .setScrollFactor(0)
-            .setVisible(true);
+            .setScrollFactor(0);
+        ui.setActive(true).setVisible(true);
 
         let index = 0;
 
-        const msg = this.scene.add.bitmapText(WIDTH / 32, HEIGHT - 48, FONTS.MINIMAL, text[index], FONTS_SIZES.MINIMAL, 1)
-            .setOrigin(0, 0).setLetterSpacing(1).setAlpha(1).setDepth(DEPTH.UI_TEXT).setScrollFactor(0, 0).setTintFill(COLORS.STEEL_GRAY);
+        const msg = this.scene.children.getByName('npcText') as Phaser.GameObjects.BitmapText || this.scene.add.bitmapText(WIDTH / 32, HEIGHT - 48, FONTS.MINIMAL, text[index], FONTS_SIZES.MINIMAL, 1)
+            .setOrigin(0, 0)
+            .setLetterSpacing(1)
+            .setAlpha(1)
+            .setDepth(DEPTH.UI_TEXT)
+            .setScrollFactor(0, 0)
+            .setTintFill(COLORS.STEEL_GRAY);
+        msg.setActive(true).setVisible(true);
 
         const dialog = this.scene.input.keyboard.on(Phaser.Input.Keyboard.Events.ANY_KEY_DOWN, (event) =>
         {
@@ -535,9 +541,9 @@ export default class Demon extends Phaser.GameObjects.Sprite
 
             if (event.key === this.scene.player.keys.fire.originalEvent.key && index === text.length)
             {
-                msg.destroy();
+                msg.setActive(false).setVisible(false);
 
-                ui.destroy();
+                ui.setActive(false).setVisible(false);
 
                 this.scene.unPause();
 
@@ -597,8 +603,8 @@ export default class Demon extends Phaser.GameObjects.Sprite
 
                 if (smoke)
                 {
-                    smoke.setDepth(DEPTH.SMOKE);
-                    smoke.once(Phaser.Animations.Events.ANIMATION_COMPLETE, () => smoke.destroy());
+                    smoke.setDepth(DEPTH.SMOKE).setActive(true).setVisible(true);
+                    smoke.once(Phaser.Animations.Events.ANIMATION_COMPLETE, () => smoke.setActive(false).setVisible(false));
                     smoke.anims.play('smoke1');
                 }
                 skullHead.destroy();

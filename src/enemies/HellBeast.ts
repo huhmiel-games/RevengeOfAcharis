@@ -144,16 +144,22 @@ export default class HellBeast extends Phaser.GameObjects.Sprite
         this.scene.sound.play('hellBeastFirstLaughSfx');
 
         // @ts-ignore
-        const ui = this.scene.add.rexNinePatch(WIDTH / 2, HEIGHT - HEIGHT / 8, WIDTH, HEIGHT / 4, 'framing', [7, undefined, 7], [7, undefined, 7], 0)
+        const ui = this.scene.children.getByName('bigDialogBox') || this.scene.add.rexNinePatch(WIDTH / 2, HEIGHT - HEIGHT / 8, WIDTH, HEIGHT / 4, 'framing', [7, undefined, 7], [7, undefined, 7], 0)
             .setOrigin(0.5, 0.5)
             .setDepth(DEPTH.UI_BACK)
-            .setScrollFactor(0)
-            .setVisible(true);
+            .setScrollFactor(0);
+        ui.setActive(true).setVisible(true);
 
         let index = 0;
 
-        const msg = this.scene.add.bitmapText(WIDTH / 32, HEIGHT - 48, FONTS.MINIMAL, text[index], FONTS_SIZES.MINIMAL, 1)
-            .setOrigin(0, 0).setLetterSpacing(1).setAlpha(1).setDepth(DEPTH.UI_TEXT).setScrollFactor(0, 0).setTintFill(COLORS.STEEL_GRAY);
+        const msg = this.scene.children.getByName('npcText') as Phaser.GameObjects.BitmapText || this.scene.add.bitmapText(WIDTH / 32, HEIGHT - 48, FONTS.MINIMAL, text[index], FONTS_SIZES.MINIMAL, 1)
+            .setOrigin(0, 0)
+            .setLetterSpacing(1)
+            .setAlpha(1)
+            .setDepth(DEPTH.UI_TEXT)
+            .setScrollFactor(0, 0)
+            .setTintFill(COLORS.STEEL_GRAY);
+        msg.setActive(true).setVisible(true);
 
         const dialog = this.scene.input.keyboard.on(Phaser.Input.Keyboard.Events.ANY_KEY_DOWN, (event) =>
         {
@@ -171,9 +177,11 @@ export default class HellBeast extends Phaser.GameObjects.Sprite
 
             if (event.key === this.scene.player.keys.fire.originalEvent.key && index === text.length)
             {
-                msg.destroy();
+                msg.setActive(false).setVisible(false);
 
-                ui.destroy();
+                ui.setActive(false).setVisible(false);
+
+                this.scene.cameras.main.setBounds(0, 18 * 16, 33 * 16, HEIGHT);
 
                 this.scene.unPause();
 
@@ -426,14 +434,10 @@ export default class HellBeast extends Phaser.GameObjects.Sprite
 
         if (ball)
         {
-            ball.visible = true;
+            ball.setActive(true).setVisible(true).setDepth(DEPTH.FLAME_BALL).setName('fireball');
             ball.anims.play('fireball', true);
-            ball.setDepth(DEPTH.FLAME_BALL);
             ball.enemyState = { damage: 10 };
-            ball.name = 'fireball';
-            ball.body.setCircle(6);
-
-            this.scene.projectileGroup.push(ball);
+            ball.body.setEnable(true).setCircle(6);
 
             const dx = this.scene.player.x - this.x;
             const dy = this.scene.player.y - this.y;
@@ -451,7 +455,9 @@ export default class HellBeast extends Phaser.GameObjects.Sprite
                 callback: () =>
                 {
                     this.isFiring = false;
-                    ball.destroy();
+
+                    ball.body.setEnable(false);
+                    ball.setActive(false).setVisible(false);
                 },
             });
         }
@@ -521,7 +527,6 @@ export default class HellBeast extends Phaser.GameObjects.Sprite
     public unlockDoors ()
     {
         this.scene.battleWithBoss = false;
-        // this.scene.player.inventory.boss1 = true;
     }
 
     public checkCollision (d)
@@ -599,7 +604,7 @@ export default class HellBeast extends Phaser.GameObjects.Sprite
                         .setTint(COLORS.RED, COLORS.RED, COLORS.ORANGE, COLORS.ORANGE)
                         .setDepth(DEPTH.UI_TEXT)
                         .setScrollFactor(0, 0);
-                    
+
                     fireElement.setDepth(DEPTH.UI_TEXT).setScrollFactor(0, 0)
                         .setOrigin(0.5, 0.5)
                         .setPosition(WIDTH / 2, HEIGHT / 3 + fireElement.height / 4);
@@ -620,8 +625,8 @@ export default class HellBeast extends Phaser.GameObjects.Sprite
 
                         if (smoke)
                         {
-                            smoke.setDepth(DEPTH.SMOKE);
-                            smoke.once(Phaser.Animations.Events.ANIMATION_COMPLETE, () => smoke.destroy());
+                            smoke.setDepth(DEPTH.SMOKE).setActive(true).setVisible(true);
+                            smoke.once(Phaser.Animations.Events.ANIMATION_COMPLETE, () => smoke.setActive(false).setVisible(false));
                             smoke.anims.play('smoke1');
 
                             this.scene.sound.play('impact', { rate: 0.5 });

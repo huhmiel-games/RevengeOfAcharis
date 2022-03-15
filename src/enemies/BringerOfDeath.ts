@@ -3,6 +3,7 @@ import { EWeaponType, FONTS, FONTS_SIZES, HEIGHT, SWORDS, WIDTH } from '../const
 import DEPTH from '../constant/depth';
 import PowerUp from '../player/items/powerUp';
 import GameScene from '../scenes/GameScene';
+import DialogService from '../services/DialogService';
 import LayerService from '../services/LayerService';
 import SaveLoadService from '../services/SaveLoadService';
 import { TCoord, THitboxData } from '../types/types';
@@ -89,7 +90,7 @@ export default class BringerOfDeath extends Enemy
 
                     if (hitbox)
                     {
-                        hitbox.setActive(true).setVisible(true).setSize(element.width, element.height).setOrigin(0, 0).setName('fireball').setAlpha(0);
+                        hitbox.setActive(true).setVisible(true).setSize(element.width, element.height).setOrigin(0, 0).setName('fireball').setAlpha(0);hitbox.body.setEnable(true);
                         hitbox.enemyState = { damage: 15 };
 
                         if (element.type === 'rectangle')
@@ -111,7 +112,6 @@ export default class BringerOfDeath extends Enemy
                             hitbox.body.reset(this.x + element.x, this.y + element.y);
                         }
 
-                        this.scene.projectileGroup.push(hitbox);
                         this.hitbox.push(hitbox);
 
                         if (!this.swordSfx.isPlaying)
@@ -199,7 +199,7 @@ export default class BringerOfDeath extends Enemy
         });
     }
 
-    
+
 
     public preUpdate (time: number, delta: number)
     {
@@ -237,21 +237,24 @@ export default class BringerOfDeath extends Enemy
         this.scene.player.isPause = true;
 
         // @ts-ignore
-        const ui = this.scene.add.rexNinePatch(WIDTH / 2, HEIGHT - HEIGHT / 8, WIDTH, HEIGHT / 4, 'framing', [7, undefined, 7], [7, undefined, 7], 0)
+        const ui = this.scene.children.getByName('bigDialogBox') || this.scene.add.rexNinePatch(WIDTH / 2, HEIGHT - HEIGHT / 8, WIDTH, HEIGHT / 4, 'framing', [7, undefined, 7], [7, undefined, 7], 0)
             .setOrigin(0.5, 0.5)
+            .setName('bigDialogBox')
             .setDepth(DEPTH.UI_BACK)
-            .setScrollFactor(0)
+            .setScrollFactor(0);
+        ui.setActive(true)
             .setVisible(true);
 
         let index = 0;
 
-        const msg = this.scene.add.bitmapText(WIDTH / 32, HEIGHT - 48, FONTS.MINIMAL, text[index], FONTS_SIZES.MINIMAL, 1)
+        const msg = this.scene.children.getByName('npcText') as Phaser.GameObjects.BitmapText || this.scene.add.bitmapText(WIDTH / 32, HEIGHT - 48, FONTS.MINIMAL, text[index], FONTS_SIZES.MINIMAL, 1)
             .setOrigin(0, 0)
             .setLetterSpacing(1)
             .setAlpha(1)
             .setDepth(DEPTH.UI_TEXT)
             .setTintFill(COLORS.STEEL_GRAY)
             .setScrollFactor(0, 0);
+        msg.setActive(true).setVisible(true);
 
         const dialog = this.scene.input.keyboard.on(Phaser.Input.Keyboard.Events.ANY_KEY_DOWN, (event) =>
         {
@@ -269,9 +272,9 @@ export default class BringerOfDeath extends Enemy
 
             if (event.key === this.scene.player.keys.fire.originalEvent.key && index === text.length)
             {
-                msg.destroy();
+                msg.setActive(false).setVisible(false);
 
-                ui.destroy();
+                ui.setActive(false).setVisible(false);
 
                 this.scene.unPause();
 
@@ -283,12 +286,6 @@ export default class BringerOfDeath extends Enemy
                         dialog.removeAllListeners();
 
                         this.checkMusic();
-
-                        // const layer: Phaser.Tilemaps.TilemapLayer = LayerService.getGroundLayers(this.scene).find(l => l.name === 'ground/ground');
-
-                        // layer.putTileAt(734 + 17, 0, 30, true);
-                        // layer.putTileAt(797 + 17, 0, 31);
-                        // layer.putTileAt(860 + 17, 0, 32);
                     }
                 });
 
@@ -460,9 +457,9 @@ export default class BringerOfDeath extends Enemy
                                     {
                                         const layer: Phaser.Tilemaps.TilemapLayer = LayerService.getForegroundLayers(this.scene).find(l => l.name === 'foreground/secret') as Phaser.Tilemaps.TilemapLayer;
                                         layer.setAlpha(0);
-        
+
                                         this.unlockDoors();
-        
+
                                         this.destroy();
                                     }
                                 });
@@ -494,7 +491,7 @@ export default class BringerOfDeath extends Enemy
         this.hitbox?.forEach(h =>
         {
             h.explode();
-            h.setActive(false);
+            h.setActive(false).setVisible(false);
             h.body.setEnable(false);
         });
     }

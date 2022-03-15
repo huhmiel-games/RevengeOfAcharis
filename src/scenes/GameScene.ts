@@ -30,11 +30,8 @@ export default class GameScene extends Scene
     //#region properties
     public map: Phaser.Tilemaps.Tilemap;
     public firstTimestamp: number;
-    public heartGroup: Phaser.GameObjects.Sprite[];
     public powerUpGroup: PowerUp[];
     public enemyGroup: (Enemy | Dragon | HellBeast | Demon | WaterQueen | Arrow)[];
-    public projectileGroup: Projectile[] = [];
-    public bodiesGroup: BodyExtended[] = [];
     public npcGroup: Npc[];
     public musicGroup: Phaser.Sound.BaseSound[];
     public hauntedForest: Phaser.Sound.BaseSound;
@@ -61,9 +58,6 @@ export default class GameScene extends Scene
     public battleWithBoss: boolean = false;
     public cameraIsShaking: boolean;
     public modalText: Phaser.GameObjects.BitmapText;
-    // public lifeText: Phaser.GameObjects.BitmapText;
-    // public heart: Phaser.GameObjects.Sprite;
-    // public bossMusic: Phaser.Sound.BaseSound;
     public playerRoomName: string;
     public demon: Demon;
     public isChangingRoom: boolean;
@@ -121,10 +115,8 @@ export default class GameScene extends Scene
             .setVisible(false);
 
         // Groups that need to be destroyed on changing room
-        this.heartGroup = [];
         this.powerUpGroup = [];
         this.enemyGroup = [];
-        this.projectileGroup = [];
         this.npcGroup = [];
 
         // AMBIENT MUSIC
@@ -290,7 +282,6 @@ export default class GameScene extends Scene
         {
             this.isPause = true;
 
-
             this.events.emit('isPause', this.isPause);
 
             if (!this.cameras.main)
@@ -311,7 +302,6 @@ export default class GameScene extends Scene
                 .setTintFill(COLORS.RED);
 
             console.log(this.children.list);
-
 
             this.setPause();
 
@@ -410,9 +400,10 @@ export default class GameScene extends Scene
                 return;
             }
         }
+
         this.stopMusic();
+
         this[music].play();
-        // console.log(this[music].key + ' is playing');
     }
 
     public stopMusic ()
@@ -423,7 +414,6 @@ export default class GameScene extends Scene
             if (this.musicGroup[i].isPlaying)
             {
                 this.musicGroup[i].stop();
-                console.log(this.musicGroup[i].key + ' is stopped');
             }
         }
     }
@@ -540,16 +530,20 @@ export default class GameScene extends Scene
 
     public bossExplode (x: number | undefined, y: number | undefined)
     {
-        const exp = this.explodeSprite.getFirstDead(true, x, y, 'atlas', 'enemy-death-1', true).setDepth(DEPTH.EXPLOSION);
-        this.sound.play('explo2', { volume: 0.3 });
-        if (exp)
+        const explosion = this.explodeSprite.getFirstDead(true, x, y, 'atlas', 'enemy-death-1', true).setDepth(DEPTH.EXPLOSION);
+
+        if (explosion)
         {
-            exp.anims.play('bossExplode').on(Phaser.Animations.Events.ANIMATION_REPEAT, () =>
+            this.sound.play('explo2', { volume: 0.3 });
+
+            explosion.setActive(true).setVisible(true);
+
+            explosion.anims.play('bossExplode').on(Phaser.Animations.Events.ANIMATION_REPEAT, () =>
             {
                 this.sound.play('explo2', { volume: 0.3 });
             }).on(Phaser.Animations.Events.ANIMATION_COMPLETE, () =>
             {
-                exp.destroy();
+                explosion.setActive(false).setVisible(false);
             });
         }
     }
@@ -559,10 +553,10 @@ export default class GameScene extends Scene
         const exp = this.explodeSprite.getFirstDead(true, x, y - 8, 'atlas', 'enemy-death-1', true);
         if (exp)
         {
-            exp.setDepth(DEPTH.EXPLOSION);
-            exp.anims.play('enemyExplode').on(Phaser.Animations.Events.ANIMATION_COMPLETE, () =>
+            exp.setDepth(DEPTH.EXPLOSION).setActive(true).setVisible(true);
+            exp.anims.play('enemyExplode').once(Phaser.Animations.Events.ANIMATION_COMPLETE, () =>
             {
-                exp.destroy();
+                exp.setActive(false).setVisible(false);
             });
         }
     }
@@ -906,32 +900,49 @@ export default class GameScene extends Scene
 
         this.map.destroy();
 
-        this.heartGroup.forEach(e =>
+        this.hearts.children.each(e =>
         {
             const body = e.body as Phaser.Physics.Arcade.Body;
             body.setEnable(false);
-            e.setActive(false).setVisible(false);
+
+            const heart = e as Phaser.GameObjects.Sprite;
+            heart.setActive(false).setVisible(false);
         });
 
         this.powerUpGroup.forEach(e => e.destroy());
         this.powerUpGroup = [];
 
-        this.enemyGroup.forEach(e =>
+        this.enemyGroup.forEach(enemy =>
         {
             try
             {
                 // @ts-ignore
-                e.destroyHitbox();
+                enemy.destroyHitbox();
             }
             catch (error)
             {
-                // console.log(error);
+                console.log(error);
             }
-            e.setActive(false).setVisible(false);
+            console.log(enemy)
+            enemy.destroy();
         });
         this.enemyGroup = [];
 
-        this.projectileGroup.forEach(projectile => projectile.setActive(false).setVisible(false));
+        this.projectiles.children.each(projectile =>
+        {
+            const body = projectile.body as Phaser.Physics.Arcade.Body;
+            body.setEnable(false);
+            const proj = projectile as Projectile;
+            proj.setActive(false).setVisible(false);
+        });
+
+        this.dragonHeadBalls.children.each(projectile =>
+            {
+                const body = projectile.body as Phaser.Physics.Arcade.Body;
+                body.setEnable(false);
+                const proj = projectile as Projectile;
+                proj.setActive(false).setVisible(false);
+            });
 
         const element = this.children.list.find(e => e.name === 'waterElement');
         element?.destroy();

@@ -181,7 +181,7 @@ export default class LayerService
                 scene.add.image(e.x, e.y, e.name).setOrigin(0, 0)
                     .setPosition(e.x, e.y)
                     .setScrollFactor(scrollFactorX, scrollFactorY)
-                    .setDepth(0)
+                    .setDepth(e.name !== 'gold' ? 0 : DEPTH.GROUND_LAYER - 1)
                     .setName('to-remove-net-room');
             }
             catch (error)

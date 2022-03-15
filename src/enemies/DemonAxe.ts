@@ -94,7 +94,6 @@ export default class DemonAxe extends Enemy
                             }
                         }
 
-                        this.scene.projectileGroup.push(hitbox);
                         this.hitbox.push(hitbox);
 
                         if (!this.swordSfx.isPlaying)
@@ -387,7 +386,7 @@ export default class DemonAxe extends Enemy
         this.hitbox?.forEach(h =>
         {
             h.explode();
-            h.setActive(false);
+            h.setActive(false).setVisible(false);
             h.body.setEnable(false);
         });
     }

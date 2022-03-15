@@ -591,17 +591,18 @@ export default class Player extends Phaser.GameObjects.Sprite
         inventory.jumpBootsValue = 250;
     }
 
-    public getLife (l: Phaser.Types.Physics.Arcade.GameObjectWithBody)
+    public getLife (heart: Phaser.GameObjects.Sprite)
     {
-        l.body.enable = false;
+        const body = heart.body as Phaser.Physics.Arcade.Body;
+        body.setEnable(false);
+
         const inventory = this.inventoryManager.getInventory();
 
-        const life: number = l.data.get('health');
+        const life: number = heart.data.get('health');
 
         if (!life)
         {
-            // @ts-ignore
-            l.setActive(false).setVisible(false);
+            heart.setActive(false).setVisible(false);
 
             return;
         }
@@ -621,8 +622,7 @@ export default class Player extends Phaser.GameObjects.Sprite
 
         this.scene.playSfx('getLife', { volume: 2 });
 
-        // @ts-ignore
-        l.setActive(false).setVisible(false);
+        heart.setActive(false).setVisible(false);
     }
 
     public looseLife (elm: Enemy | Projectile | Arrow)

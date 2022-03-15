@@ -173,6 +173,7 @@ import titleMenu from '../assets/music/Title_theme.ogg';
 import background from '../assets/menuBackgound5.png';
 import backgroundWithoutTitles from '../assets/backWithoutTitles.png';
 import darkClouds from '../assets/darkClouds.png';
+import gold from '../assets/environment/backgrounds/gold.png';
 
 // Map
 import tiles from '../assets/environment/layers/tilesets.png';
@@ -360,6 +361,7 @@ export default class LoadingScreen extends Scene
         this.load.image('back2', back2);
         this.load.image('town', town);
         this.load.image('mountain', mountain);
+        this.load.image('gold', gold);
 
         this.load.image('house-a', houseA);
         this.load.image('house-b', houseB);

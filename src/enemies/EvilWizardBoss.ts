@@ -69,7 +69,7 @@ export default class EvilWizardBoss extends Enemy
 
                     if (hitbox)
                     {
-                        hitbox.setActive(true).setVisible(true).setSize(element.width, element.height).setOrigin(0, 0).setName('fireball').setAlpha(0);
+                        hitbox.setActive(true).setVisible(true).setSize(element.width, element.height).setOrigin(0, 0).setName('fireball').setAlpha(0);hitbox.body.setEnable(true);
                         hitbox.enemyState = { damage: 10 };
 
                         if (element.type === 'rectangle')
@@ -91,7 +91,6 @@ export default class EvilWizardBoss extends Enemy
                             hitbox.body.reset(this.x + element.x - element.width, this.y + element.y - 10);
                         }
 
-                        this.scene.projectileGroup.push(hitbox);
                         this.hitbox.push(hitbox);
 
                         if (!this.swordSfx.isPlaying)
@@ -446,9 +445,9 @@ export default class EvilWizardBoss extends Enemy
 
                     if (smoke)
                     {
-                        smoke.setDepth(DEPTH.FRONT_LAYER + 10);
-                        smoke.once(Phaser.Animations.Events.ANIMATION_COMPLETE, () => smoke.destroy());
-                        smoke.anims.play('smoke1');
+                        smoke.setDepth(DEPTH.SMOKE).setActive(true).setVisible(true);
+                    smoke.once(Phaser.Animations.Events.ANIMATION_COMPLETE, () => smoke.setActive(false).setVisible(false));
+                    smoke.anims.play('smoke1');
                     }
                 }
             });
@@ -474,7 +473,7 @@ export default class EvilWizardBoss extends Enemy
         this.hitbox?.forEach(h =>
         {
             h.explode();
-            h.setActive(false);
+            h.setActive(false).setVisible(false);
             h.body.setEnable(false);
         });
     }

@@ -77,7 +77,7 @@ export default class WaterQueen extends Enemy
 
                     if (hitbox)
                     {
-                        hitbox.setActive(true).setVisible(true).setSize(element.width, element.height).setOrigin(0, 0).setName('fireball').setAlpha(0);
+                        hitbox.setActive(true).setVisible(true).setSize(element.width, element.height).setOrigin(0, 0).setName('fireball').setAlpha(0);hitbox.body.setEnable(true);
                         hitbox.enemyState = { damage: 8 };
                         this.isAttacking = true;
 
@@ -100,7 +100,6 @@ export default class WaterQueen extends Enemy
                             hitbox.body.reset(this.getTopLeft().x + element.x, this.getTopLeft().y + element.y);
                         }
 
-                        this.scene.projectileGroup.push(hitbox);
                         this.hitbox.push(hitbox);
 
                         if (!this.waterSfx.isPlaying)
@@ -600,7 +599,7 @@ export default class WaterQueen extends Enemy
         this.hitbox?.forEach(h =>
         {
             h.explode();
-            h.setActive(false);
+            h.setActive(false).setVisible(false);
             h.body.setEnable(false);
         });
         this.isAttacking = false;
