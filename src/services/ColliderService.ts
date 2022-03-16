@@ -96,6 +96,78 @@ export default class ColliderService
             scene
         );
 
+        scene.physics.add.overlap([scene.player.swords, scene.player.arrows], scene.enemyGroup,
+            (enemy, weapon) => scene.enemyIsHit(enemy, weapon),
+            (enemy, weapon) =>
+            {
+                if (enemy instanceof EvilWizard && weapon.name === 'arrow')
+                {
+                    const e = enemy as unknown as EvilWizard;
+                    e.dodge();
+
+                    return false;
+                }
+
+                if (enemy instanceof Skeleton && weapon.name === 'arrow')
+                {
+                    const e = enemy as unknown as EvilWizard;
+
+                    if (!e.visible) return false;
+                }
+
+                if (enemy instanceof Worm && weapon.name === 'arrow')
+                {
+                    const worm = enemy as unknown as Worm;
+
+                    const arrow = weapon as unknown as Arrow;
+
+                    if (!worm.flipX && arrow.body.velocity.x > 0)
+                    {
+                        const w = weapon as unknown as Arrow;
+
+                        w.deflect();
+
+                        return false;
+                    }
+
+                    if (worm.flipX && arrow.body.velocity.x < 0)
+                    {
+                        const w = weapon as unknown as Arrow;
+
+                        w.deflect();
+
+                        return false;
+                    }
+                }
+
+                if (enemy.name === 'skullHeadDemon' && enemy.data.get('counterAttack') === false)
+                {
+                    if (weapon.name === 'arrow')
+                    {
+                        const w = weapon as unknown as Arrow;
+
+                        w.deflect();
+
+                        return false;
+                    }
+                    enemy.data.set('counterAttack', true);
+                    // @ts-ignore
+                    enemy.body.setVelocityX(-enemy.body.velocity.x);
+                    // @ts-ignore
+                    enemy.body.setVelocityY(-enemy.body.velocity.y);
+
+                    return false;
+                }
+
+                return true;
+            }, scene);
+
+        scene.physics.add.overlap([scene.player.swords, scene.player.arrows], scene.bodyExtended, (_weapon, _body) =>
+        {
+            const enemyBody = _body as BodyExtended;
+            enemyBody.looseLife(_weapon);
+        }, undefined, scene);
+
         scene.physics.add.overlap(scene.player.sword, scene.colliderLayer, undefined, (_sword, _tile) =>
         {
             const tile = _tile as unknown as Phaser.Tilemaps.Tile;
@@ -164,7 +236,12 @@ export default class ColliderService
 
         scene.physics.add.overlap(scene.powerUpGroup, scene.player, elm => scene.getPowerUp(elm as PowerUp), undefined, scene);
 
-        scene.physics.add.overlap(scene.player, scene.enemyGroup, (player, enemy) => scene.playerIsHit(enemy as Enemy), undefined, scene);
+        scene.physics.add.overlap(scene.player, scene.enemyGroup, (player, e) =>
+        {
+            const enemy = e as Enemy;
+            if (enemy.enemyState.isDead) return;
+            scene.playerIsHit(enemy as Enemy);
+        }, undefined, scene);
         scene.physics.add.overlap(scene.player, [scene.fireballs, scene.projectiles, scene.dragonHeadBalls], (player, projectile) => scene.playerIsHit(projectile as Projectile), undefined, scene);
 
         scene.physics.add.overlap(scene.player, scene.bodyExtended, (player, _body) =>
@@ -174,77 +251,7 @@ export default class ColliderService
             scene.playerIsHit(enemy as Enemy);
         }, undefined, scene);
 
-        scene.physics.add.overlap([scene.player.swords, scene.player.arrows], scene.enemyGroup,
-            (enemy, weapon) => scene.enemyIsHit(enemy, weapon),
-            (enemy, weapon) =>
-            {
-                if (enemy instanceof EvilWizard && weapon.name === 'arrow')
-                {
-                    const e = enemy as unknown as EvilWizard;
-                    e.dodge();
-
-                    return false;
-                }
-
-                if (enemy instanceof Skeleton && weapon.name === 'arrow')
-                {
-                    const e = enemy as unknown as EvilWizard;
-
-                    if (!e.visible) return false;
-                }
-
-                if (enemy instanceof Worm && weapon.name === 'arrow')
-                {
-                    const worm = enemy as unknown as Worm;
-
-                    const arrow = weapon as unknown as Arrow;
-
-                    if (!worm.flipX && arrow.body.velocity.x > 0)
-                    {
-                        const w = weapon as unknown as Arrow;
-
-                        w.deflect();
-
-                        return false;
-                    }
-
-                    if (worm.flipX && arrow.body.velocity.x < 0)
-                    {
-                        const w = weapon as unknown as Arrow;
-
-                        w.deflect();
-
-                        return false;
-                    }
-                }
-
-                if (enemy.name === 'skullHeadDemon' && enemy.data.get('counterAttack') === false)
-                {
-                    if (weapon.name === 'arrow')
-                    {
-                        const w = weapon as unknown as Arrow;
-
-                        w.deflect();
-
-                        return false;
-                    }
-                    enemy.data.set('counterAttack', true);
-                    // @ts-ignore
-                    enemy.body.setVelocityX(-enemy.body.velocity.x);
-                    // @ts-ignore
-                    enemy.body.setVelocityY(-enemy.body.velocity.y);
-
-                    return false;
-                }
-
-                return true;
-            }, scene);
-
-        scene.physics.add.overlap([scene.player.swords, scene.player.arrows], scene.bodyExtended, (_body, _weapon) =>
-        {
-            const enemyBody = _body as BodyExtended;
-            enemyBody.looseLife(_weapon);
-        }, undefined, scene);
+        
 
         scene.physics.add.collider([scene.player.swords, scene.player.arrows], scene.colliderLayer, undefined, undefined, scene);
     }

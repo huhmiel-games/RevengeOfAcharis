@@ -97,8 +97,12 @@ export default class Enemy extends GameObjects.Sprite
 
     public kill (): void
     {
+        this.body.stop().setEnable(false);
+
         this.clearTint();
+
         this.playSfxDeath();
+
         this.burn();
         // kill the enemy
 

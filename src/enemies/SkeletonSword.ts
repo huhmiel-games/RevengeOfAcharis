@@ -357,6 +357,8 @@ export default class SkeletonSword extends Enemy
         {
             this.burn();
 
+            this.body.stop().setEnable(false);
+
             this.giveLife(x, y);
 
             this.scene.tweens.add({

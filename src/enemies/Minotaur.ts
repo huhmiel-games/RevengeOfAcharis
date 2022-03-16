@@ -225,7 +225,7 @@ export default class Minotaur extends Enemy
 
         this.isDead = true;
 
-        this.body.stop();
+        this.body.stop().setEnable(false);
 
         this.clearTint();
 

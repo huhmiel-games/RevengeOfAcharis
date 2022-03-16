@@ -166,7 +166,7 @@ export default class Player extends Phaser.GameObjects.Sprite
 
         this.sword = this.swords.getFirstDead(true, this.body.x, this.body.y, undefined, undefined, true);
         this.sword.setVisible(false).setName('sword');
-        this.sword.body.setCircle(24)
+        this.sword.body.setCircle(14)
             .setEnable(false);
 
         const keysOptions = SaveLoadService.getConfigKeys();
@@ -350,7 +350,7 @@ export default class Player extends Phaser.GameObjects.Sprite
         super.preUpdate(time, delta);
 
         const { playerState, isPause } = this;
-        const { select, pause } = this.keys;
+        const { select, pause, down } = this.keys;
 
         const currentAnim = this.anims.getName();
         // if not game pause
@@ -361,11 +361,11 @@ export default class Player extends Phaser.GameObjects.Sprite
             // weapon hitbox
             if (this.flipX && this.sword.body)
             {
-                this.sword.body.reset(this.body.left - this.sword.body.width / 2, this.body.y - this.body.height / 2);
+                this.sword.body.reset(this.body.right - this.sword.body.width + 1, this.body.y - this.body.height / 2 + (down.isDown ? 14 : 4));
             }
             if (!this.flipX && this.sword.body)
             {
-                this.sword.body.reset(this.body.right - this.sword.body.width / 2, this.body.y - this.body.height / 2);
+                this.sword.body.reset(this.body.left + 1, this.body.y - this.body.height / 2 + + (down.isDown ? 14 : 4));
             }
 
             // select weapon
