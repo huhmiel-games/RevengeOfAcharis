@@ -37,8 +37,6 @@ export default class JumpMomentumState extends State
         {
             player.anims.play(PlayerAnims.JUMP_MOMENTUM, true);
         }
-
-        console.log('JUMP MOMENTUM STATE from', this.stateMachine.prevState);
     }
 
     public execute (scene: GameScene, player: Player)

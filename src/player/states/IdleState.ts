@@ -36,8 +36,6 @@ export default class IdleState extends State
         {
             player.anims.play('adventurer-idle', true);
         }
-
-        console.log('IDLE STATE from', this.stateMachine.prevState);
     }
 
     public execute (scene: GameScene, player: Player)

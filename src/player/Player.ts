@@ -342,8 +342,6 @@ export default class Player extends Phaser.GameObjects.Sprite
 
                 if (!damageText)
                 {
-                    console.log('damagetext limit reached');
-
                     return;
                 }
                 damageText.setAlpha(1).setActive(true).setVisible(true);
@@ -769,8 +767,6 @@ export default class Player extends Phaser.GameObjects.Sprite
 
     public getFireKeyEventName (): string
     {
-        console.log(`${Phaser.Input.Keyboard.Events.KEY_DOWN}${this.keys.fire.originalEvent.key.toUpperCase()}`);
-
         return `${Phaser.Input.Keyboard.Events.KEY_DOWN}${this.keys.fire.originalEvent.key.toUpperCase()}`;
     }
 

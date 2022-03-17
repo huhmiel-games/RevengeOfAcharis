@@ -22,8 +22,6 @@ export default class FallState extends State
         player.stateTimestamp.setNameAndTime(this.stateMachine.state, now);
 
         player.body.setGravityY(1000);
-
-        console.log('FALL STATE from', this.stateMachine.prevState);
     }
 
     public execute (scene: GameScene, player: Player)

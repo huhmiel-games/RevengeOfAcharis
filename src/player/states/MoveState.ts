@@ -40,8 +40,6 @@ export default class MoveState extends State
         {
             player.anims.play('adventurer-walk', true);
         }
-
-        console.log('MOVE STATE from', this.stateMachine.prevState);
     }
 
     public execute (scene: GameScene, player: Player)

@@ -54,8 +54,6 @@ export default class HitState extends State
         player.anims.play(PlayerAnims.HIT, true);
 
         player.hitSfx.play();
-
-        console.log('HIT STATE from', this.stateMachine.prevState);
     }
 
     public execute (scene: GameScene, player: Player)

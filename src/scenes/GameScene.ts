@@ -307,8 +307,6 @@ export default class GameScene extends Scene
                 .setScrollFactor(0, 0)
                 .setTintFill(COLORS.RED);
 
-            console.log(this.children.list);
-
             this.setPause();
 
             this.time.paused = true;
@@ -819,7 +817,7 @@ export default class GameScene extends Scene
 
         this.playerIsPassingDoor = true;
 
-        console.clear();
+        // console.clear();
 
         // destroy leaving room
         this.cameras.main.fadeOut(50);
@@ -1187,8 +1185,6 @@ export default class GameScene extends Scene
             .setDepth(DEPTH.UI_TEXT)
             .setScrollFactor(0, 0);
 
-        console.log(ui);
-
         elm.body.setEnable(false);
         elm.setDepth(DEPTH.UI_TEXT).setOrigin(0.5, 0.5).setScrollFactor(0, 0).setPosition(ui.x + ui.width / 2 - elm.width, ui.y - ui.height / 2 + elm.height);
 
@@ -1217,7 +1213,7 @@ export default class GameScene extends Scene
 
     /**
      * Convert a Tiled Object Properties from array to an object
-     * @param properties 
+     * @param properties
      */
     public convertTiledObjectProperties (properties: any)
     {
