@@ -3,13 +3,19 @@ import { EWeaponType, FONTS, FONTS_SIZES, HEIGHT, SWORDS, WIDTH } from '../const
 import DEPTH from '../constant/depth';
 import PowerUp from '../player/items/powerUp';
 import GameScene from '../scenes/GameScene';
-import DialogService from '../services/DialogService';
 import LayerService from '../services/LayerService';
 import SaveLoadService from '../services/SaveLoadService';
 import { TCoord, THitboxData } from '../types/types';
 import Enemy from './Enemy';
 import Projectile from './Projectile';
 
+/**
+ * @description
+ * @author © Philippe Pereira 2022
+ * @export
+ * @class BringerOfDeath
+ * @extends {Enemy}
+ */
 export default class BringerOfDeath extends Enemy
 {
     public enemyState: { life: number; damage: number; giveLife: number; };
@@ -90,7 +96,8 @@ export default class BringerOfDeath extends Enemy
 
                     if (hitbox)
                     {
-                        hitbox.setActive(true).setVisible(true).setSize(element.width, element.height).setOrigin(0, 0).setName('fireball').setAlpha(0);hitbox.body.setEnable(true);
+                        hitbox.setActive(true).setVisible(true).setSize(element.width, element.height).setOrigin(0, 0).setName('fireball').setAlpha(0);
+                        hitbox.body.setEnable(true);
                         hitbox.enemyState = { damage: 15 };
 
                         if (element.type === 'rectangle')

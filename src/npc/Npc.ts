@@ -5,7 +5,14 @@ import GameScene from '../scenes/GameScene';
 import DialogService from '../services/DialogService';
 import SaveLoadService from '../services/SaveLoadService';
 
-export default class Woman extends Phaser.GameObjects.Sprite
+/**
+ * @description
+ * @author © Philippe Pereira 2022
+ * @export
+ * @class Npc
+ * @extends {Phaser.GameObjects.Sprite}
+ */
+export default class Npc extends Phaser.GameObjects.Sprite
 {
     public scene: GameScene;
     public isTalking: boolean = false;

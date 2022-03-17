@@ -10,7 +10,13 @@ import SkeletonFlail from './SkeletonFlail';
 import Enemy from './Enemy';
 import DEPTH from '../constant/depth';
 
-
+/**
+ * @description
+ * @author © Philippe Pereira 2022
+ * @export
+ * @class Demon
+ * @extends {Phaser.GameObjects.Sprite}
+ */
 export default class Demon extends Phaser.GameObjects.Sprite
 {
     public scene: GameScene;
@@ -50,8 +56,6 @@ export default class Demon extends Phaser.GameObjects.Sprite
     constructor (scene: GameScene, x: number, y: number, config: any)
     {
         super(scene, x, y, config.key);
-
-        
 
         this.name = config.name;
 
@@ -94,7 +98,8 @@ export default class Demon extends Phaser.GameObjects.Sprite
 
                     if (hitbox)
                     {
-                        hitbox.setActive(true).setVisible(true).setSize(element.width, element.height).setOrigin(0, 0).setName('fireball').setAlpha(0);hitbox.body.setEnable(true);
+                        hitbox.setActive(true).setVisible(true).setSize(element.width, element.height).setOrigin(0, 0).setName('fireball').setAlpha(0);
+                        hitbox.body.setEnable(true);
                         hitbox.enemyState = { damage: 8 };
 
                         if (element.type === 'rectangle')

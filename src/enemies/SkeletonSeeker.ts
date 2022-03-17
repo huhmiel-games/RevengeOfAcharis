@@ -1,5 +1,4 @@
-import { COLORS } from '../constant/colors';
-import { EWeaponType, FONTS, FONTS_SIZES } from '../constant/config';
+import { EWeaponType } from '../constant/config';
 import DEPTH from '../constant/depth';
 import GameScene from '../scenes/GameScene';
 import LayerService from '../services/LayerService';
@@ -8,6 +7,13 @@ import { THitboxData } from '../types/types';
 import Enemy from './Enemy';
 import Projectile from './Projectile';
 
+/**
+ * @description
+ * @author © Philippe Pereira 2022
+ * @export
+ * @class SkeletonSeeker
+ * @extends {Enemy}
+ */
 export default class SkeletonSeeker extends Enemy
 {
     public scene: GameScene;
@@ -88,7 +94,8 @@ export default class SkeletonSeeker extends Enemy
 
                     if (hitbox)
                     {
-                        hitbox.setActive(true).setVisible(true).setSize(element.width, element.height).setOrigin(0, 0).setName('fireball').setAlpha(0);hitbox.body.setEnable(true);
+                        hitbox.setActive(true).setVisible(true).setSize(element.width, element.height).setOrigin(0, 0).setName('fireball').setAlpha(0);
+                        hitbox.body.setEnable(true);
                         hitbox.enemyState = { damage: 10 };
 
                         if (element.type === 'rectangle')

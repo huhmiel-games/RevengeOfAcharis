@@ -1,5 +1,11 @@
 import GameScene from '../scenes/GameScene';
 
+/**
+ * @description
+ * @author © Philippe Pereira 2022
+ * @export
+ * @class GenerateWorldRoom
+ */
 export default class GenerateWorldRoom
 {
     public static generate (scene: GameScene)

@@ -8,7 +8,7 @@ import PlayerAnims from '../../constant/playerAnims';
 
 /**
  * @description
- * @author © Philippe Pereira 2020
+ * @author © Philippe Pereira 2021
  * @export
  * @class IdleState
  * @extends {State}

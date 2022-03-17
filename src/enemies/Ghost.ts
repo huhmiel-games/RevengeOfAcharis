@@ -1,6 +1,13 @@
 import GameScene from '../scenes/GameScene';
 import Enemy from './Enemy';
 
+/**
+ * @description
+ * @author © Philippe Pereira 2022
+ * @export
+ * @class Ghost
+ * @extends {Enemy}
+ */
 export default class Ghost extends Enemy
 {
     public enemyState: { life: number; damage: number; directionX: number; directionY: number; hited: boolean; giveLife: number; };

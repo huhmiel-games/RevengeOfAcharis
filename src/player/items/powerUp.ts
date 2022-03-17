@@ -1,6 +1,13 @@
 import GameScene from '../../scenes/GameScene';
 import { TEquipmentConfig, TShieldConfig, TSwordConfig } from '../../types/types';
 
+/**
+ * @description
+ * @author © Philippe Pereira 2022
+ * @export
+ * @class PowerUp
+ * @extends {Phaser.GameObjects.Sprite}
+ */
 export default class PowerUp extends Phaser.GameObjects.Sprite
 {
     public body: Phaser.Physics.Arcade.Body;
@@ -12,11 +19,11 @@ export default class PowerUp extends Phaser.GameObjects.Sprite
         super(scene, x, y, config.key);
 
         this.setFrame(config.id);
-        
+
         this.id = config.id;
         this.category = config.category;
         this.properties = config.properties;
-        
+
         this.setDepth(50);
         this.scene.physics.world.enable(this);
         this.scene.add.existing(this);

@@ -1,6 +1,5 @@
 import { Scene } from 'phaser';
 import { WIDTH, HEIGHT, SCENES_NAMES, FONTS, FONTS_SIZES } from '../constant/config';
-import { COLORS } from '../constant/colors';
 // IMPORT SECTION //
 
 //#region import Sounds
@@ -296,8 +295,13 @@ import atlasJson from '../assets/atlas/atlas.json';
 //#endregion
 
 
-
-export default class LoadingScreen extends Scene
+/**
+ * @author © Philippe Pereira 2021
+ * @export
+ * @class LoadingScene
+ * @extends {Scene}
+ */
+export default class LoadingScene extends Scene
 {
     constructor ()
     {

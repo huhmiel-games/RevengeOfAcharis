@@ -25,6 +25,12 @@ import addEnemies from '../utils/addEnemies';
 import TopHeadText from '../utils/TopHeadText';
 //#endregion
 
+/**
+ * @author © Philippe Pereira 2021
+ * @export
+ * @class GameScene
+ * @extends {Scene}
+ */
 export default class GameScene extends Scene
 {
     //#region properties
@@ -649,40 +655,40 @@ export default class GameScene extends Scene
             .setAlpha(1)
             .setDepth(DEPTH.UI_TEXT)
             .setScrollFactor(0, 0);
-        label.setActive(true).setText('Save the game ?').setPosition(WIDTH / 2, HEIGHT - 64).setVisible(true);
+        label.setActive(true).setText('Save the game ?').setPosition(WIDTH / 2, HEIGHT - 56).setVisible(true);
 
-        const yes = this.children.getByName('yes') as Phaser.GameObjects.BitmapText || this.add.bitmapText(WIDTH / 2 - 64, HEIGHT - 48, FONTS.MINIMAL, 'yes', FONTS_SIZES.MINIMAL, 1)
+        const yes = this.children.getByName('yes') as Phaser.GameObjects.BitmapText || this.add.bitmapText(WIDTH / 2 - 64, HEIGHT - 40, FONTS.MINIMAL, 'yes', FONTS_SIZES.MINIMAL, 1)
             .setOrigin(0.5, 0)
             .setName('yes')
             .setLetterSpacing(1)
             .setAlpha(1)
             .setDepth(DEPTH.UI_TEXT)
             .setScrollFactor(0, 0);
-        yes.setActive(true).setTintFill(COLORS.EAST_BLUE).setVisible(true);
+        yes.setActive(true).setTintFill(COLORS.STEEL_GRAY).setVisible(true);
 
-        const no = this.children.getByName('no') as Phaser.GameObjects.BitmapText || this.add.bitmapText(WIDTH / 2 + 64, HEIGHT - 48, FONTS.MINIMAL, 'no', FONTS_SIZES.MINIMAL, 1)
+        const no = this.children.getByName('no') as Phaser.GameObjects.BitmapText || this.add.bitmapText(WIDTH / 2 + 64, HEIGHT - 40, FONTS.MINIMAL, 'no', FONTS_SIZES.MINIMAL, 1)
             .setOrigin(0.5, 0)
             .setName('no')
             .setLetterSpacing(1)
             .setAlpha(1)
             .setDepth(DEPTH.UI_TEXT)
             .setScrollFactor(0, 0);
-        no.setActive(true).setTintFill(COLORS.RED).setVisible(true);
+        no.setActive(true).setTintFill(COLORS.GRAY).setVisible(true);
 
         const dialog = this.input.keyboard.on(Phaser.Input.Keyboard.Events.ANY_KEY_DOWN, (event: { key: string; }) =>
         {
             if (event.key === this.player.keys.right.originalEvent?.key)
             {
                 index = 1;
-                no.setTintFill(COLORS.EAST_BLUE);
-                yes.setTintFill(COLORS.RED);
+                no.setTintFill(COLORS.STEEL_GRAY);
+                yes.setTintFill(COLORS.GRAY);
             }
 
             if (event.key === this.player.keys.left.originalEvent?.key)
             {
                 index = 0;
-                yes.setTintFill(COLORS.EAST_BLUE);
-                no.setTintFill(COLORS.RED);
+                yes.setTintFill(COLORS.STEEL_GRAY);
+                no.setTintFill(COLORS.GRAY);
             }
 
             if (event.key === this.player.keys.fire.originalEvent.key && index === 0)
@@ -923,7 +929,7 @@ export default class GameScene extends Scene
             {
                 console.log(error);
             }
-            console.log(enemy)
+
             enemy.destroy();
         });
         this.enemyGroup = [];

@@ -1,6 +1,13 @@
 import DEPTH from '../constant/depth';
 import GameScene from '../scenes/GameScene';
 
+/**
+ * @description
+ * @author © Philippe Pereira 2022
+ * @export
+ * @class Dragon
+ * @extends {Phaser.GameObjects.Sprite}
+ */
 export default class Dragon extends Phaser.GameObjects.Sprite
 {
     public scene: GameScene;
@@ -19,7 +26,6 @@ export default class Dragon extends Phaser.GameObjects.Sprite
     {
         super(scene, x, y, config.key);
 
-        
         this.name = config.name;
         this.enemyState = {
             life: 100,
@@ -53,7 +59,7 @@ export default class Dragon extends Phaser.GameObjects.Sprite
         this.anims.play('dragon-idle', true);
 
         this.walkk = this.scene.sound.add('dragonWalkSfx', { volume: 0.5 });
-        
+
         this.on(Phaser.Animations.Events.ANIMATION_START, () =>
         {
             if (this.anims.currentAnim.key === 'dragon-breath')
@@ -127,7 +133,7 @@ export default class Dragon extends Phaser.GameObjects.Sprite
 
         this.body.setSize(this.width, (this.height / 4) * 3)
             .setOffset(0, this.height / 4);
-        
+
         if (this.active && !this.isDead && this.body.blocked.down)
         {
             if (!this.scene.player.playerState.isDead)

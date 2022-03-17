@@ -1,9 +1,11 @@
 import { GAMENAME } from '../constant/config';
-import Player from '../player/Player';
 import GameScene from '../scenes/GameScene';
 
 /**
- * Save or Load from localStorage
+ * @description Save or Load from localStorage
+ * @author © Philippe Pereira 2022
+ * @export
+ * @class SaveLoadService
  */
 export default class SaveLoadService
 {
@@ -102,14 +104,14 @@ export default class SaveLoadService
         if (!localStorage.getItem(`${GAMENAME}_Options`))
         {
             const defaultConfig = ['A', 'D', 'W', 'S', 'SPACE', 'SHIFT', 'Q', 'E', 'P'];
-    
+
             const defaultConfigJson = JSON.stringify(defaultConfig);
-    
+
             localStorage.setItem(`${GAMENAME}_Options`, defaultConfigJson);
         }
-    
+
         const config = localStorage.getItem(`${GAMENAME}_Options`) as string;
-    
+
         return JSON.parse(config);
     }
 
@@ -119,7 +121,7 @@ export default class SaveLoadService
     public static getSavedGameTimeToString ()
     {
         const storedTime = SaveLoadService.getSavedGameTime() / 1000;
-        
+
         if (storedTime !== null)
         {
             const hours = Math.floor(storedTime / 3600);

@@ -1,6 +1,13 @@
 import GameScene from '../scenes/GameScene';
 import Enemy from './Enemy';
 
+/**
+ * @description
+ * @author © Philippe Pereira 2022
+ * @export
+ * @class Thing
+ * @extends {Enemy}
+ */
 export default class Thing extends Enemy
 {
     public enemyState: { life: number; damage: number; giveLife: number; };
@@ -84,7 +91,7 @@ export default class Thing extends Enemy
 
                 this.body.setVelocityX(dx);
             }
-            
+
             if (blocked.left)
             {
                 this.isAttacking = false;

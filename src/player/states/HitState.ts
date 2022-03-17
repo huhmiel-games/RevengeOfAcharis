@@ -7,7 +7,7 @@ import PlayerState from '../../constant/playerState';
 
 /**
  * @description
- * @author © Philippe Pereira 2020
+ * @author © Philippe Pereira 2021
  * @export
  * @class HitState
  * @extends {State}

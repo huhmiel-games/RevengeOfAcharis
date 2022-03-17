@@ -4,6 +4,13 @@ import DEPTH from '../constant/depth';
 import GameScene from '../scenes/GameScene';
 import LayerService from '../services/LayerService';
 
+/**
+ * @description
+ * @author © Philippe Pereira 2022
+ * @export
+ * @class HellBeast
+ * @extends {Phaser.GameObjects.Sprite}
+ */
 export default class HellBeast extends Phaser.GameObjects.Sprite
 {
     public scene: GameScene;

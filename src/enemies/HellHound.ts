@@ -1,6 +1,13 @@
 import GameScene from '../scenes/GameScene';
 import Enemy from './Enemy';
 
+/**
+ * @description
+ * @author © Philippe Pereira 2022
+ * @export
+ * @class HellHound
+ * @extends {Enemy}
+ */
 export default class HellHound extends Enemy
 {
     public enemyState: { life: number; damage: number; giveLife: number; };

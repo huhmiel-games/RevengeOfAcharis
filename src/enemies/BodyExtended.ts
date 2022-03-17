@@ -2,12 +2,19 @@ import { GameObjects } from 'phaser';
 import GameScene from '../scenes/GameScene';
 import Enemy from './Enemy';
 
+/**
+ * @description
+ * @author © Philippe Pereira 2022
+ * @export
+ * @class BodyExtended
+ * @extends {GameObjects.Sprite}
+ */
 export default class BodyExtended extends GameObjects.Sprite
 {
     public scene: GameScene;
     public body: Phaser.Physics.Arcade.Body;
     public parent: Enemy;
-    
+
     constructor (scene: GameScene, x: number, y: number, config: any)
     {
         super(scene, x, y, config);

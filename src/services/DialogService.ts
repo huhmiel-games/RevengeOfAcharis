@@ -3,6 +3,12 @@ import { FONTS, FONTS_SIZES, HEIGHT, WIDTH } from '../constant/config';
 import DEPTH from '../constant/depth';
 import GameScene from '../scenes/GameScene';
 
+/**
+ * @description
+ * @author © Philippe Pereira 2022
+ * @export
+ * @class DialogService
+ */
 export default class DialogService
 {
     public static npcTalk (scene: GameScene, text: string[])
@@ -47,11 +53,11 @@ export default class DialogService
             if (event.key === scene.player.keys.fire.originalEvent.key && index === text.length)
             {
                 msg.setActive(false).setVisible(false);
-                
+
                 ui.setActive(false).setVisible(false);
-                
+
                 scene.unPause();
-            
+
                 scene.time.addEvent({
                     delay: 150,
                     callback: () =>

@@ -2,8 +2,13 @@ import { Scene } from 'phaser';
 import { COLORS } from '../constant/colors';
 import { WIDTH, HEIGHT, SCENES_NAMES, FONTS, FONTS_SIZES } from '../constant/config';
 
-
-export default class Intro extends Scene
+/**
+ * @author © Philippe Pereira 2021
+ * @export
+ * @class IntroScene
+ * @extends {Scene}
+ */
+export default class IntroScene extends Scene
 {
     private text: string;
     private count: number;
@@ -22,9 +27,9 @@ export default class Intro extends Scene
             .setDisplaySize(WIDTH, HEIGHT);
 
         this.text = 'My name is Acharis.-And i came here to free up the -castle from monsters.-But for this I need help, -are you the one who will -take this challenge ??';
-        
+
         this.count = 0;
-        
+
         this.storyText = this.add.bitmapText(WIDTH / 2, HEIGHT / 2, FONTS.ALAGARD, '', 12, 1)
             .setOrigin(0.5, 0.5)
             .setTintFill(COLORS.RED)

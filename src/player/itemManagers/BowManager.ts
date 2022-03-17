@@ -2,6 +2,12 @@ import { BOWS } from '../../constant/config';
 import { TBowConfig } from '../../types/types';
 import Bow from '../items/Bow';
 
+/**
+ * @description
+ * @author © Philippe Pereira 2022
+ * @export
+ * @class BowManager
+ */
 export default class BowManager
 {
     private bows: Bow[] = [];

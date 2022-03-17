@@ -27,6 +27,12 @@ import Npc from '../npc/Npc';
 import GameScene from '../scenes/GameScene';
 import SaveLoadService from '../services/SaveLoadService';
 
+/**
+ * @description
+ * @author © Philippe Pereira 2022
+ * @export
+ * @param {GameScene} scene
+ */
 export default function addEnemies (scene: GameScene)
 {
 

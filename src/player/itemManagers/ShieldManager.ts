@@ -2,6 +2,12 @@ import { SHIELDS } from '../../constant/config';
 import { TShieldConfig } from '../../types/types';
 import Shield from '../items/Shield';
 
+/**
+ * @description
+ * @author © Philippe Pereira 2022
+ * @export
+ * @class ShieldManager
+ */
 export default class ShieldManager
 {
     private shields: Shield[] = [];

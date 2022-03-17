@@ -7,7 +7,7 @@ import PlayerAnims from '../../constant/playerAnims';
 
 /**
  * @description
- * @author © Philippe Pereira 2020
+ * @author © Philippe Pereira 2021
  * @export
  * @class MoveState
  * @extends {State}
@@ -29,7 +29,7 @@ export default class MoveState extends State
             player.anims.play('adventurer-sword-shte', true);
             player.anims.chain('adventurer-walk');
         }
-        
+
         if (currentAnim === 'adventurer-special-air-attack')
         {
             player.stopSwordAttack();

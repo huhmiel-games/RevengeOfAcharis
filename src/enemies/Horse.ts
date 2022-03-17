@@ -1,6 +1,4 @@
-import { COLORS } from '../constant/colors';
-import { EWeaponType, FONTS, FONTS_SIZES } from '../constant/config';
-import DEPTH from '../constant/depth';
+import { EWeaponType } from '../constant/config';
 import Arrow from '../player/items/Arrow';
 import GameScene from '../scenes/GameScene';
 import SaveLoadService from '../services/SaveLoadService';
@@ -8,13 +6,19 @@ import { THitboxData } from '../types/types';
 import BodyExtended from './BodyExtended';
 import Enemy from './Enemy';
 
+/**
+ * @description
+ * @author © Philippe Pereira 2022
+ * @export
+ * @class Horse
+ * @extends {Enemy}
+ */
 export default class Horse extends Enemy
 {
     public enemyState: { life: number; damage: number; giveLife: number; };
     private attackSfx: Phaser.Sound.BaseSound;
     private hitboxData: THitboxData;
     public hitbox: BodyExtended[] = [];
-    private walkk: Phaser.Sound.BaseSound;
     constructor (scene: GameScene, x: number, y: number, config: any)
     {
         super(scene, x, y, config);
@@ -56,8 +60,8 @@ export default class Horse extends Enemy
 
                     if (hitbox)
                     {
-                        hitbox.setActive(true).setVisible(true).setSize(element.width, element.height).setOrigin(0, 0).setName('fireball').setAlpha(0);hitbox.body.setEnable(true);
-                        // hitbox.enemyState = { damage: 10 };
+                        hitbox.setActive(true).setVisible(true).setSize(element.width, element.height).setOrigin(0, 0).setName('fireball').setAlpha(0);
+                        hitbox.body.setEnable(true);
                         hitbox.parent = this;
 
                         if (element.type === 'rectangle')
@@ -139,7 +143,7 @@ export default class Horse extends Enemy
         if (this.isAttacking) return;
 
         this.isAttacking = true;
-        
+
         this.attackSfx.play();
     }
 

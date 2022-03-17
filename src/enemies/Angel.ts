@@ -1,6 +1,13 @@
 import GameScene from '../scenes/GameScene';
 import Enemy from './Enemy';
 
+/**
+ * @description
+ * @author © Philippe Pereira 2021
+ * @export
+ * @class Angel
+ * @extends {Enemy}
+ */
 export default class Angel extends Enemy
 {
     constructor (scene: GameScene, x: number, y: number, config: any)
@@ -32,7 +39,6 @@ export default class Angel extends Enemy
             if (this.scene.cameras.main.worldView.contains(center.x, center.y))
             {
                 this.scene.playSfx('angelWing', { volume: 0.3 });
-                // this.scene.sound.play('angelWing', { volume: 0.3 });
             }
         });
     }

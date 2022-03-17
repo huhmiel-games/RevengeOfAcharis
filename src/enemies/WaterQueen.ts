@@ -10,6 +10,13 @@ import { THitboxData } from '../types/types';
 import Enemy from './Enemy';
 import Projectile from './Projectile';
 
+/**
+ * @description
+ * @author © Philippe Pereira 2022
+ * @export
+ * @class WaterQueen
+ * @extends {Enemy}
+ */
 export default class WaterQueen extends Enemy
 {
     public scene: GameScene;
@@ -29,7 +36,7 @@ export default class WaterQueen extends Enemy
     private animsStackCount = 0;
     private healthUiBack: Phaser.GameObjects.Image;
     private healthUiText: Phaser.GameObjects.BitmapText;
-    laughSfx: Phaser.Sound.BaseSound;
+    private laughSfx: Phaser.Sound.BaseSound;
 
     constructor (scene: GameScene, x: number, y: number, config: any)
     {
@@ -77,7 +84,8 @@ export default class WaterQueen extends Enemy
 
                     if (hitbox)
                     {
-                        hitbox.setActive(true).setVisible(true).setSize(element.width, element.height).setOrigin(0, 0).setName('fireball').setAlpha(0);hitbox.body.setEnable(true);
+                        hitbox.setActive(true).setVisible(true).setSize(element.width, element.height).setOrigin(0, 0).setName('fireball').setAlpha(0);
+                        hitbox.body.setEnable(true);
                         hitbox.enemyState = { damage: 8 };
                         this.isAttacking = true;
 

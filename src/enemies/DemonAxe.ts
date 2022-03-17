@@ -1,12 +1,17 @@
-import { COLORS } from '../constant/colors';
-import { EWeaponType, FONTS, FONTS_SIZES } from '../constant/config';
-import DEPTH from '../constant/depth';
+import { EWeaponType } from '../constant/config';
 import GameScene from '../scenes/GameScene';
 import SaveLoadService from '../services/SaveLoadService';
 import { THitboxData } from '../types/types';
 import Enemy from './Enemy';
 import Projectile from './Projectile';
 
+/**
+ * @description
+ * @author © Philippe Pereira 2022
+ * @export
+ * @class DemonAxe
+ * @extends {Enemy}
+ */
 export default class DemonAxe extends Enemy
 {
     public enemyState: { life: number; damage: number; giveLife: number; };
@@ -158,12 +163,11 @@ export default class DemonAxe extends Enemy
             {
                 return;
             }
-            
+
             this.currentsong = this.scene.musicGroup.find(elm => elm.isPlaying) as Phaser.Sound.BaseSound;
             this.isBattleMusic = true;
             this.scene.stopMusic();
             this.scene.bossBattleMusic.play();
-            
         }
     }
 
@@ -356,7 +360,7 @@ export default class DemonAxe extends Enemy
                 this.scene.enemyExplode(X, Y);
                 // this.scene.playSfx('explo2', { volume: 0.3 });
             },
-            
+
         });
 
         this.once(Phaser.Animations.Events.ANIMATION_COMPLETE, () =>

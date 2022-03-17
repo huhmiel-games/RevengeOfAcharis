@@ -7,7 +7,7 @@ import PlayerAnims from '../../constant/playerAnims';
 
 /**
  * @description
- * @author © Philippe Pereira 2020
+ * @author © Philippe Pereira 2021
  * @export
  * @class FallState
  * @extends {State}
@@ -61,7 +61,7 @@ export default class FallState extends State
             return;
         }
 
-        // Transition to double jump if pressing jump        
+        // Transition to double jump if pressing jump
         if (jump.isDown && jump.getDuration() < 250 && player.canDoubleJump && this.stateMachine.prevState !== PlayerState.MOVE)
         {
             player.isBendBow = false;

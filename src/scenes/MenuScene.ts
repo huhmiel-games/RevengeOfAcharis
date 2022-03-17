@@ -3,7 +3,13 @@ import { COLORS } from '../constant/colors';
 import { WIDTH, HEIGHT, SCENES_NAMES, FONTS, FONTS_SIZES } from '../constant/config';
 import SaveLoadService from '../services/SaveLoadService';
 
-export default class LoadSavedGame extends Scene
+/**
+ * @author © Philippe Pereira 2021
+ * @export
+ * @class MenuScene
+ * @extends {Scene}
+ */
+export default class MenuScene extends Scene
 {
     private position: number[];
     private lastPosition: number;

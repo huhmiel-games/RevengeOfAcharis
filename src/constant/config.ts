@@ -59,7 +59,7 @@ export const SWORDS: TSwordConfig[] = [
         key: 0
     },
     {
-        id: 1, // done 
+        id: 1, // done
         name: 'iron-sword',
         desc: 'a simple iron sword',
         damage: 5,

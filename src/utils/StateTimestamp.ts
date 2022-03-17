@@ -2,7 +2,7 @@ import PlayerState from '../constant/playerState';
 
 /**
  * @description A StateTimestamp class helper
- * @author © Philippe Pereira 2020
+ * @author © Philippe Pereira 2021
  * @export
  * @class StateTimestamp
  * @param stateName

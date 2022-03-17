@@ -1,7 +1,13 @@
 import { GameObjects } from 'phaser';
 import GameScene from '../scenes/GameScene';
-import Enemy from './Enemy';
 
+/**
+ * @description
+ * @author © Philippe Pereira 2022
+ * @export
+ * @class Projectile
+ * @extends {GameObjects.Sprite}
+ */
 export default class Projectile extends GameObjects.Sprite
 {
     public scene: GameScene;
@@ -9,12 +15,10 @@ export default class Projectile extends GameObjects.Sprite
     public enemyState = {
         damage: 0 as number
     };
-    
+
     constructor (scene: GameScene, x: number, y: number, config: any)
     {
         super(scene, x, y, config);
-
-        
 
         this.scene.physics.world.enable(this);
     }
@@ -24,14 +28,9 @@ export default class Projectile extends GameObjects.Sprite
         super.preUpdate(time, delta);
         if (this.active)
         {
-            // flip to face the player
             if (!this.body.blocked.none)
             {
                 this.explode();
-            }
-            else
-            {
-                this.flipX = true;
             }
         }
     }

@@ -1,5 +1,11 @@
 import { TShieldConfig } from '../../types/types';
 
+/**
+ * @description
+ * @author © Philippe Pereira 2022
+ * @export
+ * @class Shield
+ */
 export default class Shield
 {
     public id: number;

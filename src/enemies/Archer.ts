@@ -1,10 +1,15 @@
 import Arrow from '../player/items/Arrow';
 import GameScene from '../scenes/GameScene';
 import SaveLoadService from '../services/SaveLoadService';
-import { THitboxData } from '../types/types';
 import Enemy from './Enemy';
-import Projectile from './Projectile';
 
+/**
+ * @description
+ * @author © Philippe Pereira 2021
+ * @export
+ * @class Archer
+ * @extends {Enemy}
+ */
 export default class Archer extends Enemy
 {
     public enemyState: { life: number; damage: number; giveLife: number; };
@@ -88,7 +93,7 @@ export default class Archer extends Enemy
             {
                 this.setFlipX(true);
             }
-            
+
             if (this.scene.cameras.main.worldView.contains(center.x, center.y))
             {
                 this.anims.play('archer-attack', true);

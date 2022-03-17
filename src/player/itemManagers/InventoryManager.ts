@@ -8,6 +8,12 @@ import Player from '../Player';
 import Shield from '../items/Shield';
 import Sword from '../items/Sword';
 
+/**
+ * @description
+ * @author © Philippe Pereira 2022
+ * @export
+ * @class InventoryManager
+ */
 export default class InventoryManager
 {
     public scene: GameScene;

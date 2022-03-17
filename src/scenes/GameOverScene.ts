@@ -3,7 +3,13 @@ import { COLORS } from '../constant/colors';
 import { WIDTH, HEIGHT, SCENES_NAMES, FONTS, FONTS_SIZES } from '../constant/config';
 import SaveLoadService from '../services/SaveLoadService';
 
-export default class GameOver extends Scene
+/**
+ * @author © Philippe Pereira 2021
+ * @export
+ * @class GameOverScene
+ * @extends {Scene}
+ */
+export default class GameOverScene extends Scene
 {
     private position: number[];
     private lastPosition: number;

@@ -24,6 +24,13 @@ import WaterQueen from '../enemies/WaterQueen';
 import DEPTH from '../constant/depth';
 import TopHeadText from '../utils/TopHeadText';
 
+/**
+ * @description
+ * @author © Philippe Pereira 2022
+ * @export
+ * @class Player
+ * @extends {Phaser.GameObjects.Sprite}
+ */
 export default class Player extends Phaser.GameObjects.Sprite
 {
     public scene: GameScene;

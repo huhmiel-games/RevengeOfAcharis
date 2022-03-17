@@ -1,6 +1,13 @@
 import GameScene from '../scenes/GameScene';
 import Enemy from './Enemy';
 
+/**
+ * @description
+ * @author © Philippe Pereira 2022
+ * @export
+ * @class FireSkull
+ * @extends {Enemy}
+ */
 export default class FireSkull extends Enemy
 {
     public enemyState: { life: any; damage: any; directionX: number; directionY: number; hited: boolean; giveLife: number; };

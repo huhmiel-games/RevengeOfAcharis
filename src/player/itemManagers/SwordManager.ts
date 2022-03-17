@@ -2,6 +2,12 @@ import { SWORDS } from '../../constant/config';
 import { TSwordConfig } from '../../types/types';
 import Sword from '../items/Sword';
 
+/**
+ * @description
+ * @author © Philippe Pereira 2022
+ * @export
+ * @class SwordManager
+ */
 export default class SwordManager
 {
     private swords: Sword[] = [];

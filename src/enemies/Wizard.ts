@@ -1,11 +1,17 @@
-import { COLORS } from '../constant/colors';
-import { EWeaponType, FONTS, FONTS_SIZES } from '../constant/config';
+import { EWeaponType } from '../constant/config';
 import DEPTH from '../constant/depth';
 import Arrow from '../player/items/Arrow';
 import GameScene from '../scenes/GameScene';
 import Enemy from './Enemy';
 import Projectile from './Projectile';
 
+/**
+ * @description
+ * @author © Philippe Pereira 2022
+ * @export
+ * @class Wizard
+ * @extends {Enemy}
+ */
 export default class Wizard extends Enemy
 {
     public scene: GameScene;
@@ -25,7 +31,6 @@ export default class Wizard extends Enemy
     {
         super(scene, x, y, config);
 
-        
         this.name = config.name;
         this.enemyState = {
             life: config.life,
@@ -253,7 +258,7 @@ export default class Wizard extends Enemy
         }
 
         this.isHit = true;
-        
+
         this.setTintFill(0xDDDDDD);
 
         try
@@ -264,7 +269,7 @@ export default class Wizard extends Enemy
         {
             console.log(error);
         }
-        
+
         const specialDamage = weaponType === 'arrow' ? damage * 2 : damage;
 
         this.enemyState.life -= specialDamage;

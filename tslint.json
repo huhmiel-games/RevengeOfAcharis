@@ -12,7 +12,12 @@
         ],
         "trailing-comma": false,
         "object-literal-sort-keys": false,
-        "one-line": [false, "check-catch", "check-finally", "check-else"],
+        "one-line": [
+            false,
+            "check-catch",
+            "check-finally",
+            "check-else"
+        ],
         "variable-name": {
             "options": [
                 "ban-keywords",
@@ -24,9 +29,7 @@
         "no-console": false,
         "max-line-length": false,
         "no-trailing-whitespace": [
-            true,
-            "ignore-comments",
-            "ignore-blank-lines"
+            true
         ],
         "newline-before-return": true,
         "indent": [

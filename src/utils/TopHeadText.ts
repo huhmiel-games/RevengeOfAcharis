@@ -8,6 +8,13 @@ import HellBeast from '../enemies/HellBeast';
 import GameScene from '../scenes/GameScene';
 import Player from '../player/Player';
 
+/**
+ * @description
+ * @author © Philippe Pereira 2022
+ * @export
+ * @class TopHeadText
+ * @extends {GameObjects.BitmapText}
+ */
 export default class TopHeadText extends GameObjects.BitmapText
 {
     public scene: GameScene;

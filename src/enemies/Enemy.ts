@@ -1,15 +1,13 @@
 import { GameObjects } from 'phaser';
 import GameScene from '../scenes/GameScene';
-import { COLORS } from '../constant/colors';
-import { EWeaponType, FONTS, FONTS_SIZES } from '../constant/config';
+import { EWeaponType } from '../constant/config';
 import SaveLoadService from '../services/SaveLoadService';
-import Projectile from './Projectile';
 import Arrow from '../player/items/Arrow';
 import DEPTH from '../constant/depth';
 
 /**
  * @description The Enemy base class
- * @author © Philippe Pereira 2020
+ * @author © Philippe Pereira 2021
  * @export
  * @class Enemy
  * @extends {Phaser.GameObjects.Sprite}

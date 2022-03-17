@@ -22,6 +22,12 @@ import whitePixel from '../assets/whitePixel.png';
 import background from '../assets/menuBackgound5.png';
 import menuTheme from '../assets/music/Title_theme.ogg';
 
+/**
+ * @author © Philippe Pereira 2021
+ * @export
+ * @class LogoScene
+ * @extends {Scene}
+ */
 export default class LogoScene extends Scene
 {
     private huhmiel: Phaser.GameObjects.BitmapText;

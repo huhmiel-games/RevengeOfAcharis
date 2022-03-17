@@ -25,9 +25,11 @@ const tilesetsNames = [
     'wood-tileset'
 ];
 
-
 /**
- * Handle tiled Layers
+ * @description
+ * @author © Philippe Pereira 2022
+ * @export
+ * @class LayerService
  */
 export default class LayerService
 {
@@ -69,7 +71,7 @@ export default class LayerService
         // layer that only handle collisions
         scene.colliderLayer = scene.map.createLayer('collider', 'colliderTileset', 0, 0)
             .setAlpha(0);
-        
+
         // clean up active point lights
         scene.lightTorchesGroup.children.getArray().forEach(e =>
         {
@@ -82,7 +84,7 @@ export default class LayerService
             const candle = e as Phaser.GameObjects.PointLight;
             candle.setActive(false).setVisible(false);
         });
-        
+
         // add point lights
         const torchArray = scene.checkObjectsLayerIndex('torch');
 
@@ -118,7 +120,7 @@ export default class LayerService
             const color = Phaser.Display.Color.ColorToRGBA(0xd9a066);
 
             candle.color.setTo(color.r, color.g, color.b, color.a);
-            candle.setActive(true).setVisible(true).setDepth(DEPTH.GROUND_LAYER + 1).setName('candle'); // 
+            candle.setActive(true).setVisible(true).setDepth(DEPTH.GROUND_LAYER + 1).setName('candle'); //
         });
 
         scene.add.tween({
@@ -193,7 +195,7 @@ export default class LayerService
 
     /**
      * Reveals the secret path
-     * @param scene 
+     * @param scene
      */
     public static showSecretPath (scene: GameScene)
     {

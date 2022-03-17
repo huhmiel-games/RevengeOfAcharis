@@ -3,6 +3,12 @@ import { COLORS } from '../constant/colors';
 import { WIDTH, FONTS, FONTS_SIZES, SCENES_NAMES, GAMENAME } from '../constant/config';
 import SaveLoadService from '../services/SaveLoadService';
 
+/**
+ * @author © Philippe Pereira 2021
+ * @export
+ * @class OptionsScene
+ * @extends {Scene}
+ */
 export default class OptionsScene extends Scene
 {
     private position: number[];

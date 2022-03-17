@@ -3,6 +3,13 @@ import Arrow from '../player/items/Arrow';
 import GameScene from '../scenes/GameScene';
 import Enemy from './Enemy';
 
+/**
+ * @description
+ * @author © Philippe Pereira 2022
+ * @export
+ * @class Saw
+ * @extends {Enemy}
+ */
 export default class Saw extends Enemy
 {
     public enemyState: { life: number; damage: number; giveLife: number; };

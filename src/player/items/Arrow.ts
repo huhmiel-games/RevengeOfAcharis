@@ -2,6 +2,13 @@ import { GameObjects } from 'phaser';
 import DEPTH from '../../constant/depth';
 import GameScene from '../../scenes/GameScene';
 
+/**
+ * @description
+ * @author © Philippe Pereira 2022
+ * @export
+ * @class Arrow
+ * @extends {GameObjects.Sprite}
+ */
 export default class Arrow extends GameObjects.Sprite
 {
     public scene: GameScene;
@@ -13,8 +20,6 @@ export default class Arrow extends GameObjects.Sprite
     constructor (scene: GameScene, x: number, y: number, config: any)
     {
         super(scene, x, y, config);
-
-        
 
         this.setName('arrow').setDepth(DEPTH.GROUND_LAYER - 1);
 

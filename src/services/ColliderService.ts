@@ -1,6 +1,5 @@
 import DEPTH from '../constant/depth';
 import BodyExtended from '../enemies/BodyExtended';
-import BringerOfDeath from '../enemies/BringerOfDeath';
 import DragonHead from '../enemies/DragonHead';
 import Enemy from '../enemies/Enemy';
 import EvilWizard from '../enemies/EvilWizard';
@@ -11,13 +10,14 @@ import Arrow from '../player/items/Arrow';
 import Player from '../player/Player';
 import PowerUp from '../player/items/powerUp';
 import GameScene from '../scenes/GameScene';
-import CrumbleService from './CrumbleService';
 import DoorService from './DoorService';
 import LayerService from './LayerService';
 
 /**
- * @description Collider service
- * @class
+ * @description
+ * @author © Philippe Pereira 2022
+ * @export
+ * @class ColliderService
  */
 export default class ColliderService
 {
@@ -47,12 +47,6 @@ export default class ColliderService
                 if (tile.properties.spikeBlock && !player.isOnSpike)
                 {
                     player.onSpikes(10);
-                }
-
-                // if player is on crumble tile
-                if (tile.properties.crumbleBlock && tile.visible === true)
-                {
-                    CrumbleService.handleCrumbleTile(scene, tile);
                 }
 
                 // if player overlap with secret tile
@@ -250,8 +244,6 @@ export default class ColliderService
             const enemy = body.parent;
             scene.playerIsHit(enemy as Enemy);
         }, undefined, scene);
-
-        
 
         scene.physics.add.collider([scene.player.swords, scene.player.arrows], scene.colliderLayer, undefined, undefined, scene);
     }

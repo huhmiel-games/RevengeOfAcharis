@@ -1,13 +1,19 @@
-import { COLORS } from '../constant/colors';
-import { EWeaponType, FONTS, FONTS_SIZES } from '../constant/config';
+
+import { EWeaponType } from '../constant/config';
 import DEPTH from '../constant/depth';
 import Arrow from '../player/items/Arrow';
 import GameScene from '../scenes/GameScene';
 import SaveLoadService from '../services/SaveLoadService';
-import { THitboxData } from '../types/types';
 import Enemy from './Enemy';
 import Projectile from './Projectile';
 
+/**
+ * @description
+ * @author © Philippe Pereira 2022
+ * @export
+ * @class Worm
+ * @extends {Enemy}
+ */
 export default class Worm extends Enemy
 {
     public enemyState: { life: number; damage: number; giveLife: number; };

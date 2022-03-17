@@ -1,5 +1,11 @@
 import { TBowConfig } from '../../types/types';
 
+/**
+ * @description
+ * @author © Philippe Pereira 2022
+ * @export
+ * @class Bow
+ */
 export default class Bow
 {
     public id: number;

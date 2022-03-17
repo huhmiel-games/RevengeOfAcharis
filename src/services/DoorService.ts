@@ -2,6 +2,12 @@ import { TILE_SIZE } from '../constant/config';
 import GameScene from '../scenes/GameScene';
 import { TDoor } from '../types/types';
 
+/**
+ * @description
+ * @author © Philippe Pereira 2022
+ * @export
+ * @class DoorService
+ */
 export default class DoorService
 {
     public static searchNextRoom (scene: GameScene, tile: Phaser.Tilemaps.Tile)

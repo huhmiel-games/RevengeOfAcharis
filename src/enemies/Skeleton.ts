@@ -1,9 +1,13 @@
-import { COLORS } from '../constant/colors';
-import { FONTS, FONTS_SIZES } from '../constant/config';
-import DEPTH from '../constant/depth';
 import GameScene from '../scenes/GameScene';
 import Enemy from './Enemy';
 
+/**
+ * @description
+ * @author © Philippe Pereira 2022
+ * @export
+ * @class Skeleton
+ * @extends {Enemy}
+ */
 export default class Skeleton extends Enemy
 {
     public damage: number;
@@ -16,7 +20,6 @@ export default class Skeleton extends Enemy
     {
         super(scene, x, y, config);
 
-        
         this.name = 'skeleton';
         this.damage = config.damage;
         this.enemyState = {

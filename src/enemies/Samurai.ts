@@ -1,12 +1,17 @@
-import { COLORS } from '../constant/colors';
-import { EWeaponType, FONTS, FONTS_SIZES } from '../constant/config';
-import DEPTH from '../constant/depth';
+import { EWeaponType } from '../constant/config';
 import GameScene from '../scenes/GameScene';
 import SaveLoadService from '../services/SaveLoadService';
 import { THitboxData } from '../types/types';
 import Enemy from './Enemy';
 import Projectile from './Projectile';
 
+/**
+ * @description
+ * @author © Philippe Pereira 2022
+ * @export
+ * @class Samurai
+ * @extends {Enemy}
+ */
 export default class Samurai extends Enemy
 {
     public enemyState: { life: number; damage: number; giveLife: number; };
@@ -65,7 +70,8 @@ export default class Samurai extends Enemy
 
                     if (hitbox)
                     {
-                        hitbox.setActive(true).setVisible(true).setSize(element.width, element.height).setOrigin(0, 0).setName('fireball').setAlpha(0);hitbox.body.setEnable(true);
+                        hitbox.setActive(true).setVisible(true).setSize(element.width, element.height).setOrigin(0, 0).setName('fireball').setAlpha(0);
+                        hitbox.body.setEnable(true);
                         hitbox.enemyState = { damage: 10 };
 
                         if (element.type === 'rectangle')

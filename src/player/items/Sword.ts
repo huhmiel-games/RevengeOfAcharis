@@ -1,5 +1,11 @@
 import { TSwordConfig } from '../../types/types';
 
+/**
+ * @description
+ * @author © Philippe Pereira 2022
+ * @export
+ * @class Sword
+ */
 export default class Sword
 {
     public id: number;
