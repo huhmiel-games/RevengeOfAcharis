@@ -68,7 +68,7 @@ export default class InventoryManager
 
     public showInventory ()
     {
-        if (this.player.isPause || this.scene.isCheckSaving || this.scene.isSaving)
+        if (this.player.isPause || this.scene.isCheckSaving || this.scene.isSaving || this.player.scene.children.getByName('powerUpDialogBox')?.active)
         {
             return;
         }
