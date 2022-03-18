@@ -20,7 +20,6 @@ export default class BringerOfDeath extends Enemy
 {
     public enemyState: { life: number; damage: number; giveLife: number; };
     public speed: number = 30;
-    public distance: number;
     private hitboxData: THitboxData;
     public hitbox: Projectile[] = [];
     private swordSfx: Phaser.Sound.BaseSound;
@@ -45,8 +44,8 @@ export default class BringerOfDeath extends Enemy
 
         this.body
             .setAllowGravity(false)
-            .setGravityY(500)
             .setSize(12, 54)
+            .setCollideWorldBounds(false)
             .setOffset(100, 38)
             .reset(x, y - 12);
 
@@ -63,6 +62,7 @@ export default class BringerOfDeath extends Enemy
                 this.hitboxData[frame].hitboxes.forEach(element =>
                 {
                     element.x = 18;
+                    element.width = 20;
                 });
             }
         }
@@ -110,13 +110,27 @@ export default class BringerOfDeath extends Enemy
                             hitbox.body.setCircle(element.width).setEnable(true);
                         }
 
-                        if (this.flipX)
+                        if (this.flipX && element.type === 'circle')
                         {
                             hitbox.body.reset(this.getTopRight().x - element.x - element.width * 2, this.y + element.y);
                         }
-                        else
+                        if (!this.flipX && element.type === 'circle')
                         {
                             hitbox.body.reset(this.x + element.x, this.y + element.y);
+                        }
+
+                        if (this.flipX && element.type === 'rectangle')
+                        {
+                            hitbox.body.reset(this.getTopRight().x - element.x - element.width, this.y + element.y);
+                        }
+                        if (!this.flipX && element.type === 'rectangle')
+                        {
+                            hitbox.body.reset(this.x + element.x, this.y + element.y);
+                        }
+
+                        if (frame === 'Bringer-of-Death_Spell_8')
+                        {
+                            this.scene.shakeCamera(50, 0.010);
                         }
 
                         this.hitbox.push(hitbox);
