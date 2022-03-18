@@ -112,7 +112,7 @@ export default class BringerOfDeath extends Enemy
 
                         if (this.flipX)
                         {
-                            hitbox.body.reset(this.getTopRight().x - element.x - element.width, this.y + element.y);
+                            hitbox.body.reset(this.getTopRight().x - element.x - element.width * 2, this.y + element.y);
                         }
                         else
                         {
