@@ -110,7 +110,7 @@ export default class GameOverScene extends Scene
         {
             this.input.keyboard.enabled = true;
 
-            this.scene.start(SCENES_NAMES.GAME, { loadSavedGame: true });
+            this.scene.start(SCENES_NAMES.GAME);
         }
 
         if (this.lastPosition === 1)
