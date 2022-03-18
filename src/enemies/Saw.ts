@@ -15,7 +15,7 @@ export default class Saw extends Enemy
     public enemyState: { life: number; damage: number; giveLife: number; };
     public speed: number = 12;
     public walkplay: boolean;
-    public walkk: Phaser.Sound.BaseSound;
+    public walkSfx: Phaser.Sound.BaseSound;
     public distance: number;
     private startPosition: { x: number; y: number; };
     private amplitude: number;
@@ -102,7 +102,7 @@ export default class Saw extends Enemy
 
         if (this.scene.cameras.main.worldView.contains(this.x, this.y))
         {
-            this.walkk.play();
+            this.walkSfx.play();
 
         }
     }

@@ -17,7 +17,7 @@ export default class SkeletonFlail extends Enemy
     public enemyState: { life: number; damage: number; giveLife: number; };
     public speed: number = 20;
     public walkplay: boolean;
-    public walkk: Phaser.Sound.BaseSound;
+    public walkSfx: Phaser.Sound.BaseSound;
     public distance: number;
     private hitboxData: THitboxData;
     public hitbox: Projectile[] = [];
@@ -48,7 +48,7 @@ export default class SkeletonFlail extends Enemy
         this.hitboxData = JSON.parse('{"skeleton-flail-attack_4":{"hitboxes":[{"frame":"skeleton-flail-attack_4","type":"circle","x":14,"y":9,"width":6,"height":6},{"frame":"skeleton-flail-attack_4","type":"rectangle","x":20,"y":9,"width":26,"height":5},{"frame":"skeleton-flail-attack_4","type":"rectangle","x":58,"y":23,"width":6,"height":4},{"frame":"skeleton-flail-attack_4","type":"rectangle","x":42,"y":31,"width":17,"height":3},{"frame":"skeleton-flail-attack_4","type":"rectangle","x":45,"y":16,"width":14,"height":3}]},"skeleton-flail-attack_8":{"hitboxes":[{"frame":"skeleton-flail-attack_8","type":"rectangle","x":55,"y":24,"width":8,"height":7},{"frame":"skeleton-flail-attack_8","type":"rectangle","x":46,"y":33,"width":12,"height":4},{"frame":"skeleton-flail-attack_8","type":"rectangle","x":23,"y":33,"width":24,"height":4},{"frame":"skeleton-flail-attack_8","type":"circle","x":3,"y":16,"width":6,"height":6}]},"skeleton-flail-attack_9":{"hitboxes":[{"frame":"skeleton-flail-attack_9","type":"circle","x":4,"y":15,"width":6,"height":6}]},"skeleton-flail-attack_5":{"hitboxes":[{"frame":"skeleton-flail-attack_5","type":"circle","x":15,"y":10,"width":6,"height":6}]}}');
 
         this.walkplay = false;
-        this.walkk = this.scene.sound.add('skeletonStep', { volume: 0.5 });
+        this.walkSfx = this.scene.sound.add('skeletonStep', { volume: 0.5 });
         this.anims.play('skeleton-flail-walk');
 
         this.on(Phaser.Animations.Events.ANIMATION_UPDATE, () =>
@@ -147,7 +147,7 @@ export default class SkeletonFlail extends Enemy
 
         if (this.scene.cameras.main.worldView.contains(x, y))
         {
-            this.walkk.play({ volume });
+            this.walkSfx.play({ volume });
         }
     }
 

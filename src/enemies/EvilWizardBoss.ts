@@ -19,7 +19,7 @@ export default class EvilWizardBoss extends Enemy
     public enemyState: { life: number; damage: number; giveLife: number; };
     public speed: number = 40;
     public walkplay: boolean;
-    public walkk: Phaser.Sound.BaseSound;
+    public walkSfx: Phaser.Sound.BaseSound;
     public distance: number;
     private hitboxData: THitboxData;
     public hitbox: Projectile[] = [];
@@ -59,7 +59,7 @@ export default class EvilWizardBoss extends Enemy
         this.hitboxData = JSON.parse('{"evil-wizard2-attack1_3":{"hitboxes":[{"frame":"evil-wizard2-attack1_3","type":"circle","x":167,"y":80,"width":62,"height":62}]},"evil-wizard2-attack1_4":{"hitboxes":[{"frame":"evil-wizard2-attack1_4","type":"circle","x":151,"y":52,"width":85,"height":85}]},"evil-wizard2-attack1_5":{"hitboxes":[{"frame":"evil-wizard2-attack1_5","type":"circle","x":152,"y":49,"width":82,"height":82}]},"evil-wizard2-attack1_6":{"hitboxes":[{"frame":"evil-wizard2-attack1_6","type":"circle","x":166,"y":28,"width":47,"height":47}]},"evil-wizard2-attack2_4":{"hitboxes":[{"frame":"evil-wizard2-attack2_4","type":"circle","x":129,"y":51,"width":115,"height":115}]},"evil-wizard2-attack2_5":{"hitboxes":[{"frame":"evil-wizard2-attack2_5","type":"circle","x":128,"y":60,"width":107,"height":107}]},"evil-wizard2-attack2_6":{"hitboxes":[{"frame":"evil-wizard2-attack2_6","type":"circle","x":131,"y":91,"width":89,"height":89}]}}');
 
         this.walkplay = false;
-        this.walkk = this.scene.sound.add('skeletonStep', { volume: 0.5 });
+        this.walkSfx = this.scene.sound.add('skeletonStep', { volume: 0.5 });
 
         this.on(Phaser.Animations.Events.ANIMATION_UPDATE, () =>
         {
@@ -158,7 +158,7 @@ export default class EvilWizardBoss extends Enemy
 
         if (this.scene.cameras.main.worldView.contains(x, y))
         {
-            this.walkk.play({ volume });
+            this.walkSfx.play({ volume });
         }
     }
 

@@ -17,7 +17,7 @@ export default class Minotaur extends Enemy
     public enemyState: { life: number; damage: number; giveLife: number; };
     public speed: number = 10;
     public walkplay: boolean;
-    public walkk: Phaser.Sound.BaseSound;
+    public walkSfx: Phaser.Sound.BaseSound;
     public distance: number;
     private hitboxData: THitboxData;
     public hitbox: Projectile[] = [];
@@ -51,7 +51,7 @@ export default class Minotaur extends Enemy
 
         this.walkplay = false;
 
-        this.walkk = this.scene.sound.add('thingStep', { volume: 0.5 });
+        this.walkSfx = this.scene.sound.add('thingStep', { volume: 0.5 });
 
         this.anims.play('minotaur-idle');
 
@@ -142,7 +142,7 @@ export default class Minotaur extends Enemy
 
         if (this.scene.cameras.main.worldView.contains(this.x, this.y))
         {
-            this.walkk.play();
+            this.walkSfx.play();
 
         }
     }

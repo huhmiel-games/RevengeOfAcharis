@@ -17,7 +17,7 @@ export default class SkeletonSword extends Enemy
     public enemyState: { life: number; damage: number; giveLife: number; };
     public speed: number = 20;
     public walkplay: boolean;
-    public walkk: Phaser.Sound.BaseSound;
+    public walkSfx: Phaser.Sound.BaseSound;
     public distance: number;
     private hitboxData: THitboxData;
     public hitbox: Projectile[] = [];
@@ -49,7 +49,7 @@ export default class SkeletonSword extends Enemy
         this.hitboxData = JSON.parse('{"skeleton-sword-attack1_3":{"hitboxes":[{"frame":"skeleton-sword-attack1_3","type":"rectangle","x":52,"y":30,"width":11,"height":2}]},"skeleton-sword-attack1_4":{"hitboxes":[{"frame":"skeleton-sword-attack1_4","type":"rectangle","x":67,"y":28,"width":22,"height":3}]},"skeleton-sword-attack1_5":{"hitboxes":[{"frame":"skeleton-sword-attack1_5","type":"rectangle","x":65,"y":31,"width":19,"height":2}]},"skeleton-sword-attack2_4":{"hitboxes":[{"frame":"skeleton-sword-attack2_4","type":"rectangle","x":78,"y":27,"width":7,"height":8},{"frame":"skeleton-sword-attack2_4","type":"rectangle","x":66,"y":25,"width":14,"height":2},{"frame":"skeleton-sword-attack2_4","type":"rectangle","x":66,"y":35,"width":13,"height":2}]}}');
 
         this.walkplay = false;
-        this.walkk = this.scene.sound.add('skeletonStep', { volume: 0.5 });
+        this.walkSfx = this.scene.sound.add('skeletonStep', { volume: 0.5 });
         this.anims.play('skeleton-sword-walk');
 
         this.on(Phaser.Animations.Events.ANIMATION_UPDATE, () =>
@@ -178,7 +178,7 @@ export default class SkeletonSword extends Enemy
 
         if (this.scene.cameras.main.worldView.contains(x, y))
         {
-            this.walkk.play({ volume });
+            this.walkSfx.play({ volume });
         }
     }
 

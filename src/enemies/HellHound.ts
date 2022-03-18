@@ -13,7 +13,7 @@ export default class HellHound extends Enemy
     public enemyState: { life: number; damage: number; giveLife: number; };
     private walkplay: boolean;
     private attackSfx: Phaser.Sound.BaseSound;
-    private walkk: Phaser.Sound.BaseSound;
+    private walkSfx: Phaser.Sound.BaseSound;
     private distance: number;
     private cadaver: { x: number; y: number; };
     constructor (scene: GameScene, x: number, y: number, config: any)
@@ -45,7 +45,7 @@ export default class HellHound extends Enemy
 
         this.attackSfx = this.scene.sound.add('hellhoundAttack');
 
-        this.walkk = this.scene.sound.add('hellhoundStep', { volume: 0.5 });
+        this.walkSfx = this.scene.sound.add('hellhoundStep', { volume: 0.5 });
 
         this.on(Phaser.Animations.Events.ANIMATION_UPDATE, () =>
         {
@@ -59,13 +59,13 @@ export default class HellHound extends Enemy
             {
                 this.walkplay = true;
 
-                this.walkk.play(); // { rate: walkRate }
+                this.walkSfx.play(); // { rate: walkRate }
 
                 this.scene.time.addEvent({
                     delay: runTimer,
                     callback: () =>
                     {
-                        this.walkk.stop();
+                        this.walkSfx.stop();
                         this.walkplay = false;
                     },
                 });

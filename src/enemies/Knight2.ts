@@ -17,7 +17,7 @@ export default class Knight2 extends Enemy
     public enemyState: { life: number; damage: number; giveLife: number; };
     public speed: number = 80;
     public walkplay: boolean;
-    public walkk: Phaser.Sound.BaseSound;
+    public walkSfx: Phaser.Sound.BaseSound;
     public distance: number;
     private hitboxData: THitboxData;
     public hitbox: Projectile[] = [];
@@ -183,7 +183,7 @@ export default class Knight2 extends Enemy
 
         if (this.scene.cameras.main.worldView.contains(x, y))
         {
-            this.walkk.play({ volume });
+            this.walkSfx.play({ volume });
         }
     }
 

@@ -17,7 +17,7 @@ export default class EvilWizard extends Enemy
     public enemyState: { life: number; damage: number; giveLife: number; };
     public speed: number = 40;
     public walkplay: boolean;
-    public walkk: Phaser.Sound.BaseSound;
+    public walkSfx: Phaser.Sound.BaseSound;
     public distance: number;
     private hitboxData: THitboxData;
     public hitbox: Projectile[] = [];
@@ -50,7 +50,7 @@ export default class EvilWizard extends Enemy
         this.hitboxData = JSON.parse('{"evil-wizard-attack_0": { "hitboxes": [{ "frame": "evil-wizard-attack_0", "type": "circle", "x": 101, "y": 64, "width": 24, "height": 24 }, { "frame": "evil-wizard-attack_0", "type": "rectangle", "x": 86, "y": 69, "width": 16, "height": 12 }] },"evil-wizard-attack_1": { "hitboxes": [{ "frame": "evil-wizard-attack_1", "type": "circle", "x": 101, "y": 64, "width": 24, "height": 24 }, { "frame": "evil-wizard-attack_1", "type": "rectangle", "x": 86, "y": 69, "width": 16, "height": 12 }] },"evil-wizard-attack_3": { "hitboxes": [{ "frame": "evil-wizard-attack_3", "type": "circle", "x": 101, "y": 64, "width": 24, "height": 24 }, { "frame": "evil-wizard-attack_2", "type": "rectangle", "x": 86, "y": 69, "width": 16, "height": 12 }] },"evil-wizard-attack_4": { "hitboxes": [{ "frame": "evil-wizard-attack_4", "type": "circle", "x": 101, "y": 64, "width": 24, "height": 24 }, { "frame": "evil-wizard-attack_3", "type": "rectangle", "x": 86, "y": 69, "width": 16, "height": 12 }] },"evil-wizard-attack_5": { "hitboxes": [{ "frame": "evil-wizard-attack_5", "type": "circle", "x": 101, "y": 64, "width": 24, "height": 24 }, { "frame": "evil-wizard-attack_4", "type": "rectangle", "x": 86, "y": 69, "width": 16, "height": 12 }] },"evil-wizard-attack_6": { "hitboxes": [{ "frame": "evil-wizard-attack_6", "type": "circle", "x": 101, "y": 64, "width": 24, "height": 24 }, { "frame": "evil-wizard-attack_5", "type": "rectangle", "x": 86, "y": 69, "width": 16, "height": 12 }] },"evil-wizard-attack_7": { "hitboxes": [{ "frame": "evil-wizard-attack_7", "type": "circle", "x": 101, "y": 64, "width": 24, "height": 24 }, { "frame": "evil-wizard-attack_6", "type": "rectangle", "x": 86, "y": 69, "width": 16, "height": 12 }] }}');
 
         this.walkplay = false;
-        this.walkk = this.scene.sound.add('skeletonStep', { volume: 0.5 });
+        this.walkSfx = this.scene.sound.add('skeletonStep', { volume: 0.5 });
 
         this.on(Phaser.Animations.Events.ANIMATION_UPDATE, () =>
         {
@@ -141,7 +141,7 @@ export default class EvilWizard extends Enemy
 
         if (this.scene.cameras.main.worldView.contains(x, y))
         {
-            this.walkk.play({ volume });
+            this.walkSfx.play({ volume });
         }
     }
 

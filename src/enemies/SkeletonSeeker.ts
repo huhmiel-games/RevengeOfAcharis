@@ -22,7 +22,7 @@ export default class SkeletonSeeker extends Enemy
     public speed: number = 20;
     private lastSpeed: number = 20;
     public walkplay: boolean;
-    public walkk: Phaser.Sound.BaseSound;
+    public walkSfx: Phaser.Sound.BaseSound;
     public distance: number;
     private hitboxData: THitboxData;
     public hitbox: Projectile[] = [];
@@ -72,7 +72,7 @@ export default class SkeletonSeeker extends Enemy
         this.hitboxData = JSON.parse('{"skeleton-skeeker-attack_4":{"hitboxes":[{"frame":"skeleton-skeeker-attack_4","type":"circle","x":86,"y":30,"width":32,"height":32}]},"skeleton-skeeker-attack_5":{"hitboxes":[{"frame":"skeleton-skeeker-attack_5","type":"circle","x":87,"y":68,"width":33,"height":33}]},"skeleton-skeeker-attack_6":{"hitboxes":[{"frame":"skeleton-skeeker-attack_6","type":"circle","x":94,"y":78,"width":25,"height":25}]}}');
 
         this.walkplay = false;
-        this.walkk = this.scene.sound.add('skeletonStep', { volume: 0.5 });
+        this.walkSfx = this.scene.sound.add('skeletonStep', { volume: 0.5 });
 
         this.on(Phaser.Animations.Events.ANIMATION_UPDATE, () =>
         {
@@ -283,7 +283,7 @@ export default class SkeletonSeeker extends Enemy
 
     private playSound ()
     {
-        this.walkk.play({ volume: 1, rate: 0.3 });
+        this.walkSfx.play({ volume: 1, rate: 0.3 });
     }
 
     private checkMusic ()

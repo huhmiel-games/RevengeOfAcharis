@@ -21,7 +21,7 @@ export default class Dragon extends Phaser.GameObjects.Sprite
     private attackTime: null;
     private isDead: boolean;
     private walkplay: boolean;
-    private walkk: Phaser.Sound.BaseSound;
+    private walkSfx: Phaser.Sound.BaseSound;
     constructor (scene: GameScene, x: number, y: number, config: any)
     {
         super(scene, x, y, config.key);
@@ -58,7 +58,7 @@ export default class Dragon extends Phaser.GameObjects.Sprite
 
         this.anims.play('dragon-idle', true);
 
-        this.walkk = this.scene.sound.add('dragonWalkSfx', { volume: 0.5 });
+        this.walkSfx = this.scene.sound.add('dragonWalkSfx', { volume: 0.5 });
 
         this.on(Phaser.Animations.Events.ANIMATION_START, () =>
         {
@@ -114,7 +114,7 @@ export default class Dragon extends Phaser.GameObjects.Sprite
             {
                 this.walkplay = true;
 
-                this.walkk.play({ rate: walkRate });
+                this.walkSfx.play({ rate: walkRate });
 
                 this.scene.time.addEvent({
                     delay: runTimer,
