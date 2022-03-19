@@ -279,7 +279,7 @@ export default class SkeletonSword extends Enemy
         }
         catch (error)
         {
-            console.log(error);
+            // console.log(error);
         }
 
         this.enemyState.life -= damage;
@@ -394,7 +394,7 @@ export default class SkeletonSword extends Enemy
         }
         catch (error)
         {
-            console.log(error);
+            // console.log(error);
         }
     }
 }

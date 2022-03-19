@@ -169,7 +169,7 @@ export default class Horse extends Enemy
         }
         catch (error)
         {
-            console.log(error);
+            // console.log(error);
         }
 
         const specialDamage = weaponType === 'sword' ? damage * 2 : damage;

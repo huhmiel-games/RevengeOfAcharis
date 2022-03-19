@@ -866,7 +866,7 @@ export default class GameScene extends Scene
         }
         catch (error)
         {
-            console.log(error);
+            // console.log(error);
         }
 
         this.cameras.main.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
@@ -916,11 +916,18 @@ export default class GameScene extends Scene
             }
             catch (error)
             {
-                console.log(error);
+                // // console.log(error);
             }
 
-            // @ts-ignore
-            enemy?.walkSfx?.stop();
+            try
+            {
+                // @ts-ignore
+                enemy.walkSfx?.stop();
+            }
+            catch (error)
+            {
+                // // console.log(error);
+            }
 
             enemy.destroy();
         });

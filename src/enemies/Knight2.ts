@@ -274,7 +274,7 @@ export default class Knight2 extends Enemy
         }
         catch (error)
         {
-            console.log(error);
+            // console.log(error);
         }
 
         const specialDamage = weaponType === 'arrow' ? Math.floor(damage / 2) : damage;

@@ -109,7 +109,7 @@ export default class Player extends Phaser.GameObjects.Sprite
         }
         catch (error)
         {
-            console.log(error);
+            // console.log(error);
         }
 
         this.playerState = {

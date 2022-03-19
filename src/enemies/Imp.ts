@@ -283,7 +283,7 @@ export default class Imp extends Enemy
         }
         catch (error)
         {
-            console.log(error);
+            // console.log(error);
         }
 
         this.enemyState.life -= damage;

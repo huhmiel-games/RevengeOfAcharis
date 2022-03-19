@@ -377,7 +377,7 @@ export default class EvilWizardBoss extends Enemy
         }
         catch (error)
         {
-            console.log(error);
+            // console.log(error);
         }
 
         this.enemyState.life -= damage;

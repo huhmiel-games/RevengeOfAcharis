@@ -168,7 +168,7 @@ export default class Enemy extends GameObjects.Sprite
                     break;
 
                 default:
-                    console.log(error);
+                    // console.log(error);
                     break;
             }
         }
@@ -189,7 +189,7 @@ export default class Enemy extends GameObjects.Sprite
                     break;
 
                 default:
-                    console.log(error);
+                    // console.log(error);
                     const rate = Phaser.Math.RND.realInRange(0.8, 1);
 
                     this.scene.playSfx(`skeletonDeath`, { volume: 0.6, rate });

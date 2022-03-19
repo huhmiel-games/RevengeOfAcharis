@@ -266,7 +266,7 @@ export default class DemonAxe extends Enemy
         }
         catch (error)
         {
-            console.log(error);
+            // console.log(error);
         }
 
         this.enemyState.life -= damage;

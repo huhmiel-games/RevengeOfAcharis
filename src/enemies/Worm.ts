@@ -258,7 +258,7 @@ export default class Worm extends Enemy
         }
         catch (error)
         {
-            console.log(error);
+            // console.log(error);
         }
 
         if (weapon === undefined || (weapon && !weapon.isDeflecting))

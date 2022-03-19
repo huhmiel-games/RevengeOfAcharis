@@ -267,7 +267,7 @@ export default class Wizard extends Enemy
         }
         catch (error)
         {
-            console.log(error);
+            // console.log(error);
         }
 
         const specialDamage = weaponType === 'arrow' ? damage * 2 : damage;

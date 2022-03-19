@@ -188,7 +188,7 @@ export default class LayerService
             }
             catch (error)
             {
-                console.log(error);
+                // console.log(error);
             }
         });
     }

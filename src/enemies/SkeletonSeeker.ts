@@ -534,7 +534,7 @@ export default class SkeletonSeeker extends Enemy
         }
         catch (error)
         {
-            console.log(error);
+            // console.log(error);
         }
     }
 
