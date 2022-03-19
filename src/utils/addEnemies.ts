@@ -131,7 +131,10 @@ export default function addEnemies (scene: GameScene)
                     name: 'saw',
                     life: 0,
                     damage: 15,
+                    start: element.properties.start,
+                    end: element.properties.end,
                     amplitude: element.properties.amplitude,
+                    direction: element.properties.direction ? element.properties.direction : 'vertical',
                     duration: element.properties.duration ? element.properties.duration : 2000
                 });
 
