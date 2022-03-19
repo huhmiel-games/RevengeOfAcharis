@@ -216,7 +216,7 @@ export default class ColliderService
 
         scene.physics.add.collider(scene.enemyGroup, scene.colliderLayer, undefined, (enemy) =>
         {
-            if (enemy.name !== 'demon' && enemy.name !== 'skullHeadDemon') return true;
+            if (enemy.name !== 'saw' && enemy.name !== 'demon' && enemy.name !== 'skullHeadDemon') return true;
         });
 
         scene.physics.add.collider(scene.enemyGroup, scene.enemyGroup, undefined, (enemyA, enemyB) =>
