@@ -219,16 +219,6 @@ export default class DemonAxe extends Enemy
                 this.body.setVelocityX(speed);
             }
 
-            if (blocked.left && !this.isAttacking)
-            {
-                this.body.setVelocityX(this.speed);
-            }
-
-            if (blocked.right && !this.isAttacking)
-            {
-                this.body.setVelocityX(-this.speed);
-            }
-
             if (velocity.x < 0 && !this.flipX)
             {
                 this.setFlipX(true);
@@ -238,6 +228,16 @@ export default class DemonAxe extends Enemy
             {
                 this.setFlipX(false);
                 this.body.setOffset(44, 37);
+            }
+
+            if (blocked.left && !this.isAttacking)
+            {
+                this.body.setVelocityX(this.speed);
+            }
+
+            if (blocked.right && !this.isAttacking)
+            {
+                this.body.setVelocityX(-this.speed);
             }
         }
     }

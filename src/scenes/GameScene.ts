@@ -172,7 +172,7 @@ export default class GameScene extends Scene
         // CAMERA
         // set bounds so the camera won't go outside the game world
         this.cameras.main.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
-        this.cameras.main.startFollow(this.player, true, 0.4, 0.4).setRoundPixels(true);
+        this.followPlayer().fadeIn(50).setRoundPixels(true);
         this.cameras.main.transparent = true;
         this.cameraIsShaking = false;
         this.cameras.main.fadeIn(200);
@@ -441,7 +441,7 @@ export default class GameScene extends Scene
 
     public playerIsHit (elm: Enemy | Projectile | Arrow)
     {
-        if (elm.enemyState.damage === 0) return;
+        if (elm.enemyState.damage === 0 || elm.enemyState?.isHit) return;
 
         if (elm instanceof BringerOfDeath) return;
 
@@ -598,7 +598,7 @@ export default class GameScene extends Scene
             .setScrollFactor(0, 0);
         label.setActive(true).setVisible(true);
 
-        const check = this.input.keyboard.on(Phaser.Input.Keyboard.Events.ANY_KEY_DOWN, (event: { key: string; }) =>
+        const check = this.input.keyboard.once(Phaser.Input.Keyboard.Events.ANY_KEY_DOWN, (event: { key: string; }) =>
         {
             if (event.key === this.player.keys.fire.originalEvent.key)
             {
@@ -788,21 +788,7 @@ export default class GameScene extends Scene
 
         this.physics.world.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
 
-        this.cameras.main.startFollow(this.player, true, 0.4, 0.4).fadeIn(50);
-
-        this.debugColliders();
-    }
-
-    private debugColliders ()
-    {
-        this.time.addEvent({
-            delay: 2000,
-            callback: () =>
-            {
-                // @ts-ignore
-                console.log('ACTIVE COLLIDERS', this.physics.world.colliders._active);
-            }
-        });
+        this.followPlayer().fadeIn(50);
     }
 
     public changeRoom (player: Player, door: TDoor)
@@ -887,15 +873,20 @@ export default class GameScene extends Scene
 
         this.physics.world.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels).setBoundsCollision();
 
-        this.cameras.main.setDeadzone(0, 0).startFollow(this.player, true, 0.4, 0.1, 0, 20).fadeIn(50);
+        this.followPlayer().fadeIn(50);
 
         this.playerIsPassingDoor = false;
 
         this.isChangingRoom = false;
 
         this.isSaved = false;
+    }
 
-        this.debugColliders();
+    private followPlayer (): Phaser.Cameras.Scene2D.Camera
+    {
+        this.cameras.main.setDeadzone(0, 20).startFollow(this.player, true, 0.4, 0.2, 0, 0).setRoundPixels(true);
+
+        return this.cameras.main;
     }
 
     private destroyRoom (): void
@@ -927,6 +918,9 @@ export default class GameScene extends Scene
             {
                 console.log(error);
             }
+
+            // @ts-ignore
+            enemy?.walkSfx?.stop();
 
             enemy.destroy();
         });
@@ -1299,7 +1293,7 @@ export default class GameScene extends Scene
     {
         const inventory = this.player.inventoryManager.getInventory();
 
-        if (inventory.fireElement) return;
+        if (inventory.fireElement || this.player.body.center.y < 14 * TILE_SIZE) return;
 
         this.hellBeast = new HellBeast(this, -100, -100, { key: 'hell-beast-idle', name: 'hellBeast' });
 
@@ -1448,13 +1442,13 @@ export default class GameScene extends Scene
 
         const overlap = this.physics.add.overlap(this.player, waterElement, () =>
         {
+            this.playSfx('powerUp');
+
             const inventory = this.player.inventoryManager.getInventory();
 
             inventory.waterElement = true;
 
-            waterElement.destroy();
-
-            this.setPause();
+            this.setPause(true, false, false);
 
             // @ts-ignore
             const ui = this.add.rexNinePatch(WIDTH / 2, HEIGHT / 2, WIDTH / 4 * 3, HEIGHT / 2, 'framing', [7, undefined, 7], [7, undefined, 7], 0)
@@ -1469,8 +1463,13 @@ export default class GameScene extends Scene
                 .setDepth(DEPTH.UI_TEXT)
                 .setScrollFactor(0, 0);
 
+            waterElement.setDepth(DEPTH.UI_TEXT).setScrollFactor(0, 0)
+                .setOrigin(0.5, 0.5)
+                .setPosition(WIDTH / 2, HEIGHT / 3 + waterElement.height / 4);
+
             const dialog = this.input.keyboard.once(this.player.getFireKeyEventName(), () =>
             {
+                waterElement.destroy();
                 powerUpDesc.destroy();
                 ui.destroy();
                 dialog.removeAllListeners();

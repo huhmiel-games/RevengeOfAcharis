@@ -165,6 +165,11 @@ export default class Demon extends Phaser.GameObjects.Sprite
                 return;
             }
 
+            if (anim === 'demon-hurt')
+            {
+                this.anims.play('demon-breath-ice');
+            }
+
             this.anims.play('demon-idle');
         });
 
@@ -445,7 +450,7 @@ export default class Demon extends Phaser.GameObjects.Sprite
                 life: 10,
                 damage: 10,
             });
-            skeleton.setPosition(skeletonPosX, 15 * 16 - 16);
+            skeleton.setPosition(skeletonPosX, 15 * 16 - 16).setDepth(DEPTH.ENEMY + 4);
             this.scene.enemyGroup.push(skeleton);
         }
     }
@@ -463,7 +468,7 @@ export default class Demon extends Phaser.GameObjects.Sprite
                 life: 10,
                 damage: 10,
             });
-            skeleton.setPosition(skeletonPosX, 15 * 16 - 16);
+            skeleton.setPosition(skeletonPosX, 15 * 16 - 16).setDepth(DEPTH.ENEMY + 4);
             this.scene.enemyGroup.push(skeleton);
         }
     }
@@ -481,7 +486,7 @@ export default class Demon extends Phaser.GameObjects.Sprite
                 life: 10,
                 damage: 10,
             });
-            skeleton.setPosition(skeletonPosX, 15 * 16 - 16);
+            skeleton.setPosition(skeletonPosX, 15 * 16 - 16).setDepth(DEPTH.ENEMY + 4);
             this.scene.enemyGroup.push(skeleton);
         }
     }

@@ -3643,7 +3643,7 @@ export default class LoadingScene extends Scene
                 { key: 'atlas', frame: 'water-element_4' },
                 { key: 'atlas', frame: 'water-element_5' },
             ],
-            frameRate: 12,
+            frameRate: 24,
             repeat: -1,
         });
         //#endregion
