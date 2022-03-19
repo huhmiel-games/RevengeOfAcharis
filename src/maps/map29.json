@@ -301,12 +301,12 @@
         {
          "name":"music",
          "type":"string",
-         "value":"castleTheme"
+         "value":"churchTheme"
         }, 
         {
          "name":"walkSfx",
          "type":"string",
-         "value":"castleWalkSfx"
+         "value":"churchWalkSfx"
         }],
  "renderorder":"right-down",
  "tiledversion":"1.8.2",

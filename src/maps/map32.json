@@ -279,6 +279,72 @@
                 {
                  "gid":4,
                  "height":16,
+                 "id":24,
+                 "name":"horse",
+                 "properties":[
+                        {
+                         "name":"damage",
+                         "type":"int",
+                         "value":10
+                        }, 
+                        {
+                         "name":"key",
+                         "type":"string",
+                         "value":"horse"
+                        }, 
+                        {
+                         "name":"life",
+                         "type":"int",
+                         "value":20
+                        }, 
+                        {
+                         "name":"name",
+                         "type":"string",
+                         "value":"horse"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":2080,
+                 "y":176
+                }, 
+                {
+                 "gid":4,
+                 "height":16,
+                 "id":25,
+                 "name":"horse",
+                 "properties":[
+                        {
+                         "name":"damage",
+                         "type":"int",
+                         "value":10
+                        }, 
+                        {
+                         "name":"key",
+                         "type":"string",
+                         "value":"horse"
+                        }, 
+                        {
+                         "name":"life",
+                         "type":"int",
+                         "value":20
+                        }, 
+                        {
+                         "name":"name",
+                         "type":"string",
+                         "value":"horse"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":1024,
+                 "y":176
+                }, 
+                {
+                 "gid":4,
+                 "height":16,
                  "id":20,
                  "name":"worm",
                  "properties":[
@@ -609,7 +675,7 @@
          "y":0
         }],
  "nextlayerid":10,
- "nextobjectid":24,
+ "nextobjectid":26,
  "orientation":"orthogonal",
  "properties":[
         {
