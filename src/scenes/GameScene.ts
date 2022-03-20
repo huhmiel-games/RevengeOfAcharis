@@ -23,6 +23,7 @@ import BringerOfDeath from '../enemies/BringerOfDeath';
 import WaterQueen from '../enemies/WaterQueen';
 import addEnemies from '../utils/addEnemies';
 import TopHeadText from '../utils/TopHeadText';
+import { checkIsMobileDevice, addJoystick } from '../utils/handleMobileDevices';
 //#endregion
 
 /**
@@ -59,11 +60,8 @@ export default class GameScene extends Scene
     public skullHeads: Phaser.Physics.Arcade.Group;
     public explodeSprite: Phaser.GameObjects.Group;
     public playerIsPassingDoor: boolean = false;
-    public onSismic: boolean = false;
-    public isTheEnd: boolean = false;
     public battleWithBoss: boolean = false;
     public cameraIsShaking: boolean;
-    public modalText: Phaser.GameObjects.BitmapText;
     public playerRoomName: string;
     public demon: Demon;
     public isChangingRoom: boolean;
@@ -85,6 +83,8 @@ export default class GameScene extends Scene
     public archerArrows: Phaser.Physics.Arcade.Group;
     public topHeadTextGroup: Phaser.GameObjects.Group;
     private isSaved: boolean = true;
+    public joyStick: any;
+    private isMobile: boolean = false;
     //#endregion
 
     constructor ()
@@ -103,6 +103,13 @@ export default class GameScene extends Scene
 
     public create ()
     {
+        this.isMobile = checkIsMobileDevice(this);
+
+        if (this.isMobile)
+        {
+            addJoystick(this);
+        }
+
         // initialize the map and tileset
         this.map = this.make.tilemap({ key: 'map3', tileWidth: 16, tileHeight: 16 });
         this.map.tilesets.forEach((tileset, i) =>
@@ -178,31 +185,35 @@ export default class GameScene extends Scene
         this.cameras.main.fadeIn(200);
 
         GenerateWorldRoom.generate(this);
+
+        // Virtual Joystick
+        // if (this.sys.game.device.os.android)
+        // {
+        // @ts-ignore
+        // this.joyStick = this.plugins.get('rexVirtualJoystickPlugin').add(this, {
+        //     x: 48,
+        //     y: HEIGHT - 48,
+        //     radius: 50,
+        //     base: this.add.circle(0, 0, 50, 0x888888),
+        //     thumb: this.add.circle(0, 0, 25, 0xcccccc),
+        //     // dir: '8dir',   // 'up&down'|0|'left&right'|1|'4dir'|2|'8dir'|3
+        //     // forceMin: 16,
+        //     // enable: true
+        // })
+        //     .on('update', this.handleJoyStick, this);
+        // this.joyStick.base.setDepth(2999);
+        // this.joyStick.thumb.setDepth(3000);
+        // }
     }
+
 
     public update (time: number, delta: number)
     {
-        if (this.modalText)
-        {
-            this.modalText.x = this.player.x;
-            this.modalText.y = this.player.y - 100;
-        }
         // anti fall trough map
         if (this.player.y > this.map.heightInPixels)
         {
             this.player.setPosition(this.map.widthInPixels / 2, this.map.heightInPixels / 2);
         }
-
-        if (this.pauseText)
-        {
-            this.modalText.setText(`${this.children.list.length}`)
-                .setPosition(WIDTH / 2, 16)
-                .setDepth(DEPTH.UI_TEXT)
-                .setOrigin(0.5, 0.5)
-                .setScrollFactor(0, 0)
-                .setTintFill(COLORS.RED);
-        }
-
     }
 
     private createGroups (): void
@@ -294,12 +305,6 @@ export default class GameScene extends Scene
             {
                 return;
             }
-
-            this.modalText = this.add.bitmapText(WIDTH / 2, HEIGHT / 2, FONTS.GALAXY, 'pause', FONTS_SIZES.GALAXY, 1)
-                .setDepth(DEPTH.UI_TEXT)
-                .setOrigin(0.5, 0.5)
-                .setScrollFactor(0, 0)
-                .setTintFill(COLORS.RED);
 
             this.pauseText = this.add.bitmapText(WIDTH / 2, HEIGHT / 2, FONTS.GALAXY, 'pause', FONTS_SIZES.GALAXY, 1)
                 .setDepth(DEPTH.UI_TEXT)
@@ -394,7 +399,7 @@ export default class GameScene extends Scene
 
     public playMusic (music: string | undefined)
     {
-        if (!music) return;
+        if (!music || this.isMobile) return;
 
         // tslint:disable-next-line: prefer-for-of
         for (let i = 0; i < this.musicGroup.length; i += 1)
@@ -422,7 +427,7 @@ export default class GameScene extends Scene
         }
     }
 
-    public playSfx (sfx: string, config: Phaser.Types.Sound.SoundConfig = { })
+    public playSfx (sfx: string, config: Phaser.Types.Sound.SoundConfig = {})
     {
         const audioSfx = this.sound.get(sfx);
 
@@ -588,7 +593,7 @@ export default class GameScene extends Scene
             .setScrollFactor(0);
         ui.setActive(true).setVisible(true);
 
-        const label = this.children.getByName('pressToSaveLabel') as Phaser.GameObjects.BitmapText  || this.add.bitmapText(WIDTH / 2, HEIGHT - 24, FONTS.ULTIMA_BOLD, `Press ${this.player.keysOptions[4].toLowerCase()} to save`, FONTS_SIZES.ULTIMA, 1)
+        const label = this.children.getByName('pressToSaveLabel') as Phaser.GameObjects.BitmapText || this.add.bitmapText(WIDTH / 2, HEIGHT - 24, FONTS.ULTIMA_BOLD, `Press ${this.player.keysOptions[4].toLowerCase()} to save`, FONTS_SIZES.ULTIMA, 1)
             .setOrigin(0.5, 0)
             .setName('pressToSaveLabel')
             .setLetterSpacing(1)
@@ -827,8 +832,6 @@ export default class GameScene extends Scene
 
         LayerService.addLayers(this);
 
-        // ColliderService.addColliders(this);
-
         switch (door.side)
         {
             case 'left':
@@ -942,12 +945,12 @@ export default class GameScene extends Scene
         });
 
         this.dragonHeadBalls.children.each(projectile =>
-            {
-                const body = projectile.body as Phaser.Physics.Arcade.Body;
-                body.setEnable(false);
-                const proj = projectile as Projectile;
-                proj.setActive(false).setVisible(false);
-            });
+        {
+            const body = projectile.body as Phaser.Physics.Arcade.Body;
+            body.setEnable(false);
+            const proj = projectile as Projectile;
+            proj.setActive(false).setVisible(false);
+        });
 
         const element = this.children.list.find(e => e.name === 'waterElement');
         element?.destroy();
@@ -1141,7 +1144,7 @@ export default class GameScene extends Scene
             .setName('powerUpDialogBox')
             .setDepth(DEPTH.UI_BACK)
             .setScrollFactor(0, 0);
-            ui.setActive(true).setVisible(true);
+        ui.setActive(true).setVisible(true);
 
         let txt = '';
         // sword power up
@@ -1189,14 +1192,28 @@ export default class GameScene extends Scene
         elm.body.setEnable(false);
         elm.setDepth(DEPTH.UI_TEXT).setOrigin(0.5, 0.5).setScrollFactor(0, 0).setPosition(ui.x + ui.width / 2 - elm.width, ui.y - ui.height / 2 + elm.height);
 
-        const dialog = this.input.keyboard.once(this.player.getFireKeyEventName(), () =>
+        if (this.isMobile)
         {
-            elm.destroy();
-            powerUpDesc.destroy();
-            ui.setActive(false).setVisible(false);
-            dialog.removeAllListeners();
-            this.unPause();
-        });
+            const dialog = this.input.keyboard.once('keyup', () =>
+            {
+                elm.destroy();
+                powerUpDesc.destroy();
+                ui.setActive(false).setVisible(false);
+                dialog.removeAllListeners();
+                this.unPause();
+            });
+        }
+        else
+        {
+            const dialog = this.input.keyboard.once(this.player.getFireKeyEventName(), () =>
+            {
+                elm.destroy();
+                powerUpDesc.destroy();
+                ui.setActive(false).setVisible(false);
+                dialog.removeAllListeners();
+                this.unPause();
+            });
+        }
     }
     //#endregion
 

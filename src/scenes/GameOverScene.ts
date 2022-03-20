@@ -2,6 +2,7 @@ import { Scene } from 'phaser';
 import { COLORS } from '../constant/colors';
 import { WIDTH, HEIGHT, SCENES_NAMES, FONTS, FONTS_SIZES } from '../constant/config';
 import SaveLoadService from '../services/SaveLoadService';
+import { checkIsMobileDevice } from '../utils/handleMobileDevices';
 
 /**
  * @author © Philippe Pereira 2021
@@ -19,6 +20,7 @@ export default class GameOverScene extends Scene
     private quit: Phaser.GameObjects.BitmapText;
     private head: Phaser.GameObjects.Image;
     private keys: any;
+    private isMobile: boolean;
     constructor ()
     {
         super(SCENES_NAMES.GAMEOVER);
@@ -26,6 +28,8 @@ export default class GameOverScene extends Scene
 
     public create ()
     {
+        this.isMobile = checkIsMobileDevice(this);
+
         this.position = [HEIGHT / 8 * 5, HEIGHT / 8 * 6];
         this.lastPosition = 0;
 
@@ -46,10 +50,30 @@ export default class GameOverScene extends Scene
             .setTint(COLORS.RED, COLORS.RED, COLORS.ORANGE, COLORS.ORANGE)
             .setDropShadow(0, 1, COLORS.ORANGE, 1);
 
+        if (this.isMobile)
+        {
+            this.retry.setInteractive().once('pointerup', () =>
+            {
+                this.input.keyboard.enabled = true;
+
+                this.scene.start(SCENES_NAMES.GAME);
+            });
+        }
+
         this.quit = this.add.bitmapText(WIDTH / 6, this.position[1], FONTS.ULTIMA_BOLD, 'Quit', FONTS_SIZES.ULTIMA_BOLD, 0)
             .setLetterSpacing(1)
             .setTint(COLORS.RED, COLORS.RED, COLORS.ORANGE, COLORS.ORANGE)
             .setDropShadow(0, 1, COLORS.ORANGE, 1);
+
+        if (this.isMobile)
+        {
+            this.quit.setInteractive().once('pointerup', () =>
+            {
+                this.scene.start(SCENES_NAMES.MENU);
+            });
+
+            return;
+        }
 
         this.head = this.add.image(WIDTH / 6 - 24, this.position[0], 'head')
             .setOrigin(0, 0)

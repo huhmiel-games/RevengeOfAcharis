@@ -21,6 +21,7 @@ import whitePixel from '../assets/whitePixel.png';
 
 import background from '../assets/menuBackgound5.png';
 import menuTheme from '../assets/music/Title_theme.ogg';
+import { checkIsMobileDevice } from '../utils/handleMobileDevices';
 
 /**
  * @author © Philippe Pereira 2021
@@ -32,6 +33,7 @@ export default class LogoScene extends Scene
 {
     private huhmiel: Phaser.GameObjects.BitmapText;
     private tween: Phaser.Tweens.Tween;
+    private isMobile: boolean = false;
     constructor ()
     {
         super(SCENES_NAMES.LOGO);
@@ -74,6 +76,8 @@ export default class LogoScene extends Scene
 
     public create ()
     {
+        this.isMobile = checkIsMobileDevice(this);
+
         this.huhmiel = this.add.bitmapText(WIDTH / 2, HEIGHT / 2, FONTS.GALAXY, 'huhmiel games', 8, 1)
             .setOrigin(0.5, 0.5)
             .setLetterSpacing(2)
@@ -103,3 +107,4 @@ export default class LogoScene extends Scene
         });
     }
 }
+

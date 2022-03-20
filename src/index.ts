@@ -1,5 +1,6 @@
 import Phaser from 'phaser';
 import rexNinePatchPlugin from './plugins/rexninepatchplugin.min.js';
+import VirtualJoystickPlugin from 'phaser3-rex-plugins/plugins/virtualjoystick-plugin.js';
 import { WIDTH, HEIGHT } from './constant/config';
 import LOGO_SCENE from './scenes/LogoScene';
 import MENU_SCENE from './scenes/MenuScene';
@@ -20,6 +21,11 @@ const config: Phaser.Types.Core.GameConfig = {
             {
                 key: 'rexNinePatchPlugin',
                 plugin: rexNinePatchPlugin,
+                start: true
+            },
+            {
+                key: 'rexVirtualJoystickPlugin',
+                plugin: VirtualJoystickPlugin,
                 start: true
             }
         ]
@@ -60,3 +66,30 @@ window.addEventListener('resize', (evt) =>
         game.scale.setParentSize(correctWidth, correctHeight);
     }
 });
+
+// export const ENTER_KEY = 'Enter';
+// export const SPACE_KEY = 'Space';
+// export const ESCAPE_KEY = 'Escape';
+// export const ARROW_LEFT_KEY = 'ArrowLeft';
+// export const ARROW_UP_KEY = 'ArrowUp';
+// export const ARROW_RIGHT_KEY = 'ArrowRight';
+// export const ARROW_DOWN_KEY = 'ArrowDown';
+// export const simulateKeyEvent = (code, type = 'down') => {
+//     const keysMap = {
+//         [ENTER_KEY]: 13,
+//         [SPACE_KEY]: 32,
+//         [ARROW_LEFT_KEY]: 37,
+//         [ARROW_UP_KEY]: 38,
+//         [ARROW_RIGHT_KEY]: 39,
+//         [ARROW_DOWN_KEY]: 40,
+//     };
+
+//     const event = document.createEvent('HTMLEvents');
+//     event.initEvent(`key${type}`, true, false);
+//     // @ts-ignore
+//     event.code = code;
+//     // @ts-ignore
+//     event.keyCode = keysMap[code];
+
+//     document.dispatchEvent(event);
+// };

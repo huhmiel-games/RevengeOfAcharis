@@ -2,6 +2,7 @@ import { Scene } from 'phaser';
 import { COLORS } from '../constant/colors';
 import { WIDTH, HEIGHT, SCENES_NAMES, FONTS, FONTS_SIZES } from '../constant/config';
 import SaveLoadService from '../services/SaveLoadService';
+import { checkIsMobileDevice } from '../utils/handleMobileDevices';
 
 /**
  * @author © Philippe Pereira 2021
@@ -16,6 +17,7 @@ export default class MenuScene extends Scene
     private titleTheme: Phaser.Sound.BaseSound;
     private keys: any;
     private head: Phaser.GameObjects.Image;
+    private isMobile: boolean;
     constructor ()
     {
         super({ key: SCENES_NAMES.MENU });
@@ -23,6 +25,8 @@ export default class MenuScene extends Scene
 
     public create ()
     {
+        this.isMobile = checkIsMobileDevice(this);
+
         this.position = [];
 
         this.lastPosition = 0;
@@ -32,7 +36,7 @@ export default class MenuScene extends Scene
         this.titleTheme = this.sound.add('titleMenu');
         this.titleTheme.play({ loop: true });
 
-        this.add.image(0, 0, 'background')
+        const bg = this.add.image(0, 0, 'background')
             .setOrigin(0, 0)
             .setDisplaySize(WIDTH, HEIGHT);
 
@@ -40,27 +44,64 @@ export default class MenuScene extends Scene
         {
             this.position = [HEIGHT / 8 * 5, HEIGHT / 8 * 6, HEIGHT / 8 * 7];
 
-            this.add.bitmapText(WIDTH / 6, this.position[0], FONTS.ULTIMA_BOLD, 'Load Game', FONTS_SIZES.ULTIMA_BOLD, 1)
+            const loadGame = this.add.bitmapText(WIDTH / 6, this.position[0], FONTS.ULTIMA_BOLD, 'Load Game', FONTS_SIZES.ULTIMA_BOLD, 1)
                 .setTint(COLORS.RED, COLORS.RED, COLORS.ORANGE, COLORS.ORANGE)
                 .setLetterSpacing(1)
                 .setDropShadow(0, 1, COLORS.ORANGE, 1);
+
+            if (this.isMobile)
+            {
+                loadGame.setInteractive().once('pointerup', () =>
+                {
+                    this.titleTheme.stop();
+                    this.scene.start(SCENES_NAMES.GAME);
+                });
+            }
 
             this.add.bitmapText(WIDTH / 6 * 2 + 12, this.position[0] + 7, FONTS.GALAXY, `${totalTime}`, FONTS_SIZES.GALAXY, 2)
                 .setTintFill(0xEEC39A);
 
-            this.add.bitmapText(WIDTH / 6, this.position[2], FONTS.ULTIMA_BOLD, 'Delete Game', FONTS_SIZES.ULTIMA_BOLD, 1)
+            const deleteGame = this.add.bitmapText(WIDTH / 6, this.position[2], FONTS.ULTIMA_BOLD, 'Delete Game', FONTS_SIZES.ULTIMA_BOLD, 1)
                 .setLetterSpacing(1)
                 .setTint(COLORS.RED, COLORS.RED, COLORS.ORANGE, COLORS.ORANGE)
                 .setDropShadow(0, 1, COLORS.ORANGE, 1);
+
+            if (this.isMobile)
+            {
+                deleteGame.setInteractive().once('pointerup', () =>
+                {
+                    this.titleTheme.stop();
+
+                    this.sound.play('playerDead', { volume: 1 });
+
+                    SaveLoadService.deleteGameData();
+
+                    this.scene.restart();
+                });
+
+                return;
+            }
         }
         else
         {
             this.position = [HEIGHT / 8 * 5, HEIGHT / 8 * 6];
 
-            this.add.bitmapText(WIDTH / 6, this.position[0], FONTS.ULTIMA_BOLD, 'New Game', FONTS_SIZES.ULTIMA_BOLD, 1)
+            const newGame = this.add.bitmapText(WIDTH / 6, this.position[0], FONTS.ULTIMA_BOLD, 'New Game', FONTS_SIZES.ULTIMA_BOLD, 1)
                 .setLetterSpacing(1)
                 .setTint(COLORS.RED, COLORS.RED, COLORS.ORANGE, COLORS.ORANGE)
                 .setDropShadow(0, 1, COLORS.ORANGE, 1);
+
+            if (this.isMobile)
+            {
+                newGame.setInteractive().once('pointerup', () =>
+                {
+                    this.titleTheme.stop();
+
+                    this.scene.start(SCENES_NAMES.INTRO);
+                });
+
+                return;
+            }
         }
 
         const keysOptions = SaveLoadService.getConfigKeys();

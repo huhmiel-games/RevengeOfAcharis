@@ -204,6 +204,9 @@ import inventoryGrid from '../assets/props/inventoryGrid.png';
 import parchment from '../assets/parchment.png';
 import arrow from '../assets/props/arrow-sheet.png';
 
+// mobile
+import abxy from '../assets/mobile/abxy.png';
+
 // import backgrounds
 import backgroundSwamp from '../assets/environment/backgrounds/background-swamp.png';
 import midlayerswamp01 from '../assets/environment/backgrounds/mid-layer-swamp-01.png';
@@ -386,6 +389,9 @@ export default class LoadingScene extends Scene
 
         // dashboard
         this.load.image('framing', framing);
+
+        // mobile
+        this.load.spritesheet('abxy', abxy, { frameWidth: 16, frameHeight: 16 });
         //#endregion
 
         //#region load maps

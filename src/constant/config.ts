@@ -6,6 +6,8 @@ export const HEIGHT = 288;
 export const ACCELERATION_X = 600;
 export const TILE_SIZE = 16;
 
+export const JOYSTICK_DIRECTION = ['up', 'down', 'left', 'right'];
+
 export const enum FONTS
 {
     MINIMAL = 'DungeonFont',
