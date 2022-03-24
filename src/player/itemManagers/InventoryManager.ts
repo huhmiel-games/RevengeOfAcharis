@@ -19,6 +19,7 @@ export default class InventoryManager
     public scene: GameScene;
     public inventory: TInventory;
     public player: Player;
+    public isOpen: boolean = false;
 
     constructor (scene: GameScene, player: Player)
     {
@@ -74,6 +75,10 @@ export default class InventoryManager
         }
 
         this.player.isPause = true;
+
+        this.isOpen = true;
+
+        this.scene.sound.play('select', { rate: 1, volume: 0.2 });
 
         const origin = {
             x: this.scene.backUi.getTopLeft().x + 32,
@@ -269,6 +274,8 @@ export default class InventoryManager
             {
                 this.scene.unPause();
 
+                this.scene.sound.play('select', { rate: 1, volume: 0.2 });
+
                 selectableItemsToDisplay.forEach(img => img.setActive(false).setVisible(false));
 
                 fixedItemsToDisplay.forEach(img => img.setVisible(false));
@@ -283,6 +290,9 @@ export default class InventoryManager
                     callback: () =>
                     {
                         this.player.isPause = false;
+
+                        this.isOpen = false;
+
                         dialog.removeAllListeners();
                     }
                 });
@@ -291,21 +301,29 @@ export default class InventoryManager
             if (event.keyCode === this.player.keys.left.keyCode && this.player.isPause && selector.x > origin.x)
             {
                 selector.x -= 32;
+
+                this.scene.sound.play('select', { rate: 2, volume: 0.1 });
             }
 
             if (event.keyCode === this.player.keys.right.keyCode && this.player.isPause && selector.x < origin.x + 4 * 32)
             {
                 selector.x += 32;
+
+                this.scene.sound.play('select', { rate: 2, volume: 0.1 });
             }
 
             if (event.keyCode === this.player.keys.up.keyCode && this.player.isPause && selector.y > origin.y)
             {
                 selector.y -= 32;
+
+                this.scene.sound.play('select', { rate: 2, volume: 0.1 });
             }
 
             if (event.keyCode === this.player.keys.down.keyCode && this.player.isPause && selector.y < origin.y + 3 * 30)
             {
                 selector.y += 32;
+
+                this.scene.sound.play('select', { rate: 2, volume: 0.1 });
             }
 
             // show weapon details
@@ -354,7 +372,7 @@ export default class InventoryManager
                 {
                     const id = choosedItem.data.get('id');
 
-                    this.scene.playSfx('melo', { rate: 2 });
+                    this.scene.sound.play('melo', { rate: 2 });
 
                     if (id < 10)
                     {

@@ -63,7 +63,6 @@ export default class GameScene extends Scene
     public isTheEnd: boolean = false;
     public battleWithBoss: boolean = false;
     public cameraIsShaking: boolean;
-    public modalText: Phaser.GameObjects.BitmapText;
     public playerRoomName: string;
     public demon: Demon;
     public isChangingRoom: boolean;
@@ -182,27 +181,11 @@ export default class GameScene extends Scene
 
     public update (time: number, delta: number)
     {
-        if (this.modalText)
-        {
-            this.modalText.x = this.player.x;
-            this.modalText.y = this.player.y - 100;
-        }
         // anti fall trough map
         if (this.player.y > this.map.heightInPixels)
         {
             this.player.setPosition(this.map.widthInPixels / 2, this.map.heightInPixels / 2);
         }
-
-        if (this.pauseText)
-        {
-            this.modalText.setText(`${this.children.list.length}`)
-                .setPosition(WIDTH / 2, 16)
-                .setDepth(DEPTH.UI_TEXT)
-                .setOrigin(0.5, 0.5)
-                .setScrollFactor(0, 0)
-                .setTintFill(COLORS.RED);
-        }
-
     }
 
     private createGroups (): void
@@ -295,17 +278,7 @@ export default class GameScene extends Scene
                 return;
             }
 
-            this.modalText = this.add.bitmapText(WIDTH / 2, HEIGHT / 2, FONTS.GALAXY, 'pause', FONTS_SIZES.GALAXY, 1)
-                .setDepth(DEPTH.UI_TEXT)
-                .setOrigin(0.5, 0.5)
-                .setScrollFactor(0, 0)
-                .setTintFill(COLORS.RED);
-
-            this.pauseText = this.add.bitmapText(WIDTH / 2, HEIGHT / 2, FONTS.GALAXY, 'pause', FONTS_SIZES.GALAXY, 1)
-                .setDepth(DEPTH.UI_TEXT)
-                .setOrigin(0.5, 0.5)
-                .setScrollFactor(0, 0)
-                .setTintFill(COLORS.RED);
+            this.showPauseText();
 
             this.setPause();
 
@@ -326,9 +299,9 @@ export default class GameScene extends Scene
 
             this.events.emit('isPause', this.isPause);
 
-            if (this.pauseText)
+            if (this.pauseText?.active)
             {
-                this.pauseText.destroy();
+                this.hidePauseText();
             }
 
             this.unPause();
@@ -337,6 +310,22 @@ export default class GameScene extends Scene
 
             this.watchWindowInactive();
         });
+    }
+
+    public showPauseText ()
+    {
+        this.pauseText = this.children.getByName('pauseText') as Phaser.GameObjects.BitmapText || this.add.bitmapText(WIDTH / 2, HEIGHT / 2, FONTS.GALAXY, 'pause', FONTS_SIZES.GALAXY, 1)
+                .setDepth(DEPTH.UI_TEXT)
+                .setName('pauseText')
+                .setOrigin(0.5, 0.5)
+                .setScrollFactor(0, 0)
+                .setTintFill(COLORS.RED);
+            this.pauseText.setActive(true).setVisible(true);
+    }
+
+    public hidePauseText ()
+    {
+        this.pauseText?.setActive(false).setVisible(false);
     }
 
     /**
@@ -424,6 +413,8 @@ export default class GameScene extends Scene
 
     public playSfx (sfx: string, config: Phaser.Types.Sound.SoundConfig = { })
     {
+        if (this.isPause) return;
+
         const audioSfx = this.sound.get(sfx);
 
         if (!audioSfx)

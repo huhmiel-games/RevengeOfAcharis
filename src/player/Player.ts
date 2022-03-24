@@ -191,6 +191,27 @@ export default class Player extends Phaser.GameObjects.Sprite
             pause: Phaser.Input.Keyboard.KeyCodes[keysOptions[8]]
         }) as TKeys;
 
+        this.keys.pause.on(Phaser.Input.Keyboard.Events.DOWN, () =>
+        {
+            if (this.scene.isPause && !this.inventoryManager.isOpen && !this.scene.isSaving && !this.scene.children.getByName('powerUpDialogBox')?.active)
+            {
+                this.scene.unPause();
+                this.anims.resume();
+                this.scene.hidePauseText();
+
+                return;
+            }
+
+            if (this.scene.isSaving || this.inventoryManager.isOpen || this.scene.children.getByName('powerUpDialogBox')?.active)
+            {
+                return;
+            }
+
+            this.scene.setPause(true, true, true);
+            this.anims.pause();
+            this.scene.showPauseText();
+        });
+
         // handle player walk and run sounds
         this.on(Phaser.Animations.Events.ANIMATION_UPDATE, () =>
         {
@@ -359,7 +380,7 @@ export default class Player extends Phaser.GameObjects.Sprite
 
         const currentAnim = this.anims.getName();
         // if not game pause
-        if (!isPause && !playerState.isDead)
+        if (!this.scene.isPause && !playerState.isDead)
         {
             this.stateMachine.step();
 

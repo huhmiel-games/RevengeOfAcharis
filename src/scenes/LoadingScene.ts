@@ -210,7 +210,7 @@ import midlayerswamp01 from '../assets/environment/backgrounds/mid-layer-swamp-0
 import midlayerswamp02 from '../assets/environment/backgrounds/mid-layer-swamp-02.png';
 import backgroundTown from '../assets/environment/backgrounds/background-town.png';
 import middlegroundTown from '../assets/environment/backgrounds/middleground-town.png';
-import backgroundBackyard from '../assets/environment/backgrounds/background-backyard.png';
+// import backgroundBackyard from '../assets/environment/backgrounds/background-backyard.png';
 import mountainsBackyard from '../assets/environment/backgrounds/mountains-backyard.png';
 import graveyard from '../assets/environment/backgrounds/graveyard.png';
 import oldDarkCastleBack from '../assets/environment/backgrounds/old-dark-castle-interior-background.png';
@@ -357,7 +357,7 @@ export default class LoadingScene extends Scene
         this.load.image('mid-layer-swamp-02', midlayerswamp02);
         this.load.image('background-town', backgroundTown);
         this.load.image('middleground-town', middlegroundTown);
-        this.load.image('background-backyard', backgroundBackyard);
+        // this.load.image('background-backyard', backgroundBackyard);
         this.load.image('mountains-backyard', mountainsBackyard);
         this.load.image('graveyard', graveyard);
         this.load.image('old-dark-castle-interior-background', oldDarkCastleBack);

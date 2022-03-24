@@ -60,3 +60,22 @@ window.addEventListener('resize', (evt) =>
         game.scale.setParentSize(correctWidth, correctHeight);
     }
 });
+
+// Leave fullscreen with escape key in desktop app
+// @ts-ignore
+try
+{
+    // @ts-ignore
+    nw.App.registerGlobalHotKey(new nw.Shortcut({
+        key: 'Escape',
+        active: () =>
+        {
+            // @ts-ignore
+            nw.Window.get().toggleFullscreen();
+        }
+    }));
+}
+catch (error)
+{
+    // just ignore
+}

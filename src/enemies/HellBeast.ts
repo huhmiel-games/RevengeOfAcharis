@@ -76,7 +76,7 @@ export default class HellBeast extends Phaser.GameObjects.Sprite
             {
                 this.anims.play('hell-beast-lava', true);
 
-                this.scene.sound.play('hellBeastLavaAttackSfx');
+                this.scene.playSfx('hellBeastLavaAttackSfx');
 
                 this.enemyState.damage = 25;
 
@@ -122,6 +122,31 @@ export default class HellBeast extends Phaser.GameObjects.Sprite
             else if (this.x < this.scene.player.x)
             {
                 this.flipX = true;
+            }
+
+            if (this.scene.isPause)
+            {
+                if (this.hellBeastTimer !== undefined)
+                {
+                    this.hellBeastTimer.paused = true;
+                }
+
+                if (this.fadingTween?.isPlaying())
+                {
+                    this.fadingTween.pause();
+                }
+            }
+            else if (!this.scene.isPause)
+            {
+                if (this.hellBeastTimer !== undefined)
+                {
+                    this.hellBeastTimer.paused = false;
+                }
+
+                if (this.fadingTween?.isPaused())
+                {
+                    this.fadingTween.resume();
+                }
             }
         }
     }
@@ -332,7 +357,7 @@ export default class HellBeast extends Phaser.GameObjects.Sprite
             return;
         }
 
-        this.scene.sound.play('hellBeastDisappearLaughSfx');
+        this.scene.playSfx('hellBeastDisappearLaughSfx');
 
         this.fadingTween = this.scene.tweens.add({
             targets: this,
@@ -455,7 +480,7 @@ export default class HellBeast extends Phaser.GameObjects.Sprite
 
             ball.setRotation(angle + Math.PI / 2);
 
-            this.scene.sound.play('swell', { volume: 0.15 });
+            this.scene.playSfx('swell', { volume: 0.15 });
 
             this.scene.time.addEvent({
                 delay: 1500,
@@ -496,7 +521,7 @@ export default class HellBeast extends Phaser.GameObjects.Sprite
 
         this.scene.showEnemyDamage(this, damage);
 
-        this.scene.sound.play('hellBeastHitSfx', { volume: 1, rate: 1 });
+        this.scene.playSfx('hellBeastHitSfx', { volume: 1, rate: 1 });
 
         if (this.enemyState.life <= 0)
         {
@@ -514,7 +539,7 @@ export default class HellBeast extends Phaser.GameObjects.Sprite
 
     public playSfxDeath ()
     {
-        this.scene.sound.play('hellBeastDeathSfx');
+        this.scene.playSfx('hellBeastDeathSfx');
     }
 
     public explode ()
@@ -536,20 +561,15 @@ export default class HellBeast extends Phaser.GameObjects.Sprite
         this.scene.battleWithBoss = false;
     }
 
-    public checkCollision (d)
-    {
-        return;
-    }
-
     private startDeathSequence (): void
     {
         this.play({ key: 'hell-beast-lava', repeat: -1 }, true);
 
         this.scene.shakeCamera(3500);
 
-        this.scene.sound.play('hellBeastHitSfx', { volume: 1, rate: 0.3 });
+        this.scene.playSfx('hellBeastHitSfx', { volume: 1, rate: 0.3 });
 
-        this.scene.sound.play('hellBeastLavaAttackSfx', { volume: 1, rate: 0.3 });
+        this.scene.playSfx('hellBeastLavaAttackSfx', { volume: 1, rate: 0.3 });
 
         this.body.setSize(64, 160).setAllowGravity(false);
         this.body.reset(288, 528 - this.body.height / 2);
@@ -636,7 +656,7 @@ export default class HellBeast extends Phaser.GameObjects.Sprite
                             smoke.once(Phaser.Animations.Events.ANIMATION_COMPLETE, () => smoke.setActive(false).setVisible(false));
                             smoke.anims.play('smoke1');
 
-                            this.scene.sound.play('impact', { rate: 0.5 });
+                            this.scene.playSfx('impact', { rate: 0.5 });
                         }
                         layer.removeTileAt(0, 30);
                         layer.removeTileAt(0, 31);
