@@ -22,7 +22,7 @@ export default class OptionsScene extends Scene
     private keyDown: Phaser.GameObjects.BitmapText;
     private keyFire: Phaser.GameObjects.BitmapText;
     private keyJump: Phaser.GameObjects.BitmapText;
-    private keyRun: Phaser.GameObjects.BitmapText;
+    private keyBow: Phaser.GameObjects.BitmapText;
     private keySelect: Phaser.GameObjects.BitmapText;
     private keyPause: Phaser.GameObjects.BitmapText;
     private selectedKey0: Phaser.GameObjects.BitmapText;
@@ -38,6 +38,7 @@ export default class OptionsScene extends Scene
     private resetOptions: Phaser.GameObjects.BitmapText;
     private quitOptions: Phaser.GameObjects.BitmapText;
     private head: Phaser.GameObjects.Image;
+
     constructor ()
     {
         super(SCENES_NAMES.OPTIONS);
@@ -87,7 +88,7 @@ export default class OptionsScene extends Scene
         this.keyDown = this.add.bitmapText(WIDTH / 4 - 80, this.position[3], FONTS.GALAXY, 'down', FONTS_SIZES.GALAXY, 1);
         this.keyFire = this.add.bitmapText(WIDTH / 4 - 80, this.position[4], FONTS.GALAXY, 'sword attack', FONTS_SIZES.GALAXY, 1);
         this.keyJump = this.add.bitmapText(WIDTH / 4 - 80, this.position[5], FONTS.GALAXY, 'jump', FONTS_SIZES.GALAXY, 1);
-        this.keyRun = this.add.bitmapText(WIDTH / 4 - 80, this.position[6], FONTS.GALAXY, 'bow attack', FONTS_SIZES.GALAXY, 1);
+        this.keyBow = this.add.bitmapText(WIDTH / 4 - 80, this.position[6], FONTS.GALAXY, 'bow attack', FONTS_SIZES.GALAXY, 1);
         this.keySelect = this.add.bitmapText(WIDTH / 4 - 80, this.position[7], FONTS.GALAXY, 'inventory', FONTS_SIZES.GALAXY, 1);
         this.keyPause = this.add.bitmapText(WIDTH / 4 - 80, this.position[8], FONTS.GALAXY, 'pause', FONTS_SIZES.GALAXY, 1);
 
@@ -160,6 +161,10 @@ export default class OptionsScene extends Scene
         // save
         if (pos === 9)
         {
+            const canSave = this.checkOptionsKeys();
+
+            if (!canSave) return;
+
             const optionToSave = JSON.stringify(this.keysOptions);
 
             localStorage.setItem(`${GAMENAME}_Options`, optionToSave);
@@ -186,12 +191,18 @@ export default class OptionsScene extends Scene
 
             return;
         }
+
+        this.handleNewKey(pos);
+    }
+
+    private handleNewKey (pos: number)
+    {
         // assign a key
         const keyRegex = /Key/gm;
         const arrowRegex = /Arrow/gm;
         const shiftLeftRegex = /ShiftLeft/gm;
         const shiftRightRegex = /ShiftRight/gm;
-        const constrolLeftRegex = /ControlLeft/gm;
+        const controlLeftRegex = /ControlLeft/gm;
         const controlRightRegex = /ControlRight/gm;
 
         this[`selectedKey${pos}`].text = 'press a key';
@@ -202,12 +213,19 @@ export default class OptionsScene extends Scene
             str = str.replace(arrowRegex, '');
             str = str.replace(shiftLeftRegex, 'SHIFT');
             str = str.replace(shiftRightRegex, 'SHIFT');
-            str = str.replace(constrolLeftRegex, 'CTRL');
+            str = str.replace(controlLeftRegex, 'CTRL');
             str = str.replace(controlRightRegex, 'CTRL');
 
             if (str === ' ')
             {
                 str = 'SPACE';
+            }
+
+            if (str === 'Enter' || Phaser.Input.Keyboard.KeyCodes[str.toUpperCase()] === undefined)
+            {
+                this[`selectedKey${pos}`].text = 'invalid key';
+
+                return;
             }
 
             this.keysOptions[pos] = str.toUpperCase();
@@ -216,7 +234,18 @@ export default class OptionsScene extends Scene
 
             this.choose(1);
         });
+    }
 
+    private checkOptionsKeys (): boolean
+    {
+        for (const key of this.keysOptions)
+        {
+            if (Phaser.Input.Keyboard.KeyCodes[key] === undefined)
+            {
+                return false;
+            }
+        }
 
+        return true;
     }
 }
