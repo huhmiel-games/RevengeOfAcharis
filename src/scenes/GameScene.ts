@@ -1180,7 +1180,14 @@ export default class GameScene extends Scene
         elm.body.setEnable(false);
         elm.setDepth(DEPTH.UI_TEXT).setOrigin(0.5, 0.5).setScrollFactor(0, 0).setPosition(ui.x + ui.width / 2 - elm.width, ui.y - ui.height / 2 + elm.height);
 
-        const dialog = this.input.keyboard.once(this.player.getFireKeyEventName(), () =>
+        let keyEventName = this.player.getFireKeyEventName();
+
+        if (keyEventName.includes('ARROW'))
+        {
+            keyEventName = keyEventName.replace('ARROW', '');
+        }
+
+        const dialog = this.input.keyboard.once(keyEventName, () =>
         {
             elm.destroy();
             powerUpDesc.destroy();
