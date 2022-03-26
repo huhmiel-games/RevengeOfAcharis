@@ -193,7 +193,7 @@ export default class Player extends Phaser.GameObjects.Sprite
 
         this.keys.pause.on(Phaser.Input.Keyboard.Events.DOWN, () =>
         {
-            if (this.scene.isPause && !this.inventoryManager.isOpen && !this.scene.isSaving && !this.scene.children.getByName('powerUpDialogBox')?.active)
+            if (this.scene.isPause && !this.inventoryManager.isOpen && !this.scene.isSaving && !this.scene.children.getByName('powerUpDialogBox')?.active && !this.scene.children.getByName('bigDialogBox')?.active)
             {
                 this.scene.unPause();
                 this.anims.resume();
@@ -202,7 +202,7 @@ export default class Player extends Phaser.GameObjects.Sprite
                 return;
             }
 
-            if (this.scene.isSaving || this.inventoryManager.isOpen || this.scene.children.getByName('powerUpDialogBox')?.active)
+            if (this.scene.isSaving || this.inventoryManager.isOpen || this.scene.children.getByName('powerUpDialogBox')?.active || this.scene.children.getByName('bigDialogBox')?.active)
             {
                 return;
             }
