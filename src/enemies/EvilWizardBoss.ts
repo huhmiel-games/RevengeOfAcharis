@@ -25,7 +25,7 @@ export default class EvilWizardBoss extends Enemy
     public hitbox: Projectile[] = [];
     private swordSfx: Phaser.Sound.BaseSound;
     private isDodging: boolean = false;
-    private isBattleStarted: boolean;
+    private isBattleStarted: boolean = false;
     private isBattleMusic: any;
     private currentsong: Phaser.Sound.BaseSound;
     private nextAction: string;
