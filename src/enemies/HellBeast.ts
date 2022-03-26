@@ -179,6 +179,7 @@ export default class HellBeast extends Phaser.GameObjects.Sprite
         const ui = this.scene.children.getByName('bigDialogBox') || this.scene.add.rexNinePatch(WIDTH / 2, HEIGHT - HEIGHT / 8, WIDTH, HEIGHT / 4, 'framing', [7, undefined, 7], [7, undefined, 7], 0)
             .setOrigin(0.5, 0.5)
             .setDepth(DEPTH.UI_BACK)
+            .setName('bigDialogBox')
             .setScrollFactor(0);
         ui.setActive(true).setVisible(true);
 
@@ -188,6 +189,7 @@ export default class HellBeast extends Phaser.GameObjects.Sprite
             .setOrigin(0, 0)
             .setLetterSpacing(1)
             .setAlpha(1)
+            .setName('npcText')
             .setDepth(DEPTH.UI_TEXT)
             .setScrollFactor(0, 0)
             .setTintFill(COLORS.STEEL_GRAY);
