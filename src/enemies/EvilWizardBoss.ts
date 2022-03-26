@@ -362,7 +362,7 @@ export default class EvilWizardBoss extends Enemy
 
     public looseLife (damage: number, weaponType: EWeaponType): void
     {
-        if (this.isHit)
+        if (this.isHit || !this.isBattleStarted)
         {
             return;
         }
