@@ -28,7 +28,7 @@ export default class Skeleton extends Enemy
             directionX: -120,
             directionY: 0,
             hited: false,
-            giveLife: Math.round(config.life),
+            giveLife: Math.round(config.life / 2),
         };
 
         this.xp = config.life;
