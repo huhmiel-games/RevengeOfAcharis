@@ -122,6 +122,8 @@ export default class Player extends Phaser.GameObjects.Sprite
             blockedDownTimestamp: 0
         };
 
+        this.setTexture('atlas').setFrame('adventurer-run-01');
+
         const inventory = this.inventoryManager.getInventory();
 
         this.swordManager.initSwords(inventory.swords);
@@ -704,7 +706,7 @@ export default class Player extends Phaser.GameObjects.Sprite
         {
             this.stopSwordAttack();
 
-            this.HealthUiText.setText(`0%${inventory.maxLife}`);
+            this.HealthUiText.setText(`0/${inventory.maxLife}`);
 
             this.playerDeathSequence();
 
@@ -744,7 +746,7 @@ export default class Player extends Phaser.GameObjects.Sprite
 
         if (inventory.life <= 0)
         {
-            this.HealthUiText.setText(`0%${inventory.maxLife}`);
+            this.HealthUiText.setText(`0/${inventory.maxLife}`);
 
             this.playerDeathSequence();
 
