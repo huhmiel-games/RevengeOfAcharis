@@ -737,7 +737,7 @@ export default class Player extends Phaser.GameObjects.Sprite
 
         inventory.life -= elm * Math.ceil(1 / (inventory.def > 0 ? inventory.def : 1));
 
-        this.HealthUiText.setText(`${inventory.life}%${inventory.maxLife}`);
+        this.HealthUiText.setText(`${inventory.life}/${inventory.maxLife}`);
 
         if (inventory.life <= Math.floor(inventory.maxLife / 10))
         {
