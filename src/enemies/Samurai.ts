@@ -275,7 +275,7 @@ export default class Samurai extends Enemy
 
 
         this.scene?.time.addEvent({
-            delay: 820,
+            delay: 320,
             callback: () =>
             {
                 if (!this.active || this.isDead) return;

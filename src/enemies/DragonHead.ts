@@ -25,7 +25,7 @@ export default class DragonHead extends Enemy
         this.enemyState = {
             life: config.life,
             damage: config.damage,
-            giveLife: Math.round(config.life / 10),
+            giveLife: Math.round(config.life / 12),
         };
 
         this.flipX = config.flipX;

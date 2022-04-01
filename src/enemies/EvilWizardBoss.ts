@@ -403,7 +403,7 @@ export default class EvilWizardBoss extends Enemy
 
 
         this.scene?.time.addEvent({
-            delay: 820,
+            delay: 420,
             callback: () =>
             {
                 if (!this.active || this.isDead) return;

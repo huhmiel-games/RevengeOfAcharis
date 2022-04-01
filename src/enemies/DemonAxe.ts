@@ -32,7 +32,7 @@ export default class DemonAxe extends Enemy
         this.enemyState = {
             life: config.life,
             damage: config.damage,
-            giveLife: Math.round(config.life / 3),
+            giveLife: Math.round(config.life / 5),
         };
 
         this.isBossMusic = config.isBossMusic;
@@ -311,7 +311,7 @@ export default class DemonAxe extends Enemy
 
 
         this.scene?.time.addEvent({
-            delay: 820,
+            delay: 420,
             callback: () =>
             {
                 if (!this.active || this.isDead) return;
@@ -358,7 +358,6 @@ export default class DemonAxe extends Enemy
                 const Y = Phaser.Math.Between(this.body.y - 8, this.body.y + this.body.height + 8);
 
                 this.scene.enemyExplode(X, Y);
-                // this.scene.playSfx('explo2', { volume: 0.3 });
             },
 
         });

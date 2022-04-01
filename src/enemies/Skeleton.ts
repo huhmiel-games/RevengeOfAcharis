@@ -28,7 +28,7 @@ export default class Skeleton extends Enemy
             directionX: -120,
             directionY: 0,
             hited: false,
-            giveLife: Math.round(config.life / 2),
+            giveLife: Math.round(config.life / 5),
         };
 
         this.xp = config.life;
@@ -182,27 +182,11 @@ export default class Skeleton extends Enemy
 
         this.setTintFill(0xDDDDDD);
 
-        // this.scene.sound.play('skeletonHit', { volume: 1, rate: 1 });
         this.scene.playSfx('skeletonHit', { volume: 1, rate: 1 });
 
         this.enemyState.life = this.enemyState.life - damage;
 
         this.scene.showEnemyDamage(this, damage);
-
-        // const damageText = this.scene.add.bitmapText(this.body.center.x, this.body.top, FONTS.GALAXY, `-${damage}`, FONTS_SIZES.GALAXY, 1)
-        //     .setTintFill(COLORS.RED)
-        //     .setDepth(DEPTH.UI_TEXT);
-
-        // this.scene.tweens.add({
-        //     targets: damageText,
-        //     duration: 1500,
-        //     y: {
-        //         from: this.body.top,
-        //         to: this.body.top - 32
-        //     },
-        //     alpha: 0,
-        //     onComplete: () => damageText.destroy()
-        // });
 
         if (this.enemyState.life <= 0)
         {

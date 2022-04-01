@@ -28,7 +28,7 @@ export default class VikingAxe extends Enemy
         this.enemyState = {
             life: config.life,
             damage: config.damage,
-            giveLife: Math.round(config.life / 3),
+            giveLife: Math.round(config.life / 5),
         };
 
         this.setOrigin(0, 0);
@@ -113,6 +113,10 @@ export default class VikingAxe extends Enemy
             if (anim === 'viking-axe-hit')
             {
                 this.anims.play('viking-axe-attack2', true);
+
+                if (!this.active || this.isDead) return;
+
+                this.isHit = false;
 
                 return;
             }
@@ -278,7 +282,7 @@ export default class VikingAxe extends Enemy
 
 
         this.scene?.time.addEvent({
-            delay: 820,
+            delay: 220,
             callback: () =>
             {
                 if (!this.active || this.isDead) return;

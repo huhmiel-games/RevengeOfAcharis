@@ -23,7 +23,7 @@ export default class FireSkull extends Enemy
             directionX: -10,
             directionY: 0,
             hited: false,
-            giveLife: Math.round(config.life / 8),
+            giveLife: Math.round(config.life / 10),
         };
 
         this.body.setCollideWorldBounds(true)

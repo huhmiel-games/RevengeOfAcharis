@@ -31,7 +31,7 @@ export default class Minotaur extends Enemy
         this.enemyState = {
             life: config.life,
             damage: config.damage,
-            giveLife: Math.round(config.life / 3),
+            giveLife: Math.round(config.life / 5),
         };
 
         this.setOrigin(0, 0);

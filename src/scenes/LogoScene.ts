@@ -19,7 +19,7 @@ import alagardXML from '../assets/fonts/alagard.xml';
 import progressBar from '../assets/progress-bar.png';
 import whitePixel from '../assets/whitePixel.png';
 
-import background from '../assets/menuBackgound5.png';
+import background from '../assets/menuBackgound2.png';
 import menuTheme from '../assets/music/Title_theme.ogg';
 
 /**

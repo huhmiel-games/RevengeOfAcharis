@@ -38,7 +38,7 @@ export default class Wizard extends Enemy
             directionX: 20,
             directionY: 0,
             hited: false,
-            giveLife: Math.round(config.life / 2),
+            giveLife: Math.round(config.life / 3),
             delay: config.delay,
         };
 

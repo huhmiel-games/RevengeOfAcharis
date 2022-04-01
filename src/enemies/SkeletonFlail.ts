@@ -30,7 +30,7 @@ export default class SkeletonFlail extends Enemy
         this.enemyState = {
             life: config.life,
             damage: config.damage,
-            giveLife: Math.round(config.life / 3),
+            giveLife: Math.round(config.life / 5),
         };
 
         this.setOrigin(0, 0);
@@ -277,7 +277,7 @@ export default class SkeletonFlail extends Enemy
 
 
         this.scene?.time.addEvent({
-            delay: 820,
+            delay: 320,
             callback: () =>
             {
                 if (!this.active || this.isDead) return;
