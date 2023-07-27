@@ -1,0 +1,22 @@
+const DEPTH =
+{
+    BACKGROUND_LAYER: 10,
+    GROUND_LAYER: 100,
+    FRONT_LAYER: 200,
+    PLAYER: 105,
+    WEAPON: 48,
+    IMPACT: 48,
+    EXPLOSION: 150,
+    FLAME_BALL: 102,
+    ENEMY: 101,
+    SMOKE: 210,
+
+
+    POWERUP: 120,
+    LIFE: 120,
+
+    UI_BACK: 1999,
+    UI_TEXT: 2000
+};
+
+export default DEPTH;
